@@ -247,16 +247,35 @@ Dengan ukuran yang benar, **kedua granularitas yang layak justru dua yang paling
 
 ## 4. C7 — Diagnostik kecukupan blok
 
-### 4.1 Dua syarat, bukan satu
+### 4.1 Tiga syarat, bukan satu
 
-Pengelompokan $g$ dapat dipakai untuk kalibrasi hanya bila **keduanya** terpenuhi:
+Pengelompokan $g$ dapat dipakai untuk kalibrasi hanya bila **ketiganya** terpenuhi:
 
 | Syarat | Isi | Sifat |
 |---|---|---|
+| **S0 Keteramatan** | setiap sumber dependensi yang diduga ada **tercatat di metadata** | Prasyarat epistemik |
 | **S1 Kelayakan** | $K_1(g) \ge \lceil 1/\alpha\rceil - 1$ | Kombinatorial, **eksak**, tanpa galat sampling |
 | **S2 Kecukupan** | setiap sumber dependensi bersarang di dalam $g$ | Kombinatorial, **eksak** |
 
 S1 saja tidak cukup, dan inilah yang membedakan C7 dari sekadar menghitung blok.
+
+#### S0 — prasyarat yang semula tersembunyi
+
+> 🔧 **DITAMBAHKAN 2026-09-30.** Versi pertama C7 hanya memuat S1 dan S2. Kelalaian itu tidak pernah terlihat karena PTB-XL dan MIT-BIH sama-sama mencatat pengenal pasien, sehingga S0 selalu terpenuhi secara diam-diam. Cacatnya baru muncul ketika diagnostik hendak dijalankan pada dataset yang **tidak** mencatatnya.
+
+**Definisi (keteramatan).** Sumber dependensi $\mathcal{P}$ **teramati** bila metadata memuat variabel yang menentukan keanggotaan blok $\mathcal{P}$ untuk setiap pengamatan.
+
+S2 adalah pernyataan tentang hubungan antara $\mathcal{P}$ dan $g$. Bila $\mathcal{P}$ tidak teramati, hubungan itu **tidak dapat dievaluasi** — dan ini berbeda secara mendasar dari S2 yang gagal:
+
+| | Keluaran diagnostik | Artinya |
+|---|---|---|
+| S1 gagal | **TIDAK** | Terbukti tidak ada jaminan non-trivial |
+| S2 gagal | **TIDAK** | Terbukti dependensi tidak terkendali |
+| **S0 gagal** | **TIDAK DAPAT DITENTUKAN** | Bukan bukti aman, dan bukan bukti gagal |
+
+**Aturan keputusan.** Untuk jaminan yang dipakai pada keputusan klinis, "tidak dapat ditentukan" **wajib diperlakukan sebagai gagal**. Asumsi diam-diam bahwa sumber dependensi tak tercatat berarti tak ada adalah persis asumsi yang membuat conformal naif keliru sejak awal.
+
+> Perhatikan asimetrinya: S0 tidak dapat dipenuhi dengan analisis yang lebih cermat, berapa pun usahanya. Ia hanya dapat dipenuhi dengan **mengubah cara data dikumpulkan**. Itulah sebabnya diagnostik ini berguna justru **sebelum** studi dijalankan, bukan sesudah.
 
 **Definisi (kecukupan).** Partisi $\mathcal{Q}$ **cukup** bagi sumber dependensi berpartisi $\mathcal{P}$ bila $\mathcal{P}$ menghaluskan $\mathcal{Q}$ — yaitu setiap blok $\mathcal{P}$ termuat seluruhnya dalam satu blok $\mathcal{Q}$.
 
@@ -334,18 +353,24 @@ Hanya `patient_id` $\subset$ `strat_fold` yang bersarang. Akibatnya memblok per 
 ### 4.4 Prosedur diagnostik
 
 ```
-MASUKAN : label blok untuk setiap sumber dependensi kandidat D = {d1..dm}
+MASUKAN : daftar sumber dependensi yang DIDUGA ada, D = {d1..dm}
+          metadata yang tersedia M
           tingkat alpha sasaran
 KELUARAN: himpunan pengelompokan yang admissible, terurut
+          ATAU vonis TIDAK DAPAT DITENTUKAN
 
-1. Untuk setiap himpunan bagian S dari D yang ingin dikendalikan:
-2.     Q  <- komponen terhubung dari gabungan partisi di S        (Prop. 3)
-3.     K1 <- jumlah blok Q pada set KALIBRASI
-4.     S1 <- [ alpha >= 1/(K1+1) ]                                (Prop. 1)
-5.     S2 <- terpenuhi menurut konstruksi
-6.     DEff <- n / n_eff(Q)            // batas atas efisiensi     (Kor. 2.1)
-7.     Jika S1: catat (S, K1, DEff)
-8. Urutkan yang admissible menurut cakupan sumber, lalu DEff
+0. S0 <- [ setiap di dalam D memiliki variabel penentu blok di dalam M ]
+1. Jika S0 gagal untuk sumber d:
+2.     KELUARKAN "TIDAK DAPAT DITENTUKAN untuk d" dan BERHENTI
+3.     // bukan "aman"; kekurangan metadata tidak dapat ditambal analisis
+4. Untuk setiap himpunan bagian S dari D yang ingin dikendalikan:
+5.     Q  <- komponen terhubung dari gabungan partisi di S        (Prop. 3)
+6.     K1 <- jumlah blok Q pada set KALIBRASI
+7.     S1 <- [ alpha >= 1/(K1+1) ]                                (Prop. 1)
+8.     S2 <- terpenuhi menurut konstruksi
+9.     DEff <- 1 + (H - 1) * rho       // efisiensi                (Prop. 2')
+10.    Jika S1: catat (S, K1, DEff)
+11. Urutkan yang admissible menurut cakupan sumber, lalu DEff
 ```
 
 **Sifat yang membuatnya berguna bagi praktisi:**
@@ -353,6 +378,78 @@ KELUARAN: himpunan pengelompokan yang admissible, terurut
 - Berjalan **tanpa model, tanpa skor, tanpa label hasil** — hanya label blok dan $\alpha$.
 - Verdict S1 dan S2 bersifat **eksak dan deterministik**: tidak ada galat sampling, tidak ada p-value. Tidak lazim untuk sebuah diagnostik, dan layak ditonjolkan.
 - Dapat dijalankan **saat merancang studi**, sebelum satu pasien pun direkrut.
+- **Langkah 0 hanya memerlukan header berkas**, bukan sinyalnya. Pada dataset besar, vonis dapat diperoleh dengan mengunduh sebagian kecil ukuran dataset.
+
+### 4.5 Tiga mode kegagalan yang berbeda
+
+Ketiganya menghasilkan "jangan pakai granularitas ini", tetapi implikasinya bagi perancang studi sama sekali berbeda.
+
+| Mode | Gagal pada | Dapat diperbaiki dengan |
+|---|---|---|
+| **Kekurangan metadata** | S0 | Mengubah **pengumpulan data** — mencatat pengenal blok |
+| **Kekurangan blok** | S1 | Merekrut lebih banyak **blok** (bukan lebih banyak pengukuran) |
+| **Desain bersilang** | S2 | Mengubah **desain**; sering tidak dapat diperbaiki setelah data terkumpul |
+
+Pembedaan ini yang menjadikan C7 alat perancangan, bukan sekadar pemeriksa. Vonis "tidak layak" tanpa menyebut **sumbu mana** yang gagal tidak memberi tahu praktisi apa yang harus diubah.
+
+### 4.6 ✅ Instansiasi kedua — Challenge 2021 sebagai kasus kegagalan S0
+
+Diagnostik yang hanya pernah mengeluarkan vonis "lolos" tidak membuktikan apa pun. PTB-XL memberi kasus **lolos** pada `patient_id`; PhysioNet/CinC Challenge 2021 memberi kasus **gagal**, dan gagalnya pada sumbu yang berbeda.
+
+Dihitung oleh [scripts/verify_challenge2021.py](../scripts/verify_challenge2021.py); mentah di `results/raw/challenge2021_s0.json`.
+
+**Struktur terverifikasi** (folder `ptb-xl` dikecualikan karena duplikat dataset utama):
+
+| Sumber | Rekaman |
+|---|---:|
+| `ningbo` | 34.905 |
+| `georgia` | 10.344 |
+| `chapman_shaoxing` | 10.247 |
+| `cpsc_2018` | 6.877 |
+| `cpsc_2018_extra` | 3.453 |
+| `ptb` | 516 |
+| `st_petersburg_incart` | 74 |
+| **Total non-duplikat** | **66.416** |
+
+> Pemeriksaan silang: $66.416 + 21.837 = 88.253$ — persis total resmi dataset.
+
+**Isi header (760 B, diperiksa langsung):** `#Age`, `#Sex`, `#Dx`, `#Rx`, `#Hx`, `#Sx`. **Tidak ada pengenal pasien.**
+
+#### Vonis
+
+**S0 GAGAL** untuk sumber dependensi *pasien*. Konsekuensinya bukan "tidak ada dependensi pasien", melainkan **S2 tidak terdefinisi**: tak dapat diketahui apakah ada pasien yang menyumbang beberapa rekaman, apalagi apakah mereka menyeberang sumber.
+
+Satu-satunya partisi yang teramati adalah **sumber**, dengan $K = 7$. Karena $K_1 \le K$ selalu,
+
+$$\alpha_{\min} \;=\; \frac{1}{K_1+1} \;\ge\; \frac{1}{8} \;=\; 0{,}125$$
+
+sehingga $\alpha \in \{0{,}01;\,0{,}05;\,0{,}10\}$ **mustahil, berapa pun cara membagi kalibrasi dan uji**. Batas ini hanya memakai monotonisitas $K_1 \le K$ dan tidak bergantung pada rancangan split.
+
+#### Biaya vonis
+
+| | |
+|---|---:|
+| Data yang benar-benar diunduh | **~0,5 MB** (70 berkas indeks + 1 header) |
+| Ukuran dataset penuh | **12,6 GB** |
+| Rasio | **~25.000×** |
+
+Inilah demonstrasi terkuat nilai praktis C7: vonis definitif diperoleh **sebelum** mengunduh dataset, **sebelum** preprocessing, dan **sebelum** melatih model.
+
+> ⚠️ **Dua kesalahan tertangkap saat menyusunnya.**
+>
+> **Pertama**, versi awal skrip mencetak "S0 GAGAL" padahal belum berhasil membaca satu header pun — vonis itu adalah cabang *default* saat data kosong, bukan temuan. Ketiadaan bukti disajikan sebagai bukti ketiadaan. Skrip kini **menahan vonis** bila tidak ada header terbaca.
+>
+> **Kedua**, `cpsc_2018_extra` semula terhitung **453** alih-alih 3.453. PhysioNet memutus koneksi pada permintaan beruntun, tiga subfolder gagal terambil, dan kegagalannya **diabaikan diam-diam** sehingga menghasilkan hitungan kurang yang tampak sah. Ketahuan karena enam folder lain cocok persis dengan rujukan sementara satu meleset tepat 3.000. Skrip kini melaporkan subfolder yang gagal dan menandai hitungan sebagai tidak lengkap.
+
+#### Posisi di naskah
+
+Challenge 2021 **bukan** dataset generalisasi tingkat pasien — datanya tidak mendukung klaim itu. Ia masuk sebagai **kasus kegagalan struktural** yang melengkapi C7:
+
+| Dataset | Peran |
+|---|---|
+| PTB-XL | Kasus utama; `patient_id` **lolos** S0–S2 |
+| MIT-BIH | Validasi dependensi kuat; rekaman lolos S0 |
+| **Challenge 2021** | **Kasus gagal S0** — metadata tidak mencatat blok |
 
 ---
 

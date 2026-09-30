@@ -1,0 +1,81 @@
+{
+  "cpsc_2018": {
+    "n_rekaman": 6877,
+    "n_subfolder": 7,
+    "subfolder_gagal": [],
+    "contoh": [
+      "g1/A0001",
+      "g1/A0002"
+    ]
+  },
+  "cpsc_2018_extra": {
+    "n_rekaman": 3453,
+    "n_subfolder": 4,
+    "subfolder_gagal": [],
+    "contoh": [
+      "g1/Q0001",
+      "g1/Q0002"
+    ]
+  },
+  "st_petersburg_incart": {
+    "n_rekaman": 74,
+    "n_subfolder": 1,
+    "subfolder_gagal": [],
+    "contoh": [
+      "g1/I0001",
+      "g1/I0002"
+    ]
+  },
+  "ptb": {
+    "n_rekaman": 516,
+    "n_subfolder": 1,
+    "subfolder_gagal": [],
+    "contoh": [
+      "g1/S0001",
+      "g1/S0002"
+    ]
+  },
+  "georgia": {
+    "n_rekaman": 10344,
+    "n_subfolder": 11,
+    "subfolder_gagal": [],
+    "contoh": [
+      "g1/E00001",
+      "g1/E00002"
+    ]
+  },
+  "chapman_shaoxing": {
+    "n_rekaman": 10247,
+    "n_subfolder": 11,
+    "subfolder_gagal": [],
+    "contoh": [
+      "g1/JS00001",
+      "g1/JS00002"
+    ]
+  },
+  "ningbo": {
+    "n_rekaman": 34905,
+    "n_subfolder": 35,
+    "subfolder_gagal": [],
+    "contoh": [
+      "g1/JS10647",
+      "g1/JS10648"
+    ]
+  },
+  "hitungan_lengkap": true,
+  "total_rekaman_non_duplikat": 66416,
+  "medan_header": [
+    "age",
+    "sex",
+    "dx",
+    "rx",
+    "hx",
+    "sx"
+  ],
+  "ukuran_header_B": 700,
+  "header_contoh": "cpsc_2018/g1/A0001.hea",
+  "S0_vonis": "GAGAL_tak_teramati",
+  "K_sumber": 7,
+  "alpha_min_batas_bawah": 0.125,
+  "S0_pengenal_pasien": false
+}

@@ -114,7 +114,7 @@ Prediksi konformal hierarkis (HCP) memulihkan validitas cakupan di bawah depende
 | **RQ2** | Pada tingkat granularitas blok mana jaminan cakupan non-trivial masih **mungkin**, dan bagaimana batas $\alpha \ge 1/(K_1+1)$ berinteraksi dengan design effect? |
 | **RQ3** | Bagaimana HCP diperluas dari regresi skalar ke himpunan prediksi multi-label berhierarki, dan berapa harga efisiensi penutupan hierarkis? |
 | **RQ4** | Apakah kendali risiko terkondisi-kelompok menghasilkan cakupan yang adil lintas subkelompok umur/jenis kelamin, dibandingkan kendali marginal? |
-| **RQ5** | Seberapa jauh temuan RQ1–RQ4 bertahan pada dataset dengan intensitas dependensi berbeda (MIT-BIH, Challenge 2021)? |
+| **RQ5** | Seberapa jauh temuan RQ1–RQ4 bertahan pada dataset dengan intensitas dependensi berbeda (MIT-BIH), dan dapatkah diagnostik C7 mengenali dataset yang struktur pengelompokannya **tidak cukup** untuk target kalibrasi yang diinginkan (Challenge 2021)? |
 
 ### 3.3 Research Objectives
 
@@ -280,23 +280,40 @@ Rincian lengkap beserta kutipan: [`docs/references.md`](docs/references.md).
 
 **Nilai strategis:** SNR adalah *covariate shift terkendali*. Memungkinkan pengukuran presisi pada degradasi tingkat berapa jaminan cakupan mulai gagal — jauh lebih kuat daripada noise sintetis buatan sendiri.
 
-### 5.4 Dataset Generalisasi — PhysioNet/CinC Challenge 2021 ✅ TERVERIFIKASI
+### 5.4 Dataset Kegagalan Struktural — PhysioNet/CinC Challenge 2021 ✅ DIAGNOSTIK SELESAI
+
+> 🎯 **Reposisi 2026-09-30.** Dataset ini **bukan** dataset generalisasi tingkat pasien — datanya tidak mendukung klaim itu. Ia masuk naskah sebagai **kasus kegagalan S0** yang melengkapi C7. Diagnostik yang hanya pernah bilang "lolos" tidak membuktikan apa pun.
 
 | Atribut | Nilai |
 |---|---|
 | URL | https://physionet.org/content/challenge-2021/1.0.3/ |
 | Data publik (training) | **88.253 rekaman** 12-lead dari 8 folder |
+| **Non-duplikat (terverifikasi)** | **66.416** dari 7 folder |
 | Label | **SNOMED-CT, multi-label**, di header WFDB `#Dx:` |
-| Format | `.mat` (MATLAB v4) + `.hea` (WFDB header) |
 | Lisensi | **CC BY 4.0** |
-| Ukuran | 12,6 GB |
+| Ukuran penuh | 12,6 GB |
+| **Diunduh** | **~0,5 MB** — 70 berkas indeks + 1 header |
 | DOI | https://doi.org/10.13026/34va-7q14 |
 
-**Rincian folder:** `cpsc_2018` 6.877 · `cpsc_2018_extra` 3.453 · `st_petersburg_incart` 74 · `ptb` 516 · `ptb-xl` 21.837 · `georgia` 10.344 · `chapman-shaoxing` 10.247 · `ningbo` 34.905
+**Rincian terverifikasi langsung** ([`scripts/verify_challenge2021.py`](scripts/verify_challenge2021.py)): `ningbo` 34.905 · `georgia` 10.344 · `chapman_shaoxing` 10.247 · `cpsc_2018` 6.877 · `cpsc_2018_extra` 3.453 · `ptb` 516 · `st_petersburg_incart` 74. Folder `ptb-xl` (21.837) **dikecualikan** karena duplikat §5.1.
 
-⚠️ **Dua peringatan wajib:**
-1. Folder `ptb-xl` **duplikat dengan Bagian 5.1** → **harus dikecualikan** dari klaim generalisasi.
-2. **Tidak ada `patient_id`** di header (hanya `#Age`, `#Sex`, `#Dx`, `#Rx`, `#Hx`, `#Sx`). Blok yang tersedia adalah **tingkat situs/sumber**, bukan tingkat pasien.
+> Pemeriksaan silang: $66.416 + 21.837 = 88.253$ — persis total resmi.
+
+#### Vonis diagnostik C7
+
+Isi header diperiksa langsung (760 B): `#Age`, `#Sex`, `#Dx`, `#Rx`, `#Hx`, `#Sx`. **Tidak ada pengenal pasien.**
+
+| Syarat | Hasil |
+|---|---|
+| **S0 Keteramatan** | ❌ **GAGAL** — sumber dependensi pasien tidak tercatat |
+| **S2 Kecukupan** | ⚠️ **TIDAK TERDEFINISI** — bukan gagal, bukan lolos |
+| **S1 Kelayakan** (sumber, $K{=}7$) | ❌ $\alpha_{\min} \ge 1/8 = 0{,}125$ |
+
+Karena $K_1 \le K$ selalu, $\alpha \in \{0{,}01;\,0{,}05;\,0{,}10\}$ **mustahil berapa pun cara membagi** — batas ini tidak bergantung rancangan split.
+
+**Nilai demonstratifnya:** vonis definitif diperoleh dengan mengunduh **~0,5 MB dari 12,6 GB** — rasio ~25.000× — sebelum preprocessing dan sebelum melatih model apa pun. Itu inti klaim praktis C7.
+
+Turunan lengkap beserta dua kesalahan yang tertangkap saat menyusunnya: [`docs/theory.md`](docs/theory.md) §4.6.
 
 ### 5.5 UEA/UCR Archive ✅ TERVERIFIKASI — prioritas diturunkan
 
