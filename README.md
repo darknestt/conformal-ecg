@@ -1002,6 +1002,9 @@ Catat setiap keputusan desain di sini beserta alasannya. Ini melindungi Anda saa
 | 2026-09-29 | **Protokol pre-registration ditulis** ([`docs/protocol.md`](docs/protocol.md)) | Mengunci hipotesis, split, preprocessing, dan rencana uji **sebelum** fold 10 disentuh. Memuat aturan keputusan eksplisit bila H0 tidak konklusif — mencegah pencarian analisis pasca-hoc | — |
 | 2026-09-29 | 🔧 **KOREKSI: jumlah rekaman per fold** | Angka awal (17.441 / 2.198 / 2.160) didapat dari pengurangan, dan fold 9–10 tertukar. Angka benar dari CSV: **17.418 / 2.183 / 2.198**. $K_1{=}1.942$ tetap benar | — |
 | 2026-09-29 | **Nama `HiCoRC` dinyatakan sementara** | Akronimnya berasal dari judul lama yang dicabut bersama C1. Ditetapkan bersamaan dengan judul final di F1 | — |
+| 2026-09-30 | **Repositori git diinisialisasi** — commit `5ba06f6` | 24 berkas / 277,8 KB. `.gitignore` diperbaiki agar `results/raw/*.json` (11,4 KB bukti provenance) ikut ter-commit sementara dataset 661,5 MB tetap di luar. `data/raw/ptbxl.zip` dihapus setelah diverifikasi rusak | Verifikasi integritas zip dilakukan **sebelum** penghapusan, bukan diasumsikan |
+| 2026-09-30 | ❌ **`git tag protocol-v1` sengaja DITUNDA** | Protokol masih 🟡 draf; backbone belum dilatih dan pipeline belum end-to-end. Menandai sekarang akan mengubah pre-registration menjadi formalitas kosong | Tag dibuat setelah checklist §13 protokol tuntas, sebelum fold 10 disentuh |
+| 2026-09-30 | 🔧 **`check_consistency.py` diperbaiki** — `UnicodeEncodeError` saat output di-pipe | Gerbang pra-commit yang hanya berfungsi bila dijalankan manual adalah gerbang palsu. Ditambahkan `reconfigure(encoding="utf-8")` | — |
 | | | | |
 
 ---
@@ -1020,7 +1023,7 @@ Catat setiap keputusan desain di sini beserta alasannya. Ini melindungi Anda saa
 
 > **Sudah diamankan:** survei literatur ✅ selesai dan menyelamatkan sepuluh bulan. C1 ternyata sudah diterbitkan sejak 2023 — ditemukan sekarang, bukan di laporan reviewer.
 >
-> ⚠️ **Prasyarat teknis yang belum dikerjakan:** repositori git belum diinisialisasi. Protokol menuntut `git tag protocol-v1`, dan itu mustahil tanpa repo. Lihat [`docs/progress.md`](docs/progress.md) §10.
+> ✅ **Repositori git diinisialisasi 2026-09-30** — commit `5ba06f6`, 24 berkas, dataset 661,5 MB tetap di luar riwayat. `git tag protocol-v1` **sengaja belum dibuat**: protokol masih draf, dan menandainya sebelum checklist §13 tuntas akan mengosongkan makna pre-registration. Lihat [`docs/progress.md`](docs/progress.md) §10.1.
 
 > **Dua pelajaran yang layak dicatat:**
 >

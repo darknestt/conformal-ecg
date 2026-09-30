@@ -308,42 +308,28 @@ Lima kesalahan ditemukan dan diperbaiki sendiri. Dicatat karena jejak koreksi me
 
 | Risiko | Tingkat | Mitigasi |
 |---|---|---|
-| **Belum ada repositori git** | 🔴 **TINGGI** | Seluruh pekerjaan tidak terlacak. Protokol menuntut `git tag protocol-v1` — mustahil tanpa repo. **Inisialisasi segera** |
+| ~~Belum ada repositori git~~ | ✅ **SELESAI** | Repo diinisialisasi 2026-09-30, commit `5ba06f6` — 24 berkas, 6.082 baris. Lihat §10.1 |
 | B7 terbit di venue kuat lebih dulu | 🟡 Sedang | Pantau arXiv:2410.06296; C2 sudah diturunkan ke lema |
 | Kelompok Baheri bergerak ke wilayah sama | 🟡 Sedang | B2 (Feb 2025) → healthcare hierarkis (Jan 2026). Pantau |
 | H0 tidak konklusif di PTB-XL | 🟡 Sedang | Design effect hanya 1,39. `protocol.md` §11 sudah menetapkan urutan tindakan |
+| **Repo masih lokal — belum ada salinan luar** | 🟡 Sedang | Satu disk rusak = seluruh pekerjaan hilang. Tambahkan remote (GitHub privat) |
 | Judul & nama metode belum final | 🟢 Rendah | Sengaja ditunda sampai C6 diformalkan |
 
-### Perbaikan yang disarankan segera
+### 10.1 Repositori git — selesai 2026-09-30
 
-```powershell
-Remove-Item data\raw\ptbxl.zip     # sisa unduhan gagal, 5,41 MB
-git init
-git add .
-git commit -m "Fondasi penelitian: dataset terverifikasi, survei literatur, protokol draf"
-```
+| Tindakan | Hasil |
+|---|---|
+| Hapus `data/raw/ptbxl.zip` | Terverifikasi rusak sebelum dihapus (*End of Central Directory record could not be found*, 5,41 MB dari ~1,7 GB). PTB-XL sudah lengkap terekstrak 43.606 berkas, jadi zip itu redundan |
+| Perbaiki `.gitignore` | `results/raw/` → `results/raw/*` + `!results/raw/*.json` |
+| `git init -b main` + commit pertama | `5ba06f6` · 24 berkas · 277,8 KB · working tree bersih |
 
-#### ⚠️ Satu penyesuaian `.gitignore` yang perlu dilakukan
+Diperiksa sebelum commit: tidak ada berkas berpola `*.dat`/`*.hea`/`*.atr`/`*.mat`/`*.zip` maupun apa pun dari `data/raw/` yang lolos ke staging. Dataset 661,5 MB tetap di luar riwayat git.
 
-`.gitignore` sudah benar mengabaikan `data/raw/`, `data/interim/`, `data/processed/` — sehingga **661,5 MB dataset tidak akan ter-commit**. Itu tepat.
+> ❗ **`git tag protocol-v1` SENGAJA BELUM DIBUAT.** Protokol masih 🟡 DRAF: backbone belum dilatih dan pipeline belum berjalan end-to-end (§13 protokol). Menandai sekarang akan mengubah pre-registration menjadi formalitas kosong — justru kebalikan dari fungsinya. Tag dibuat **setelah** seluruh checklist §13 tercentang, sebelum fold 10 disentuh.
 
-Tetapi `results/raw/` **juga diabaikan**, padahal isinya hanya **11,4 KB**:
+### 10.2 Perbaikan sampingan
 
-| Berkas | Ukuran | Isi |
-|---|---:|---|
-| `dataset_verification.json` | 6,3 KB | 29 pemeriksaan + statistik |
-| `block_structure.json` | 3,1 KB | 5 granularitas + E11a |
-| `feasibility_alpha.json` | 2,0 KB | Batas $\alpha$ per granularitas |
-
-Ketiganya adalah **bukti asal-usul setiap angka** di README, `protocol.md`, dan dokumen ini. Tanpa mereka, klaim "29 pemeriksaan, 0 gagal" tidak dapat ditelusuri siapa pun — termasuk Anda sendiri enam bulan lagi.
-
-```gitignore
-# ganti baris "results/raw/" menjadi:
-results/raw/*
-!results/raw/*.json
-```
-
-> Keluaran besar (bobot model, array sinyal) tetap terabaikan; hanya JSON ringkas yang masuk.
+`scripts/check_consistency.py` sebelumnya **mati dengan `UnicodeEncodeError`** begitu outputnya di-pipe di Windows — Python beralih dari encoding konsol ke cp1252 dan tersedak karakter `✅`. Berbahaya karena skrip ini adalah gerbang pra-commit: ia tampak berfungsi saat dijalankan langsung, tetapi gagal dalam pemakaian terotomasi. Diperbaiki dengan `reconfigure(encoding="utf-8")` pada `stdout`/`stderr`.
 
 ---
 
