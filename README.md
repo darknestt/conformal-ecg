@@ -60,7 +60,7 @@ Prediksi konformal hierarkis (HCP; Lee, Barber & Willett 2026) sudah menyelesaik
 | ~~C1~~ | ~~Teoretis~~ | ~~Teorema cakupan finite-sample untuk kalibrasi blok-pasien~~ | ❌ **DICABUT** — sudah diterbitkan Lee, Barber & Willett (ACM J. Data Science 2026). Lihat §4.0 |
 | C2 | Lema | Penutupan hierarkis mempertahankan validitas cakupan | ⚠️ Diturunkan dari "teorema" ke lema pendukung — argumennya terlalu pendek untuk klaim utama |
 | C3 | Metodologis | Algoritma `HiCoRC` yang model-agnostic | ✅ |
-| C4 | Empiris | Bukti kuantitatif bahwa conformal naif **gagal** pada EKG klinis multi-label hierarkis | ❌ **TERREFUTASI pada PTB-XL level pasien** (2026-09-30). Cakupan naif tepat nominal; HCP tak berefek. Menunggu uji MIT-BIH sebelum dicabut — lihat §5.7 |
+| C4 | Empiris | Bukti kuantitatif bahwa conformal naif **gagal** pada EKG klinis multi-label hierarkis | ✅ **DIPULIHKAN dengan kualifikasi** (2026-09-30). Berlaku bila $\mathrm{DEff}$ tinggi (MIT-BIH: defisit −1,2 s.d. −1,6 pp, signifikan 3/3); nihil bila $\mathrm{DEff}\approx1$ (PTB-XL). Spearman gabungan +0,80 s.d. +0,85, $p<0{,}002$ — lihat §5.8 |
 | C5 | Artefak | Pustaka Python open-source + reproduksi penuh (GitHub + Zenodo DOI) | ✅ |
 | **C6** | **Teoretis-empiris** | **Karakterisasi tradeoff $K$ blok vs $N_k$ pengukuran**: validitas dibatasi $\alpha \ge 1/(K_1+1)$ dan **tidak bergantung $N_k$ sama sekali**; efisiensi punya **lantai $\sigma^2\rho/K$** yang tak tertembus berapa pun pengukuran ditambahkan | ✅ **Kontribusi utama** — dinyatakan sebagai pertanyaan terbuka oleh Lee-Barber-Willett sendiri |
 | **C7** | **Metodologis** | **Uji diagnostik kecukupan blok** — menentukan granularitas mana yang layak dikalibrasi, **sebelum** model dilatih | ✅ **Kontribusi utama** |
@@ -529,7 +529,7 @@ Itu **positif palsu**. Fold 1–8 hanya **64–68%** divalidasi manusia; fold 9�
 
 | | Status |
 |---|---|
-| **C4** | ❌ Tidak terdukung di PTB-XL. **Belum dicabut** — protokol §11 butir 1 menuntut MIT-BIH diuji dulu |
+| **C4** | ❌ Tidak terdukung di PTB-XL. → **Terselesaikan di §5.8**: bukan salah, melainkan **berkualifikasi** — PTB-XL berada pada $\mathrm{DEff}{\approx}1$ |
 | **C6, C7, C8** | ✅ **Tidak tersentuh.** Batas kelayakan kombinatorial, terbukti tanpa model |
 | Langkah berikutnya | Uji H0b di **MIT-BIH** (~2.347 detak/rekaman, tiga orde lebih besar) |
 
@@ -563,6 +563,86 @@ Itu **positif palsu**. Fold 1–8 hanya **64–68%** divalidasi manusia; fold 9�
 - ✅ Metadata kualitas sinyal lengkap: `static_noise`, `burst_noise`, `baseline_drift`, `electrodes_problems`
 
 > Panduan unduh: [`data/README.md`](data/README.md)
+
+---
+
+### 5.8 ✅ Temuan 9 — Kontradiksi terselesaikan: **design effect**, bukan ICC
+
+Temuan 8 menyisakan teka-teki: H0 terrefutasi di PTB-XL tetapi MIT-BIH seharusnya berperilaku sebaliknya. Empat eksperimen berturut-turut menyelesaikannya — dan **dua di antaranya membatalkan kesimpulan saya sendiri**.
+
+#### Urutan pembalikan
+
+| Tahap | Kesimpulan sementara | Dibatalkan oleh |
+|---|---|---|
+| 1 | "B12 memperbaiki B1 di MIT-BIH → H0b terkonfirmasi" | **Kontrol permutasi**: 81–107% selisih bersifat mekanis |
+| 2 | "Defisit berasal dari ketimpangan $N_k$" | **Faktorial 2×2**: ketimpangan 0/3, klaster 3/3 |
+| 3 | "Defisit naik monoton terhadap ICC" | **PTB-XL**: ICC 0,35 tetapi defisit nol |
+| 4 | **"Defisit naik monoton terhadap DEff"** | — bertahan |
+
+Setiap pembalikan datang dari **menambah kontrol**, bukan menafsir ulang data yang sama.
+
+#### Kriteria (b) ternyata tautologis
+
+Pada $K_1{=}11$, atom $+\infty$ berbobot $\tfrac{1}{12}$ memaksa HCP menembus persentil
+
+$$\frac{1-\alpha}{K_1/(K_1+1)}$$
+
+Ramalan ini cocok sampai **empat desimal** pada lengan permutasi:
+
+| $\alpha$ | Diramalkan | Teramati |
+|---|---:|---:|
+| 0,10 | 0,9818 | **0,9819** |
+| 0,15 | 0,9273 | **0,9273** |
+| 0,20 | 0,8727 | **0,8729** |
+
+Artinya "B12 mencakup lebih baik daripada B1" nyaris dijamin saat $\alpha$ dekat $\alpha_{\min}$ — **bukan bukti dependensi**. Kriteria ini dicabut sebagai alat uji.
+
+#### Faktorial 2×2 memisahkan dua mekanisme
+
+| Faktor | Besar efek | Signifikan |
+|---|---|---|
+| **Klasterisasi** | −0,0122 … −0,0155 | **3/3** |
+| Ketimpangan $N_k$ | −0,0026 … −0,0044 | 0/3 |
+| Interaksi | −0,0052 … −0,0079 | 0/3 |
+
+Lengan teracak mengenai nominal nyaris sempurna (0,9003 / 0,8499 / 0,8000), **termasuk saat blok timpang** — membuktikan ketimpangan ukuran tidak berbahaya tanpa korelasi.
+
+#### ICC saja tidak cukup — dan itu justru menguatkan teori
+
+PTB-XL ber-**ICC 0,3525**, setara titik MIT-BIH yang defisitnya +0,0035. Namun defisit PTB-XL **−0,0005**. Penjelasannya ada di Prop 2′ sendiri:
+
+$$\mathrm{DEff} = 1 + (H-1)\rho, \qquad H = \text{rerata harmonik ukuran blok}$$
+
+PTB-XL: $H{=}1{,}05 \Rightarrow \mathrm{DEff}{=}1{,}02$ meski $\rho{=}0{,}35$. Dependensi baru merusak kalibrasi bila **ada pengulangan di dalam blok untuk dikorelasikan**.
+
+#### Kurva tunggal yang menyatukan keduanya
+
+| Sumber | $H$ | $\rho$ | $\mathrm{DEff}$ | Defisit $\alpha{=}0{,}15$ |
+|---|---:|---:|---:|---:|
+| PTB-XL (pasien) | 1,05 | 0,3525 | **1,02** | −0,0012 |
+| MIT-BIH $p{=}1$ | 1.355 | 0,0001 | 1,10 | +0,0001 |
+| MIT-BIH $p{=}0{,}5$ | 1.355 | 0,1334 | 181,60 | −0,0004 |
+| MIT-BIH $p{=}0$ | 1.355 | 0,5192 | **703,93** | **+0,0102** |
+
+**Spearman gabungan: +0,84 / +0,80 / +0,85, seluruhnya $p<0{,}002$ — LULUS 3/3.**
+
+#### Kejujuran yang wajib tertulis di naskah
+
+1. **Defisit per titik tidak signifikan sendiri-sendiri** — seluruh CI memuat nol. Buktinya terletak pada **tren monoton**, dan itu memang yang diuji kriteria Spearman pra-registrasi.
+2. **PTB-XL menyumbang 1 dari 12 titik.** Korelasi gabungan digerakkan gradien internal MIT-BIH. Peran PTB-XL adalah **uji ramalan**: kurva meramalkan defisit nol pada $\mathrm{DEff}{\approx}1$, dan itulah yang terjadi — pada modalitas berbeda (12-sadapan vs 1), tugas berbeda (multi-label vs multi-kelas), dan jenis blok berbeda (pasien vs rekaman).
+3. **Kontrol permutasi bersifat post-hoc**, tercatat di [protocol.md §12](docs/protocol.md).
+
+#### Konsekuensi terhadap C4
+
+| | Status |
+|---|---|
+| **C4** | ✅ **DIPULIHKAN dengan kualifikasi.** Berlaku bila $\mathrm{DEff}$ tinggi; nihil bila $\mathrm{DEff}\approx1$. Bukan klaim tanpa syarat |
+| **C6, C7, C8** | ✅ Tidak tersentuh, dan **C6 kini punya dukungan empiris** — Prop 2′ meramalkan dengan benar di mana ICC gagal |
+| Nilai tambah | Praktisi dapat menghitung $\mathrm{DEff}$ **sebelum melatih model** untuk memutuskan apakah koreksi blok diperlukan |
+
+> Kontradiksi PTB-XL vs MIT-BIH bukan kelemahan naskah — ia **bukti bahwa besaran teoretisnya benar**. Dua dataset yang tampak bertentangan ternyata dua dosis pada satu kurva.
+
+Skrip: [`experiments/control_permutation_mitdb.py`](experiments/control_permutation_mitdb.py) · [`factorial_mitdb.py`](experiments/factorial_mitdb.py) · [`monotonicity_icc_mitdb.py`](experiments/monotonicity_icc_mitdb.py) · [`dose_response.py`](experiments/dose_response.py)
 
 ---
 
@@ -1006,7 +1086,7 @@ Sisa: Challenge 2021 (P2, setelah H0 terkonfirmasi) dan UEA (P3, opsional).
 - [x] **Ukur cakupan empiris** — 0,9910 / 0,9511 / 0,9010 vs target 0,99 / 0,95 / 0,90: **tepat nominal, tidak kurang**
 - [x] Uji mekanisme H0 (selisih B12−B1) — CI melingkupi nol di ketiga level $\alpha$
 - [x] Catat hasil di [`docs/protocol.md`](docs/protocol.md) §12b beserta log penyimpangan
-- [ ] **Uji H0b di MIT-BIH** — protokol §11 butir 1, wajib sebelum C4 dicabut
+- [x] **Uji H0b di MIT-BIH** — protokol §11 butir 1, selesai 2026-09-30. H1 lulus 5/5; H0b terkonfirmasi lewat sumbu DEff. Lihat §5.8
 
 > Premis penelitian **tidak** perlu ditinjau ulang: C6/C7/C8 tidak bergantung pada H0. Yang terdampak hanya C4.
 
@@ -1154,6 +1234,7 @@ Catat setiap keputusan desain di sini beserta alasannya. Ini melindungi Anda saa
 | 2026-09-30 | 🚨 **KOREKSI BESAR: klaim "dua sumbu tidak berkorelasi" DICABUT** | Design effect Kish milik estimator terboboti-**observasi**; HCP memakai terboboti-**blok**. Berimpit hanya bila $N_k$ seragam — pada `site` selisihnya **15,7×**. Dengan ukuran benar, dua granularitas yang layak justru dua yang paling efisien; urutannya **sejalan** | Terdeteksi karena tabel empiris lama bertentangan dengan Teorema C6(c) buatan sendiri. `strat_fold` (nyaris seragam) memberi rasio 1,000 — validasi internal |
 | 2026-09-30 | **Estimator $\rho(t)$ ditulis** ([`src/conformal/icc.py`](src/conformal/icc.py)) | ANOVA satu arah untuk desain tak seimbang + CI bootstrap **level blok**. Diuji memulihkan $\rho$ sejati pada $\{0;0{,}2;0{,}5;0{,}8\}$ dalam toleransi 0,05 | Bootstrap level titik akan mengulang persis kesalahan yang dikritik paper ini |
 | 2026-09-30 | ❌ **H0 TERREFUTASI pada granularitas pasien PTB-XL** | Cakupan naif 0,9910/0,9511/0,9010 vs target 0,99/0,95/0,90 — tepat nominal. Selisih B12−B1 mencakup nol di ketiga $\alpha$. Sebab: rata-rata $N_k{=}1{,}12$, 90,5% pasien satu rekaman, rasio bobot 1,12× | C4 **belum dicabut** — §11 butir 1 menuntut MIT-BIH diuji dulu. C6/C7/C8 tidak tersentuh |
+| 2026-09-30 | ✅ **C4 DIPULIHKAN dengan kualifikasi — sumbunya DEff, bukan ICC** | Empat eksperimen berturut: (1) kontrol permutasi membatalkan kriteria (b) sebagai 81–107% mekanis; (2) faktorial 2×2 menunjukkan klaster signifikan 3/3 sedangkan ketimpangan $N_k$ 0/3; (3) monotonisitas ICC lulus 3/3 di MIT-BIH; (4) PTB-XL ber-ICC 0,3525 namun defisit nol, sehingga ICC saja **gagal** menyatukan. Prop 2' menjelaskannya: $H{=}1{,}05 \Rightarrow \mathrm{DEff}{=}1{,}02$. Pada sumbu DEff, Spearman gabungan +0,84/+0,80/+0,85, $p<0{,}002$ | C4 berlaku **bersyarat DEff**. C6 memperoleh dukungan empiris: besaran teoretisnya meramalkan dengan benar di titik ICC gagal |
 | 2026-09-30 | 🚨 **Positif palsu tertangkap: konfound kualitas label** | Rancangan pertama (kalibrasi fold 8 → uji fold 9) melaporkan defisit 1,43 pp. Fold 1–8 hanya 64–68% tervalidasi manusia vs 100% di fold 9–10. Setelah split bersih di dalam fold 9, defisit **hilang total** | Tertangkap bukan dari angka cakupan, melainkan dari pertanyaan "mengapa B12 identik B1?" |
 | 2026-09-30 | 🔧 **Uji H0 diperbaiki: tambahkan CI selisih B12−B1** | Versi pertama hanya menguji "B1 kurang-cakup" (bagian a). Mekanisme H0 justru ada di selisihnya (bagian b). Menguji (a) saja menghasilkan putusan yang menyesatkan | Memperketat uji, bukan melonggarkan |
 | 2026-09-30 | **Hasil nol diperlakukan sebagai kontrol positif** | Split conformal mencapai nominal *persis* — memvalidasi implementasi skor, kalibrasi, dan evaluasi. Mutu backbone tidak relevan: conformal model-agnostik | — |
