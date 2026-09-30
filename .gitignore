@@ -45,3 +45,6 @@ mlruns/
 
 # Berkas pesan commit sementara
 _commitmsg.txt
+
+# Skrip probe sekali-pakai di akar repo -- kode permanen selalu di scripts/ atau experiments/
+/*.py
