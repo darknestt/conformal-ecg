@@ -14,6 +14,7 @@ from src.conformal import (
     block_sufficiency,
     double_conformal,
     hcp,
+    label_sufficiency,
     minimum_blocks,
     pooling_cdfs,
     repeated_subsampling,
@@ -344,3 +345,67 @@ def test_design_effect_satu_untuk_blok_tunggal_seragam():
     d = block_sufficiency(np.arange(100), alpha=0.05)
     assert d.design_effect == pytest.approx(1.0)
     assert d.n_eff == pytest.approx(100.0)
+
+
+# --------------------------------------------------------------------------
+# C8 -- kelayakan per-label
+# --------------------------------------------------------------------------
+
+
+def hierarki_label(rng, n=400):
+    """Induk `sering` memuat seluruh anak `jarang` -- hierarki sejati."""
+    blocks = np.repeat(np.arange(n // 2), 2)
+    jarang = rng.random(n) < 0.03
+    sering = jarang | (rng.random(n) < 0.4)  # superset dari `jarang`
+    return blocks, np.column_stack([sering, jarang])
+
+
+def test_prop5_kelayakan_monoton_naik_menuju_akar():
+    """K1(anak) <= K1(induk), sehingga alpha_min(anak) >= alpha_min(induk)."""
+    blocks, labels = hierarki_label(np.random.default_rng(40))
+    induk, anak = label_sufficiency(blocks, labels, 0.05, ["sering", "jarang"])
+
+    assert np.all(labels[:, 1] <= labels[:, 0]), "prasyarat: anak subset induk"
+    assert anak.n_blocks <= induk.n_blocks
+    assert anak.alpha_min >= induk.alpha_min
+
+
+def test_label_langka_dapat_tak_layak_meski_blok_global_berlimpah():
+    """Inti C8: K1 global besar tidak menjamin K1(l) memadai."""
+    blocks = np.arange(2000)
+    labels = np.zeros((2000, 2), dtype=bool)
+    labels[:, 0] = True  # muncul di seluruh 2.000 blok
+    labels[:5, 1] = True  # hanya 5 blok
+
+    umum, langka = label_sufficiency(blocks, labels, 0.05, ["umum", "langka"])
+    assert umum.feasible and umum.n_blocks == 2000
+    assert not langka.feasible and langka.n_blocks == 5
+    assert langka.alpha_min == pytest.approx(1 / 6)
+
+
+def test_koreksi_serentak_menaikkan_ambang_secara_linear():
+    """Union bound: menjamin m label sekaligus menuntut alpha/m per label.
+
+    Dipilih 50 blok per label agar berada TEPAT di antara kedua ambang:
+    marginal butuh 19 blok (lolos), serentak m=4 butuh 79 blok (gagal).
+    """
+    blocks = np.arange(300)
+    labels = np.zeros((300, 4), dtype=bool)
+    labels[:50] = True
+
+    marginal = label_sufficiency(blocks, labels, 0.05)
+    serentak = label_sufficiency(blocks, labels, 0.05, simultaneous=True)
+
+    assert marginal[0].blocks_required == 19
+    assert serentak[0].blocks_required == 79  # = ceil(4/0,05) - 1
+    assert all(d.alpha == pytest.approx(0.05 / 4) for d in serentak)
+
+    assert all(d.feasible for d in marginal)
+    assert not any(d.feasible for d in serentak)
+
+
+def test_label_sufficiency_menolak_masukan_tak_sepadan():
+    with pytest.raises(ValueError, match="tidak sepadan"):
+        label_sufficiency(np.arange(10), np.ones((7, 2), dtype=bool), 0.05)
+    with pytest.raises(ValueError, match="tidak muncul"):
+        label_sufficiency(np.arange(10), np.zeros((10, 1), dtype=bool), 0.05)

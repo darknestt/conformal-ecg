@@ -1,0 +1,828 @@
+{
+  "superclass": {
+    "m": 5,
+    "label": {
+      "NORM": {
+        "blok_kalibrasi": 905,
+        "rekaman_kalibrasi": 955,
+        "alpha_min": 0.001104,
+        "layak": {
+          "0.01": true,
+          "0.05": true,
+          "0.10": true
+        },
+        "layak_005_serentak": true
+      },
+      "MI": {
+        "blok_kalibrasi": 486,
+        "rekaman_kalibrasi": 540,
+        "alpha_min": 0.002053,
+        "layak": {
+          "0.01": true,
+          "0.05": true,
+          "0.10": true
+        },
+        "layak_005_serentak": true
+      },
+      "STTC": {
+        "blok_kalibrasi": 473,
+        "rekaman_kalibrasi": 528,
+        "alpha_min": 0.00211,
+        "layak": {
+          "0.01": true,
+          "0.05": true,
+          "0.10": true
+        },
+        "layak_005_serentak": true
+      },
+      "CD": {
+        "blok_kalibrasi": 449,
+        "rekaman_kalibrasi": 495,
+        "alpha_min": 0.002222,
+        "layak": {
+          "0.01": true,
+          "0.05": true,
+          "0.10": true
+        },
+        "layak_005_serentak": true
+      },
+      "HYP": {
+        "blok_kalibrasi": 242,
+        "rekaman_kalibrasi": 268,
+        "alpha_min": 0.004115,
+        "layak": {
+          "0.01": true,
+          "0.05": true,
+          "0.10": true
+        },
+        "layak_005_serentak": true
+      }
+    },
+    "ringkasan": {
+      "tidak_layak_marginal_005": 0,
+      "tidak_layak_serentak_005": 0,
+      "blok_dibutuhkan_serentak": 99
+    }
+  },
+  "subclass": {
+    "m": 23,
+    "label": {
+      "NORM": {
+        "blok_kalibrasi": 905,
+        "rekaman_kalibrasi": 955,
+        "alpha_min": 0.001104,
+        "layak": {
+          "0.01": true,
+          "0.05": true,
+          "0.10": true
+        },
+        "layak_005_serentak": true
+      },
+      "IMI": {
+        "blok_kalibrasi": 294,
+        "rekaman_kalibrasi": 326,
+        "alpha_min": 0.00339,
+        "layak": {
+          "0.01": true,
+          "0.05": true,
+          "0.10": true
+        },
+        "layak_005_serentak": false
+      },
+      "AMI": {
+        "blok_kalibrasi": 274,
+        "rekaman_kalibrasi": 306,
+        "alpha_min": 0.003636,
+        "layak": {
+          "0.01": true,
+          "0.05": true,
+          "0.10": true
+        },
+        "layak_005_serentak": false
+      },
+      "STTC": {
+        "blok_kalibrasi": 211,
+        "rekaman_kalibrasi": 225,
+        "alpha_min": 0.004717,
+        "layak": {
+          "0.01": true,
+          "0.05": true,
+          "0.10": true
+        },
+        "layak_005_serentak": false
+      },
+      "LVH": {
+        "blok_kalibrasi": 191,
+        "rekaman_kalibrasi": 210,
+        "alpha_min": 0.005208,
+        "layak": {
+          "0.01": true,
+          "0.05": true,
+          "0.10": true
+        },
+        "layak_005_serentak": false
+      },
+      "LAFB/LPFB": {
+        "blok_kalibrasi": 166,
+        "rekaman_kalibrasi": 181,
+        "alpha_min": 0.005988,
+        "layak": {
+          "0.01": true,
+          "0.05": true,
+          "0.10": true
+        },
+        "layak_005_serentak": false
+      },
+      "ISC_": {
+        "blok_kalibrasi": 115,
+        "rekaman_kalibrasi": 125,
+        "alpha_min": 0.008621,
+        "layak": {
+          "0.01": true,
+          "0.05": true,
+          "0.10": true
+        },
+        "layak_005_serentak": false
+      },
+      "IRBBB": {
+        "blok_kalibrasi": 109,
+        "rekaman_kalibrasi": 112,
+        "alpha_min": 0.009091,
+        "layak": {
+          "0.01": true,
+          "0.05": true,
+          "0.10": true
+        },
+        "layak_005_serentak": false
+      },
+      "ISCA": {
+        "blok_kalibrasi": 79,
+        "rekaman_kalibrasi": 92,
+        "alpha_min": 0.0125,
+        "layak": {
+          "0.01": false,
+          "0.05": true,
+          "0.10": true
+        },
+        "layak_005_serentak": false
+      },
+      "_AVB": {
+        "blok_kalibrasi": 77,
+        "rekaman_kalibrasi": 83,
+        "alpha_min": 0.012821,
+        "layak": {
+          "0.01": false,
+          "0.05": true,
+          "0.10": true
+        },
+        "layak_005_serentak": false
+      },
+      "IVCD": {
+        "blok_kalibrasi": 77,
+        "rekaman_kalibrasi": 78,
+        "alpha_min": 0.012821,
+        "layak": {
+          "0.01": false,
+          "0.05": true,
+          "0.10": true
+        },
+        "layak_005_serentak": false
+      },
+      "NST_": {
+        "blok_kalibrasi": 71,
+        "rekaman_kalibrasi": 75,
+        "alpha_min": 0.013889,
+        "layak": {
+          "0.01": false,
+          "0.05": true,
+          "0.10": true
+        },
+        "layak_005_serentak": false
+      },
+      "CRBBB": {
+        "blok_kalibrasi": 49,
+        "rekaman_kalibrasi": 55,
+        "alpha_min": 0.02,
+        "layak": {
+          "0.01": false,
+          "0.05": true,
+          "0.10": true
+        },
+        "layak_005_serentak": false
+      },
+      "CLBBB": {
+        "blok_kalibrasi": 47,
+        "rekaman_kalibrasi": 54,
+        "alpha_min": 0.020833,
+        "layak": {
+          "0.01": false,
+          "0.05": true,
+          "0.10": true
+        },
+        "layak_005_serentak": false
+      },
+      "LAO/LAE": {
+        "blok_kalibrasi": 39,
+        "rekaman_kalibrasi": 43,
+        "alpha_min": 0.025,
+        "layak": {
+          "0.01": false,
+          "0.05": true,
+          "0.10": true
+        },
+        "layak_005_serentak": false
+      },
+      "ISCI": {
+        "blok_kalibrasi": 37,
+        "rekaman_kalibrasi": 39,
+        "alpha_min": 0.026316,
+        "layak": {
+          "0.01": false,
+          "0.05": true,
+          "0.10": true
+        },
+        "layak_005_serentak": false
+      },
+      "LMI": {
+        "blok_kalibrasi": 19,
+        "rekaman_kalibrasi": 20,
+        "alpha_min": 0.05,
+        "layak": {
+          "0.01": false,
+          "0.05": true,
+          "0.10": true
+        },
+        "layak_005_serentak": false
+      },
+      "RVH": {
+        "blok_kalibrasi": 12,
+        "rekaman_kalibrasi": 12,
+        "alpha_min": 0.076923,
+        "layak": {
+          "0.01": false,
+          "0.05": false,
+          "0.10": true
+        },
+        "layak_005_serentak": false
+      },
+      "RAO/RAE": {
+        "blok_kalibrasi": 9,
+        "rekaman_kalibrasi": 10,
+        "alpha_min": 0.1,
+        "layak": {
+          "0.01": false,
+          "0.05": false,
+          "0.10": true
+        },
+        "layak_005_serentak": false
+      },
+      "ILBBB": {
+        "blok_kalibrasi": 7,
+        "rekaman_kalibrasi": 7,
+        "alpha_min": 0.125,
+        "layak": {
+          "0.01": false,
+          "0.05": false,
+          "0.10": false
+        },
+        "layak_005_serentak": false
+      },
+      "WPW": {
+        "blok_kalibrasi": 7,
+        "rekaman_kalibrasi": 7,
+        "alpha_min": 0.125,
+        "layak": {
+          "0.01": false,
+          "0.05": false,
+          "0.10": false
+        },
+        "layak_005_serentak": false
+      },
+      "SEHYP": {
+        "blok_kalibrasi": 3,
+        "rekaman_kalibrasi": 3,
+        "alpha_min": 0.25,
+        "layak": {
+          "0.01": false,
+          "0.05": false,
+          "0.10": false
+        },
+        "layak_005_serentak": false
+      },
+      "PMI": {
+        "blok_kalibrasi": 2,
+        "rekaman_kalibrasi": 2,
+        "alpha_min": 0.333333,
+        "layak": {
+          "0.01": false,
+          "0.05": false,
+          "0.10": false
+        },
+        "layak_005_serentak": false
+      }
+    },
+    "ringkasan": {
+      "tidak_layak_marginal_005": 6,
+      "tidak_layak_serentak_005": 22,
+      "blok_dibutuhkan_serentak": 459
+    }
+  },
+  "scp_code": {
+    "m": 44,
+    "label": {
+      "NORM": {
+        "blok_kalibrasi": 905,
+        "rekaman_kalibrasi": 955,
+        "alpha_min": 0.001104,
+        "layak": {
+          "0.01": true,
+          "0.05": true,
+          "0.10": true
+        },
+        "layak_005_serentak": true
+      },
+      "IMI": {
+        "blok_kalibrasi": 242,
+        "rekaman_kalibrasi": 266,
+        "alpha_min": 0.004115,
+        "layak": {
+          "0.01": true,
+          "0.05": true,
+          "0.10": true
+        },
+        "layak_005_serentak": false
+      },
+      "ASMI": {
+        "blok_kalibrasi": 216,
+        "rekaman_kalibrasi": 236,
+        "alpha_min": 0.004608,
+        "layak": {
+          "0.01": true,
+          "0.05": true,
+          "0.10": true
+        },
+        "layak_005_serentak": false
+      },
+      "LVH": {
+        "blok_kalibrasi": 191,
+        "rekaman_kalibrasi": 210,
+        "alpha_min": 0.005208,
+        "layak": {
+          "0.01": true,
+          "0.05": true,
+          "0.10": true
+        },
+        "layak_005_serentak": false
+      },
+      "NDT": {
+        "blok_kalibrasi": 173,
+        "rekaman_kalibrasi": 182,
+        "alpha_min": 0.005747,
+        "layak": {
+          "0.01": true,
+          "0.05": true,
+          "0.10": true
+        },
+        "layak_005_serentak": false
+      },
+      "LAFB": {
+        "blok_kalibrasi": 152,
+        "rekaman_kalibrasi": 163,
+        "alpha_min": 0.006536,
+        "layak": {
+          "0.01": true,
+          "0.05": true,
+          "0.10": true
+        },
+        "layak_005_serentak": false
+      },
+      "ISC_": {
+        "blok_kalibrasi": 115,
+        "rekaman_kalibrasi": 125,
+        "alpha_min": 0.008621,
+        "layak": {
+          "0.01": true,
+          "0.05": true,
+          "0.10": true
+        },
+        "layak_005_serentak": false
+      },
+      "IRBBB": {
+        "blok_kalibrasi": 109,
+        "rekaman_kalibrasi": 112,
+        "alpha_min": 0.009091,
+        "layak": {
+          "0.01": true,
+          "0.05": true,
+          "0.10": true
+        },
+        "layak_005_serentak": false
+      },
+      "IVCD": {
+        "blok_kalibrasi": 77,
+        "rekaman_kalibrasi": 78,
+        "alpha_min": 0.012821,
+        "layak": {
+          "0.01": false,
+          "0.05": true,
+          "0.10": true
+        },
+        "layak_005_serentak": false
+      },
+      "1AVB": {
+        "blok_kalibrasi": 74,
+        "rekaman_kalibrasi": 80,
+        "alpha_min": 0.013333,
+        "layak": {
+          "0.01": false,
+          "0.05": true,
+          "0.10": true
+        },
+        "layak_005_serentak": false
+      },
+      "NST_": {
+        "blok_kalibrasi": 71,
+        "rekaman_kalibrasi": 75,
+        "alpha_min": 0.013889,
+        "layak": {
+          "0.01": false,
+          "0.05": true,
+          "0.10": true
+        },
+        "layak_005_serentak": false
+      },
+      "ISCAL": {
+        "blok_kalibrasi": 57,
+        "rekaman_kalibrasi": 66,
+        "alpha_min": 0.017241,
+        "layak": {
+          "0.01": false,
+          "0.05": true,
+          "0.10": true
+        },
+        "layak_005_serentak": false
+      },
+      "CRBBB": {
+        "blok_kalibrasi": 49,
+        "rekaman_kalibrasi": 55,
+        "alpha_min": 0.02,
+        "layak": {
+          "0.01": false,
+          "0.05": true,
+          "0.10": true
+        },
+        "layak_005_serentak": false
+      },
+      "CLBBB": {
+        "blok_kalibrasi": 47,
+        "rekaman_kalibrasi": 54,
+        "alpha_min": 0.020833,
+        "layak": {
+          "0.01": false,
+          "0.05": true,
+          "0.10": true
+        },
+        "layak_005_serentak": false
+      },
+      "ILMI": {
+        "blok_kalibrasi": 45,
+        "rekaman_kalibrasi": 47,
+        "alpha_min": 0.021739,
+        "layak": {
+          "0.01": false,
+          "0.05": true,
+          "0.10": true
+        },
+        "layak_005_serentak": false
+      },
+      "LAO/LAE": {
+        "blok_kalibrasi": 39,
+        "rekaman_kalibrasi": 43,
+        "alpha_min": 0.025,
+        "layak": {
+          "0.01": false,
+          "0.05": true,
+          "0.10": true
+        },
+        "layak_005_serentak": false
+      },
+      "AMI": {
+        "blok_kalibrasi": 36,
+        "rekaman_kalibrasi": 36,
+        "alpha_min": 0.027027,
+        "layak": {
+          "0.01": false,
+          "0.05": true,
+          "0.10": true
+        },
+        "layak_005_serentak": false
+      },
+      "ALMI": {
+        "blok_kalibrasi": 26,
+        "rekaman_kalibrasi": 29,
+        "alpha_min": 0.037037,
+        "layak": {
+          "0.01": false,
+          "0.05": true,
+          "0.10": true
+        },
+        "layak_005_serentak": false
+      },
+      "ISCIN": {
+        "blok_kalibrasi": 20,
+        "rekaman_kalibrasi": 21,
+        "alpha_min": 0.047619,
+        "layak": {
+          "0.01": false,
+          "0.05": true,
+          "0.10": true
+        },
+        "layak_005_serentak": false
+      },
+      "LMI": {
+        "blok_kalibrasi": 19,
+        "rekaman_kalibrasi": 20,
+        "alpha_min": 0.05,
+        "layak": {
+          "0.01": false,
+          "0.05": true,
+          "0.10": true
+        },
+        "layak_005_serentak": false
+      },
+      "INJAS": {
+        "blok_kalibrasi": 18,
+        "rekaman_kalibrasi": 21,
+        "alpha_min": 0.052632,
+        "layak": {
+          "0.01": false,
+          "0.05": false,
+          "0.10": true
+        },
+        "layak_005_serentak": false
+      },
+      "ISCIL": {
+        "blok_kalibrasi": 17,
+        "rekaman_kalibrasi": 18,
+        "alpha_min": 0.055556,
+        "layak": {
+          "0.01": false,
+          "0.05": false,
+          "0.10": true
+        },
+        "layak_005_serentak": false
+      },
+      "DIG": {
+        "blok_kalibrasi": 16,
+        "rekaman_kalibrasi": 18,
+        "alpha_min": 0.058824,
+        "layak": {
+          "0.01": false,
+          "0.05": false,
+          "0.10": true
+        },
+        "layak_005_serentak": false
+      },
+      "ISCAS": {
+        "blok_kalibrasi": 15,
+        "rekaman_kalibrasi": 17,
+        "alpha_min": 0.0625,
+        "layak": {
+          "0.01": false,
+          "0.05": false,
+          "0.10": true
+        },
+        "layak_005_serentak": false
+      },
+      "ISCLA": {
+        "blok_kalibrasi": 14,
+        "rekaman_kalibrasi": 14,
+        "alpha_min": 0.066667,
+        "layak": {
+          "0.01": false,
+          "0.05": false,
+          "0.10": true
+        },
+        "layak_005_serentak": false
+      },
+      "LPFB": {
+        "blok_kalibrasi": 14,
+        "rekaman_kalibrasi": 18,
+        "alpha_min": 0.066667,
+        "layak": {
+          "0.01": false,
+          "0.05": false,
+          "0.10": true
+        },
+        "layak_005_serentak": false
+      },
+      "INJAL": {
+        "blok_kalibrasi": 14,
+        "rekaman_kalibrasi": 15,
+        "alpha_min": 0.066667,
+        "layak": {
+          "0.01": false,
+          "0.05": false,
+          "0.10": true
+        },
+        "layak_005_serentak": false
+      },
+      "LNGQT": {
+        "blok_kalibrasi": 12,
+        "rekaman_kalibrasi": 12,
+        "alpha_min": 0.076923,
+        "layak": {
+          "0.01": false,
+          "0.05": false,
+          "0.10": true
+        },
+        "layak_005_serentak": false
+      },
+      "RVH": {
+        "blok_kalibrasi": 12,
+        "rekaman_kalibrasi": 12,
+        "alpha_min": 0.076923,
+        "layak": {
+          "0.01": false,
+          "0.05": false,
+          "0.10": true
+        },
+        "layak_005_serentak": false
+      },
+      "ANEUR": {
+        "blok_kalibrasi": 9,
+        "rekaman_kalibrasi": 10,
+        "alpha_min": 0.1,
+        "layak": {
+          "0.01": false,
+          "0.05": false,
+          "0.10": true
+        },
+        "layak_005_serentak": false
+      },
+      "RAO/RAE": {
+        "blok_kalibrasi": 9,
+        "rekaman_kalibrasi": 10,
+        "alpha_min": 0.1,
+        "layak": {
+          "0.01": false,
+          "0.05": false,
+          "0.10": true
+        },
+        "layak_005_serentak": false
+      },
+      "EL": {
+        "blok_kalibrasi": 9,
+        "rekaman_kalibrasi": 10,
+        "alpha_min": 0.1,
+        "layak": {
+          "0.01": false,
+          "0.05": false,
+          "0.10": true
+        },
+        "layak_005_serentak": false
+      },
+      "ILBBB": {
+        "blok_kalibrasi": 7,
+        "rekaman_kalibrasi": 7,
+        "alpha_min": 0.125,
+        "layak": {
+          "0.01": false,
+          "0.05": false,
+          "0.10": false
+        },
+        "layak_005_serentak": false
+      },
+      "WPW": {
+        "blok_kalibrasi": 7,
+        "rekaman_kalibrasi": 7,
+        "alpha_min": 0.125,
+        "layak": {
+          "0.01": false,
+          "0.05": false,
+          "0.10": false
+        },
+        "layak_005_serentak": false
+      },
+      "IPLMI": {
+        "blok_kalibrasi": 5,
+        "rekaman_kalibrasi": 5,
+        "alpha_min": 0.166667,
+        "layak": {
+          "0.01": false,
+          "0.05": false,
+          "0.10": false
+        },
+        "layak_005_serentak": false
+      },
+      "ISCAN": {
+        "blok_kalibrasi": 4,
+        "rekaman_kalibrasi": 5,
+        "alpha_min": 0.2,
+        "layak": {
+          "0.01": false,
+          "0.05": false,
+          "0.10": false
+        },
+        "layak_005_serentak": false
+      },
+      "SEHYP": {
+        "blok_kalibrasi": 3,
+        "rekaman_kalibrasi": 3,
+        "alpha_min": 0.25,
+        "layak": {
+          "0.01": false,
+          "0.05": false,
+          "0.10": false
+        },
+        "layak_005_serentak": false
+      },
+      "IPMI": {
+        "blok_kalibrasi": 3,
+        "rekaman_kalibrasi": 4,
+        "alpha_min": 0.25,
+        "layak": {
+          "0.01": false,
+          "0.05": false,
+          "0.10": false
+        },
+        "layak_005_serentak": false
+      },
+      "INJIN": {
+        "blok_kalibrasi": 2,
+        "rekaman_kalibrasi": 2,
+        "alpha_min": 0.333333,
+        "layak": {
+          "0.01": false,
+          "0.05": false,
+          "0.10": false
+        },
+        "layak_005_serentak": false
+      },
+      "3AVB": {
+        "blok_kalibrasi": 2,
+        "rekaman_kalibrasi": 2,
+        "alpha_min": 0.333333,
+        "layak": {
+          "0.01": false,
+          "0.05": false,
+          "0.10": false
+        },
+        "layak_005_serentak": false
+      },
+      "INJLA": {
+        "blok_kalibrasi": 2,
+        "rekaman_kalibrasi": 2,
+        "alpha_min": 0.333333,
+        "layak": {
+          "0.01": false,
+          "0.05": false,
+          "0.10": false
+        },
+        "layak_005_serentak": false
+      },
+      "INJIL": {
+        "blok_kalibrasi": 2,
+        "rekaman_kalibrasi": 2,
+        "alpha_min": 0.333333,
+        "layak": {
+          "0.01": false,
+          "0.05": false,
+          "0.10": false
+        },
+        "layak_005_serentak": false
+      },
+      "PMI": {
+        "blok_kalibrasi": 2,
+        "rekaman_kalibrasi": 2,
+        "alpha_min": 0.333333,
+        "layak": {
+          "0.01": false,
+          "0.05": false,
+          "0.10": false
+        },
+        "layak_005_serentak": false
+      },
+      "2AVB": {
+        "blok_kalibrasi": 1,
+        "rekaman_kalibrasi": 1,
+        "alpha_min": 0.5,
+        "layak": {
+          "0.01": false,
+          "0.05": false,
+          "0.10": false
+        },
+        "layak_005_serentak": false
+      }
+    },
+    "ringkasan": {
+      "tidak_layak_marginal_005": 24,
+      "tidak_layak_serentak_005": 43,
+      "blok_dibutuhkan_serentak": 879
+    }
+  },
+  "monotonisitas": {
+    "pasangan": 23,
+    "pelanggaran": []
+  }
+}

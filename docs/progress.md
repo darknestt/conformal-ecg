@@ -241,6 +241,7 @@ Syarat kedua tak punya padanan di HCP. Bukti numerik: pada $K{=}500$, $N_k{=}5$,
 | `analyze_block_structure.py` | $n_{\text{eff}}$ & design effect multi-granularitas + E11a |
 | `feasibility_alpha.py` | Batas $\alpha$ layak per granularitas (C6/C7) |
 | `check_nesting.py` | Persarangan antar-granularitas + partisi join (C7) |
+| `label_feasibility.py` | Kelayakan per-label pada tiga tingkat hierarki (C8) |
 | `check_consistency.py` | Angka dokumen vs data nyata — **jalankan sebelum commit** |
 
 ### Modul (`src/conformal/`)
@@ -249,7 +250,7 @@ Syarat kedua tak punya padanan di HCP. Bukti numerik: pada $K{=}500$, $N_k{=}5$,
 
 ### Uji (`tests/`)
 
-`conftest.py` · `test_conformal.py` — 37 uji, seluruhnya lolos
+`conftest.py` · `test_conformal.py` — 41 uji, seluruhnya lolos
 
 ### Dokumen (`docs/`)
 
@@ -263,7 +264,7 @@ Syarat kedua tak punya padanan di HCP. Bukti numerik: pada $K{=}500$, $N_k{=}5$,
 
 ### Hasil mentah (`results/raw/`)
 
-`dataset_verification.json` · `block_structure.json` · `feasibility_alpha.json` · `block_nesting.json`
+`dataset_verification.json` · `block_structure.json` · `feasibility_alpha.json` · `block_nesting.json` · `label_feasibility.json`
 
 ---
 
@@ -281,12 +282,17 @@ Ditulis 2026-09-30. Setiap pernyataan ditandai taraf pembuktiannya agar tidak te
 | **Teorema C6** | (a) validitas hanya diatur $K$; (b) lantai varians $\sigma^2\rho/K$; (c) anggaran tetap → $K$ besar/$N$ kecil lemah-dominan; (d) $K$ terbatas → $N$ tak dapat menolong | 🟢 (a) · 🟡 (b–d) |
 | **Prop. 3** | Desain bersilang menuntut partisi **join** (komponen terhubung) | 🟢 Aljabar kekisi |
 | Kor. 3.2 | Ketidakmungkinan bila $K_1(\text{join})$ terlalu kecil | 🟢 untuk HCP/Dunn · 🔴 klaim universal **ditahan** |
+| **Prop. 4** | Kelayakan per-label: $\alpha \ge 1/(K_1(\ell)+1)$ | 🟡 Prop. 1 per-stratum |
+| **Prop. 5** | $K_1$ monoton naik menuju akar → **frontier kelayakan** | 🟢 Diverifikasi, 0 pelanggaran |
+| Kor. 5.2 | Penutupan hierarkis tak pernah memasukkan label tak-layak | 🟢 Memberi C2 isi formal |
 
-### Dua hasil yang mengubah isi naskah
+### Tiga hasil yang mengubah isi naskah
 
 **1. Kish $n_{\text{eff}}$ adalah kasus $\rho = 1$.** Karena $1+(N-1)\rho \le N = \mathrm{DEff}_{\text{Kish}}$, ukuran Kish merupakan **batas atas** yang hanya fungsi ukuran blok — secara struktural buta terhadap $\rho$. Ini menjelaskan Temuan 5 secara formal: E11a **wajib** datar, jadi hipotesis peluruhan temporal bukan terbantahkan melainkan **tidak teruji**. E11b diarahkan ulang untuk mengestimasi $\rho(t)$.
 
 **2. Hasil ketidakmungkinan pada data nyata.** Granularitas PTB-XL tidak bersarang (46/247/174 pasien menyeberang site/nurse/device). Mengendalikan `patient_id`+`device` sekaligus meninggalkan $K_1{=}5$ blok ($\alpha_{\min}{=}0{,}167$); keempat sumber meninggalkan $K_1{=}1$ ($\alpha_{\min}{=}0{,}5$). Ini pernyataan C6 yang jauh lebih kuat daripada rumusan sebelumnya — dan bentuknya batas **desain studi**, bukan kekurangan metode.
+
+**3. Frontier kelayakan pada pohon label (C8).** Cakupan-superset tereduksi **sepele** ke HCP — diakui terus terang, dijadikan bagian Metode. Isi sesungguhnya ada pada jaminan terkondisi-label: pada PTB-XL, **24/44 kode SCP tak-layak** di $\alpha{=}0{,}05$ marginal dan **43/44** serentak, sementara kelima superclass aman sepenuhnya. Frontier-nya terletak **di antara superclass dan subclass**.
 
 ---
 

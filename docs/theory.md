@@ -195,23 +195,106 @@ KELUARAN: himpunan pengelompokan yang admissible, terurut
 
 ---
 
-## 5. Daftar keterbatasan yang harus dinyatakan di naskah
+## 5. C8 — Perluasan ke multi-label berhierarki
+
+### 5.1 Cakupan-superset tereduksi ke HCP secara persis — dan itu harus dikatakan terus terang
+
+> 🟢 **TERBUKTI, tetapi sepele.**
+
+Teorema 1 HCP tidak pernah menyentuh struktur $\mathcal{Y}$. Ia hanya menuntut (i) exchangeability hierarkis antar-blok dan (ii) $s$ tetap terhadap data kalibrasi. Maka untuk sasaran **cakupan-superset**
+$$\mathbb{P}\big(Y_{\text{test}} \subseteq \hat C(X_{\text{test}})\big) \;\ge\; 1-\alpha,$$
+definisikan skor skalar
+$$s(x, Y) \;=\; \max_{\ell \in Y} s_\ell(x),$$
+dengan $s_\ell$ nonconformity per-label. Karena $\{Y \subseteq \hat C\} \iff \max_{\ell\in Y} s_\ell(x) \le T$, HCP berlaku **tanpa modifikasi apa pun**.
+
+> ⚠️ **Jangan jual ini sebagai kontribusi.** Rencana cadangan README ("bila C8 ternyata sepele, jadikan bagian Metode") **berlaku untuk sasaran ini**. Mengklaimnya sebagai perluasan non-trivial akan langsung terbaca oleh reviewer.
+
+Isi C8 yang sesungguhnya ada di sasaran berikutnya.
+
+### 5.2 Jaminan per-label TIDAK tereduksi — dan melahirkan batas kelayakan baru
+
+> 🟡 Prop. 1 diterapkan per-stratum; kehati-hatian exchangeability dicatat di §5.5.
+
+Untuk cakupan **terkondisi-label**
+$$\mathbb{P}\big(\ell \in \hat C(X) \,\big|\, \ell \in Y\big) \;\ge\; 1-\alpha,$$
+kalibrasi hanya boleh memakai titik kalibrasi yang benar-benar memuat $\ell$. Blok yang tersedia karenanya menyusut menjadi blok yang **memuat** $\ell$.
+
+**Proposisi 4 (kelayakan per-label).** Tulis $K_1(\ell)$ = jumlah blok kalibrasi yang memuat setidaknya satu pengamatan berlabel $\ell$. Jaminan terkondisi-label non-trivial pada tingkat $\alpha$ ada bila dan hanya bila
+$$\alpha \;\ge\; \frac{1}{K_1(\ell)+1}.$$
+
+*Bukti:* terapkan Prop. 1 pada stratum $\ell$. $\blacksquare$
+
+**Ini bukan formalitas.** Label langka punya $K_1(\ell)$ kecil, dan kelayakannya dapat gagal walaupun $K_1$ global berlimpah. Kuantitasnya **terhitung dari metadata saja** — tanpa model, tanpa skor, tanpa pelatihan.
+
+### 5.3 Hierarki membuat kelayakan monoton — sehingga ada *frontier*
+
+> 🟢 **TERBUKTI** dan diverifikasi empiris (0 pelanggaran dari 23 pasangan).
+
+**Proposisi 5.** Bila $\ell'$ anak dari $\ell$ pada pohon label (setiap pengamatan berlabel $\ell'$ juga berlabel $\ell$), maka
+$$K_1(\ell') \;\le\; K_1(\ell) \quad\Longrightarrow\quad \alpha_{\min}(\ell') \;\ge\; \alpha_{\min}(\ell).$$
+
+*Bukti:* setiap blok yang memuat $\ell'$ memuat $\ell$. $\blacksquare$
+
+**Korolari 5.1 (frontier kelayakan).** Kelayakan **monoton naik menuju akar**. Bila sebuah label layak, seluruh leluhurnya layak; bila sebuah label tidak layak, seluruh keturunannya tidak layak. Karenanya terdapat **antirantai** pada pohon yang memisahkan wilayah layak dari wilayah tidak layak — dan posisinya dapat dipetakan sebelum model dilatih.
+
+**Korolari 5.2 (penutupan hierarkis gratis dari sisi kelayakan).** Penutupan ke atas (K2/C2) hanya menambahkan leluhur. Menurut Prop. 5 leluhur selalu setidaknya selayak keturunannya, sehingga penutupan **tidak pernah** memasukkan label yang tak-layak ke dalam himpunan. Biayanya murni efisiensi, bukan kelayakan.
+
+### 5.4 Multiplisitas menaikkan ambang secara drastis
+
+> 🟢 **TERBUKTI** (union bound).
+
+Menjamin $m$ label **serentak** pada tingkat gabungan $\alpha$ menuntut $\alpha/m$ per label, sehingga syaratnya menjadi
+$$K_1(\ell) \;\ge\; \left\lceil \frac{m}{\alpha} \right\rceil - 1 \quad \text{untuk setiap } \ell .$$
+
+Pertumbuhannya linear terhadap $m$ dan segera menjadi menentukan.
+
+### 5.5 Instansiasi pada PTB-XL
+
+Dihitung oleh [scripts/label_feasibility.py](../scripts/label_feasibility.py); mentah di `results/raw/label_feasibility.json`.
+Kalibrasi = fold 9 · blok = `patient_id` · 44 pernyataan diagnostik SCP · 3.070 pasangan (rekaman, label) pada 1.917 blok.
+
+| Tingkat | $m$ | Tak-layak $\alpha{=}0{,}05$ **marginal** | Tak-layak $\alpha{=}0{,}05$ **serentak** | Blok/label untuk serentak |
+|---|---:|---:|---:|---:|
+| **Superclass** | 5 | **0 / 5** | **0 / 5** | 99 |
+| **Subclass** | 23 | 6 / 23 | **22 / 23** | 459 |
+| **Kode SCP** | 44 | **24 / 44** | **43 / 44** | 879 |
+
+**Frontier-nya terletak di antara superclass dan subclass.** Superclass seluruhnya aman bahkan serentak ($K_1$: NORM 905 · MI 486 · STTC 473 · CD 449 · HYP 242). Pada kode SCP, **mayoritas label tak-layak bahkan tanpa koreksi multiplisitas** — `2AVB` hanya punya **1** blok kalibrasi ($\alpha_{\min} = 0{,}5$), `INJIN`/`3AVB`/`INJLA`/`INJIL`/`PMI` masing-masing 2 blok.
+
+**Konsekuensi langsung untuk desain eksperimen:**
+
+1. Klaim terkondisi-label pada tingkat **superclass** sah dan dapat dipertahankan.
+2. Klaim terkondisi-label pada tingkat **kode SCP** tidak dapat dipertahankan pada $\alpha$ lazim — dan itu **bukan** karena modelnya lemah. Melaporkan cakupan per-kode-SCP tanpa menyebut $K_1(\ell)$ akan menyesatkan.
+3. Bila jaminan serentak diinginkan, **hanya tingkat superclass yang tersedia**.
+
+> Monotonisitas Prop. 5 diperiksa pada seluruh 23 pasangan subclass→superclass: **0 pelanggaran**.
+
+### 5.6 Kehati-hatian yang wajib dicatat
+
+> 🟡 Mengondisikan pada $\ell \in Y$ adalah **seleksi bergantung-data**. Pada conformal terkondisi-kelas (Mondrian) hal ini baku dan sah asalkan stratifikasi dilakukan **sebelum** melihat skor. Di sini satu blok dapat memuat rekaman berlabel $\ell$ **dan** tidak; unit exchangeable di dalam stratum menjadi *irisan* blok dengan stratum. Argumennya masuk akal karena blok tetap i.i.d., tetapi **perlu ditulis formal dan direview** sebelum diklaim.
+
+---
+
+## 6. Daftar keterbatasan yang harus dinyatakan di naskah
 
 | # | Keterbatasan | Tindakan |
 |---|---|---|
-| 1 | Prop. 2–3 (b–d) memakai Asumsi (A); tidak bebas-distribusi | Pisahkan secara eksplisit di §Metode |
+| 1 | Prop. 2 dan Teorema C6 (b–d) memakai Asumsi (A); tidak bebas-distribusi | Pisahkan secara eksplisit di §Metode |
 | 2 | Prop. 2 diturunkan untuk $N_k$ seragam | Rumuskan ulang untuk $N_k$ tak seragam, atau nyatakan sebagai aproksimasi |
 | 3 | $\rho(t)$ bergantung pada $t$ dan pada model | E11b mengestimasinya; jangan klaim nilai tunggal |
 | 4 | Kor. 3.2 baru terbukti untuk keluarga HCP/Dunn | 🔴 Jangan klaim universal sebelum direview statistikawan |
 | 5 | Kelayakan `site` bertumpu pada 37 site mungil yang `nurse`-nya kosong | Laporkan; kemungkinan rezim pengumpulan berbeda |
-| 6 | C8 (perluasan ke multi-label berhierarki) **belum disentuh** di dokumen ini | Pekerjaan F1 berikutnya |
+| 6 | §5.1 (cakupan-superset) **sepele** — HCP berlaku tanpa modifikasi | Jangan jual sebagai kontribusi; jadikan bagian Metode |
+| 7 | §5.2 mengondisikan pada $\ell \in Y$ = seleksi bergantung-data | 🟡 Tulis argumen exchangeability intra-stratum secara formal |
+| 8 | Prop. 4–5 memakai blok = `patient_id`; hasilnya berubah untuk granularitas lain | Jalankan ulang diagnostik bila granularitas berubah |
 
 ---
 
-## 6. Yang belum dikerjakan di F1
+## 7. Yang belum dikerjakan di F1
 
-- [ ] **C8** — perluasan HCP dari $\hat\mu(x)\pm T$ ke himpunan label multi-label berhierarki
+- [x] ~~**C8** — perluasan HCP ke multi-label berhierarki~~ ✅ §5
 - [ ] Proposisi 2 untuk $N_k$ tak seragam
 - [ ] Estimator $\rho(t)$ beserta CI (masukan untuk E11b)
-- [ ] 🔴 Review statistikawan atas Kor. 3.2
-- [ ] Kunci judul dan nama metode setelah C6/C7 final
+- [ ] 🔴 Review statistikawan atas Kor. 3.2 dan §5.6
+- [ ] Rumusan formal C2 (penutupan hierarkis) sebagai lema, memakai Kor. 5.2
+- [ ] Kunci judul dan nama metode setelah C6/C7/C8 final

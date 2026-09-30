@@ -18,6 +18,7 @@ from .diagnostics import (
     BlockDiagnostic,
     block_sufficiency,
     compare_granularities,
+    label_sufficiency,
     minimum_blocks,
 )
 from .quantile import quantile_with_infinity, weighted_quantile
@@ -34,6 +35,7 @@ __all__ = [
     "BlockDiagnostic",
     "block_sufficiency",
     "compare_granularities",
+    "label_sufficiency",
     "minimum_blocks",
     "weighted_quantile",
     "quantile_with_infinity",

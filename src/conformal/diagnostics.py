@@ -24,7 +24,13 @@ from dataclasses import dataclass
 
 import numpy as np
 
-__all__ = ["BlockDiagnostic", "block_sufficiency", "minimum_blocks", "compare_granularities"]
+__all__ = [
+    "BlockDiagnostic",
+    "block_sufficiency",
+    "compare_granularities",
+    "label_sufficiency",
+    "minimum_blocks",
+]
 
 
 def minimum_blocks(alpha: float) -> int:
@@ -123,3 +129,53 @@ def compare_granularities(
         for name, labels in groupings.items()
         for alpha in alphas
     ]
+
+
+def label_sufficiency(
+    blocks: np.ndarray,
+    labels: np.ndarray,
+    alpha: float,
+    label_names: list[str] | None = None,
+    simultaneous: bool = False,
+) -> list[BlockDiagnostic]:
+    """C8 -- kelayakan kalibrasi per label (Prop. 4).
+
+    Jaminan terkondisi-label untuk label ``l`` hanya boleh memakai titik
+    kalibrasi yang memuat ``l``, sehingga blok yang tersedia menyusut menjadi
+    blok yang MEMUAT ``l``. Batas kelayakannya karenanya per label:
+
+        alpha >= 1 / (K1(l) + 1)
+
+    Dengan ``simultaneous=True``, union bound menuntut alpha/m per label
+    (m = jumlah label), yang menaikkan ambangnya secara linear terhadap m.
+
+    Berjalan tanpa model: hanya butuh label blok dan matriks label biner.
+
+    Parameters
+    ----------
+    blocks : (n,) label blok per pengamatan
+    labels : (n, m) matriks biner; ``labels[i, j]`` benar bila pengamatan i
+             memuat label j
+    """
+    blocks = np.asarray(blocks).ravel()
+    labels = np.asarray(labels, dtype=bool)
+    if labels.ndim != 2:
+        raise ValueError(f"labels harus 2-D (n, m), diterima {labels.shape}")
+    if labels.shape[0] != blocks.size:
+        raise ValueError(f"labels {labels.shape} dan blocks {blocks.shape} tidak sepadan")
+
+    m = labels.shape[1]
+    if label_names is None:
+        label_names = [f"label_{j}" for j in range(m)]
+    elif len(label_names) != m:
+        raise ValueError(f"label_names {len(label_names)} != jumlah label {m}")
+
+    alpha_efektif = alpha / m if simultaneous else alpha
+
+    hasil = []
+    for j, nama in enumerate(label_names):
+        ada = labels[:, j]
+        if not ada.any():
+            raise ValueError(f"label '{nama}' tidak muncul sama sekali")
+        hasil.append(block_sufficiency(blocks[ada], alpha_efektif, grouping=nama))
+    return hasil
