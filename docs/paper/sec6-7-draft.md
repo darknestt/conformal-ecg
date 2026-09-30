@@ -170,34 +170,47 @@ Ini klaim tentang dokumentasi, bukan teorema. Ketakteramatan tidak dapat
 dibuktikan dari data — tanpa label pasien, tidak ada cara memeriksa apakah
 partisi pasien memfaktor melalui $V$.
 
-#### ❗ Dokumentasi membuktikan dependensi itu ADA, sekaligus tak teramati
+#### ❗ Dokumentasi menyatakan pengulangan ADA, sekaligus pengenalnya tidak tersedia
 
 **[Dok]** Halaman resmi menyatakan bahwa sumber INCART berisi
 
 > *"74 annotated ECGs (all shared as training data) **extracted from 32 Holter
 > monitor recordings**."*
 
-Tujuh puluh empat rekaman berasal dari **32 pemantauan Holter**. Klasterisasi
-tingkat subjek karena itu **terdokumentasi ada** — rata-rata 2,3 rekaman per
-pemantauan — sementara pengenal yang menentukan rekaman mana milik pemantauan
-mana **tidak disediakan**.
+Rumusan yang boleh masuk naskah:
+
+> *The dataset documentation explicitly reports repeated extraction from 32
+> Holter monitor recordings, demonstrating that multiple ECG records may
+> originate from the same underlying monitoring episode, while the corresponding
+> grouping identifier is not provided in the distributed metadata.*
+
+> ⚠️ **Yang tidak boleh ditulis:** *"Challenge 2021 membuktikan dependensi
+> tingkat pasien."* Yang terdokumentasi adalah **episode pemantauan**, bukan
+> identitas pasien. Satu pasien dapat menjalani beberapa pemantauan, dan satu
+> pemantauan hanya menyangkut satu pasien — tetapi pemetaan itu tidak diberikan.
 
 Hal serupa berlaku bagi folder `ptb-xl` (dikecualikan sebagai duplikat): 21.837
 rekaman yang di sumber aslinya berasal dari 18.869 pasien.
 
 > **Ini menutup penafsiran yang paling berbahaya.** Kegagalan S0 sering
 > disalahbaca sebagai "tidak ada dependensi yang perlu dikhawatirkan". Di sini
-> dokumentasi dataset sendiri **menegaskan kebalikannya**: dependensi tingkat
-> subjek ada dan tercatat dalam prosa, tetapi tidak tersedia sebagai variabel
-> yang dapat dipakai membentuk blok.
->
-> Inilah kondisi yang S0 dimaksudkan menangkap — dan Challenge 2021 memberi
-> contohnya secara terdokumentasi, bukan hipotetis.
+> dokumentasi dataset sendiri menunjukkan bahwa **jumlah rekaman ≠ jumlah satuan
+> pengamatan independen**, sementara pengenal untuk membentuk bloknya tidak
+> tersedia. Celah itulah yang relevan bagi S0.
 
 **[Obs]** Catatan tambahan yang relevan bagi analisis subkelompok: konvensi
 sensor usia **berbeda antar sumber**. CPSC menyandikan usia di atas 89 sebagai
-**92**; PTB-XL memakai **300**. Menggabungkan sumber tanpa menyelaraskan konvensi
-ini akan merusak stratifikasi usia.
+**92**; PTB-XL memakai **300**.
+
+> 🔧 **Aturan praproses kanonik — wajib diterapkan sebelum analisis subkelompok.**
+> Nilai sentinel **tidak boleh** dipakai sebagai usia literal. Aturan yang dipakai:
+>
+> $$\texttt{age\_censored} \;=\; \mathbb{1}\{\texttt{age} > 89\}, \qquad
+> \texttt{age\_usable} \;=\; \begin{cases}\texttt{age} & \text{bila } \texttt{age} \le 89\\ \text{tak terdefinisi} & \text{selainnya}\end{cases}$$
+>
+> Stratifikasi usia memakai `age_usable` dengan kategori terpisah untuk
+> `age_censored`. Merata-ratakan 92 dan 300 sebagai angka akan menghasilkan
+> kuartil usia yang keliru dan membuat RQ4 tidak dapat dipertahankan.
 
 #### S1 pada partisi sumber — dan hanya pada partisi itu
 
@@ -372,7 +385,7 @@ teratas adalah elemen teratas itu.
 
 ### 🔴 Kerentanan yang bertahan
 
-**V1 — TERSELESAIKAN oleh dokumentasi primer.** *(Diaudit ulang 2026-09-30.)*
+**V1 — TERSELESAIKAN oleh dokumentasi primer; bukan lagi blocker.** *(Diaudit ulang 2026-09-30.)*
 
 Kerentanan semula: struktur subfolder (`g1/`…`g35/`) juga teramati; bila dipakai
 sebagai blok maka $K = 70$ dan vonis S1 berbalik. Argumen penolakan kami semula
@@ -408,16 +421,42 @@ berlawanan**.
 > kenyamanan kesimpulan. Analisis sensitivitas di atas dilaporkan penuh agar
 > pembaca dapat menilai sendiri.
 
-#### 🔴 Sisa kerentanan sesudah resolusi
+#### Mengapa partisi sumber dipilih sebagai partisi analisis utama
 
-Dokumentasi tidak menyatakan **urutan** alokasi rekaman ke subfolder. Bila
-rekaman diurutkan menurut sesuatu yang bermakna sebelum dipenggal, batas
-subfolder dapat **sebagian** selaras dengan struktur itu. Namun karena penggalan
-berukuran tetap 1.000 sedangkan kelompok klinis tidak berukuran kelipatan 1.000,
-penggalan tetap akan **memotong** kelompok mana pun — sehingga subfolder tidak
-memenuhi S2 bagi sumber dependensi apa pun, terlepas dari urutannya.
+Pilihan ini dibuat atas **kriteria substantif**, bukan atas hasil yang
+dihasilkannya:
 
-Status V1 turun dari 🔴 **blocker** menjadi 🟡 **asumsi terdokumentasi**.
+> Partisi sumber dipakai sebagai partisi analisis utama karena ia berpadanan
+> dengan **struktur provenans yang terdokumentasi** — tujuh basis data dari
+> institusi dan negara berbeda, masing-masing dengan protokol akuisisi dan
+> populasi sendiri. Sebaliknya, subfolder `g#` **secara eksplisit dideskripsikan
+> dokumentasi sebagai satuan alokasi berkas** berisi sampai 1.000 rekaman.
+
+Memakai `g#` sebagai blok statistik menuntut **asumsi tambahan** — bahwa batas
+alokasi berkas menghormati struktur dependensi — dan asumsi itu **tidak disokong
+dokumentasi dataset**. Kami karena itu tidak memperlakukannya sebagai blok
+dependensi substantif, sambil tetap melaporkan sensitivitasnya.
+
+#### 🔧 Klaim yang DITARIK
+
+Versi sebelumnya dokumen ini menyatakan bahwa karena penggalan berukuran tetap
+1.000 sedangkan kelompok klinis tidak berukuran kelipatan 1.000, penggalan
+**pasti memotong** kelompok mana pun.
+
+**Klaim itu salah.** Kontra-contohnya sederhana: bila klaster $A$ menempati
+rekaman 1–1.000 dan klaster $B$ menempati 1.001–2.000, maka `g1` $= A$ persis dan
+`g2` $= B$ persis. Tidak ada yang terpotong. Tanpa mengetahui **urutan** rekaman,
+pemotongan tidak dapat disimpulkan.
+
+Yang benar dinyatakan: **hubungan antara `g#` dan struktur dependensi sejati
+tidak dapat ditentukan**, karena urutan alokasi tidak terdokumentasi dan struktur
+dependensinya sendiri tak teramati. Ini bentuk ketakteramatan yang sama dengan S0,
+satu tingkat lebih dalam.
+
+> Perhatikan bahwa untuk dua sumber terkecil, pembedaannya tidak berlaku: INCART
+> (74 rekaman) dan `ptb` (516 rekaman) masing-masing muat dalam **satu** subfolder,
+> sehingga partisi `g#` dan partisi sumber berimpit di sana. Selisih $K{=}7$
+> versus $K{=}70$ sepenuhnya berasal dari lima sumber besar.
 
 **V2 — Klaim "tidak ada pengenal pasien" bersandar pada sampel 42/66.416.**
 

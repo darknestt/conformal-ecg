@@ -546,9 +546,11 @@ Dihitung oleh [scripts/verify_challenge2021.py](../scripts/verify_challenge2021.
 
 **S0 TAK TERAMATI** untuk sumber dependensi *pasien*: tidak ada variabel yang terdokumentasi sebagai pengenal pasien. Menurut Prop. 0′, $K_1$ karena itu berhenti menjadi besaran terhitung dan berubah menjadi **asumsi tentang kelas $\mathfrak{P}$** yang wajib dinyatakan.
 
-> ❗ **Dokumentasi membuktikan dependensi itu ADA.** Halaman resmi menyatakan sumber INCART berisi *"74 annotated ECGs … extracted from **32 Holter monitor recordings**"* — rata-rata 2,3 rekaman per pemantauan. Klasterisasi tingkat subjek **terdokumentasi ada**, sementara pengenalnya tidak disediakan.
+> ❗ **Dokumentasi menyatakan pengulangan ADA.** Halaman resmi menyatakan sumber INCART berisi *"74 annotated ECGs … extracted from **32 Holter monitor recordings**"*. Beberapa rekaman dapat berasal dari **episode pemantauan yang sama**, sementara pengenal pengelompokannya tidak disediakan dalam metadata yang didistribusikan.
 >
-> Ini menutup penafsiran paling berbahaya atas kegagalan S0. Ia **bukan** berarti "tidak ada dependensi yang perlu dikhawatirkan"; di sini dataset sendiri menegaskan kebalikannya. Inilah persis kondisi yang S0 dimaksudkan menangkap, dan contohnya terdokumentasi, bukan hipotetis.
+> Rumusan itu sengaja menyebut **episode pemantauan**, bukan identitas pasien — yang terdokumentasi adalah yang pertama. Menulis "terbukti ada dependensi tingkat pasien" akan melampaui bukti.
+>
+> Ini menutup penafsiran paling berbahaya atas kegagalan S0. Ia **bukan** berarti "tidak ada dependensi yang perlu dikhawatirkan"; dokumentasi justru menunjukkan **jumlah rekaman ≠ jumlah satuan pengamatan independen**, sementara pengenal untuk membentuk bloknya tidak tersedia.
 
 > Ini **bukan** klaim bahwa cakupan pasti rusak. Yang hilang adalah **jaminannya**.
 >
