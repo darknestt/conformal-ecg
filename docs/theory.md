@@ -247,13 +247,42 @@ Dengan ukuran yang benar, **kedua granularitas yang layak justru dua yang paling
 
 ## 4. C7 — Diagnostik kecukupan blok
 
+### 4.0 Status formal tiap komponen — audit
+
+> Ditulis 2026-09-30 untuk menjawab risiko yang sah: sebuah "diagnostik" dapat tampak berguna padahal hanya merupakan kumpulan kondisi intuitif tanpa status matematis yang jelas. Tabel ini menyatakan status setiap komponen secara terbuka.
+
+| Komponen | Status | Sumber |
+|---|---|---|
+| **S1** Kelayakan | 🟢 **Teorema** — konsekuensi langsung Prop. 1 | Teorema 1 [A0] |
+| **S2** Kecukupan | 🟢 **Definisi + Prop. 3** — aljabar kekisi partisi | murni kombinatorial |
+| **S0** Keteramatan | 🟢 **Definisi terukur** + Prop. 0 (ketakterputusan) | §4.1 di bawah |
+| Urutan $S_0 \to S_1 \to S_2$ | 🟡 **Aturan keputusan** | pilihan desain, bukan teorema |
+| Pemeringkatan granularitas admissible | 🟡 **Heuristik** berbasis Prop. 2′ | bukan optimalitas terbukti |
+
+**Yang tidak diklaim:** bahwa urutan pemeriksaan ini optimal, bahwa ia lengkap (mungkin ada syarat keempat), atau bahwa pemeringkatannya menghasilkan pilihan terbaik dalam arti apa pun yang terbukti. Ia adalah **prosedur yang dapat diaudit**, bukan algoritma optimal.
+
+#### Hubungan C7 ↔ C6
+
+C7 bukan kontribusi terpisah yang kebetulan bertetangga dengan C6. Ia adalah **C6 yang dijadikan dapat diperiksa**, ditambah dua prasyarat yang C6 andaikan secara diam-diam.
+
+| C6 menyatakan | C7 menjadikannya |
+|---|---|
+| Validitas dibatasi $K_1$, bukan $N_k$ (butir a) | **S1** — kondisi yang dihitung per granularitas |
+| Efisiensi diatur $\mathrm{DEff}=1+(H-1)\rho$ (butir b–d) | Kunci pengurutan granularitas admissible |
+| *(diandaikan)* blok dapat dibentuk dari data | **S0** |
+| *(diandaikan)* blok menampung seluruh dependensi | **S2** |
+
+Dua baris terakhir adalah isi sesungguhnya C7. C6 merumuskan batasnya; C6 tidak pernah menanyakan apakah blok yang dibutuhkan **ada** dan **cukup**.
+
+---
+
 ### 4.1 Tiga syarat, bukan satu
 
 Pengelompokan $g$ dapat dipakai untuk kalibrasi hanya bila **ketiganya** terpenuhi:
 
 | Syarat | Isi | Sifat |
 |---|---|---|
-| **S0 Keteramatan** | setiap sumber dependensi yang diduga ada **tercatat di metadata** | Prasyarat epistemik |
+| **S0 Keteramatan** | partisi sumber dependensi **terukur** terhadap metadata | Definisi terukur |
 | **S1 Kelayakan** | $K_1(g) \ge \lceil 1/\alpha\rceil - 1$ | Kombinatorial, **eksak**, tanpa galat sampling |
 | **S2 Kecukupan** | setiap sumber dependensi bersarang di dalam $g$ | Kombinatorial, **eksak** |
 
@@ -261,19 +290,27 @@ S1 saja tidak cukup, dan inilah yang membedakan C7 dari sekadar menghitung blok.
 
 #### S0 — prasyarat yang semula tersembunyi
 
-> 🔧 **DITAMBAHKAN 2026-09-30.** Versi pertama C7 hanya memuat S1 dan S2. Kelalaian itu tidak pernah terlihat karena PTB-XL dan MIT-BIH sama-sama mencatat pengenal pasien, sehingga S0 selalu terpenuhi secara diam-diam. Cacatnya baru muncul ketika diagnostik hendak dijalankan pada dataset yang **tidak** mencatatnya.
+> 🔧 **DITAMBAHKAN 2026-09-30.** Versi pertama C7 hanya memuat S1 dan S2. Kelalaian itu tidak pernah terlihat karena PTB-XL dan MIT-BIH sama-sama mencatat pengenal pasien, sehingga S0 selalu terpenuhi secara diam-diam.
 
-**Definisi (keteramatan).** Sumber dependensi $\mathcal{P}$ **teramati** bila metadata memuat variabel yang menentukan keanggotaan blok $\mathcal{P}$ untuk setiap pengamatan.
+**Definisi (keteramatan).** Misalkan $M$ menyatakan metadata yang tersedia dan $\sigma(M)$ lapangan-$\sigma$ yang dibangkitkannya. Sumber dependensi berpartisi $\mathcal{P}$ **teramati** bila pemetaan yang menugaskan tiap pengamatan ke blok $\mathcal{P}$-nya bersifat **$\sigma(M)$-terukur**.
 
-S2 adalah pernyataan tentang hubungan antara $\mathcal{P}$ dan $g$. Bila $\mathcal{P}$ tidak teramati, hubungan itu **tidak dapat dievaluasi** — dan ini berbeda secara mendasar dari S2 yang gagal:
+Setiap partisi kalibrasi $\mathcal{Q}$ yang dapat dibangun praktisi **wajib** $\sigma(M)$-terukur — tidak mungkin mengelompokkan menurut sesuatu yang tidak tercatat.
+
+> 🟢 **Proposisi 0 (ketakterputusan S2 di bawah ketakteramatan).** Bila $\mathcal{P}$ **tidak** $\sigma(M)$-terukur, maka untuk sembarang $\mathcal{Q}$ yang $\sigma(M)$-terukur, pernyataan "$\mathcal{P}$ menghaluskan $\mathcal{Q}$" **tidak dapat diputuskan** dari data.
+>
+> *Bukti.* Karena $\mathcal{P}$ tak teramati, banyak partisi berbeda konsisten dengan $M$ yang sama. Ambil $\mathcal{P}_\bot$ = partisi terhalus (setiap pengamatan sendirian): ia menghaluskan **setiap** $\mathcal{Q}$, sehingga S2 berlaku. Ambil $\mathcal{P}_\top$ = partisi terkasar (satu blok): ia hanya menghaluskan $\mathcal{Q}$ yang trivial, sehingga S2 gagal untuk $\mathcal{Q}$ non-trivial mana pun. Keduanya konsisten dengan $M$ yang teramati. Maka kedua hasil dapat terjadi, dan S2 tak dapat diputuskan. $\square$
+
+Konsekuensinya bersifat **epistemik, bukan negatif**:
 
 | | Keluaran diagnostik | Artinya |
 |---|---|---|
 | S1 gagal | **TIDAK** | Terbukti tidak ada jaminan non-trivial |
 | S2 gagal | **TIDAK** | Terbukti dependensi tidak terkendali |
-| **S0 gagal** | **TIDAK DAPAT DITENTUKAN** | Bukan bukti aman, dan bukan bukti gagal |
+| **S0 tak teramati** | **TIDAK DAPAT DITENTUKAN** | Bukan bukti aman, **dan bukan bukti gagal** |
 
-**Aturan keputusan.** Untuk jaminan yang dipakai pada keputusan klinis, "tidak dapat ditentukan" **wajib diperlakukan sebagai gagal**. Asumsi diam-diam bahwa sumber dependensi tak tercatat berarti tak ada adalah persis asumsi yang membuat conformal naif keliru sejak awal.
+> ⚠️ **S0 tidak pernah "gagal".** Ia hanya **terpenuhi** atau **tak teramati**. Menulis "S0 gagal" menyiratkan telah dibuktikan adanya dependensi tak terkendali — padahal yang terjadi justru sebaliknya: tidak ada yang dapat dibuktikan. Prop. 0 menyatakan persis itu.
+
+**Aturan keputusan** (🟡 pilihan desain, bukan teorema). Untuk jaminan yang dipakai pada keputusan klinis, "tidak dapat ditentukan" diperlakukan sebagai **tidak lolos**. Asumsi diam-diam bahwa sumber dependensi tak tercatat berarti tak ada adalah persis asumsi yang membuat conformal naif keliru sejak awal.
 
 > Perhatikan asimetrinya: S0 tidak dapat dipenuhi dengan analisis yang lebih cermat, berapa pun usahanya. Ia hanya dapat dipenuhi dengan **mengubah cara data dikumpulkan**. Itulah sebabnya diagnostik ini berguna justru **sebelum** studi dijalankan, bukan sesudah.
 
@@ -359,10 +396,10 @@ MASUKAN : daftar sumber dependensi yang DIDUGA ada, D = {d1..dm}
 KELUARAN: himpunan pengelompokan yang admissible, terurut
           ATAU vonis TIDAK DAPAT DITENTUKAN
 
-0. S0 <- [ setiap di dalam D memiliki variabel penentu blok di dalam M ]
-1. Jika S0 gagal untuk sumber d:
+0. S0 <- [ partisi tiap sumber di D terukur terhadap metadata M ]
+1. Jika S0 tak teramati untuk sumber d:
 2.     KELUARKAN "TIDAK DAPAT DITENTUKAN untuk d" dan BERHENTI
-3.     // bukan "aman"; kekurangan metadata tidak dapat ditambal analisis
+3.     // bukan "gagal" dan bukan "aman" -- lihat Prop. 0
 4. Untuk setiap himpunan bagian S dari D yang ingin dikendalikan:
 5.     Q  <- komponen terhubung dari gabungan partisi di S        (Prop. 3)
 6.     K1 <- jumlah blok Q pada set KALIBRASI
@@ -386,15 +423,17 @@ Ketiganya menghasilkan "jangan pakai granularitas ini", tetapi implikasinya bagi
 
 | Mode | Gagal pada | Dapat diperbaiki dengan |
 |---|---|---|
-| **Kekurangan metadata** | S0 | Mengubah **pengumpulan data** — mencatat pengenal blok |
+| **Tak teramati** | S0 | Mengubah **pengumpulan data** — mencatat pengenal blok |
 | **Kekurangan blok** | S1 | Merekrut lebih banyak **blok** (bukan lebih banyak pengukuran) |
 | **Desain bersilang** | S2 | Mengubah **desain**; sering tidak dapat diperbaiki setelah data terkumpul |
 
 Pembedaan ini yang menjadikan C7 alat perancangan, bukan sekadar pemeriksa. Vonis "tidak layak" tanpa menyebut **sumbu mana** yang gagal tidak memberi tahu praktisi apa yang harus diubah.
 
-### 4.6 ✅ Instansiasi kedua — Challenge 2021 sebagai kasus kegagalan S0
+> Hanya S1 dan S2 yang benar-benar "gagal". S0 **tak teramati** — lihat Prop. 0.
 
-Diagnostik yang hanya pernah mengeluarkan vonis "lolos" tidak membuktikan apa pun. PTB-XL memberi kasus **lolos** pada `patient_id`; PhysioNet/CinC Challenge 2021 memberi kasus **gagal**, dan gagalnya pada sumbu yang berbeda.
+### 4.6 ✅ Instansiasi kedua — Challenge 2021 sebagai studi kasus batas keteramatan
+
+Diagnostik yang hanya pernah mengeluarkan vonis "lolos" tidak membuktikan apa pun. PTB-XL memberi kasus **terpenuhi** pada `patient_id`; PhysioNet/CinC Challenge 2021 memberi kasus **tak teramati**, yaitu kegagalan pada sumbu yang sama sekali berbeda.
 
 Dihitung oleh [scripts/verify_challenge2021.py](../scripts/verify_challenge2021.py); mentah di `results/raw/challenge2021_s0.json`.
 
@@ -417,13 +456,17 @@ Dihitung oleh [scripts/verify_challenge2021.py](../scripts/verify_challenge2021.
 
 #### Vonis
 
-**S0 GAGAL** untuk sumber dependensi *pasien*. Konsekuensinya bukan "tidak ada dependensi pasien", melainkan **S2 tidak terdefinisi**: tak dapat diketahui apakah ada pasien yang menyumbang beberapa rekaman, apalagi apakah mereka menyeberang sumber.
+**S0 TAK TERAMATI** untuk sumber dependensi *pasien*. Menurut Prop. 0, S2 karena itu **tidak dapat diputuskan** — bukan gagal, bukan lolos. Yang benar dinyatakan: *tidak dapat diketahui* apakah ada pasien yang menyumbang beberapa rekaman, apalagi apakah mereka menyeberang sumber.
 
 Satu-satunya partisi yang teramati adalah **sumber**, dengan $K = 7$. Karena $K_1 \le K$ selalu,
 
 $$\alpha_{\min} \;=\; \frac{1}{K_1+1} \;\ge\; \frac{1}{8} \;=\; 0{,}125$$
 
-sehingga $\alpha \in \{0{,}01;\,0{,}05;\,0{,}10\}$ **mustahil, berapa pun cara membagi kalibrasi dan uji**. Batas ini hanya memakai monotonisitas $K_1 \le K$ dan tidak bergantung pada rancangan split.
+> ⚠️ **Ruang lingkup klaim — rumusan yang boleh masuk naskah.** *Dengan partisi teramati yang tersedia pada metadata Challenge 2021, dan di bawah kondisi kelayakan sampel-hingga yang dipakai penelitian ini, target $\alpha < 0{,}125$ tidak memenuhi syarat kelayakan untuk jaminan non-trivial pada tingkat blok tersebut.*
+>
+> Yang **tidak boleh** ditulis: *"Challenge 2021 terbukti tidak dapat dipakai untuk conformal prediction."* Itu terlalu luas. Kesimpulannya bergantung pada **partisi yang teramati** dan pada **kerangka jaminan yang dipakai** — keduanya harus disebut.
+
+Batas ini hanya memakai monotonisitas $K_1 \le K$ dan tidak bergantung pada rancangan split.
 
 #### Biaya vonis
 
@@ -443,13 +486,23 @@ Inilah demonstrasi terkuat nilai praktis C7: vonis definitif diperoleh **sebelum
 
 #### Posisi di naskah
 
-Challenge 2021 **bukan** dataset generalisasi tingkat pasien — datanya tidak mendukung klaim itu. Ia masuk sebagai **kasus kegagalan struktural** yang melengkapi C7:
+Challenge 2021 **bukan** dataset generalisasi tingkat pasien — datanya tidak mendukung klaim itu. Ia juga **bukan** bukti empiris utama. Posisinya adalah **studi kasus diagnostik** yang menjelaskan *mengapa* S0 diperlukan:
 
-| Dataset | Peran |
+> *Challenge 2021 memperlihatkan batas struktural diagnostik ini: ketika metadata tidak memuat variabel pengelompokan yang diperlukan untuk membentuk blok sadar-dependensi, S0 tidak dapat diverifikasi secara empiris. Ini wajib dilaporkan sebagai **batas keteramatan**, bukan sebagai bukti bahwa rekamannya independen.*
+
+| Dataset | Peran | S0 |
+|---|---|---|
+| PTB-XL | Kasus utama; dependensi pasien + multi-label + hierarki | ✅ terpenuhi |
+| MIT-BIH | Validasi dependensi kuat; blok = rekaman | ✅ terpenuhi |
+| **Challenge 2021** | **Studi kasus batas keteramatan** | ⚠️ **tak teramati** |
+
+| Kondisi | Tafsir |
 |---|---|
-| PTB-XL | Kasus utama; `patient_id` **lolos** S0–S2 |
-| MIT-BIH | Validasi dependensi kuat; rekaman lolos S0 |
-| **Challenge 2021** | **Kasus gagal S0** — metadata tidak mencatat blok |
+| S0 terpenuhi | Struktur partisi dapat diamati |
+| **S0 tak teramati** | **Pengenal tak tersedia → dependensi tak dapat diverifikasi** |
+| S1 gagal | Target $\alpha$ tidak layak pada jumlah blok tersebut |
+| S2 gagal | Struktur dependensi yang relevan belum terkendali |
+| S0–S2 terpenuhi | Dataset memenuhi prasyarat diagnostik |
 
 ---
 

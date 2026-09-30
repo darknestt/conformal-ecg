@@ -280,9 +280,9 @@ Rincian lengkap beserta kutipan: [`docs/references.md`](docs/references.md).
 
 **Nilai strategis:** SNR adalah *covariate shift terkendali*. Memungkinkan pengukuran presisi pada degradasi tingkat berapa jaminan cakupan mulai gagal — jauh lebih kuat daripada noise sintetis buatan sendiri.
 
-### 5.4 Dataset Kegagalan Struktural — PhysioNet/CinC Challenge 2021 ✅ DIAGNOSTIK SELESAI
+### 5.4 Studi Kasus Batas Keteramatan — PhysioNet/CinC Challenge 2021 ✅ DIAGNOSTIK SELESAI
 
-> 🎯 **Reposisi 2026-09-30.** Dataset ini **bukan** dataset generalisasi tingkat pasien — datanya tidak mendukung klaim itu. Ia masuk naskah sebagai **kasus kegagalan S0** yang melengkapi C7. Diagnostik yang hanya pernah bilang "lolos" tidak membuktikan apa pun.
+> 🎯 **Reposisi 2026-09-30.** Dataset ini **bukan** dataset generalisasi tingkat pasien — datanya tidak mendukung klaim itu, dan **bukan** bukti empiris utama. Ia masuk naskah sebagai **studi kasus batas keteramatan** yang menjelaskan *mengapa* prasyarat S0 diperlukan. Diagnostik yang hanya pernah bilang "lolos" tidak membuktikan apa pun.
 
 | Atribut | Nilai |
 |---|---|
@@ -305,15 +305,17 @@ Isi header diperiksa langsung (760 B): `#Age`, `#Sex`, `#Dx`, `#Rx`, `#Hx`, `#Sx
 
 | Syarat | Hasil |
 |---|---|
-| **S0 Keteramatan** | ❌ **GAGAL** — sumber dependensi pasien tidak tercatat |
-| **S2 Kecukupan** | ⚠️ **TIDAK TERDEFINISI** — bukan gagal, bukan lolos |
+| **S0 Keteramatan** | ⚠️ **TAK TERAMATI** — pengenal pasien tidak tercatat |
+| **S2 Kecukupan** | ⚠️ **TIDAK DAPAT DIPUTUSKAN** (Prop. 0) — bukan gagal, bukan lolos |
 | **S1 Kelayakan** (sumber, $K{=}7$) | ❌ $\alpha_{\min} \ge 1/8 = 0{,}125$ |
 
-Karena $K_1 \le K$ selalu, $\alpha \in \{0{,}01;\,0{,}05;\,0{,}10\}$ **mustahil berapa pun cara membagi** — batas ini tidak bergantung rancangan split.
+> ⚠️ **S0 tidak pernah "gagal".** Ia terpenuhi atau tak teramati. Tidak menemukan pengenal pasien **bukan** membuktikan rekamannya independen — justru sebaliknya, tidak ada yang dapat dibuktikan. Ini dilaporkan sebagai **batas keteramatan**.
+
+**Rumusan klaim yang boleh masuk naskah:** *dengan partisi teramati yang tersedia pada metadata Challenge 2021, dan di bawah kondisi kelayakan sampel-hingga yang dipakai penelitian ini, target $\alpha < 0{,}125$ tidak memenuhi syarat kelayakan untuk jaminan non-trivial pada tingkat blok tersebut.* Yang **tidak boleh** ditulis: *"Challenge 2021 terbukti tidak dapat dipakai untuk conformal prediction"* — terlalu luas.
 
 **Nilai demonstratifnya:** vonis definitif diperoleh dengan mengunduh **~0,5 MB dari 12,6 GB** — rasio ~25.000× — sebelum preprocessing dan sebelum melatih model apa pun. Itu inti klaim praktis C7.
 
-Turunan lengkap beserta dua kesalahan yang tertangkap saat menyusunnya: [`docs/theory.md`](docs/theory.md) §4.6.
+Turunan lengkap, Prop. 0, dan dua kesalahan yang tertangkap saat menyusunnya: [`docs/theory.md`](docs/theory.md) §4.0–4.6.
 
 ### 5.5 UEA/UCR Archive ✅ TERVERIFIKASI — prioritas diturunkan
 

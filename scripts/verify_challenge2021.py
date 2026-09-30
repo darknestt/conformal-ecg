@@ -7,9 +7,10 @@ tingkat pasien tidak dapat didukung datanya.
 
 Yang diuji adalah prasyarat S0 (theory.md par. 4.1):
 
-    S0  setiap sumber dependensi yang diduga ada tercatat di metadata
+    S0  Keteramatan: partisi sumber dependensi terukur terhadap metadata
 
-Bila S0 gagal, S2 menjadi TIDAK TERDEFINISI -- bukan gagal, bukan lolos. Untuk
+S0 tidak pernah "gagal" -- ia TERPENUHI atau TAK TERAMATI. Bila tak teramati,
+Prop. 0 menyatakan S2 TIDAK DAPAT DIPUTUSKAN: bukan gagal, bukan lolos. Untuk
 jaminan yang dipakai pada keputusan klinis, "tidak dapat ditentukan" wajib
 diperlakukan sebagai gagal.
 
@@ -190,17 +191,22 @@ def tahap1() -> dict:
     print(f"  Medan tersedia         : {sorted(medan)}")
     print(f"  Pengenal pasien ada?   : {'YA' if punya_pasien else 'TIDAK'}")
     if not punya_pasien:
-        print("  -> S0 GAGAL untuk sumber dependensi 'pasien'.")
-        print("     S2 TIDAK TERDEFINISI: tak dapat diketahui apakah ada pasien")
-        print("     yang menyumbang beberapa rekaman, apalagi menyeberang sumber.")
-        print("     Vonis diagnostik: TIDAK DAPAT DITENTUKAN, diperlakukan GAGAL.")
-    hasil["S0_vonis"] = "LOLOS" if punya_pasien else "GAGAL_tak_teramati"
+        print("  -> S0 TAK TERAMATI untuk sumber dependensi 'pasien'.")
+        print("     S0 tidak pernah 'gagal' -- ia terpenuhi atau tak teramati.")
+        print("     Menurut Prop. 0, S2 karena itu TIDAK DAPAT DIPUTUSKAN:")
+        print("     tak dapat diketahui apakah ada pasien yang menyumbang beberapa")
+        print("     rekaman. Ini BUKAN bukti bahwa rekamannya independen.")
+        print("     Aturan keputusan: tidak dapat ditentukan -> tidak lolos.")
+    hasil["S0_vonis"] = "TERPENUHI" if punya_pasien else "TAK_TERAMATI"
 
     k = len([f for f in FOLDER if hasil[f]["n_rekaman"] > 0])
     if k:
         print(f"\n  Satu-satunya partisi teramati adalah SUMBER: K = {k}")
         print(f"  Karena K1 <= K, maka alpha_min >= 1/(K+1) = {1 / (k + 1):.4f}")
-        print("  -> alpha = 0,01 / 0,05 / 0,10 MUSTAHIL, berapa pun cara membagi.")
+        print("  -> Dengan partisi teramati yang tersedia, dan di bawah kondisi")
+        print("     kelayakan sampel-hingga yang dipakai penelitian ini, target")
+        print(f"     alpha < {1 / (k + 1):.4f} tidak memenuhi syarat kelayakan.")
+        print("     Ini BUKAN klaim bahwa dataset tak dapat dipakai untuk conformal.")
         hasil["K_sumber"] = k
         hasil["alpha_min_batas_bawah"] = 1.0 / (k + 1)
     else:
