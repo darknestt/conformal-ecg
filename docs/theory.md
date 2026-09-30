@@ -254,12 +254,72 @@ Dengan ukuran yang benar, **kedua granularitas yang layak justru dua yang paling
 | Komponen | Status | Sumber |
 |---|---|---|
 | **S1** Kelayakan | 🟢 **Teorema** — konsekuensi langsung Prop. 1 | Teorema 1 [A0] |
-| **S2** Kecukupan | 🟢 **Definisi + Prop. 3** — aljabar kekisi partisi | murni kombinatorial |
-| **S0** Keteramatan | 🟢 **Definisi terukur** + Prop. 0 (ketakterputusan) | §4.1 di bawah |
+| **S2** Kecukupan | � **Definisi + Prop. 3**, sah **hanya di bawah model [A0]** | §4.0b serangan 3 |
+| **S0** Keteramatan | 🟡 **Klaim dokumentasi**, bukan teorema | §4.0b serangan 2 |
+| **Prop. 0′** Harga ketakteramatan | 🟢 **Hasil** — tanpa pengenal tercatat, hanya $\alpha\ge\tfrac12$ terjamin | §4.0b serangan 1 |
 | Urutan $S_0 \to S_1 \to S_2$ | 🟡 **Aturan keputusan** | pilihan desain, bukan teorema |
 | Pemeringkatan granularitas admissible | 🟡 **Heuristik** berbasis Prop. 2′ | bukan optimalitas terbukti |
 
+> Status di atas adalah hasil **sesudah** audit adversarial §4.0b. Versi pertama menandai S0 dan S2 sebagai 🟢; keduanya diturunkan setelah serangan berhasil menembusnya.
+
 **Yang tidak diklaim:** bahwa urutan pemeriksaan ini optimal, bahwa ia lengkap (mungkin ada syarat keempat), atau bahwa pemeringkatannya menghasilkan pilihan terbaik dalam arti apa pun yang terbukti. Ia adalah **prosedur yang dapat diaudit**, bukan algoritma optimal.
+
+---
+
+### 4.0b Audit adversarial — tiga celah yang saya temukan sendiri
+
+> Dikerjakan 2026-09-30 dengan berperan sebagai reviewer yang berusaha menunjukkan bahwa C7 **hanya tampak formal**. Ketiga serangan di bawah berhasil menembus rumusan versi pertama. Perbaikannya disertakan.
+
+#### Serangan 1 — "Proposisi 0 benar, tetapi nyaris tanpa isi"
+
+**Serangan.** Bukti Prop. 0 memakai $\mathcal{P}_\bot$ (seluruhnya tunggal) melawan $\mathcal{P}_\top$ (satu blok). Tetapi $\mathcal{P}_\bot$ berarti **tidak ada dependensi sama sekali**. Jadi yang dibandingkan adalah "nihil dependensi" versus "dependensi total". Pernyataan seperti itu berlaku bagi **sembarang** besaran tak teramati dan tidak mengatakan apa pun khusus tentang conformal prediction. Ia hanya merumuskan ulang "Anda tidak dapat mengetahui apa yang tidak Anda amati".
+
+**Diterima.** Prop. 0 diturunkan statusnya menjadi **catatan**, bukan hasil. Penggantinya menyatakan sesuatu yang operasional.
+
+> 🟢 **Proposisi 0′ (harga ketakteramatan).** Misalkan kalibrasi memakai partisi teramati $\mathcal{Q}$, sedangkan dependensi sejati dibangkitkan partisi $\mathcal{P}$ yang tak teramati dan **tanpa kendala apa pun**. Maka jaminan yang masih dapat dipertahankan adalah jaminan pada kasus terburuk $\mathcal{P} = \mathcal{P}_\top$, yaitu $K_1 = 1$, sehingga
+> $$\alpha \;\ge\; \tfrac{1}{K_1+1} \;=\; \tfrac{1}{2}.$$
+>
+> *Bukti.* Jaminan HCP menuntut $\mathcal{P}$ menghaluskan $\mathcal{Q}$. Himpunan $\mathcal{P}$ yang konsisten dengan metadata mencakup $\mathcal{P}_\top$, yang hanya menghaluskan partisi trivial. Infimum jaminan atas himpunan itu karena itu dicapai pada partisi trivial, dengan $K_1 = 1$. $\square$
+
+Ini mengubah "tak dapat diputuskan" menjadi **harga yang terhitung**: tanpa pengenal blok yang tercatat, satu-satunya tingkat kesalahan yang masih terjamin adalah $\alpha \ge 0{,}5$ — yaitu tanpa guna secara praktis. Itulah biaya sesungguhnya dari tidak mencatat pengenal.
+
+> Perhatikan bahwa Prop. 0′ **tidak** menyatakan cakupan pasti rusak. Ia menyatakan batas yang masih **terjamin** runtuh. Data bisa saja baik-baik saja; yang hilang adalah jaminannya.
+
+#### Serangan 2 — "Definisi keteramatan itu hampa"
+
+**Serangan.** Pada dataset berhingga, $M$ memuat pengenal rekaman yang unik per baris. Lapangan-$\sigma$ yang dibangkitkannya adalah lapangan-$\sigma$ diskret, sehingga **setiap** partisi bersifat $\sigma(M)$-terukur. Definisi S0 versi pertama karena itu dipenuhi secara trivial oleh apa pun, dan tidak menyaring apa-apa.
+
+**Diterima — ini celah paling serius dari ketiganya.** Definisi diperbaiki menjadi relatif terhadap himpunan variabel yang **dideklarasikan**, bukan terhadap seluruh metadata.
+
+**Definisi (keteramatan, direvisi).** Misalkan $V \subseteq M$ himpunan variabel metadata **substantif** — yaitu $M$ dikurangi pengenal yang unik per rekaman. Sumber dependensi berpartisi $\mathcal{P}$ disebut **$V$-teramati** bila terdapat fungsi **yang ditetapkan di muka** $f$ sehingga keanggotaan blok tiap pengamatan sama dengan $f(V)$.
+
+Pengecualian pengenal-unik itu bukan kerapian teknis. Pengenal unik membangkitkan partisi **terhalus**, yang tepat merupakan asumsi "setiap rekaman independen" — asumsi yang justru hendak diuji. Membiarkannya masuk membuat S0 selalu lolos dengan cara yang menjawab pertanyaan yang salah.
+
+> ⚠️ **Batas kejujuran yang wajib dinyatakan di naskah.** Sesudah perbaikan ini pun, S0 **bukan sifat matematis yang dapat dibuktikan dari data**. Tanpa label pasien, saya tidak dapat membuktikan bahwa partisi pasien tidak memfaktor melalui $V$ — saya hanya dapat menyatakan bahwa **tidak ada variabel yang terdokumentasi sebagai pengenal pasien**. S0 karena itu adalah **klaim tentang dokumentasi dan provenans**, bukan teorema. Menyajikannya sebagai teorema akan menyesatkan.
+
+#### Serangan 3 — "S2 tidak terdefinisi dengan baik"
+
+**Serangan.** S2 menuntut $\mathcal{P} \preceq \mathcal{Q}$ dengan $\mathcal{P}$ "struktur dependensi". Tetapi dependensi pada umumnya **bukan berbentuk partisi**. Dua pengamatan dapat bergantung tanpa berada dalam blok bersama mana pun — misalnya dependensi spasial yang meluruh terhadap jarak, atau dependensi temporal berekor panjang. Pada kasus semacam itu tidak ada $\mathcal{P}$ yang dapat ditulis, sehingga S2 tidak memiliki makna.
+
+**Diterima.** S2 memang hanya terdefinisi di bawah model tertentu, dan model itu selama ini saya andaikan tanpa menyebutnya.
+
+**Prasyarat model (dinyatakan eksplisit).** S2 mengandaikan **exchangeability hierarkis** sebagaimana dirumuskan Lee, Barber & Willett [A0]: dependensi dibangkitkan struktur blok laten, dan pengamatan bersifat exchangeable **di dalam** blok serta blok-bloknya exchangeable antar satu sama lain. Di bawah model itu $\mathcal{P}$ terdefinisi dengan baik dan S2 bermakna.
+
+Di luar model itu — dependensi spasial kontinu, deret waktu berekor panjang, graf tanpa struktur komunitas — **C7 tidak berlaku**, dan naskah harus menyatakannya. Kerangka rujukan yang tepat di sana adalah [A1] (conformal di luar exchangeability) atau [A7]/[A8], bukan C7.
+
+> Ini bukan kelemahan yang ditambal, melainkan ruang lingkup yang dipertegas. HCP sendiri berdiri di atas asumsi yang sama; C7 tidak dapat lebih umum daripada fondasinya.
+
+#### Ringkasan status sesudah audit
+
+| Komponen | Sebelum | **Sesudah audit** |
+|---|---|---|
+| Prop. 0 | 🟢 hasil | 🟡 **catatan** — benar tetapi nyaris tanpa isi |
+| **Prop. 0′** | — | 🟢 **hasil baru** — harga ketakteramatan terhitung |
+| S0 | 🟢 definisi terukur | 🟡 **klaim dokumentasi**, bukan teorema |
+| S1 | 🟢 teorema | 🟢 tidak berubah |
+| S2 | 🟢 definisi | 🟡 **terdefinisi hanya di bawah model [A0]** |
+
+Tiga dari lima komponen turun status. Itu hasil yang benar: rumusan versi pertama **memang** lebih longgar daripada yang saya klaim.
 
 #### Hubungan C7 ↔ C6
 
@@ -292,13 +352,13 @@ S1 saja tidak cukup, dan inilah yang membedakan C7 dari sekadar menghitung blok.
 
 > 🔧 **DITAMBAHKAN 2026-09-30.** Versi pertama C7 hanya memuat S1 dan S2. Kelalaian itu tidak pernah terlihat karena PTB-XL dan MIT-BIH sama-sama mencatat pengenal pasien, sehingga S0 selalu terpenuhi secara diam-diam.
 
-**Definisi (keteramatan).** Misalkan $M$ menyatakan metadata yang tersedia dan $\sigma(M)$ lapangan-$\sigma$ yang dibangkitkannya. Sumber dependensi berpartisi $\mathcal{P}$ **teramati** bila pemetaan yang menugaskan tiap pengamatan ke blok $\mathcal{P}$-nya bersifat **$\sigma(M)$-terukur**.
+**Definisi (keteramatan).** Misalkan $V \subseteq M$ himpunan variabel metadata **substantif** — yaitu metadata dikurangi pengenal yang unik per rekaman. Sumber dependensi berpartisi $\mathcal{P}$ disebut **$V$-teramati** bila terdapat fungsi **yang ditetapkan di muka** $f$ sehingga keanggotaan blok tiap pengamatan sama dengan $f(V)$.
 
-Setiap partisi kalibrasi $\mathcal{Q}$ yang dapat dibangun praktisi **wajib** $\sigma(M)$-terukur — tidak mungkin mengelompokkan menurut sesuatu yang tidak tercatat.
+Pengecualian pengenal-unik bersifat menentukan: pengenal unik membangkitkan partisi terhalus, yang tepat merupakan asumsi "setiap rekaman independen" — asumsi yang justru hendak diuji. Lihat §4.0b serangan 2 untuk alasan lengkap dan untuk batas kejujurannya.
 
-> 🟢 **Proposisi 0 (ketakterputusan S2 di bawah ketakteramatan).** Bila $\mathcal{P}$ **tidak** $\sigma(M)$-terukur, maka untuk sembarang $\mathcal{Q}$ yang $\sigma(M)$-terukur, pernyataan "$\mathcal{P}$ menghaluskan $\mathcal{Q}$" **tidak dapat diputuskan** dari data.
->
-> *Bukti.* Karena $\mathcal{P}$ tak teramati, banyak partisi berbeda konsisten dengan $M$ yang sama. Ambil $\mathcal{P}_\bot$ = partisi terhalus (setiap pengamatan sendirian): ia menghaluskan **setiap** $\mathcal{Q}$, sehingga S2 berlaku. Ambil $\mathcal{P}_\top$ = partisi terkasar (satu blok): ia hanya menghaluskan $\mathcal{Q}$ yang trivial, sehingga S2 gagal untuk $\mathcal{Q}$ non-trivial mana pun. Keduanya konsisten dengan $M$ yang teramati. Maka kedua hasil dapat terjadi, dan S2 tak dapat diputuskan. $\square$
+Setiap partisi kalibrasi $\mathcal{Q}$ yang dapat dibangun praktisi **wajib** $V$-teramati — tidak mungkin mengelompokkan menurut sesuatu yang tidak tercatat.
+
+> 🟡 **Catatan (ketakterputusan).** Bila $\mathcal{P}$ tidak $V$-teramati, pernyataan "$\mathcal{P}$ menghaluskan $\mathcal{Q}$" tidak dapat diputuskan dari data: $\mathcal{P}_\bot$ membuatnya berlaku, $\mathcal{P}_\top$ membuatnya gagal, dan keduanya konsisten dengan metadata yang sama. Pernyataan ini **benar tetapi nyaris tanpa isi** — ia berlaku bagi sembarang besaran tak teramati. Yang operasional adalah **Prop. 0′** di §4.0b: tanpa pengenal tercatat, satu-satunya tingkat kesalahan yang masih terjamin adalah $\alpha \ge \tfrac12$.
 
 Konsekuensinya bersifat **epistemik, bukan negatif**:
 
@@ -315,6 +375,8 @@ Konsekuensinya bersifat **epistemik, bukan negatif**:
 > Perhatikan asimetrinya: S0 tidak dapat dipenuhi dengan analisis yang lebih cermat, berapa pun usahanya. Ia hanya dapat dipenuhi dengan **mengubah cara data dikumpulkan**. Itulah sebabnya diagnostik ini berguna justru **sebelum** studi dijalankan, bukan sesudah.
 
 **Definisi (kecukupan).** Partisi $\mathcal{Q}$ **cukup** bagi sumber dependensi berpartisi $\mathcal{P}$ bila $\mathcal{P}$ menghaluskan $\mathcal{Q}$ — yaitu setiap blok $\mathcal{P}$ termuat seluruhnya dalam satu blok $\mathcal{Q}$.
+
+> 🟡 **Prasyarat model.** Definisi ini hanya bermakna bila dependensi memang **berstruktur blok**, yaitu di bawah exchangeability hierarkis [A0]. Dependensi spasial kontinu atau deret waktu berekor panjang tidak dapat ditulis sebagai partisi, dan di sana C7 **tidak berlaku**. Lihat §4.0b serangan 3.
 
 Bila tidak cukup, pengamatan yang bergantung tersebar ke blok berbeda dan **diperlakukan sebagai independen** — persis kesalahan yang hendak dikoreksi.
 
@@ -456,7 +518,9 @@ Dihitung oleh [scripts/verify_challenge2021.py](../scripts/verify_challenge2021.
 
 #### Vonis
 
-**S0 TAK TERAMATI** untuk sumber dependensi *pasien*. Menurut Prop. 0, S2 karena itu **tidak dapat diputuskan** — bukan gagal, bukan lolos. Yang benar dinyatakan: *tidak dapat diketahui* apakah ada pasien yang menyumbang beberapa rekaman, apalagi apakah mereka menyeberang sumber.
+**S0 TAK TERAMATI** untuk sumber dependensi *pasien*: tidak ada variabel yang terdokumentasi sebagai pengenal pasien. Menurut Prop. 0′, tanpa pengenal tercatat satu-satunya tingkat kesalahan yang masih **terjamin** adalah $\alpha \ge 0{,}5$ — tanpa guna praktis. Yang benar dinyatakan: *tidak dapat diketahui* apakah ada pasien yang menyumbang beberapa rekaman.
+
+> Ini **bukan** klaim bahwa cakupan pasti rusak. Datanya bisa saja baik-baik saja. Yang hilang adalah **jaminannya**.
 
 Satu-satunya partisi yang teramati adalah **sumber**, dengan $K = 7$. Karena $K_1 \le K$ selalu,
 

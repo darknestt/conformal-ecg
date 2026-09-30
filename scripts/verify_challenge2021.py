@@ -193,9 +193,9 @@ def tahap1() -> dict:
     if not punya_pasien:
         print("  -> S0 TAK TERAMATI untuk sumber dependensi 'pasien'.")
         print("     S0 tidak pernah 'gagal' -- ia terpenuhi atau tak teramati.")
-        print("     Menurut Prop. 0, S2 karena itu TIDAK DAPAT DIPUTUSKAN:")
-        print("     tak dapat diketahui apakah ada pasien yang menyumbang beberapa")
-        print("     rekaman. Ini BUKAN bukti bahwa rekamannya independen.")
+        print("     Menurut Prop. 0', tanpa pengenal tercatat satu-satunya tingkat")
+        print("     kesalahan yang masih TERJAMIN adalah alpha >= 0,5 -- tanpa guna.")
+        print("     Ini BUKAN klaim cakupan pasti rusak; yang hilang jaminannya.")
         print("     Aturan keputusan: tidak dapat ditentukan -> tidak lolos.")
     hasil["S0_vonis"] = "TERPENUHI" if punya_pasien else "TAK_TERAMATI"
 

@@ -305,11 +305,14 @@ Isi header diperiksa langsung (760 B): `#Age`, `#Sex`, `#Dx`, `#Rx`, `#Hx`, `#Sx
 
 | Syarat | Hasil |
 |---|---|
-| **S0 Keteramatan** | ⚠️ **TAK TERAMATI** — pengenal pasien tidak tercatat |
-| **S2 Kecukupan** | ⚠️ **TIDAK DAPAT DIPUTUSKAN** (Prop. 0) — bukan gagal, bukan lolos |
+| **S0 Keteramatan** | ⚠️ **TAK TERAMATI** — tidak ada variabel terdokumentasi sebagai pengenal pasien |
+| **S2 Kecukupan** | ⚠️ **TIDAK DAPAT DIPUTUSKAN** — bukan gagal, bukan lolos |
 | **S1 Kelayakan** (sumber, $K{=}7$) | ❌ $\alpha_{\min} \ge 1/8 = 0{,}125$ |
+| **Prop. 0′** — harga ketakteramatan | Tanpa pengenal tercatat, hanya $\alpha \ge 0{,}5$ yang masih **terjamin** |
 
-> ⚠️ **S0 tidak pernah "gagal".** Ia terpenuhi atau tak teramati. Tidak menemukan pengenal pasien **bukan** membuktikan rekamannya independen — justru sebaliknya, tidak ada yang dapat dibuktikan. Ini dilaporkan sebagai **batas keteramatan**.
+> ⚠️ **S0 tidak pernah "gagal".** Ia terpenuhi atau tak teramati. Tidak menemukan pengenal pasien **bukan** membuktikan rekamannya independen — justru sebaliknya, tidak ada yang dapat dibuktikan. Ini **bukan** klaim bahwa cakupan pasti rusak; yang hilang adalah **jaminannya**.
+>
+> 🟡 **S0 adalah klaim dokumentasi, bukan teorema.** Tanpa label pasien, ketakteramatan tidak dapat *dibuktikan* dari data — yang dapat dinyatakan hanya bahwa tidak ada variabel yang terdokumentasi sebagai pengenal. Lihat audit adversarial [`docs/theory.md`](docs/theory.md) §4.0b.
 
 **Rumusan klaim yang boleh masuk naskah:** *dengan partisi teramati yang tersedia pada metadata Challenge 2021, dan di bawah kondisi kelayakan sampel-hingga yang dipakai penelitian ini, target $\alpha < 0{,}125$ tidak memenuhi syarat kelayakan untuk jaminan non-trivial pada tingkat blok tersebut.* Yang **tidak boleh** ditulis: *"Challenge 2021 terbukti tidak dapat dipakai untuk conformal prediction"* — terlalu luas.
 
