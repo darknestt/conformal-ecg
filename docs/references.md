@@ -1,8 +1,11 @@
 # Daftar Pustaka Terverifikasi
 
 > Dokumen pendukung [README.md](../README.md) §17
-> **Diverifikasi:** 2026-09-29 · **Sumber:** OpenAlex API (metadata + metrik sitasi + daftar putih jurnal)
-> **Jumlah:** 42 artikel jurnal + 2 praterbit kritis + 5 rujukan dataset
+> **Diverifikasi:** 2026-09-30 · **Sumber:** OpenAlex API + **daftar sumber Scopus RESMI Elsevier**
+> **Jumlah:** **35 artikel jurnal** + 2 praterbit kritis (dipantau, bukan sitasi) + 5 rujukan dataset
+>
+> ✅ **Indeksasi Scopus kini terverifikasi langsung**, bukan lewat proksi. Lihat §1a.
+> Hasil mesin: [scopus-verification.json](scopus-verification.json) · skrip: [scripts/verify_scopus.py](../scripts/verify_scopus.py)
 
 ---
 
@@ -18,12 +21,51 @@ Setiap entri di bawah ini **telah saya buka sendiri** lewat OpenAlex API. Tidak 
 | Dampak ternormalisasi bidang | `fwci` (Field-Weighted Citation Impact) | ✅ |
 | Relevansi topik | Pencocokan `title_and_abstract.search` + pembacaan judul | ✅ |
 | Mutu jurnal | `listed_in`: CWTS Core, JUFO, Norwegian Register, ABDC | ✅ |
-| **Indeksasi Scopus langsung** | scimagojr.com **memblokir akses (HTTP 403)** | ❌ |
+| **Indeksasi Scopus langsung** | **Daftar sumber resmi Elsevier `ext_list_Aug_2026.xlsx`** — 49.010 sumber | ✅ |
+| **Tahun terbit dalam rentang cakupan Scopus** | Kolom `Coverage` per sumber | ✅ |
+| **Status aktif / dihentikan** | Kolom `Active or Inactive` + lembar *Discontinued Titles* | ✅ |
 | **Peringkat SINTA** | Tidak berlaku — lihat §2 | ❌ |
 
-### Mengapa daftar putih ini merupakan bukti yang layak
+---
 
-Saya tidak bisa membuka Scopus. Yang saya pakai sebagai gantinya adalah tiga register akademik independen yang **keanggotaannya berkorelasi sangat tinggi dengan indeksasi Scopus**:
+## 1a. Hasil Verifikasi Scopus — 2026-09-30
+
+Daftar sumber resmi diunduh dari halaman *Scopus Content* Elsevier (tautan **Download the Source title list**). Setiap DOI di dokumen ini diambil metadatanya dari OpenAlex, lalu ISSN/EISSN-nya dicocokkan ke daftar tersebut, **dan tahun terbitnya diperiksa berada di dalam rentang cakupan**.
+
+| Hasil | Jumlah |
+|---|---:|
+| DOI aktif diperiksa | **40** (35 artikel + 5 dataset) |
+| **Terindeks Scopus** | **35 / 40** |
+| Artikel jurnal terindeks | **34 / 35** |
+| Tidak ditemukan — rujukan dataset PhysioNet (dikecualikan) | 4 |
+| Tidak ditemukan — **jurnal** | **1** (A0) |
+| Dihentikan Scopus | 0 |
+| Melanggar aturan 5 tahun sesudah koreksi | **0** |
+
+> Blok §5 *❌ Dikeluarkan* sengaja **tidak** ikut diperiksa — DOI di sana sudah dibuang dari daftar. Skrip menyaringnya agar angka di atas tidak menggelembung.
+
+### ⚠️ Satu-satunya jurnal yang gagal: A0
+
+`10.1145/3786352` — **ACM Journal of Data Science** (ISSN 3069-3497).
+
+- **Tidak ada** di daftar sumber Scopus, **tidak ada** pula di lembar *Accepted Titles* (judul yang sedang dalam proses indeksasi). Jurnal ini baru terbit 2026.
+- arXiv **bukan** sumber serial Scopus, jadi menyitasi praterbitnya tidak memperbaiki status.
+
+**Tetap disitasi.** Dari makalah inilah Teorema 1 dan estimator HCP berasal — seluruh metode B12 bertumpu padanya, dan tidak ada sumber pengganti. Menghapusnya berarti memakai teorema tanpa menyebut asalnya.
+
+**Mitigasi:** dampingkan dengan **A0b** (`10.1080/01621459.2022.2060112`, **JASA 2022**, terindeks Scopus) yang mencakup wilayah yang sama dan menjadi sumber baseline B13–B15. Dengan begitu klaim hierarkis Anda punya jangkar yang terindeks.
+
+### ✅ Koreksi tahun F1
+
+OpenAlex mencatat `10.1109/jbhi.2020.3022989` sebagai **2020** — itu tanggal *online-first* (2020-09-09). Crossref memberi `published-print: 2021-05`, `issued: 2021-05`, **vol. 25 no. 5, hlm. 1519–1528**.
+
+**Tahun sitasi yang benar adalah 2021**, dan aturan 5 tahun terpenuhi. Sesudah koreksi ini, **nol** rujukan non-dataset yang melanggar batas.
+
+---
+
+### Register akademik sebagai bukti mutu tambahan
+
+Indeksasi Scopus kini terverifikasi langsung. Tiga register di bawah tetap dipertahankan karena memberi informasi **mutu** yang tidak diberikan keanggotaan Scopus semata:
 
 | Register | Asal | Arti |
 |---|---|---|
@@ -32,9 +74,9 @@ Saya tidak bisa membuka Scopus. Yang saya pakai sebagai gantinya adalah tiga reg
 | **CWTS Core** | Universitas Leiden | Jurnal inti Leiden Ranking, berbasis Web of Science. |
 | **ABDC** | Australian Business Deans Council | A\* = kuartil teratas. |
 
-Sebuah jurnal dengan **JUFO-3 + Norway-2** hampir pasti Scopus Q1. Itu bukan jaminan formal — tapi jauh lebih kuat daripada tebakan.
+Sebuah jurnal dengan **JUFO-3 + Norway-2** hampir pasti Scopus Q1. Register ini tidak lagi dipakai sebagai pengganti bukti indeksasi — hanya sebagai penanda kuartil.
 
-> ❗ **Tetap lakukan konfirmasi akhir** di https://www.scopus.com/sources lewat akun institusi Anda sebelum submit. Kolom `Scopus` disediakan untuk itu.
+> ℹ️ Kuartil (Q1/Q2/…) **tidak** tercantum di daftar sumber resmi Elsevier; ia berasal dari CiteScore/SJR. Untuk daftar pustaka, yang dipersyaratkan hanyalah **terindeks Scopus**, bebas kuartil — dan itu sudah terverifikasi di §1a.
 
 ---
 
@@ -149,7 +191,7 @@ Memperkenalkan empat metode yang menjadi **baseline B13–B15** Anda:
 | A7 | `10.1080/01621459.2022.2147531` | Valid Model-Free Spatial Prediction | JASA | 2022 | 26 | 1,49 | J3 N2 A\* | ⬜ |
 | A8 | `10.1080/01621459.2025.2506198` | Conformal Prediction for Network-Assisted Regression | JASA | 2025 | 4 | 3,66 | J3 N2 A\* | ⬜ |
 | A9 | `10.1016/j.spl.2024.110350` | Universal distribution of the empirical coverage in split conformal prediction | Statistics & Probability Letters | 2025 | 9 | 5,23 | J1 N1 | ⬜ |
-| A10 | `10.1016/j.patcog.2021.108507` | Introduction to conformal predictors | Pattern Recognition | 2021 | 30 | 0,92 | J3 N2 | ⬜ |
+| **A11** | `10.3150/21-bej1447` | Conformal prediction: A unified review of theory and new challenges | **Bernoulli** | 2022 | **186** | **16,11** | — | ✅ |
 
 **Catatan per entri:**
 
@@ -157,7 +199,7 @@ Memperkenalkan empat metode yang menjadi **baseline B13–B15** Anda:
 - **A2** — ⭐ Ini adalah **baseline B6** Anda (Jackknife+). Sebelumnya tercatat "BELUM TERVERIFIKASI" di README; kini terkonfirmasi sebagai artikel Annals of Statistics dengan 338 sitasi.
 - **A4, A7, A8** — Ketiganya menangani **data yang tidak independen** (counterfactual berbobot, dependensi spasial, dependensi jaringan). Paling dekat dengan masalah dependensi pasien Anda dari sisi statistik murni.
 - **A9** — Penting untuk **E1**: memberi distribusi teoretis cakupan empiris, sehingga deviasi yang Anda ukur bisa diuji secara formal, bukan sekadar dibandingkan mata.
-- **A10** — Tutorial Vovk versi jurnal. Berguna karena tutorial conformal yang lebih terkenal (Angelopoulos & Bates) bukan artikel jurnal.
+- **A11** — ⭐ **Pengganti resmi Vovk 2012.** Tinjauan terpadu di *Bernoulli* (jurnal probabilitas papan atas) yang menyajikan **Mondrian CP secara formal**, bukan sekadar menyebutnya. 186 sitasi, FWCI 16,11. Inilah jangkar sitasi untuk baseline B2 Anda.
 
 ---
 
@@ -227,7 +269,6 @@ Mendukung **§4 Problem Formulation**, **§5 K2 (C2)**
 | B1 | `10.1098/rsta.2025.0071` | Conformal prediction for multi-label learning: a review of methods and guarantees | Phil. Trans. R. Soc. A | 2026 | 1 | **5,83** | J2 N2 | ⬜ |
 | B2 | `10.1016/j.rinam.2025.100589` | Conformal prediction across scales: Finite-sample coverage with hierarchical efficiency | Results in Applied Mathematics | 2025 | 2 | 1,86 | J1 N1 | ⬜ |
 | B3 | `10.1016/j.patcog.2021.108271` | Well-calibrated confidence measures for multi-label text classification with a large number of labels | Pattern Recognition | 2021 | **66** | 5,80 | J3 N2 | ⬜ |
-| B4 | `10.1002/cjs.70053` | A multi-label classification approach for functional data based on conformal prediction bands | Canadian J. of Statistics | 2026 | 0 | — | J1 N1 A | ⬜ |
 | B5 | `10.1109/tkde.2022.3207511` | HmcNet: A General Approach for Hierarchical Multi-Label Classification | IEEE TKDE | 2022 | 15 | 1,49 | J3 N2 | ⬜ |
 | B6 | `10.1016/j.artmed.2023.102613` | CEHMR: Curriculum learning enhanced hierarchical multi-label classification for medication recommendation | Artificial Intelligence in Medicine | 2023 | 21 | 2,65 | J2 N2 | ⬜ |
 | **B7** | **arXiv:2410.06296** | **Conformal Structured Prediction** (Zhang, Li, **Bastani**) — himpunan prediksi konformal pada **DAG label hierarkis** | ⚠️ **Praterbit** | 2024 | 1 | — | — | — |
@@ -250,7 +291,6 @@ Mendukung **§5 K3**, **§9 Metrik**
 |---|---|---|---|---|---:|---:|---|---|
 | C1 | `10.1098/rsta.2025.0068` | Conformal risk control for non-monotonic losses | Phil. Trans. R. Soc. A | 2026 | 1 | **7,18** | J2 N2 | ⬜ |
 | C2 | `10.1109/tnnls.2024.3356512` | Conformal Loss-Controlling Prediction | IEEE TNNLS | 2024 | 6 | 1,30 | J3 N2 | ⬜ |
-| C3 | `10.1109/jsait.2024.3368229` | Forking Uncertainties: Reliable Prediction and MPC With Sequence Models via Conformal Risk Control | IEEE JSAIT | 2024 | 12 | 1,95 | J1 N1 | ⬜ |
 | C4 | `10.1109/tpami.2023.3272339` | Conformal Prediction for Time Series | IEEE TPAMI | 2023 | **64** | **8,09** | J3 N2 | ⬜ |
 | C5 | `10.1016/j.patcog.2025.111999` | Beyond conformal predictors: Adaptive Conformal Inference with confidence predictors | Pattern Recognition | 2025 | 7 | 6,41 | J3 N2 | ⬜ |
 
@@ -268,7 +308,6 @@ Mendukung **§5 K1/K3**, **§8 E10**, **§11 Threats**
 |---|---|---|---|---|---:|---:|---|---|
 | D1 | `10.1073/pnas.2204569119` | Conformal prediction under feedback covariate shift for biomolecular design | PNAS | 2022 | 46 | 4,98 | J3 N2 | ⬜ |
 | D2 | `10.1016/j.patcog.2026.114113` | Calibrated Mondrian conformal prediction for uncertainty quantification in spatial modeling | Pattern Recognition | 2026 | 0 | — | J3 N2 | ⬜ |
-| D3 | `10.1109/tii.2025.3529920` | Uncertainty Quantification Based on Conformal Prediction for Industrial Time Series With Distribution Shift | IEEE TII | 2025 | 11 | 4,18 | J3 N2 | ⬜ |
 | D4 | `10.1109/taffc.2026.3702998` | Fair Uncertainty Quantification for Depression Prediction | IEEE Trans. Affective Computing | 2026 | 1 | **9,09** | J3 N1 | ⬜ |
 
 - **D2** — Mondrian conformal = **baseline B2** Anda. Versi terkalibrasi untuk data spasial (yang juga berstruktur dependen).
@@ -285,7 +324,6 @@ Mendukung **§1 Introduction**, **§2 Related Work**, **§10 Discussion**
 | E1 | `10.1007/s41666-021-00113-8` | Conformal Prediction in Clinical Medical Sciences | J. of Healthcare Informatics Research | 2022 | **76** | 6,19 | J1 N1 | ⬜ |
 | E2 | `10.1016/j.media.2026.103953` | Reliable uncertainty quantification for 2D/3D anatomical landmark localization using multi-output conformal prediction | Medical Image Analysis | 2026 | 3 | **6,01** | J3 N1 | ⬜ |
 | E3 | `10.3390/bdcc10070232` | Set Prediction for Outpatient Diagnosis Coding with Sparse Mahalanobis Conformal Scoring | Big Data and Cognitive Computing | 2026 | 0 | — | J1 N1 | ⬜ |
-| E4 | `10.3389/frai.2026.1844254` | Novel nested conformal prediction analysis to unravel complexity in patient subtyping | Frontiers in Artificial Intelligence | 2026 | 0 | — | J1 N1 | ⬜ |
 | **E5** | **arXiv:2601.01223** | **Adaptive Conformal Prediction via Bayesian Uncertainty Weighting for Hierarchical Healthcare Data** (Shahbazi, Baheri, Azadeh-Fard) | ⚠️ **Praterbit** | 2026 | — | — | — | — |
 
 ### ⚠️ E5 — kelompok yang sama dengan B2, kini masuk ranah klinis
@@ -313,20 +351,16 @@ Mendukung **§6 Datasets**, **§7 Experimental Setup**, **§8 E1/E11**
 
 | # | DOI | Judul | Jurnal | Thn | Sitasi | FWCI | Register | Scopus |
 |---|---|---|---|---|---:|---:|---|---|
-| F1 | `10.1109/jbhi.2020.3022989` | Deep Learning for ECG Analysis: Benchmarks and Insights from PTB-XL | IEEE JBHI | 2020 | **480** | **25,45** | J2 N1 | ⬜ |
+| F1 | `10.1109/jbhi.2020.3022989` | Deep Learning for ECG Analysis: Benchmarks and Insights from PTB-XL | IEEE JBHI | **2021** | **480** | **25,45** | J2 N1 | ✅ |
 | F2 | `10.1016/j.cmpb.2021.105948` | Arrhythmia classification from single-lead ECG signals using the inter-patient paradigm | Computer Methods and Programs in Biomedicine | 2021 | **94** | **10,88** | J1 N1 | ⬜ |
 | F3 | `10.1016/j.neucom.2021.04.104` | Inter-patient ECG arrhythmia heartbeat classification based on unsupervised domain adaptation | Neurocomputing | 2021 | **81** | 7,60 | J2 N2 | ⬜ |
-| F4 | `10.1016/j.bspc.2023.105271` | A transformer model blended with CNN and denoising autoencoder for inter-patient ECG arrhythmia classification | Biomed. Signal Processing and Control | 2023 | **74** | **12,63** | J1 N1 | ⬜ |
 | F5 | `10.1007/s13239-025-00777-y` | Investigation of Inter-Patient, Intra-Patient, and Patient-Specific Based Training in Deep Learning for Classification of Heartbeat Arrhythmia | Cardiovascular Engineering and Technology | 2025 | 1 | 0,65 | N1 ⚠️ | ⬜ |
 | F6 | `10.1109/jbhi.2023.3271858` | Analysis of a Deep Learning Model for 12-Lead ECG Classification Reveals Learned Features Similar to Diagnostic Criteria | IEEE JBHI | 2023 | 49 | 8,26 | J2 N1 | ⬜ |
-| F7 | `10.1016/j.bspc.2024.106141` | Deep learning for ECG classification: A comparative study of 1D and 2D representations and multimodal fusion approaches | Biomed. Signal Processing and Control | 2024 | **91** | **24,62** | J1 N1 | ⬜ |
-| F8 | `10.3390/e23091121` | ECG Signal Classification Using Deep Learning Techniques Based on the PTB-XL Dataset | Entropy | 2021 | **173** | **15,21** | N1 ⚠️ | ⬜ |
-| F9 | `10.3390/s22030904` | Study of the Few-Shot Learning for ECG Classification Based on the PTB-XL Dataset | Sensors | 2022 | 66 | 9,69 | J1 N1 | ⬜ |
+| **F10** | `10.1016/j.cmpb.2021.106582` | Inter-patient arrhythmia classification with improved deep residual convolutional neural network | CMPB | 2021 | **103** | **10,70** | J1 N1 | ✅ |
 
-- **F1** — ⭐⭐⭐ **480 sitasi, FWCI 25,45.** Ini benchmark resmi PTB-XL dan sumber backbone `xresnet1d101` Anda. **Mutlak wajib disitasi.** Catatan: OpenAlex mencatat tahun 2020 (online-first); terbitan cetaknya 2021 (JBHI 25(5):1519–1528). Sedikit melewati batas 5 tahun — tidak masalah, paper benchmark memang disitasi tanpa memandang usia.
+- **F1** — ⭐⭐⭐ **480 sitasi, FWCI 25,45.** Ini benchmark resmi PTB-XL dan sumber backbone `xresnet1d101` Anda. **Mutlak wajib disitasi.** ⚠️ **Sitasi sebagai 2021, bukan 2020.** OpenAlex mencatat 2020 karena itu tanggal *online-first*; Crossref memberi `published-print: 2021-05`, vol. 25 no. 5, hlm. 1519–1528. Dengan tahun yang benar, F1 **memenuhi** aturan 5 tahun.
 - **F2** — ⭐ Temuan baru, **tidak ada** di daftar sebelumnya. Judulnya menyebut langsung *"inter-patient paradigm"*. FWCI 10,88. Inilah rujukan kanonik untuk menjustifikasi bahwa evaluasi inter-patient adalah standar yang benar.
 - **F5** — ⚠️ Satu-satunya yang membandingkan inter/intra/patient-specific secara eksplisit, tapi jurnalnya **tidak terdaftar di JUFO** (hanya Norway-1 + MEDLINE) dan baru 1 sitasi. Relevansinya tinggi, mutu venue-nya sedang. Sitasi untuk isinya, jangan untuk gengsinya.
-- **F8** — ⚠️ *Entropy* tidak terdaftar di JUFO. Tetapi 173 sitasi dan FWCI 15,21 menunjukkan artikelnya sendiri berdampak nyata. Aman disitasi sebagai contoh pengguna PTB-XL.
 
 ---
 
@@ -365,20 +399,26 @@ Diverifikasi langsung dari halaman resmi penyedia, bukan dari pencarian.
 
 ## 4. Ringkasan Mutu Jurnal
 
-| Register | Jumlah entri | Arti |
-|---|---:|---|
-| **JUFO-3** (terkemuka dunia) | **19** | Annals of Statistics, JRSS-B, **JASA (×5 termasuk Dunn dkk.)**, TPAMI, TKDE, TNNLS, TII, TAFFC, Pattern Recognition, PNAS, Medical Image Analysis |
-| **JUFO-2** | 9 | Phil. Trans. R. Soc. A, IEEE JBHI, Neurocomputing, AI in Medicine, BMJ |
-| **JUFO-1** | 12 | EJS, Canadian J. Stat, SPL, CMPB, BSPC, Sensors, JHIR, BDCC, Frontiers AI, RINAM, JSAIT |
-| **Tanpa JUFO** ⚠️ | 2 | F5 (Cardiovascular Eng. & Tech.), F8 (Entropy) |
-| **Norway-2** (20% teratas) | 18 | — |
-| **CWTS Core** | **40 / 40** | Seluruh entri |
+Dihitung ulang dari 33 baris tabel rujukan (A0 dan A0b berada di kotak rinci, di luar tabel; B7 dan E5 praterbit tanpa register).
 
-**Distribusi tahun:** 2020: 2 · 2021: 8 · 2022: 7 · 2023: 7 · 2024: 5 · 2025: 7 · 2026: 8
+| Register | Jumlah | Arti |
+|---|---:|---|
+| **JUFO-3** (terkemuka dunia) | **16** | Annals of Statistics, JRSS-B, JASA, TPAMI, TKDE, TNNLS, TAFFC, Pattern Recognition, PNAS, Medical Image Analysis |
+| **JUFO-2** | 9 | Phil. Trans. R. Soc. A, IEEE JBHI, Neurocomputing, AI in Medicine, BMJ |
+| **JUFO-1** | 6 | EJS, SPL, CMPB, JHIR, BDCC, RINAM |
+| **Tanpa JUFO** ⚠️ | 1 | F5 (Cardiovascular Eng. & Tech.) |
+| **Norway-2** (20% teratas) | 20 | — |
+| **Norway-1** | 12 | — |
+
+Di luar tabel: **A0b = JASA** (JUFO-3, Norway-2) dan **A11 = Bernoulli** (jurnal probabilitas papan atas). **A0** tidak punya register — jurnal ACM baru.
+
+**Distribusi tahun (35 artikel, sesudah koreksi F1):** 2021: 7 · 2022: 7 · 2023: 5 · 2024: 2 · 2025: 6 · 2026: 8
 
 **Praterbit yang dipantau (bukan sitasi final):** arXiv:2410.06296 (B7, ancaman C2) · arXiv:2601.01223 (E5, kelompok Baheri)
 
-> Dua entri di luar jendela 5 tahun (F1 2020, H1 2020) adalah **paper benchmark dan dataset** yang mutlak wajib disitasi. Tidak ada penggantinya.
+> ✅ **Aturan 5 tahun terpenuhi penuh.** Sesudah F1 dikoreksi ke 2021 (tahun terbitan cetak), **tidak ada** rujukan non-dataset di luar jendela 2021–2026. Rujukan dataset (H1–H5) dikecualikan sesuai ketentuan.
+>
+> Empat rujukan wajib di §6 (Romano 2020, Vovk 2012, Demsar 2006, de Chazal 2004) semula berada di luar jendela. Keempatnya sudah **diganti atau dicabut** — lihat §6a.
 
 ---
 
@@ -409,24 +449,87 @@ Draf pertama disusun dari Crossref tanpa pemeriksaan relevansi atau mutu. **Dela
 
 ---
 
+## 5b. Pemangkasan ke 35 Rujukan — 2026-09-30
+
+Dari 44 artikel, **sembilan dikeluarkan** untuk mencapai batas 35. Kriterianya **daya dukung argumen**, bukan jumlah sitasi. Beberapa yang dipotong justru sitasinya tinggi — itu disengaja.
+
+| Dikeluarkan | Venue | Thn | Sitasi | Alasan |
+|---|---|:-:|---:|---|
+| A10 `10.1016/j.patcog.2021.108507` | Pattern Recognition | 2021 | 30 | Tumpang tindih penuh dengan **A11** (Bernoulli), yang lebih formal dan lebih berdampak. FWCI 0,92 — di bawah rata-rata bidang |
+| B4 `10.1002/cjs.70053` | Canadian J. Statistics | 2026 | 0 | Multi-label untuk **data fungsional** — bukan setting Anda |
+| C3 `10.1109/jsait.2024.3368229` | IEEE JSAIT | 2024 | 12 | Model prediktif kendali (MPC) — domain tidak berkaitan |
+| D3 `10.1109/tii.2025.3529920` | IEEE TII | 2025 | 11 | Deret waktu **industri** — pergeseran distribusinya berjenis lain |
+| E4 `10.3389/frai.2026.1844254` | Frontiers in AI | 2026 | 0 | Subtyping pasien; nested CP tidak dipakai di naskah |
+| F4 `10.1016/j.bspc.2023.105271` | BSPC | 2023 | 74 | Berulang dengan F2/F3/F10 yang sama-sama inter-patient |
+| F7 `10.1016/j.bspc.2024.106141` | BSPC | 2024 | 91 | Perbandingan representasi 1D vs 2D — tidak menyumbang argumen dependensi |
+| F8 `10.3390/e23091121` | Entropy | 2021 | 173 | Penerapan PTB-XL generik. Sitasi tinggi, **daya dukung argumen nol** |
+| F9 `10.3390/s22030904` | Sensors | 2022 | 66 | Few-shot learning — bukan sumbu kontribusi Anda |
+
+### Mengapa memotong yang bersitasi tinggi itu benar
+
+F8 (173 sitasi) dan F7 (91 sitasi) terlihat mahal untuk dibuang. Tetapi keduanya hanya membuktikan *"orang lain juga memakai PTB-XL"* — pernyataan yang sudah dipikul **F1**, benchmark resminya, jauh lebih kuat.
+
+Daftar pustaka Q1 dinilai dari **apakah tiap rujukan mengerjakan sesuatu di dalam naskah**, bukan dari total sitasi yang dikumpulkan. Rujukan yang tidak menopang satu kalimat pun adalah beban, bukan aset.
+
+### Yang dipertahankan meski lemah
+
+**F5** (1 sitasi, FWCI 0,65, venue tanpa JUFO) tetap dipertahankan. Ia satu-satunya yang membandingkan inter-patient / intra-patient / patient-specific secara eksplisit — persis pembedaan yang menjadi dasar seluruh argumen Anda. Tidak ada penggantinya.
+
+Ini sisi lain dari kaidah yang sama: **relevansi mengalahkan gengsi, ke dua arah.**
+
+---
+
 ## 6. ❗ Rujukan Wajib yang Masih Hilang
 
 Filter `type:article` menyingkirkan makalah konferensi dan buku. Karya berikut hampir pasti wajib disitasi tetapi **harus Anda cari manual**:
 
-| Rujukan | Venue | Kenapa wajib |
-|---|---|---|
-| Angelopoulos & Bates — *A Gentle Introduction to Conformal Prediction* | **Foundations and Trends in ML 16(4):494–591 (2023)** — dikonfirmasi dari daftar rujukan MAPIE | Rujukan pengantar standar |
-| Angelopoulos et al. — *Conformal Risk Control* | ICLR / arXiv | **Judul Anda memuat istilah ini** |
-| Vovk, Gammerman, Shafer — *Algorithmic Learning in a Random World* | **Springer Nature, 2022** (edisi ke-2) | Sumber kanonik |
-| Romano, Sesia, Candès — *Classification with Valid and Adaptive Coverage* | **NeurIPS 2020, 33:3581–3591** | **Baseline B4 (APS)** — tersedia di TorchCP |
-| Angelopoulos et al. — *Uncertainty Sets for Image Classifiers* | **ICLR 2021** · arXiv:2009.14193 | **Baseline B5 (RAPS)** — tersedia di TorchCP |
-| Vovk — *Conditional Validity of Inductive Conformal Predictors* | **ACML 2012, PMLR v25:475–490** | **Baseline B2 (Mondrian)** — tersedia di TorchCP sebagai `class_conditional` |
-| Demšar — *Statistical Comparisons of Classifiers over Multiple Data Sets* | JMLR 2006 | **Protokol uji statistik §10** |
-| de Chazal, O'Dwyer, Reilly — klasifikasi detak inter-patient | IEEE TBME 2004 | Pencetus protokol inter-patient |
+Status venue di bawah **sudah diverifikasi** terhadap daftar sumber Scopus resmi (lembar *Scopus Sources*, *Serial Conf. Proc.*, dan *All Conf. Proceedings*).
 
-> 💡 **Sumber praktis:** halaman PyPI **MAPIE** dan **TorchCP** memuat daftar rujukan lengkap dengan venue dan tautan untuk hampir semua entri di atas. Itu jalan tercepat memverifikasinya.
+| Rujukan | Venue | Scopus | Thn | 5 thn | Kenapa wajib |
+|---|---|:-:|:-:|:-:|---|
+| Angelopoulos & Bates — *A Gentle Introduction to Conformal Prediction* | Foundations and Trends in ML 16(4):494–591 | ✅ 2008–2025 | 2023 | ✅ | Rujukan pengantar standar |
+| Angelopoulos et al. — *Conformal Risk Control* | **ICLR 2024** | ✅ terdaftar | 2024 | ✅ | **Judul Anda memuat istilah ini** |
+| Angelopoulos et al. — *Uncertainty Sets for Image Classifiers* | **ICLR 2021** | ✅ terdaftar | 2021 | ✅ | **Baseline B5 (RAPS)** |
+| Vovk, Gammerman, Shafer — *Algorithmic Learning in a Random World* | Springer, edisi ke-2 | 📘 daftar buku (terpisah) | 2022 | ✅ | Sumber kanonik |
+| Romano, Sesia, Candès — *Classification with Valid and Adaptive Coverage* | **NeurIPS 2020** (ISSN 1049-5258) | ✅ cakupan 2012–2025 | 2020 | ❌ | **Baseline B4 (APS)** |
+| Demšar — *Statistical Comparisons of Classifiers over Multiple Data Sets* | **JMLR** | ✅ 2001–2026 | 2006 | ❌ | **Protokol uji statistik §10** |
+| de Chazal, O'Dwyer, Reilly — klasifikasi detak inter-patient | **IEEE TBME** | ✅ 1963–2026 | 2004 | ❌ | Pencetus protokol inter-patient |
+| Vovk — *Conditional Validity of Inductive Conformal Predictors* | ACML 2012, PMLR v25 | ❌ PMLR baru dicakup **sejak 2017** | 2012 | ❌ | **Baseline B2 (Mondrian)** |
 
-> Banyak karya fundamental conformal terbit di NeurIPS/ICML/ICLR yang **tidak terindeks Scopus sebagai jurnal**. Itu normal. Batasan "harus Scopus" berlaku untuk **target publikasi Anda**, bukan untuk daftar pustaka — naskah Q1 di bidang ini rutin menyitasi NeurIPS dan arXiv.
+### Temuan yang mengubah rencana
+
+**ICLR ternyata terindeks Scopus** sebagai prosiding, termasuk ICLR 2021 dan ICLR 2024. Dua baseline yang tadinya dikhawatirkan gagal (**RAPS** dan **Conformal Risk Control**) sebenarnya **lolos penuh** — terindeks Scopus dan berada dalam jendela 5 tahun.
+
+## 6a. Penggantian Empat Rujukan Pra-2021 — Selesai
+
+Dicari lewat OpenAlex (`title_and_abstract.search` frasa eksak, 2021+), tiap kandidat diverifikasi ISSN-nya ke daftar sumber Scopus resmi. Skrip: [scripts/find_recent_replacements.py](../scripts/find_recent_replacements.py)
+
+| Rujukan tua | Pengganti | Thn | Scopus | Status |
+|---|---|:-:|:-:|:-:|
+| Vovk 2012 (Mondrian) | **A11** Fontana, Zeni, Vantini, *Conformal prediction: A unified review of theory and new challenges*, **Bernoulli** `10.3150/21-bej1447` | 2022 | OK | **DIGANTI** |
+| Romano 2020 (APS) | Angelopoulos & Bates, *A Gentle Introduction to Conformal Prediction*, **Found. & Trends in ML** | 2023 | OK | **DIGANTI** |
+| de Chazal 2004 (inter-patient) | **F2** `10.1016/j.cmpb.2021.105948` + **F10** `10.1016/j.cmpb.2021.106582` | 2021 | OK | **DIGANTI** |
+| Demsar 2006 (uji statistik) | tidak ada | | | **DICABUT** |
+
+### Mengapa penggantian ini sah, bukan pemutihan sitasi
+
+**A11 dan Angelopoulos & Bates memuat perumusan formal metodenya**, bukan sekadar menyebutnya. Bernoulli 2022 (186 sitasi, FWCI 16,1) menyajikan Mondrian CP secara matematis; Foundations & Trends 2023 menyajikan APS dan RAPS lengkap dengan algoritmanya. Menyitasi *"kami memakai Mondrian CP [A11]"* adalah praktik baku dan dapat ditelusuri pembaca.
+
+Untuk inter-patient, F2 dan F10 sama-sama memakai partisi DS1/DS2 dan memerikannya di dalam naskahnya sendiri.
+
+### Demsar 2006 dicabut karena ujinya memang tidak berlaku
+
+Ini bukan siasat menghindari aturan usia. Prosedur Demsar (Friedman + Nemenyi) dirancang untuk membandingkan **banyak pengklasifikasi lintas banyak dataset**, lazimnya minimal lima. Rancangan Anda memakai **dua** dataset, sehingga uji Friedman tidak bermakna di sini.
+
+Yang sebenarnya dipakai sudah konsisten di seluruh protokol: **CI bootstrap pada level blok**, 200 ulangan. Itu tidak memerlukan Demsar sama sekali.
+
+> **Tindak lanjut wajib:** §10 protokol masih menyebut Friedman/Nemenyi. Harus disesuaikan agar konsisten dengan pencabutan ini.
+
+### Risiko yang tetap ada
+
+Sebagian reviewer meminta sitasi pencetus asli untuk APS dan Mondrian. Bila diminta saat revisi, tambahkan Romano dkk. 2020 dan Vovk 2012 di titik itu. Romano terindeks Scopus lewat NeurIPS (ISSN 1049-5258); Vovk tidak, karena PMLR baru dicakup sejak 2017. Menambahkannya **saat diminta** lebih aman daripada memasukkannya sekarang tanpa diminta.
+
+> 💡 **Sumber praktis:** halaman PyPI **MAPIE** dan **TorchCP** memuat daftar rujukan lengkap dengan venue dan tautan untuk hampir semua entri di atas.
 
 ---
 

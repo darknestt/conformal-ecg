@@ -223,11 +223,19 @@ Macro/micro AUROC, AUPRC, F1-max, ECE, Brier
 |---|---|---|
 | Cakupan vs nominal | Binomial eksak + CI Clopper-Pearson | Satu arah untuk H0 |
 | Selisih cakupan antar metode | Uji permutasi berpasangan, 10.000 permutasi | **Permutasi pada level pasien** |
-| Ranking lintas metode × dataset | Friedman + Nemenyi post-hoc + CD diagram | Protokol Demšar |
+| ~~Ranking lintas metode × dataset~~ | ~~Friedman + Nemenyi post-hoc + CD diagram~~ | **DICABUT 2026-09-30** — lihat di bawah |
 | Monotonisitas DEff ↔ deviasi (H0b, H2) | Korelasi Spearman | |
 | CI seluruh metrik | Bootstrap 1.000 resample | **Resample pada level pasien** |
 | Koreksi perbandingan ganda | **Holm-Bonferroni** dalam tiap keluarga hipotesis | |
 | Ukuran efek | Cliff's delta | Wajib dilaporkan bersama p-value |
+
+### ❗ Friedman + Nemenyi dicabut
+
+Prosedur Demšar dirancang untuk membandingkan banyak pengklasifikasi **lintas banyak dataset** — lazimnya minimal lima. Rancangan ini memakai **dua** dataset (PTB-XL dan MIT-BIH), sehingga uji Friedman tidak bermakna dan CD diagram tidak dapat dibaca.
+
+Penggantinya sudah dipakai konsisten sejak awal: **CI bootstrap pada level blok, 200 ulangan**, ditambah uji permutasi berpasangan. Keduanya tidak memerlukan asumsi ranking lintas dataset.
+
+Konsekuensi turunan: rujukan Demšar 2006 dicabut dari daftar pustaka — lihat [references.md §6a](references.md).
 
 ### ❗ Aturan bootstrap
 
@@ -299,6 +307,9 @@ Setiap penyimpangan dari protokol beku dicatat di sini. **Kolom terakhir adalah 
 | 2026-09-30 | Studi kelayakan memakai fold 1–6 latih, 7 validasi, **9 dibagi level-pasien** untuk kalibrasi/uji — bukan split konfirmatori 1–8 / 9 / 10 | Menjaga fold 10 tetap perawan. Studi ini **eksploratoris**, bukan konfirmatori | **Sebelum** |
 | 2026-09-30 | Rancangan awal studi kelayakan (kalibrasi fold 8 → uji fold 9) **dibatalkan** dan diganti | Fold 1–8 hanya 64–68% divalidasi manusia; fold 9–10 100%. Rancangan itu mencampurkan **pergeseran kualitas label** ke dalam pengukuran cakupan | **Sesudah** melihat hasil pertama — dinyatakan terbuka; hasil pertama **tidak dipakai** |
 | 2026-09-30 | Uji H0 diperluas: selain "B1 kurang-cakup", ditambahkan CI untuk **selisih B12−B1** | Versi pertama hanya menguji bagian (a) H0. Mekanisme H0 justru terletak pada selisihnya | **Sesudah** — perbaikan metodologis, memperketat uji bukan melonggarkan |
+| 2026-09-30 | **Kontrol permutasi** ditambahkan pada MIT-BIH (lengan blok-teracak sebagai null tersuai) | Kriteria (b) "B12 > B1" dicurigai tautologis: pada $K_1{=}11$, atom $+\infty$ memaksa HCP menembus persentil ke-98,2, bukan ke-90. Dugaan terbukti — **81–107% selisih bersifat mekanis** | **Sesudah** — dinyatakan **post-hoc**. Uji ini memperketat, bukan melonggarkan: ia **membatalkan** kriteria yang semula mendukung hipotesis |
+| 2026-09-30 | Kriteria H0b pra-registrasi (Spearman DEff ↔ deviasi) **tidak dapat dijalankan** sebagaimana ditulis | Dengan dua dataset, $\rho$ hanya bisa $\pm 1$ dan $p$ tak terdefinisi. Cacat pra-registrasi. Diganti uji monotonisitas **di dalam** MIT-BIH dengan 11 titik DEff | **Sesudah** — hasilnya **1/3 alpha, pola non-monoton**; dilaporkan sebagai temuan negatif |
+| 2026-09-30 | **Friedman + Nemenyi + CD diagram dicabut** dari §9 | Prosedur Demšar menuntut banyak dataset (lazimnya ≥5); rancangan ini memakai dua. Uji tidak bermakna | **Sebelum** — tak satu pun hasil Friedman pernah dihitung |
 
 ---
 

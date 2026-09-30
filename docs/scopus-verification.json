@@ -1,0 +1,960 @@
+[
+  {
+    "doi": "10.1145/3786352",
+    "judul": "Distribution-free inference with hierarchical data",
+    "tahun": 2026,
+    "tahun_sitasi": 2026,
+    "venue": "ACM Journal of Data Science",
+    "issn": [
+      "30693497",
+      "30693497"
+    ],
+    "issn_cocok": null,
+    "scopus": "TIDAK_DITEMUKAN",
+    "aktif": "",
+    "dihentikan": false,
+    "coverage": null,
+    "tahun_dalam_cakupan": null,
+    "dataset": false,
+    "lolos_aturan_5_tahun": true
+  },
+  {
+    "doi": "10.1080/01621459.2022.2060112",
+    "judul": "Distribution-Free Prediction Sets for Two-Layer Hierarchical Models",
+    "tahun": 2022,
+    "tahun_sitasi": 2022,
+    "venue": "Journal of the American Statistical Association",
+    "issn": [
+      "01621459",
+      "1537274X",
+      "01621459"
+    ],
+    "issn_cocok": "01621459",
+    "scopus": "TERINDEKS",
+    "aktif": "Active",
+    "dihentikan": false,
+    "coverage": "1922-2026",
+    "tahun_dalam_cakupan": true,
+    "dataset": false,
+    "lolos_aturan_5_tahun": true
+  },
+  {
+    "doi": "10.1109/jbhi.2020.3022989",
+    "judul": "Deep Learning for ECG Analysis: Benchmarks and Insights from PTB-XL",
+    "tahun": 2020,
+    "tahun_sitasi": 2021,
+    "venue": "IEEE Journal of Biomedical and Health Informatics",
+    "issn": [
+      "21682194",
+      "21682208",
+      "21682194"
+    ],
+    "issn_cocok": "21682194",
+    "scopus": "TERINDEKS",
+    "aktif": "Active",
+    "dihentikan": false,
+    "coverage": "2013-2026",
+    "tahun_dalam_cakupan": true,
+    "dataset": false,
+    "lolos_aturan_5_tahun": true
+  },
+  {
+    "doi": "10.1214/23-aos2276",
+    "judul": "Conformal prediction beyond exchangeability",
+    "tahun": 2023,
+    "tahun_sitasi": 2023,
+    "venue": "The Annals of Statistics",
+    "issn": [
+      "00905364",
+      "21688966",
+      "00905364"
+    ],
+    "issn_cocok": "00905364",
+    "scopus": "TERINDEKS",
+    "aktif": "Active",
+    "dihentikan": false,
+    "coverage": "1996-2026",
+    "tahun_dalam_cakupan": true,
+    "dataset": false,
+    "lolos_aturan_5_tahun": true
+  },
+  {
+    "doi": "10.1214/20-aos1965",
+    "judul": "Predictive inference with the jackknife+",
+    "tahun": 2021,
+    "tahun_sitasi": 2021,
+    "venue": "The Annals of Statistics",
+    "issn": [
+      "00905364",
+      "21688966",
+      "00905364"
+    ],
+    "issn_cocok": "00905364",
+    "scopus": "TERINDEKS",
+    "aktif": "Active",
+    "dihentikan": false,
+    "coverage": "1996-2026",
+    "tahun_dalam_cakupan": true,
+    "dataset": false,
+    "lolos_aturan_5_tahun": true
+  },
+  {
+    "doi": "10.1214/26-ejs2506",
+    "judul": "Group-weighted conformal prediction",
+    "tahun": 2026,
+    "tahun_sitasi": 2026,
+    "venue": "Electronic Journal of Statistics",
+    "issn": [
+      "19357524",
+      "19357524"
+    ],
+    "issn_cocok": "19357524",
+    "scopus": "TERINDEKS",
+    "aktif": "Active",
+    "dihentikan": false,
+    "coverage": "2007-2026",
+    "tahun_dalam_cakupan": true,
+    "dataset": false,
+    "lolos_aturan_5_tahun": true
+  },
+  {
+    "doi": "10.1111/rssb.12445",
+    "judul": "Conformal Inference of Counterfactuals and Individual Treatment Effects",
+    "tahun": 2021,
+    "tahun_sitasi": 2021,
+    "venue": "Journal of the Royal Statistical Society Series B (Statistical Methodology)",
+    "issn": [
+      "13697412",
+      "14679868",
+      "13697412"
+    ],
+    "issn_cocok": "13697412",
+    "scopus": "TERINDEKS",
+    "aktif": "Active",
+    "dihentikan": false,
+    "coverage": "1997-2026",
+    "tahun_dalam_cakupan": true,
+    "dataset": false,
+    "lolos_aturan_5_tahun": true
+  },
+  {
+    "doi": "10.1111/rssb.12443",
+    "judul": "Prediction and Outlier Detection in Classification Problems",
+    "tahun": 2022,
+    "tahun_sitasi": 2022,
+    "venue": "Journal of the Royal Statistical Society Series B (Statistical Methodology)",
+    "issn": [
+      "13697412",
+      "14679868",
+      "13697412"
+    ],
+    "issn_cocok": "13697412",
+    "scopus": "TERINDEKS",
+    "aktif": "Active",
+    "dihentikan": false,
+    "coverage": "1997-2026",
+    "tahun_dalam_cakupan": true,
+    "dataset": false,
+    "lolos_aturan_5_tahun": true
+  },
+  {
+    "doi": "10.1080/01621459.2023.2298037",
+    "judul": "Robust Validation: Confident Predictions Even When Distributions Shift",
+    "tahun": 2023,
+    "tahun_sitasi": 2023,
+    "venue": "Journal of the American Statistical Association",
+    "issn": [
+      "01621459",
+      "1537274X",
+      "01621459"
+    ],
+    "issn_cocok": "01621459",
+    "scopus": "TERINDEKS",
+    "aktif": "Active",
+    "dihentikan": false,
+    "coverage": "1922-2026",
+    "tahun_dalam_cakupan": true,
+    "dataset": false,
+    "lolos_aturan_5_tahun": true
+  },
+  {
+    "doi": "10.1080/01621459.2022.2147531",
+    "judul": "Valid Model-Free Spatial Prediction",
+    "tahun": 2022,
+    "tahun_sitasi": 2022,
+    "venue": "Journal of the American Statistical Association",
+    "issn": [
+      "01621459",
+      "1537274X",
+      "01621459"
+    ],
+    "issn_cocok": "01621459",
+    "scopus": "TERINDEKS",
+    "aktif": "Active",
+    "dihentikan": false,
+    "coverage": "1922-2026",
+    "tahun_dalam_cakupan": true,
+    "dataset": false,
+    "lolos_aturan_5_tahun": true
+  },
+  {
+    "doi": "10.1080/01621459.2025.2506198",
+    "judul": "Conformal Prediction for Network-Assisted Regression",
+    "tahun": 2025,
+    "tahun_sitasi": 2025,
+    "venue": "Journal of the American Statistical Association",
+    "issn": [
+      "01621459",
+      "1537274X",
+      "01621459"
+    ],
+    "issn_cocok": "01621459",
+    "scopus": "TERINDEKS",
+    "aktif": "Active",
+    "dihentikan": false,
+    "coverage": "1922-2026",
+    "tahun_dalam_cakupan": true,
+    "dataset": false,
+    "lolos_aturan_5_tahun": true
+  },
+  {
+    "doi": "10.1016/j.spl.2024.110350",
+    "judul": "Universal distribution of the empirical coverage in split conformal prediction",
+    "tahun": 2025,
+    "tahun_sitasi": 2025,
+    "venue": "Statistics & Probability Letters",
+    "issn": [
+      "01677152",
+      "18792103",
+      "01677152"
+    ],
+    "issn_cocok": "01677152",
+    "scopus": "TERINDEKS",
+    "aktif": "Active",
+    "dihentikan": false,
+    "coverage": "1982-2027",
+    "tahun_dalam_cakupan": true,
+    "dataset": false,
+    "lolos_aturan_5_tahun": true
+  },
+  {
+    "doi": "10.3150/21-bej1447",
+    "judul": "Conformal prediction: A unified review of theory and new challenges",
+    "tahun": 2022,
+    "tahun_sitasi": 2022,
+    "venue": "Bernoulli",
+    "issn": [
+      "13507265",
+      "15739759",
+      "13507265"
+    ],
+    "issn_cocok": "13507265",
+    "scopus": "TERINDEKS",
+    "aktif": "Active",
+    "dihentikan": false,
+    "coverage": "1995-2026",
+    "tahun_dalam_cakupan": true,
+    "dataset": false,
+    "lolos_aturan_5_tahun": true
+  },
+  {
+    "doi": "10.1098/rsta.2025.0071",
+    "judul": "Conformal prediction for multi-label learning: a review of methods and guarantees",
+    "tahun": 2026,
+    "tahun_sitasi": 2026,
+    "venue": "Philosophical Transactions of the Royal Society A Mathematical Physical and Engineering Sciences",
+    "issn": [
+      "1364503X",
+      "14712962",
+      "1364503X"
+    ],
+    "issn_cocok": "1364503X",
+    "scopus": "TERINDEKS",
+    "aktif": "Active",
+    "dihentikan": false,
+    "coverage": "1991-2026; 1977-1988; 1974-1975; 1969-1971; 1947; 1901",
+    "tahun_dalam_cakupan": true,
+    "dataset": false,
+    "lolos_aturan_5_tahun": true
+  },
+  {
+    "doi": "10.1016/j.rinam.2025.100589",
+    "judul": "Conformal prediction across scales: Finite-sample coverage with hierarchical efficiency",
+    "tahun": 2025,
+    "tahun_sitasi": 2025,
+    "venue": "Results in Applied Mathematics",
+    "issn": [
+      "25900374",
+      "25900382",
+      "25900374"
+    ],
+    "issn_cocok": "25900374",
+    "scopus": "TERINDEKS",
+    "aktif": "Active",
+    "dihentikan": false,
+    "coverage": "2019-2026",
+    "tahun_dalam_cakupan": true,
+    "dataset": false,
+    "lolos_aturan_5_tahun": true
+  },
+  {
+    "doi": "10.1016/j.patcog.2021.108271",
+    "judul": "Well-calibrated confidence measures for multi-label text classification with a large number of labels",
+    "tahun": 2021,
+    "tahun_sitasi": 2021,
+    "venue": "Pattern Recognition",
+    "issn": [
+      "00313203",
+      "18735142",
+      "00313203"
+    ],
+    "issn_cocok": "00313203",
+    "scopus": "TERINDEKS",
+    "aktif": "Active",
+    "dihentikan": false,
+    "coverage": "1968-2027",
+    "tahun_dalam_cakupan": true,
+    "dataset": false,
+    "lolos_aturan_5_tahun": true
+  },
+  {
+    "doi": "10.1109/tkde.2022.3207511",
+    "judul": "HmcNet: A General Approach for Hierarchical Multi-Label Classification",
+    "tahun": 2022,
+    "tahun_sitasi": 2022,
+    "venue": "IEEE Transactions on Knowledge and Data Engineering",
+    "issn": [
+      "10414347",
+      "15582191",
+      "23263865",
+      "10414347"
+    ],
+    "issn_cocok": "10414347",
+    "scopus": "TERINDEKS",
+    "aktif": "Active",
+    "dihentikan": false,
+    "coverage": "1989-2026",
+    "tahun_dalam_cakupan": true,
+    "dataset": false,
+    "lolos_aturan_5_tahun": true
+  },
+  {
+    "doi": "10.1016/j.artmed.2023.102613",
+    "judul": "CEHMR: Curriculum learning enhanced hierarchical multi-label classification for medication recommendation",
+    "tahun": 2023,
+    "tahun_sitasi": 2023,
+    "venue": "Artificial Intelligence in Medicine",
+    "issn": [
+      "09333657",
+      "18732860",
+      "09333657"
+    ],
+    "issn_cocok": "09333657",
+    "scopus": "TERINDEKS",
+    "aktif": "Active",
+    "dihentikan": false,
+    "coverage": "1989-2026",
+    "tahun_dalam_cakupan": true,
+    "dataset": false,
+    "lolos_aturan_5_tahun": true
+  },
+  {
+    "doi": "10.1098/rsta.2025.0068",
+    "judul": "Conformal risk control for non-monotonic losses",
+    "tahun": 2026,
+    "tahun_sitasi": 2026,
+    "venue": "Philosophical Transactions of the Royal Society A Mathematical Physical and Engineering Sciences",
+    "issn": [
+      "1364503X",
+      "14712962",
+      "1364503X"
+    ],
+    "issn_cocok": "1364503X",
+    "scopus": "TERINDEKS",
+    "aktif": "Active",
+    "dihentikan": false,
+    "coverage": "1991-2026; 1977-1988; 1974-1975; 1969-1971; 1947; 1901",
+    "tahun_dalam_cakupan": true,
+    "dataset": false,
+    "lolos_aturan_5_tahun": true
+  },
+  {
+    "doi": "10.1109/tnnls.2024.3356512",
+    "judul": "Conformal Loss-Controlling Prediction",
+    "tahun": 2024,
+    "tahun_sitasi": 2024,
+    "venue": "IEEE Transactions on Neural Networks and Learning Systems",
+    "issn": [
+      "2162237X",
+      "21622388",
+      "2162237X"
+    ],
+    "issn_cocok": "2162237X",
+    "scopus": "TERINDEKS",
+    "aktif": "Active",
+    "dihentikan": false,
+    "coverage": "2012-2026",
+    "tahun_dalam_cakupan": true,
+    "dataset": false,
+    "lolos_aturan_5_tahun": true
+  },
+  {
+    "doi": "10.1109/tpami.2023.3272339",
+    "judul": "Conformal Prediction for Time Series",
+    "tahun": 2023,
+    "tahun_sitasi": 2023,
+    "venue": "IEEE Transactions on Pattern Analysis and Machine Intelligence",
+    "issn": [
+      "01628828",
+      "19393539",
+      "21609292",
+      "01628828"
+    ],
+    "issn_cocok": "01628828",
+    "scopus": "TERINDEKS",
+    "aktif": "Active",
+    "dihentikan": false,
+    "coverage": "1978-2026",
+    "tahun_dalam_cakupan": true,
+    "dataset": false,
+    "lolos_aturan_5_tahun": true
+  },
+  {
+    "doi": "10.1016/j.patcog.2025.111999",
+    "judul": "Beyond conformal predictors: Adaptive Conformal Inference with confidence predictors",
+    "tahun": 2025,
+    "tahun_sitasi": 2025,
+    "venue": "Pattern Recognition",
+    "issn": [
+      "00313203",
+      "18735142",
+      "00313203"
+    ],
+    "issn_cocok": "00313203",
+    "scopus": "TERINDEKS",
+    "aktif": "Active",
+    "dihentikan": false,
+    "coverage": "1968-2027",
+    "tahun_dalam_cakupan": true,
+    "dataset": false,
+    "lolos_aturan_5_tahun": true
+  },
+  {
+    "doi": "10.1073/pnas.2204569119",
+    "judul": "Conformal prediction under feedback covariate shift for biomolecular design",
+    "tahun": 2022,
+    "tahun_sitasi": 2022,
+    "venue": "Proceedings of the National Academy of Sciences",
+    "issn": [
+      "00278424",
+      "10916490",
+      "00278424"
+    ],
+    "issn_cocok": "00278424",
+    "scopus": "TERINDEKS",
+    "aktif": "Active",
+    "dihentikan": false,
+    "coverage": "1961-2026; 1945-1951",
+    "tahun_dalam_cakupan": true,
+    "dataset": false,
+    "lolos_aturan_5_tahun": true
+  },
+  {
+    "doi": "10.1016/j.patcog.2026.114113",
+    "judul": "Calibrated Mondrian conformal prediction for uncertainty quantification in spatial modeling",
+    "tahun": 2026,
+    "tahun_sitasi": 2026,
+    "venue": "Pattern Recognition",
+    "issn": [
+      "00313203",
+      "18735142",
+      "00313203"
+    ],
+    "issn_cocok": "00313203",
+    "scopus": "TERINDEKS",
+    "aktif": "Active",
+    "dihentikan": false,
+    "coverage": "1968-2027",
+    "tahun_dalam_cakupan": true,
+    "dataset": false,
+    "lolos_aturan_5_tahun": true
+  },
+  {
+    "doi": "10.1109/taffc.2026.3702998",
+    "judul": "Fair Uncertainty Quantification for Depression Prediction",
+    "tahun": 2026,
+    "tahun_sitasi": 2026,
+    "venue": "IEEE Transactions on Affective Computing",
+    "issn": [
+      "19493045",
+      "23719850",
+      "19493045"
+    ],
+    "issn_cocok": "19493045",
+    "scopus": "TERINDEKS",
+    "aktif": "Active",
+    "dihentikan": false,
+    "coverage": "2010-2026",
+    "tahun_dalam_cakupan": true,
+    "dataset": false,
+    "lolos_aturan_5_tahun": true
+  },
+  {
+    "doi": "10.1007/s41666-021-00113-8",
+    "judul": "Conformal Prediction in Clinical Medical Sciences",
+    "tahun": 2022,
+    "tahun_sitasi": 2022,
+    "venue": "Journal of Healthcare Informatics Research",
+    "issn": [
+      "25094971",
+      "2509498X",
+      "25094971"
+    ],
+    "issn_cocok": "2509498X",
+    "scopus": "TERINDEKS",
+    "aktif": "Active",
+    "dihentikan": false,
+    "coverage": "2017-2026",
+    "tahun_dalam_cakupan": true,
+    "dataset": false,
+    "lolos_aturan_5_tahun": true
+  },
+  {
+    "doi": "10.1016/j.media.2026.103953",
+    "judul": "Reliable uncertainty quantification for 2D/3D anatomical landmark localization using multi-output conformal prediction",
+    "tahun": 2026,
+    "tahun_sitasi": 2026,
+    "venue": "Medical Image Analysis",
+    "issn": [
+      "13618415",
+      "13618423",
+      "13618431",
+      "13618415"
+    ],
+    "issn_cocok": "13618415",
+    "scopus": "TERINDEKS",
+    "aktif": "Active",
+    "dihentikan": false,
+    "coverage": "1996-2026",
+    "tahun_dalam_cakupan": true,
+    "dataset": false,
+    "lolos_aturan_5_tahun": true
+  },
+  {
+    "doi": "10.3390/bdcc10070232",
+    "judul": "Set Prediction for Outpatient Diagnosis Coding with Sparse Mahalanobis Conformal Scoring",
+    "tahun": 2026,
+    "tahun_sitasi": 2026,
+    "venue": "Big Data and Cognitive Computing",
+    "issn": [
+      "25042289",
+      "25042289"
+    ],
+    "issn_cocok": "25042289",
+    "scopus": "TERINDEKS",
+    "aktif": "Active",
+    "dihentikan": false,
+    "coverage": "2017-2026",
+    "tahun_dalam_cakupan": true,
+    "dataset": false,
+    "lolos_aturan_5_tahun": true
+  },
+  {
+    "doi": "10.1016/j.cmpb.2021.105948",
+    "judul": "Arrhythmia classification from single-lead ECG signals using the inter-patient paradigm",
+    "tahun": 2021,
+    "tahun_sitasi": 2021,
+    "venue": "Computer Methods and Programs in Biomedicine",
+    "issn": [
+      "01692607",
+      "18727565",
+      "01692607"
+    ],
+    "issn_cocok": "01692607",
+    "scopus": "TERINDEKS",
+    "aktif": "Active",
+    "dihentikan": false,
+    "coverage": "1985-2026",
+    "tahun_dalam_cakupan": true,
+    "dataset": false,
+    "lolos_aturan_5_tahun": true
+  },
+  {
+    "doi": "10.1016/j.neucom.2021.04.104",
+    "judul": "Inter-patient ECG arrhythmia heartbeat classification based on unsupervised domain adaptation",
+    "tahun": 2021,
+    "tahun_sitasi": 2021,
+    "venue": "Neurocomputing",
+    "issn": [
+      "09252312",
+      "18728286",
+      "09252312"
+    ],
+    "issn_cocok": "09252312",
+    "scopus": "TERINDEKS",
+    "aktif": "Active",
+    "dihentikan": false,
+    "coverage": "1989-2026",
+    "tahun_dalam_cakupan": true,
+    "dataset": false,
+    "lolos_aturan_5_tahun": true
+  },
+  {
+    "doi": "10.1007/s13239-025-00777-y",
+    "judul": "Investigation of Inter-Patient, Intra-Patient, and Patient-Specific Based Training in Deep Learning for Classification of Heartbeat Arrhythmia",
+    "tahun": 2025,
+    "tahun_sitasi": 2025,
+    "venue": "Cardiovascular Engineering and Technology",
+    "issn": [
+      "1869408X",
+      "18694098",
+      "1869408X"
+    ],
+    "issn_cocok": "1869408X",
+    "scopus": "TERINDEKS",
+    "aktif": "Active",
+    "dihentikan": false,
+    "coverage": "2010-2026",
+    "tahun_dalam_cakupan": true,
+    "dataset": false,
+    "lolos_aturan_5_tahun": true
+  },
+  {
+    "doi": "10.1109/jbhi.2023.3271858",
+    "judul": "Analysis of a Deep Learning Model for 12-Lead ECG Classification Reveals Learned Features Similar to Diagnostic Criteria",
+    "tahun": 2023,
+    "tahun_sitasi": 2023,
+    "venue": "IEEE Journal of Biomedical and Health Informatics",
+    "issn": [
+      "21682194",
+      "21682208",
+      "21682194"
+    ],
+    "issn_cocok": "21682194",
+    "scopus": "TERINDEKS",
+    "aktif": "Active",
+    "dihentikan": false,
+    "coverage": "2013-2026",
+    "tahun_dalam_cakupan": true,
+    "dataset": false,
+    "lolos_aturan_5_tahun": true
+  },
+  {
+    "doi": "10.1016/j.cmpb.2021.106582",
+    "judul": "Inter-patient arrhythmia classification with improved deep residual convolutional neural network",
+    "tahun": 2021,
+    "tahun_sitasi": 2021,
+    "venue": "Computer Methods and Programs in Biomedicine",
+    "issn": [
+      "01692607",
+      "18727565",
+      "01692607"
+    ],
+    "issn_cocok": "01692607",
+    "scopus": "TERINDEKS",
+    "aktif": "Active",
+    "dihentikan": false,
+    "coverage": "1985-2026",
+    "tahun_dalam_cakupan": true,
+    "dataset": false,
+    "lolos_aturan_5_tahun": true
+  },
+  {
+    "doi": "10.1016/j.artmed.2024.102830",
+    "judul": "Trustworthy clinical AI solutions: A unified review of uncertainty quantification in Deep Learning models for medical image analysis",
+    "tahun": 2024,
+    "tahun_sitasi": 2024,
+    "venue": "Artificial Intelligence in Medicine",
+    "issn": [
+      "09333657",
+      "18732860",
+      "09333657"
+    ],
+    "issn_cocok": "09333657",
+    "scopus": "TERINDEKS",
+    "aktif": "Active",
+    "dihentikan": false,
+    "coverage": "1989-2026",
+    "tahun_dalam_cakupan": true,
+    "dataset": false,
+    "lolos_aturan_5_tahun": true
+  },
+  {
+    "doi": "10.1136/bmj.r340",
+    "judul": "FUTURE-AI: international consensus guideline for trustworthy and deployable artificial intelligence in healthcare",
+    "tahun": 2025,
+    "tahun_sitasi": 2025,
+    "venue": "BMJ",
+    "issn": [
+      "17561833",
+      "17561833"
+    ],
+    "issn_cocok": "17561833",
+    "scopus": "TERINDEKS",
+    "aktif": "Active",
+    "dihentikan": false,
+    "coverage": "1857-2026",
+    "tahun_dalam_cakupan": true,
+    "dataset": false,
+    "lolos_aturan_5_tahun": true
+  },
+  {
+    "doi": "10.1038/s41597-020-0495-6",
+    "judul": "PTB-XL, a large publicly available electrocardiography dataset",
+    "tahun": 2020,
+    "tahun_sitasi": 2020,
+    "venue": "Scientific Data",
+    "issn": [
+      "20524463",
+      "20524463"
+    ],
+    "issn_cocok": "20524463",
+    "scopus": "TERINDEKS",
+    "aktif": "Active",
+    "dihentikan": false,
+    "coverage": "2014-2026",
+    "tahun_dalam_cakupan": true,
+    "dataset": true,
+    "lolos_aturan_5_tahun": true
+  },
+  {
+    "doi": "10.13026/kfzx-aw45",
+    "judul": "PTB-XL, a large publicly available electrocardiography dataset",
+    "tahun": 2022,
+    "tahun_sitasi": 2022,
+    "venue": "PhysioNet",
+    "issn": [],
+    "issn_cocok": null,
+    "scopus": "TIDAK_DITEMUKAN",
+    "aktif": "",
+    "dihentikan": false,
+    "coverage": null,
+    "tahun_dalam_cakupan": null,
+    "dataset": true,
+    "lolos_aturan_5_tahun": true
+  },
+  {
+    "doi": "10.13026/C2F305",
+    "judul": "MIT-BIH Arrhythmia Database",
+    "tahun": 1992,
+    "tahun_sitasi": 1992,
+    "venue": "PhysioNet",
+    "issn": [],
+    "issn_cocok": null,
+    "scopus": "TIDAK_DITEMUKAN",
+    "aktif": "",
+    "dihentikan": false,
+    "coverage": null,
+    "tahun_dalam_cakupan": null,
+    "dataset": true,
+    "lolos_aturan_5_tahun": true
+  },
+  {
+    "doi": "10.13026/C2HS3T",
+    "judul": "The MIT-BIH Noise Stress Test Database",
+    "tahun": 1992,
+    "tahun_sitasi": 1992,
+    "venue": "PhysioNet",
+    "issn": [],
+    "issn_cocok": null,
+    "scopus": "TIDAK_DITEMUKAN",
+    "aktif": "",
+    "dihentikan": false,
+    "coverage": null,
+    "tahun_dalam_cakupan": null,
+    "dataset": true,
+    "lolos_aturan_5_tahun": true
+  },
+  {
+    "doi": "10.13026/34va-7q14",
+    "judul": "Will Two Do? Varying Dimensions in Electrocardiography: The PhysioNet/Computing in Cardiology Challenge 2021",
+    "tahun": 2022,
+    "tahun_sitasi": 2022,
+    "venue": "PhysioNet",
+    "issn": [],
+    "issn_cocok": null,
+    "scopus": "TIDAK_DITEMUKAN",
+    "aktif": "",
+    "dihentikan": false,
+    "coverage": null,
+    "tahun_dalam_cakupan": null,
+    "dataset": true,
+    "lolos_aturan_5_tahun": true
+  },
+  {
+    "doi": "10.1016/j.patcog.2021.108507",
+    "judul": "Introduction to conformal predictors",
+    "tahun": 2021,
+    "tahun_sitasi": 2021,
+    "venue": "Pattern Recognition",
+    "issn": [
+      "00313203",
+      "18735142",
+      "00313203"
+    ],
+    "issn_cocok": "00313203",
+    "scopus": "TERINDEKS",
+    "aktif": "Active",
+    "dihentikan": false,
+    "coverage": "1968-2027",
+    "tahun_dalam_cakupan": true,
+    "dataset": false,
+    "lolos_aturan_5_tahun": true
+  },
+  {
+    "doi": "10.1002/cjs.70053",
+    "judul": "A multi‐label classification approach for functional data based on conformal prediction bands",
+    "tahun": 2026,
+    "tahun_sitasi": 2026,
+    "venue": "Canadian Journal of Statistics",
+    "issn": [
+      "03195724",
+      "1708945X",
+      "03195724"
+    ],
+    "issn_cocok": "03195724",
+    "scopus": "TERINDEKS",
+    "aktif": "Active",
+    "dihentikan": false,
+    "coverage": "1973-2026",
+    "tahun_dalam_cakupan": true,
+    "dataset": false,
+    "lolos_aturan_5_tahun": true
+  },
+  {
+    "doi": "10.1109/jsait.2024.3368229",
+    "judul": "Forking Uncertainties: Reliable Prediction and Model Predictive Control With Sequence Models via Conformal Risk Control",
+    "tahun": 2024,
+    "tahun_sitasi": 2024,
+    "venue": "IEEE Journal on Selected Areas in Information Theory",
+    "issn": [
+      "26418770",
+      "26418770"
+    ],
+    "issn_cocok": "26418770",
+    "scopus": "TERINDEKS",
+    "aktif": "Active",
+    "dihentikan": false,
+    "coverage": "2020-2026",
+    "tahun_dalam_cakupan": true,
+    "dataset": false,
+    "lolos_aturan_5_tahun": true
+  },
+  {
+    "doi": "10.1109/tii.2025.3529920",
+    "judul": "Uncertainty Quantification Based on Conformal Prediction for Industrial Time Series With Distribution Shift",
+    "tahun": 2025,
+    "tahun_sitasi": 2025,
+    "venue": "IEEE Transactions on Industrial Informatics",
+    "issn": [
+      "15513203",
+      "19410050",
+      "15513203"
+    ],
+    "issn_cocok": "15513203",
+    "scopus": "TERINDEKS",
+    "aktif": "Active",
+    "dihentikan": false,
+    "coverage": "2005-2026",
+    "tahun_dalam_cakupan": true,
+    "dataset": false,
+    "lolos_aturan_5_tahun": true
+  },
+  {
+    "doi": "10.3389/frai.2026.1844254",
+    "judul": "Novel nested conformal prediction analysis to unravel complexity in patient subtyping",
+    "tahun": 2026,
+    "tahun_sitasi": 2026,
+    "venue": "Frontiers in Artificial Intelligence",
+    "issn": [
+      "26248212",
+      "26248212"
+    ],
+    "issn_cocok": "26248212",
+    "scopus": "TERINDEKS",
+    "aktif": "Active",
+    "dihentikan": false,
+    "coverage": "2018-2026",
+    "tahun_dalam_cakupan": true,
+    "dataset": false,
+    "lolos_aturan_5_tahun": true
+  },
+  {
+    "doi": "10.1016/j.bspc.2023.105271",
+    "judul": "A transformer model blended with CNN and denoising autoencoder for inter-patient ECG arrhythmia classification",
+    "tahun": 2023,
+    "tahun_sitasi": 2023,
+    "venue": "Biomedical Signal Processing and Control",
+    "issn": [
+      "17468094",
+      "17468108",
+      "17468094"
+    ],
+    "issn_cocok": "17468094",
+    "scopus": "TERINDEKS",
+    "aktif": "Active",
+    "dihentikan": false,
+    "coverage": "2006-2027",
+    "tahun_dalam_cakupan": true,
+    "dataset": false,
+    "lolos_aturan_5_tahun": true
+  },
+  {
+    "doi": "10.1016/j.bspc.2024.106141",
+    "judul": "Deep learning for ECG classification: A comparative study of 1D and 2D representations and multimodal fusion approaches",
+    "tahun": 2024,
+    "tahun_sitasi": 2024,
+    "venue": "Biomedical Signal Processing and Control",
+    "issn": [
+      "17468094",
+      "17468108",
+      "17468094"
+    ],
+    "issn_cocok": "17468094",
+    "scopus": "TERINDEKS",
+    "aktif": "Active",
+    "dihentikan": false,
+    "coverage": "2006-2027",
+    "tahun_dalam_cakupan": true,
+    "dataset": false,
+    "lolos_aturan_5_tahun": true
+  },
+  {
+    "doi": "10.3390/e23091121",
+    "judul": "ECG Signal Classification Using Deep Learning Techniques Based on the PTB-XL Dataset",
+    "tahun": 2021,
+    "tahun_sitasi": 2021,
+    "venue": "Entropy",
+    "issn": [
+      "10994300",
+      "10994300"
+    ],
+    "issn_cocok": "10994300",
+    "scopus": "TERINDEKS",
+    "aktif": "Active",
+    "dihentikan": false,
+    "coverage": "1999-2026",
+    "tahun_dalam_cakupan": true,
+    "dataset": false,
+    "lolos_aturan_5_tahun": true
+  },
+  {
+    "doi": "10.3390/s22030904",
+    "judul": "Study of the Few-Shot Learning for ECG Classification Based on the PTB-XL Dataset",
+    "tahun": 2022,
+    "tahun_sitasi": 2022,
+    "venue": "Sensors",
+    "issn": [
+      "14248220",
+      "14248220"
+    ],
+    "issn_cocok": "14248220",
+    "scopus": "TERINDEKS",
+    "aktif": "Active",
+    "dihentikan": false,
+    "coverage": "2001-2026",
+    "tahun_dalam_cakupan": true,
+    "dataset": false,
+    "lolos_aturan_5_tahun": true
+  }
+]

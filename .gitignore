@@ -2,6 +2,9 @@
 data/raw/
 data/interim/
 data/processed/
+# Daftar sumber Scopus: 25 MiB, berhak cipta Elsevier, tidak boleh diredistribusi.
+# URL unduhan ada di scripts/verify_scopus.py
+data/external/
 *.zip
 *.dat
 *.hea
@@ -39,3 +42,6 @@ desktop.ini
 *.log
 wandb/
 mlruns/
+
+# Berkas pesan commit sementara
+_commitmsg.txt
