@@ -174,6 +174,22 @@ Lengan teracak mengenai nominal nyaris sempurna **termasuk saat blok timpang**. 
 2. PTB-XL menyumbang **1 dari 12 titik**; korelasi gabungan digerakkan gradien internal MIT-BIH. Peran PTB-XL adalah **uji ramalan** lintas modalitas, tugas, dan jenis blok — bukan tren independen.
 3. Titik MIT-BIH dihasilkan dengan **melemahkan dependensi secara sintetis**, bukan dengan mengamati kohort ber-$\rho$ berbeda.
 
+### 2.4 ✅ Ketegaran terhadap pilihan estimator ICC
+
+Tabel §2.3 memakai ICC **skor mentah**. Prop. 2 sebenarnya dinyatakan untuk ICC **indikator** $\mathbb{1}\{s\le t\}$ — selisih yang dicatat sendiri di akhir §2.2, dan persis celah yang akan ditanyakan reviewer statistik.
+
+Seluruh kurva dihitung ulang dengan besaran yang benar, memakai ambang **tetap** $t = $ kuantil $(1-\alpha)$ dari seluruh skor evaluasi agar $\rho$ menjadi sifat data, bukan sifat satu split ([experiments/robustness_indicator_icc.py](../experiments/robustness_indicator_icc.py)).
+
+| $\alpha$ | Spearman (ICC skor) | **Spearman (ICC indikator)** | $p$ |
+|---|---:|---:|---:|
+| 0,10 | +0,8392 | **+0,8951** | $8{,}4\times10^{-5}$ |
+| 0,15 | +0,8042 | **+0,8042** | $1{,}6\times10^{-3}$ |
+| 0,20 | +0,8462 | **+0,7063** | $1{,}0\times10^{-2}$ |
+
+**Lulus 3/3 pada kedua estimator.** Nilai $\rho$ memang berubah — PTB-XL turun dari 0,3525 (skor) ke 0,19–0,20 (indikator) — tetapi $\mathrm{DEff}$-nya tetap $\approx 1{,}01$ dan posisinya pada kurva tidak bergeser.
+
+> Konsekuensinya terhadap Asumsi (A): ramalan Prop. 2′ bertahan pada besaran yang **memang diminta teorinya**, bukan pada aproksimasi yang lebih mudah dihitung. Asumsi (A) tetap merupakan pilihan pemodelan dan tetap dinyatakan sebagai keterbatasan, tetapi hasil utama tidak bergantung pada kemudahan itu.
+
 ---
 
 ## 3. Teorema C6 — Desain studi menentukan inferensi
@@ -257,7 +273,30 @@ $$\alpha_{\min}(\mathcal{P}_1\vee\mathcal{P}_2) \;\ge\; \max\big(\alpha_{\min}(\
 
 **Korolari 3.2 (ketidakmungkinan).** Bila $K_1(\mathcal{P}_1\vee\mathcal{P}_2) < \lceil 1/\alpha\rceil - 1$, maka **tidak ada** kalibrasi HCP yang memberi jaminan non-trivial pada tingkat $\alpha$ sambil mengendalikan kedua sumber dependensi. Ini batas **desain studi**, bukan kekurangan metode.
 
-> 🔴 **BELUM TERBUKTI — butuh statistikawan.** Saya menduga Kor. 3.2 berlaku bagi **setiap** metode bebas-distribusi yang validitasnya bersandar pada exchangeability antar-blok, bukan hanya HCP — karena argumen leave-one-block-out memaksa massa $\ge \frac{1}{K_1+1}$ pada $+\infty$. Analoginya adalah ketaktergantikan $n \ge 1/\alpha - 1$ pada split conformal. **Sampai terbukti, naskah hanya boleh mengklaimnya untuk keluarga HCP/Dunn.**
+> 🔴 **Ruang lingkup dikunci.** Saya menduga Kor. 3.2 berlaku bagi **setiap** metode bebas-distribusi yang validitasnya bersandar pada exchangeability antar-blok, bukan hanya HCP — karena argumen leave-one-block-out memaksa massa $\ge \frac{1}{K_1+1}$ pada $+\infty$. Dugaan itu **tidak diklaim di naskah**. Naskah hanya mengklaimnya untuk keluarga HCP/Dunn, dan menyatakan sisanya sebagai pertanyaan terbuka.
+
+#### ✅ Verifikasi konstruktif pada PTB-XL — 2026-09-30
+
+Kor. 3.2 adalah **klaim eksistensi**, sehingga dapat ditegakkan sepenuhnya oleh satu contoh terverifikasi tanpa memerlukan argumen umum. PTB-XL adalah contoh itu.
+
+[scripts/verify_corollary32.py](../scripts/verify_corollary32.py) mengenumerasi **seluruh $2^4-1 = 15$ join** dari himpunan bagian sumber $\{\texttt{patient\_id}, \texttt{site}, \texttt{nurse}, \texttt{device}\}$ pada fold 9 (1.960 rekaman sesudah membuang metadata sumber kosong), lalu memeriksa S1 dan S2 satu per satu:
+
+| Granularitas | $K_1$ | S2? | $\alpha_{\min}$ |
+|---|---:|:-:|---:|
+| `patient_id` | 1.739 | tidak | 0,00057 |
+| `nurse` | 12 | tidak | 0,07692 |
+| `device` | 10 | tidak | 0,09091 |
+| `site` | 3 | tidak | 0,25000 |
+| `patient_id` ∨ `device` | 6 | tidak | 0,14286 |
+| `patient_id` ∨ `nurse` | 2 | tidak | 0,33333 |
+| **`site` ∨ `nurse`** | **1** | **YA** | **0,50000** |
+| … 7 join lain yang memenuhi S2 | 1 | YA | 0,50000 |
+
+**Hasil: 8 granularitas memenuhi S2, seluruhnya $K_1 = 1$. Nol granularitas memenuhi S1 dan S2 sekaligus** pada $\alpha \in \{0{,}01;\,0{,}05;\,0{,}10;\,0{,}20\}$.
+
+Granularitas **terhalus** yang memenuhi S2 adalah `site` ∨ `nurse`, dan ia sudah runtuh menjadi satu blok. Setiap pemenuh S2 lainnya lebih kasar lagi, sehingga $K_1$-nya tidak mungkin lebih besar. Ketidakmungkinan karena itu **ekshaustif pada kekisi ini**, bukan hasil pemeriksaan sebagian.
+
+> ⚠️ **Kesalahan yang tertangkap saat menyusunnya.** Versi pertama skrip menghitung join dengan menggabungkan label (`"a|b"`). Itu menghasilkan **irisan** — yakni *meet*, partisi terhalus yang memperhalus keduanya — bukan *join*. Arahnya terbalik. Gejalanya: `patient_id` ∨ `site` memberi $K{=}1.739$, sama persis dengan `patient_id` sendiri, padahal join sejati harus **lebih kasar**. Akibatnya tabel melaporkan **nol** granularitas pemenuh S2, termasuk join seluruh sumber — yang secara konstruksi mustahil. Tabel itu sendiri yang mengungkap bugnya. Join yang benar dihitung sebagai komponen terhubung (union-find).
 
 ### 4.3 Instansiasi pada PTB-XL
 
@@ -404,7 +443,7 @@ Kalibrasi = fold 9 · blok = `patient_id` · 44 pernyataan diagnostik SCP · 3.0
 | 1 | Teorema C6 (b–d), Prop. 2 dan 2′ memakai Asumsi (A); tidak bebas-distribusi | Pisahkan secara eksplisit di §Metode |
 | 2 | ~~Prop. 2 diturunkan untuk $N_k$ seragam~~ | ✅ Diselesaikan oleh Prop. 2′ (rata-rata harmonik) |
 | 3 | $\rho(t)$ bergantung pada $t$ dan pada model | E11b mengestimasinya; jangan klaim nilai tunggal |
-| 4 | Kor. 3.2 baru terbukti untuk keluarga HCP/Dunn | 🔴 Jangan klaim universal sebelum direview statistikawan |
+| 4 | Kor. 3.2 terbukti untuk keluarga HCP/Dunn, dan **terverifikasi konstruktif pada PTB-XL** (§4.2) | ✅ Klaim eksistensi tegak. Perumuman ke seluruh metode bebas-distribusi tetap **pertanyaan terbuka**, dinyatakan demikian di naskah |
 | 5 | Kelayakan `site` bertumpu pada 37 site mungil yang `nurse`-nya kosong | Laporkan; kemungkinan rezim pengumpulan berbeda |
 | 6 | §5.1 (cakupan-superset) **sepele** — HCP berlaku tanpa modifikasi | Jangan jual sebagai kontribusi; jadikan bagian Metode |
 | 7 | §5.2 mengondisikan pada $\ell \in Y$ = seleksi bergantung-data | 🟡 Tulis argumen exchangeability intra-stratum secara formal |
@@ -417,6 +456,7 @@ Kalibrasi = fold 9 · blok = `patient_id` · 44 pernyataan diagnostik SCP · 3.0
 - [x] ~~**C8** — perluasan HCP ke multi-label berhierarki~~ ✅ §5
 - [x] ~~Proposisi 2 untuk $N_k$ tak seragam~~ ✅ Prop. 2′ (rata-rata harmonik), §2
 - [x] ~~Estimator $\rho(t)$ beserta CI~~ ✅ [src/conformal/icc.py](../src/conformal/icc.py)
-- [ ] 🔴 Review statistikawan atas Kor. 3.2 dan §5.6
+- [x] ~~🔴 Review statistikawan atas Kor. 3.2~~ ✅ **Tidak lagi menjadi penghalang.** Klaim eksistensi diverifikasi ekshaustif pada kekisi PTB-XL (§4.2); perumumannya tidak diklaim, melainkan dinyatakan terbuka
+- [ ] 🟡 Review statistikawan atas §5.6
 - [ ] Rumusan formal C2 (penutupan hierarkis) sebagai lema, memakai Kor. 5.2
 - [ ] Kunci judul dan nama metode setelah C6/C7/C8 final

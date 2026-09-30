@@ -138,12 +138,23 @@ record the substitution as a deviation.
 **Assumption (A) is a modelling choice.** Propositions 2 and 2′ assume a one-way
 random-effects model for the score indicator. Proposition 1 and the feasibility
 results of §5.2–5.3 are distribution-free and do not depend on it. We keep the two
-classes of claim separated throughout, and flag that the adequacy of a one-way
-random-effects model for a *binary indicator* warrants scrutiny.
+classes of claim separated throughout.
+
+A further gap deserves explicit treatment. Proposition 2 is stated for the ICC of
+the **indicator** $\mathbb{1}\{s\le t\}$, whereas the dose–response analysis is
+more conveniently computed on raw scores. We therefore recomputed the entire
+curve using the indicator ICC at a fixed threshold. The conclusion is unchanged:
+Spearman $+0.90/+0.80/+0.71$, all $p<0.05$, against $+0.84/+0.80/+0.85$ with raw
+scores. The value of $\rho$ does shift — PTB-XL falls from 0.3525 to 0.19–0.20 —
+but its design effect remains $\approx 1.01$ and its position on the curve does
+not move. The prediction survives on the quantity the theory actually specifies.
 
 **Scope of the impossibility result.** *Corollary 3.2 is proved for the HCP/Dunn
 family. Whether it holds for every distribution-free method that relies on
-exchangeability between blocks remains an open question.*
+exchangeability between blocks remains an open question.* The existence claim
+itself is verified exhaustively on the PTB-XL partition lattice: of the fifteen
+joins of dependence sources, eight satisfy sufficiency and all eight collapse to
+a single block.
 
 **Formal proofs require statistical review.** All derivations in §5 are to be
 reviewed by a statistician before submission.

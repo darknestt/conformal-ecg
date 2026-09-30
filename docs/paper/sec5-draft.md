@@ -130,6 +130,15 @@ grouping satisfies S1 and S2 simultaneously at a given $\alpha$.*
 > for the HCP/Dunn family. Whether it holds for every distribution-free method
 > that relies on exchangeability between blocks remains an open question.*
 
+**The existence claim is verified constructively on real data.** Enumerating all
+$2^4-1$ joins of subsets of $\{\texttt{patient\_id}, \texttt{site},
+\texttt{nurse}, \texttt{device}\}$ on PTB-XL fold 9 yields eight groupings that
+satisfy S2, **all of which collapse to $K_1 = 1$**. None satisfies S1 and S2
+simultaneously at $\alpha \in \{0.01, 0.05, 0.10, 0.20\}$. The finest
+S2-satisfying grouping is $\texttt{site} \vee \texttt{nurse}$, already a single
+block; every other S2-satisfying grouping is coarser still. The impossibility is
+therefore exhaustive on this lattice rather than established by sampling.
+
 On PTB-XL the join of `patient_id` with `nurse` and `site` retains $K_1=34$ and
 remains feasible at $\alpha=0.05$; adding `device` collapses it to $K_1=5$, and
 the join of all four sources yields a single block. The diagnostic returns a
