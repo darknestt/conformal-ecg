@@ -256,7 +256,7 @@ Dengan ukuran yang benar, **kedua granularitas yang layak justru dua yang paling
 | **S1** Kelayakan | 🟢 **Teorema** — konsekuensi langsung Prop. 1 | Teorema 1 [A0] |
 | **S2** Kecukupan | � **Definisi + Prop. 3**, sah **hanya di bawah model [A0]** | §4.0b serangan 3 |
 | **S0** Keteramatan | 🟡 **Klaim dokumentasi**, bukan teorema | §4.0b serangan 2 |
-| **Prop. 0′** Harga ketakteramatan | 🟢 **Hasil** — tanpa pengenal tercatat, hanya $\alpha\ge\tfrac12$ terjamin | §4.0b serangan 1 |
+| **Prop. 0′** Harga ketakteramatan | 🟢 **Korolari Prop. 3** — batas lewat join kelas $\mathfrak{P}$ | §4.0b serangan 1 & 4 |
 | Urutan $S_0 \to S_1 \to S_2$ | 🟡 **Aturan keputusan** | pilihan desain, bukan teorema |
 | Pemeringkatan granularitas admissible | 🟡 **Heuristik** berbasis Prop. 2′ | bukan optimalitas terbukti |
 
@@ -274,16 +274,39 @@ Dengan ukuran yang benar, **kedua granularitas yang layak justru dua yang paling
 
 **Serangan.** Bukti Prop. 0 memakai $\mathcal{P}_\bot$ (seluruhnya tunggal) melawan $\mathcal{P}_\top$ (satu blok). Tetapi $\mathcal{P}_\bot$ berarti **tidak ada dependensi sama sekali**. Jadi yang dibandingkan adalah "nihil dependensi" versus "dependensi total". Pernyataan seperti itu berlaku bagi **sembarang** besaran tak teramati dan tidak mengatakan apa pun khusus tentang conformal prediction. Ia hanya merumuskan ulang "Anda tidak dapat mengetahui apa yang tidak Anda amati".
 
-**Diterima.** Prop. 0 diturunkan statusnya menjadi **catatan**, bukan hasil. Penggantinya menyatakan sesuatu yang operasional.
+**Diterima.** Prop. 0 diturunkan statusnya menjadi **catatan**, bukan hasil. Penggantinya menyatakan sesuatu yang operasional — tetapi rumusan pertamanya sendiri mengandung cacat kuantifier, lihat serangan 4.
 
-> 🟢 **Proposisi 0′ (harga ketakteramatan).** Misalkan kalibrasi memakai partisi teramati $\mathcal{Q}$, sedangkan dependensi sejati dibangkitkan partisi $\mathcal{P}$ yang tak teramati dan **tanpa kendala apa pun**. Maka jaminan yang masih dapat dipertahankan adalah jaminan pada kasus terburuk $\mathcal{P} = \mathcal{P}_\top$, yaitu $K_1 = 1$, sehingga
-> $$\alpha \;\ge\; \tfrac{1}{K_1+1} \;=\; \tfrac{1}{2}.$$
+#### Serangan 4 — "Prop. 0′ menyelundupkan dua asumsi"
+
+**Serangan.** Rumusan pertama Prop. 0′ berbunyi: *tanpa kendala, jaminan tereduksi ke kasus terburuk $\mathcal{P}_\top$, sehingga $\alpha \ge \tfrac12$.* Langkah itu bukan aritmetika melainkan **kuantifier**, dan menyelundupkan dua hal:
+
+1. bahwa $\mathcal{P}_\top$ **termasuk** kelas partisi yang admissible;
+2. bahwa jaminan dituntut berlaku **seragam** atas seluruh kelas itu.
+
+Keduanya pilihan, bukan konsekuensi. Lebih buruk lagi, asumsi (1) sering **absurd secara domain**: $\mathcal{P}_\top$ pada Challenge 2021 berarti satu pasien menghasilkan 66.416 EKG di tujuh institusi.
+
+**Diterima.** Rumusan diperbaiki sehingga tidak lagi memaksakan kasus terburuk, melainkan mengikuti Prop. 3 yang sudah ada.
+
+> 🟢 **Proposisi 0′ (harga ketakteramatan, direvisi).** Misalkan $\mathfrak{P}$ kelas partisi yang admissible di bawah model [A0] **dan** konsisten dengan metadata teramati. Bila jaminan dituntut berlaku tanpa mengetahui $\mathcal{P}$ yang sebenarnya, maka partisi kalibrasi $\mathcal{Q}$ wajib memenuhi S2 bagi **setiap** $\mathcal{P}\in\mathfrak{P}$. Menurut Prop. 3 hal itu menuntut
+> $$\mathcal{Q} \;\succeq\; \bigvee_{\mathcal{P}\in\mathfrak{P}} \mathcal{P}, \qquad\text{sehingga}\qquad \alpha \;\ge\; \frac{1}{K_1\!\left(\bigvee_{\mathcal{P}\in\mathfrak{P}} \mathcal{P}\right)+1}.$$
 >
-> *Bukti.* Jaminan HCP menuntut $\mathcal{P}$ menghaluskan $\mathcal{Q}$. Himpunan $\mathcal{P}$ yang konsisten dengan metadata mencakup $\mathcal{P}_\top$, yang hanya menghaluskan partisi trivial. Infimum jaminan atas himpunan itu karena itu dicapai pada partisi trivial, dengan $K_1 = 1$. $\square$
+> *Bukti.* Jaminan HCP menuntut $\mathcal{P} \preceq \mathcal{Q}$. Agar berlaku bagi setiap anggota $\mathfrak{P}$, $\mathcal{Q}$ harus lebih kasar daripada seluruhnya; partisi terhalus dengan sifat itu adalah join-nya (Prop. 3). Kor. 3.1 memberi batas $K_1$-nya. $\square$
 
-Ini mengubah "tak dapat diputuskan" menjadi **harga yang terhitung**: tanpa pengenal blok yang tercatat, satu-satunya tingkat kesalahan yang masih terjamin adalah $\alpha \ge 0{,}5$ — yaitu tanpa guna secara praktis. Itulah biaya sesungguhnya dari tidak mencatat pengenal.
+**Korolari 0′.1.** Bila $\mathfrak{P}$ tidak dibatasi sama sekali sehingga memuat $\mathcal{P}_\top$, maka join-nya adalah $\mathcal{P}_\top$, $K_1 = 1$, dan batasnya menjadi $\alpha \ge \tfrac12$.
 
-> Perhatikan bahwa Prop. 0′ **tidak** menyatakan cakupan pasti rusak. Ia menyatakan batas yang masih **terjamin** runtuh. Data bisa saja baik-baik saja; yang hilang adalah jaminannya.
+**Rumusan yang boleh masuk naskah** — perhatikan syaratnya dinyatakan, bukan diandaikan:
+
+> *If no restriction is imposed on the unobserved partition and the single-block partition is admissible, the worst-case feasibility bound reduces to $K_1 = 1$, yielding $\alpha \ge 1/2$.*
+
+Yang **tidak boleh** ditulis: *"S0 tak teramati, karena itu $\alpha \ge 0{,}5$."* Selisih kalimatnya kecil; selisih matematisnya besar.
+
+#### Akibat sesungguhnya dari kegagalan S0
+
+Dalam praktik, pengetahuan domain **menyingkirkan** $\mathcal{P}_\top$. Tetapi $\mathfrak{P}$ kemudian menjadi objek yang **ditetapkan oleh asumsi**, bukan dihitung dari data. Inilah konsekuensi sebenarnya, dan ia lebih tajam daripada angka $\tfrac12$:
+
+> **Kegagalan S0 mengubah $K_1$ dari besaran terhitung menjadi asumsi yang wajib dinyatakan.**
+
+Naskah karena itu tidak boleh melaporkan satu angka $\alpha_{\min}$ untuk dataset tanpa pengenal blok. Yang harus dilaporkan adalah **asumsi tentang $\mathfrak{P}$** beserta batas yang mengikutinya — dan pembaca dapat menilai kelayakan asumsi itu sendiri.
 
 #### Serangan 2 — "Definisi keteramatan itu hampa"
 
@@ -314,12 +337,15 @@ Di luar model itu — dependensi spasial kontinu, deret waktu berekor panjang, g
 | Komponen | Sebelum | **Sesudah audit** |
 |---|---|---|
 | Prop. 0 | 🟢 hasil | 🟡 **catatan** — benar tetapi nyaris tanpa isi |
-| **Prop. 0′** | — | 🟢 **hasil baru** — harga ketakteramatan terhitung |
+| **Prop. 0′** (rumusan pertama) | — | ❌ **dicabut** — menyelundupkan dua asumsi kuantifier |
+| **Prop. 0′** (direvisi, via join $\mathfrak{P}$) | — | 🟢 **hasil** — korolari Prop. 3, syaratnya eksplisit |
 | S0 | 🟢 definisi terukur | 🟡 **klaim dokumentasi**, bukan teorema |
 | S1 | 🟢 teorema | 🟢 tidak berubah |
 | S2 | 🟢 definisi | 🟡 **terdefinisi hanya di bawah model [A0]** |
 
-Tiga dari lima komponen turun status. Itu hasil yang benar: rumusan versi pertama **memang** lebih longgar daripada yang saya klaim.
+Empat serangan dilancarkan, **keempatnya menembus**. Itu hasil yang benar: rumusan versi pertama **memang** lebih longgar daripada yang saya klaim.
+
+> Serangan 4 datang **setelah** tiga lubang pertama ditutup, dan menembus tambalannya sendiri. Ini mengingatkan bahwa menambal cacat dapat memperkenalkan cacat baru — audit harus diulang terhadap perbaikannya, bukan berhenti pada rumusan lama.
 
 #### Hubungan C7 ↔ C6
 
@@ -358,7 +384,7 @@ Pengecualian pengenal-unik bersifat menentukan: pengenal unik membangkitkan part
 
 Setiap partisi kalibrasi $\mathcal{Q}$ yang dapat dibangun praktisi **wajib** $V$-teramati — tidak mungkin mengelompokkan menurut sesuatu yang tidak tercatat.
 
-> 🟡 **Catatan (ketakterputusan).** Bila $\mathcal{P}$ tidak $V$-teramati, pernyataan "$\mathcal{P}$ menghaluskan $\mathcal{Q}$" tidak dapat diputuskan dari data: $\mathcal{P}_\bot$ membuatnya berlaku, $\mathcal{P}_\top$ membuatnya gagal, dan keduanya konsisten dengan metadata yang sama. Pernyataan ini **benar tetapi nyaris tanpa isi** — ia berlaku bagi sembarang besaran tak teramati. Yang operasional adalah **Prop. 0′** di §4.0b: tanpa pengenal tercatat, satu-satunya tingkat kesalahan yang masih terjamin adalah $\alpha \ge \tfrac12$.
+> 🟡 **Catatan (ketakterputusan).** Bila $\mathcal{P}$ tidak $V$-teramati, pernyataan "$\mathcal{P}$ menghaluskan $\mathcal{Q}$" tidak dapat diputuskan dari data: $\mathcal{P}_\bot$ membuatnya berlaku, $\mathcal{P}_\top$ membuatnya gagal, dan keduanya konsisten dengan metadata yang sama. Pernyataan ini **benar tetapi nyaris tanpa isi** — ia berlaku bagi sembarang besaran tak teramati. Yang operasional adalah **Prop. 0′** di §4.0b: kegagalan S0 mengubah $K_1$ dari besaran **terhitung** menjadi **asumsi yang wajib dinyatakan**.
 
 Konsekuensinya bersifat **epistemik, bukan negatif**:
 
@@ -518,9 +544,11 @@ Dihitung oleh [scripts/verify_challenge2021.py](../scripts/verify_challenge2021.
 
 #### Vonis
 
-**S0 TAK TERAMATI** untuk sumber dependensi *pasien*: tidak ada variabel yang terdokumentasi sebagai pengenal pasien. Menurut Prop. 0′, tanpa pengenal tercatat satu-satunya tingkat kesalahan yang masih **terjamin** adalah $\alpha \ge 0{,}5$ — tanpa guna praktis. Yang benar dinyatakan: *tidak dapat diketahui* apakah ada pasien yang menyumbang beberapa rekaman.
+**S0 TAK TERAMATI** untuk sumber dependensi *pasien*: tidak ada variabel yang terdokumentasi sebagai pengenal pasien. Menurut Prop. 0′, $K_1$ karena itu berhenti menjadi besaran terhitung dan berubah menjadi **asumsi tentang kelas $\mathfrak{P}$** yang wajib dinyatakan. Yang benar dinyatakan: *tidak dapat diketahui* apakah ada pasien yang menyumbang beberapa rekaman.
 
 > Ini **bukan** klaim bahwa cakupan pasti rusak. Datanya bisa saja baik-baik saja. Yang hilang adalah **jaminannya**.
+>
+> Perhatikan pula bahwa batas $\alpha \ge \tfrac12$ dari Kor. 0′.1 **tidak** berlaku begitu saja di sini: ia menuntut $\mathcal{P}_\top$ admissible, yang pada dataset ini absurd secara domain (satu pasien dengan 66.416 EKG di tujuh institusi). Yang benar dilaporkan adalah bahwa $\mathfrak{P}$ tidak dapat ditetapkan dari data.
 
 Satu-satunya partisi yang teramati adalah **sumber**, dengan $K = 7$. Karena $K_1 \le K$ selalu,
 
