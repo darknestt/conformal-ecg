@@ -1,0 +1,30 @@
+# Inti
+numpy>=1.24
+scipy>=1.11
+pandas>=2.0
+scikit-learn>=1.3
+
+# Pembacaan format PhysioNet (WFDB)
+wfdb>=4.1
+
+# Backbone deep learning (pelatihan sekali di awal)
+torch>=2.0
+
+# Statistik & visualisasi
+statsmodels>=0.14
+matplotlib>=3.7
+
+# Konfigurasi & utilitas
+pyyaml>=6.0
+tqdm>=4.66
+
+# Pengujian
+pytest>=7.4
+
+# Opsional - baseline conformal pihak ketiga (verifikasi ketersediaan dulu)
+# mapie
+# crepes
+# torchcp
+
+# Opsional - hanya jika UEA/UCR (D5) jadi dipakai
+# aeon

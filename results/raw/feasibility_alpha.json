@@ -1,0 +1,87 @@
+[
+  {
+    "grouping": "patient_id",
+    "blocks_total": 18869,
+    "blocks_calibration": 1942,
+    "records_calibration": 2183,
+    "mean_block_size_calib": 1.124,
+    "alpha_min_feasible": 0.00051,
+    "feasible": {
+      "0.01": true,
+      "0.05": true,
+      "0.10": true,
+      "0.20": true
+    },
+    "kish_neff_full": 15658.8,
+    "design_effect_full": 1.39,
+    "note": ""
+  },
+  {
+    "grouping": "site",
+    "blocks_total": 51,
+    "blocks_calibration": 40,
+    "records_calibration": 2183,
+    "mean_block_size_calib": 54.55,
+    "alpha_min_feasible": 0.02439,
+    "feasible": {
+      "0.01": false,
+      "0.05": true,
+      "0.10": true,
+      "0.20": true
+    },
+    "kish_neff_full": 3.3,
+    "design_effect_full": 6687.01,
+    "note": ""
+  },
+  {
+    "grouping": "nurse",
+    "blocks_total": 12,
+    "blocks_calibration": 12,
+    "records_calibration": 2183,
+    "mean_block_size_calib": 163.417,
+    "alpha_min_feasible": 0.07692,
+    "feasible": {
+      "0.01": false,
+      "0.05": false,
+      "0.10": true,
+      "0.20": true
+    },
+    "kish_neff_full": 3.9,
+    "design_effect_full": 5185.35,
+    "note": ""
+  },
+  {
+    "grouping": "device",
+    "blocks_total": 11,
+    "blocks_calibration": 11,
+    "records_calibration": 2183,
+    "mean_block_size_calib": 198.455,
+    "alpha_min_feasible": 0.08333,
+    "feasible": {
+      "0.01": false,
+      "0.05": false,
+      "0.10": true,
+      "0.20": true
+    },
+    "kish_neff_full": 5.6,
+    "design_effect_full": 3900.57,
+    "note": ""
+  },
+  {
+    "grouping": "strat_fold",
+    "blocks_total": 10,
+    "blocks_calibration": 8,
+    "records_calibration": 2183,
+    "mean_block_size_calib": 2179.9,
+    "alpha_min_feasible": 0.11111,
+    "feasible": {
+      "0.01": false,
+      "0.05": false,
+      "0.10": false,
+      "0.20": true
+    },
+    "kish_neff_full": 10.0,
+    "design_effect_full": 2179.93,
+    "note": "fold dipakai sebagai blok hanya bila kalibrasi memakai fold 1-8"
+  }
+]

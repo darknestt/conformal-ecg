@@ -1,0 +1,41 @@
+# Dataset mentah dan turunannya - tidak pernah di-commit
+data/raw/
+data/interim/
+data/processed/
+*.zip
+*.dat
+*.hea
+*.atr
+*.mat
+
+# Hasil eksperimen mentah (tabel & figur final boleh di-commit)
+# JSON dikecualikan: berisi provenance setiap angka yang dikutip di dokumen
+results/raw/*
+!results/raw/*.json
+*.ckpt
+*.pth
+*.pt
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+env/
+.ipynb_checkpoints/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+*.egg-info/
+
+# Editor & OS
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Log
+*.log
+wandb/
+mlruns/

@@ -1,0 +1,111 @@
+{
+  "patient_id": {
+    "n_blocks": 18869,
+    "n_units": 21799,
+    "n_missing": 0,
+    "mean_block_size": 1.1552811489745085,
+    "median_block_size": 1.0,
+    "max_block_size": 10,
+    "singleton_blocks": 16758,
+    "units_in_multi_blocks": 5041,
+    "pct_units_in_multi_blocks": 23.12491398688013,
+    "n_eff": 15658.760371700662,
+    "n_eff_ratio": 0.7183247108445645,
+    "design_effect": 1.3921280792696913,
+    "intensity": "SEDANG"
+  },
+  "nurse": {
+    "n_blocks": 12,
+    "n_units": 20326,
+    "n_missing": 1473,
+    "mean_block_size": 1693.8333333333333,
+    "median_block_size": 637.0,
+    "max_block_size": 8295,
+    "singleton_blocks": 0,
+    "units_in_multi_blocks": 20326,
+    "pct_units_in_multi_blocks": 100.0,
+    "n_eff": 3.9198904367701504,
+    "n_eff_ratio": 0.00019285104972794207,
+    "design_effect": 5185.349011118764,
+    "intensity": "SANGAT KUAT"
+  },
+  "site": {
+    "n_blocks": 51,
+    "n_units": 21782,
+    "n_missing": 17,
+    "mean_block_size": 427.0980392156863,
+    "median_block_size": 15.0,
+    "max_block_size": 8940,
+    "singleton_blocks": 0,
+    "units_in_multi_blocks": 21782,
+    "pct_units_in_multi_blocks": 100.0,
+    "n_eff": 3.2573598483434303,
+    "n_eff_ratio": 0.0001495436529401997,
+    "design_effect": 6687.010650996235,
+    "intensity": "SANGAT KUAT"
+  },
+  "device": {
+    "n_blocks": 11,
+    "n_units": 21799,
+    "n_missing": 0,
+    "mean_block_size": 1981.7272727272727,
+    "median_block_size": 966.0,
+    "max_block_size": 6140,
+    "singleton_blocks": 0,
+    "units_in_multi_blocks": 21799,
+    "pct_units_in_multi_blocks": 100.0,
+    "n_eff": 5.588671059349913,
+    "n_eff_ratio": 0.0002563728179893533,
+    "design_effect": 3900.5695215376854,
+    "intensity": "SANGAT KUAT"
+  },
+  "strat_fold": {
+    "n_blocks": 10,
+    "n_units": 21799,
+    "n_missing": 0,
+    "mean_block_size": 2179.9,
+    "median_block_size": 2175.5,
+    "max_block_size": 2198,
+    "singleton_blocks": 0,
+    "units_in_multi_blocks": 21799,
+    "pct_units_in_multi_blocks": 100.0,
+    "n_eff": 9.999855030464962,
+    "n_eff_ratio": 0.0004587299890116502,
+    "design_effect": 2179.931602367081,
+    "intensity": "SANGAT KUAT"
+  },
+  "_intervals": {
+    "sesi sama (0 hari)": {
+      "n_patients": 140,
+      "n_records": 299,
+      "mean_block_size": 2.1357142857142857,
+      "n_eff": 132.83952451708765,
+      "design_effect": 2.250836120401338,
+      "intensity": "SEDANG"
+    },
+    "1-30 hari": {
+      "n_patients": 995,
+      "n_records": 2387,
+      "mean_block_size": 2.398994974874372,
+      "n_eff": 881.0528838719654,
+      "design_effect": 2.709258483452032,
+      "intensity": "SEDANG"
+    },
+    "31-365 hari": {
+      "n_patients": 679,
+      "n_records": 1629,
+      "mean_block_size": 2.3991163475699557,
+      "n_eff": 597.5323125422202,
+      "design_effect": 2.7262124002455494,
+      "intensity": "SEDANG"
+    },
+    ">365 hari": {
+      "n_patients": 297,
+      "n_records": 726,
+      "mean_block_size": 2.4444444444444446,
+      "n_eff": 262.4880478087649,
+      "design_effect": 2.7658402203856753,
+      "intensity": "SEDANG"
+    }
+  }
+}
