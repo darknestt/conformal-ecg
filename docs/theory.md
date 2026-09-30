@@ -544,11 +544,15 @@ Dihitung oleh [scripts/verify_challenge2021.py](../scripts/verify_challenge2021.
 
 #### Vonis
 
-**S0 TAK TERAMATI** untuk sumber dependensi *pasien*: tidak ada variabel yang terdokumentasi sebagai pengenal pasien. Menurut Prop. 0′, $K_1$ karena itu berhenti menjadi besaran terhitung dan berubah menjadi **asumsi tentang kelas $\mathfrak{P}$** yang wajib dinyatakan. Yang benar dinyatakan: *tidak dapat diketahui* apakah ada pasien yang menyumbang beberapa rekaman.
+**S0 TAK TERAMATI** untuk sumber dependensi *pasien*: tidak ada variabel yang terdokumentasi sebagai pengenal pasien. Menurut Prop. 0′, $K_1$ karena itu berhenti menjadi besaran terhitung dan berubah menjadi **asumsi tentang kelas $\mathfrak{P}$** yang wajib dinyatakan.
 
-> Ini **bukan** klaim bahwa cakupan pasti rusak. Datanya bisa saja baik-baik saja. Yang hilang adalah **jaminannya**.
+> ❗ **Dokumentasi membuktikan dependensi itu ADA.** Halaman resmi menyatakan sumber INCART berisi *"74 annotated ECGs … extracted from **32 Holter monitor recordings**"* — rata-rata 2,3 rekaman per pemantauan. Klasterisasi tingkat subjek **terdokumentasi ada**, sementara pengenalnya tidak disediakan.
 >
-> Perhatikan pula bahwa batas $\alpha \ge \tfrac12$ dari Kor. 0′.1 **tidak** berlaku begitu saja di sini: ia menuntut $\mathcal{P}_\top$ admissible, yang pada dataset ini absurd secara domain (satu pasien dengan 66.416 EKG di tujuh institusi). Yang benar dilaporkan adalah bahwa $\mathfrak{P}$ tidak dapat ditetapkan dari data.
+> Ini menutup penafsiran paling berbahaya atas kegagalan S0. Ia **bukan** berarti "tidak ada dependensi yang perlu dikhawatirkan"; di sini dataset sendiri menegaskan kebalikannya. Inilah persis kondisi yang S0 dimaksudkan menangkap, dan contohnya terdokumentasi, bukan hipotetis.
+
+> Ini **bukan** klaim bahwa cakupan pasti rusak. Yang hilang adalah **jaminannya**.
+>
+> Perhatikan pula bahwa batas $\alpha \ge \tfrac12$ dari Kor. 0′.1 **tidak** berlaku begitu saja di sini: ia menuntut $\mathcal{P}_\top$ admissible, yang pada dataset ini absurd secara domain. Yang benar dilaporkan adalah bahwa $\mathfrak{P}$ tidak dapat ditetapkan dari data.
 
 Satu-satunya partisi yang teramati adalah **sumber**, dengan $K = 7$. Karena $K_1 \le K$ selalu,
 

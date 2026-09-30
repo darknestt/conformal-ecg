@@ -170,6 +170,35 @@ Ini klaim tentang dokumentasi, bukan teorema. Ketakteramatan tidak dapat
 dibuktikan dari data — tanpa label pasien, tidak ada cara memeriksa apakah
 partisi pasien memfaktor melalui $V$.
 
+#### ❗ Dokumentasi membuktikan dependensi itu ADA, sekaligus tak teramati
+
+**[Dok]** Halaman resmi menyatakan bahwa sumber INCART berisi
+
+> *"74 annotated ECGs (all shared as training data) **extracted from 32 Holter
+> monitor recordings**."*
+
+Tujuh puluh empat rekaman berasal dari **32 pemantauan Holter**. Klasterisasi
+tingkat subjek karena itu **terdokumentasi ada** — rata-rata 2,3 rekaman per
+pemantauan — sementara pengenal yang menentukan rekaman mana milik pemantauan
+mana **tidak disediakan**.
+
+Hal serupa berlaku bagi folder `ptb-xl` (dikecualikan sebagai duplikat): 21.837
+rekaman yang di sumber aslinya berasal dari 18.869 pasien.
+
+> **Ini menutup penafsiran yang paling berbahaya.** Kegagalan S0 sering
+> disalahbaca sebagai "tidak ada dependensi yang perlu dikhawatirkan". Di sini
+> dokumentasi dataset sendiri **menegaskan kebalikannya**: dependensi tingkat
+> subjek ada dan tercatat dalam prosa, tetapi tidak tersedia sebagai variabel
+> yang dapat dipakai membentuk blok.
+>
+> Inilah kondisi yang S0 dimaksudkan menangkap — dan Challenge 2021 memberi
+> contohnya secara terdokumentasi, bukan hipotetis.
+
+**[Obs]** Catatan tambahan yang relevan bagi analisis subkelompok: konvensi
+sensor usia **berbeda antar sumber**. CPSC menyandikan usia di atas 89 sebagai
+**92**; PTB-XL memakai **300**. Menggabungkan sumber tanpa menyelaraskan konvensi
+ini akan merusak stratifikasi usia.
+
 #### S1 pada partisi sumber — dan hanya pada partisi itu
 
 **[K]** *(Korolari Prop. 1, berlaku pointwise pada partisi sumber.)* Partisi
@@ -343,32 +372,52 @@ teratas adalah elemen teratas itu.
 
 ### 🔴 Kerentanan yang bertahan
 
-**V1 — "Partisi sumber $K=7$" mengandaikan penilaian domain, bukan teorema.**
+**V1 — TERSELESAIKAN oleh dokumentasi primer.** *(Diaudit ulang 2026-09-30.)*
 
-Struktur subfolder (`g1/`…`g35/`) **juga teramati**. Bila subfolder diperlakukan
-sebagai blok, $K = 70$ dan $\alpha_{\min} \ge 1/71 \approx 0{,}014$ — yang
-membalikkan vonis S1 sepenuhnya.
+Kerentanan semula: struktur subfolder (`g1/`…`g35/`) juga teramati; bila dipakai
+sebagai blok maka $K = 70$ dan vonis S1 berbalik. Argumen penolakan kami semula
+hanya **induktif** — ukuran tepat 1.000 menunjukkan pemenggalan, tetapi tidak
+membuktikan ketiadaan makna sampling. Keduanya memang hal berbeda.
 
-**Bukti terhadap penafsiran itu.** Ukuran subfolder diperiksa langsung:
+**Dokumentasi resmi menyelesaikannya.** Halaman dataset PhysioNet menyatakan:
 
-| Sumber | Subfolder tepat 1.000 rekaman | Sisa (subfolder terakhir) |
-|---|---:|---:|
-| `ningbo` | **34 / 35** | 905 |
-| `chapman_shaoxing` | **10 / 11** | 247 |
-| `cpsc_2018` | **6 / 7** | 877 |
-| `ptb` | 0 / 1 | 516 (di bawah 1.000) |
+> *"Under each dataset folder the files are grouped into subfolders with up to
+> 1000 records per subfolder. These subfolders are named as `g#` where the #
+> starts at 1. Once 1000 records are allocated to a folder a new folder is
+> started with the # incremented by one."*
 
-Setiap subfolder berisi **tepat 1.000 rekaman** kecuali yang terakhir pada tiap
-sumber. Pola itu adalah pemenggalan berkas pada kelipatan 1.000, bukan
-pengelompokan bermakna. Menambah bahwa **tidak ada semantik terdokumentasi** bagi
-subfolder, memakainya sebagai blok dependensi berarti mengandaikan independensi
-antar-penggalan yang batasnya ditentukan urutan berkas.
+Alokasinya **berurutan dan berbasis hitungan**, dinyatakan penulis dataset
+sendiri. Tidak ada semantik akuisisi, situs, batch, maupun pasien. Hipotesis
+"subfolder adalah kelompok bermakna" karena itu **tertutup oleh sumber primer**,
+bukan oleh inferensi kami.
 
-**Yang tetap bertahan sebagai kerentanan.** Argumen di atas **induktif**, bukan
-deduktif. Ia menunjukkan subfolder *hampir pasti* artefak penyimpanan, tetapi
-tidak membuktikan bahwa tidak ada korespondensi tersembunyi antara urutan berkas
-dan pengelompokan klinis. Reviewer berhak menuntut asumsi ini dinyatakan, dan
-naskah **harus menyatakannya** — bukan menyajikan $K=7$ sebagai fakta.
+#### Analisis sensitivitas — dilaporkan penuh, bukan dipilih
+
+| Pilihan partisi | $K$ | $\alpha_{\min} \ge$ | $\alpha{=}0{,}05$ | $\alpha{=}0{,}10$ |
+|---|---:|---:|:-:|:-:|
+| Sumber (7 folder) | 7 | **0,1250** | ❌ | ❌ |
+| Subfolder (`g*`) | 70 | **0,0141** | ✅ | ✅ |
+
+Selisihnya menentukan: pada $\alpha = 0{,}05$ kedua pilihan memberi **vonis
+berlawanan**.
+
+> ⚠️ **Pengakuan yang wajib ditulis.** Pilihan $K=7$ adalah pilihan yang
+> **mendukung narasi kami** (Challenge 2021 sebagai kasus keterbatasan). Justru
+> karena itu kami mencari dokumentasi primer alih-alih bersandar pada inferensi
+> ukuran folder. Yang memutuskan adalah keterangan penulis dataset, bukan
+> kenyamanan kesimpulan. Analisis sensitivitas di atas dilaporkan penuh agar
+> pembaca dapat menilai sendiri.
+
+#### 🔴 Sisa kerentanan sesudah resolusi
+
+Dokumentasi tidak menyatakan **urutan** alokasi rekaman ke subfolder. Bila
+rekaman diurutkan menurut sesuatu yang bermakna sebelum dipenggal, batas
+subfolder dapat **sebagian** selaras dengan struktur itu. Namun karena penggalan
+berukuran tetap 1.000 sedangkan kelompok klinis tidak berukuran kelipatan 1.000,
+penggalan tetap akan **memotong** kelompok mana pun — sehingga subfolder tidak
+memenuhi S2 bagi sumber dependensi apa pun, terlepas dari urutannya.
+
+Status V1 turun dari 🔴 **blocker** menjadi 🟡 **asumsi terdokumentasi**.
 
 **V2 — Klaim "tidak ada pengenal pasien" bersandar pada sampel 42/66.416.**
 

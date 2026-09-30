@@ -312,9 +312,11 @@ Isi header diperiksa langsung (760 B): `#Age`, `#Sex`, `#Dx`, `#Rx`, `#Hx`, `#Sx
 
 > ⚠️ **S0 tidak pernah "gagal".** Ia terpenuhi atau tak teramati. Tidak menemukan pengenal pasien **bukan** membuktikan rekamannya independen — justru sebaliknya, tidak ada yang dapat dibuktikan. Ini **bukan** klaim bahwa cakupan pasti rusak; yang hilang adalah **jaminannya**.
 >
+> ❗ **Dokumentasi resmi justru membuktikan dependensi itu ADA.** Sumber INCART berisi *"74 annotated ECGs … extracted from **32 Holter monitor recordings**"*. Klasterisasi tingkat subjek terdokumentasi ada, pengenalnya tidak disediakan — persis kondisi yang S0 dimaksudkan menangkap.
+>
 > 🟡 **S0 adalah klaim dokumentasi, bukan teorema.** Tanpa label pasien, ketakteramatan tidak dapat *dibuktikan* dari data — yang dapat dinyatakan hanya bahwa tidak ada variabel yang terdokumentasi sebagai pengenal.
 >
-> ⚠️ **Batas $\alpha\ge0{,}5$ TIDAK berlaku begitu saja di sini.** Ia menuntut partisi satu-blok admissible — pada dataset ini absurd secara domain (satu pasien dengan 66.416 EKG di tujuh institusi). Lihat audit adversarial [`docs/theory.md`](docs/theory.md) §4.0b serangan 4.
+> ✅ **Pilihan $K=7$ kini disokong sumber primer, bukan inferensi kami.** Halaman PhysioNet menyatakan subfolder `g#` dibentuk dengan mengalokasikan *"up to 1000 records per subfolder"* secara berurutan — mekanisme penyimpanan, bukan kelompok sampling. Analisis sensitivitas dilaporkan penuh: $K{=}7 \Rightarrow \alpha_{\min}\ge0{,}125$ versus $K{=}70 \Rightarrow \alpha_{\min}\ge0{,}014$, yang memberi **vonis berlawanan** pada $\alpha{=}0{,}05$. Lihat [`docs/paper/sec6-7-draft.md`](docs/paper/sec6-7-draft.md).
 
 **Rumusan klaim yang boleh masuk naskah:** *dengan partisi teramati yang tersedia pada metadata Challenge 2021, dan di bawah kondisi kelayakan sampel-hingga yang dipakai penelitian ini, target $\alpha < 0{,}125$ tidak memenuhi syarat kelayakan untuk jaminan non-trivial pada tingkat blok tersebut.* Yang **tidak boleh** ditulis: *"Challenge 2021 terbukti tidak dapat dipakai untuk conformal prediction"* — terlalu luas.
 
