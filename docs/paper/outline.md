@@ -16,12 +16,12 @@
 | 3 | Preliminaries & Notation | ✅ **DRAF ADA** → [`sec3-4-draft.md`](sec3-4-draft.md) | `theory.md` §0–1 | ✅ |
 | 4 | Problem Formulation | ✅ **DRAF ADA** → [`sec3-4-draft.md`](sec3-4-draft.md) | `theory.md` §1, 3, 4.1 | ✅ |
 | 5 | Proposed Method | ✅ **DRAF ADA** → [`sec5-draft.md`](sec5-draft.md) | `theory.md` §2–5 | ✅ |
-| 6 | Datasets | ⚠️ | Angka final | ✅ |
-| 7 | Experimental Setup | ⚠️ | Backbone final (F2) | ✅ |
+| 6 | Datasets | ✅ **DRAF ADA** → [`sec6-7-draft.md`](sec6-7-draft.md) | Angka final — **sudah dihitung ulang** | ✅ |
+| 7 | Experimental Setup | ✅ **DRAF ADA** → [`sec6-7-draft.md`](sec6-7-draft.md) | Backbone final (F2) | ✅ |
 | 8 | Results | 🟡 **sebagian** | E1–E5; **kurva dosis-respons sudah ada** (`theory.md` §2.3) | — |
 | 9 | Ablation | ❌ | **E5** | — |
 | 10 | Discussion | ❌ | §8–9 | — |
-| 11 | Threats to Validity | ✅ | README §11 | ✅ |
+| 11 | Threats to Validity | ✅ **DRAF ADA** → [`sec11-draft.md`](sec11-draft.md) | README §11 | ✅ |
 | 12 | Conclusion | ❌ | Semuanya | — |
 
 **Kolom terakhir adalah alasan utama menulis §2–§5 sekarang.** Bila H0 gagal, hanya C4 yang mati; batas kelayakan bersifat kombinatorial dan sudah terbukti pada data nyata tanpa model apa pun. §2–§5 tidak akan terbuang.
