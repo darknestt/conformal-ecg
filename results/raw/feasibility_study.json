@@ -1,0 +1,84 @@
+{
+  "desain": {
+    "latih": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6
+    ],
+    "validasi": 7,
+    "evaluasi": "fold 9 dibagi level-pasien, 200x",
+    "fold_10": "TIDAK DISENTUH",
+    "alasan_tidak_pakai_fold_8": "67,8% tervalidasi manusia vs 100% di fold 9"
+  },
+  "macro_auroc": 0.9016486953495637,
+  "rata_Nk": 1.1194574856546688,
+  "persen_pasien_satu_rekaman": 90.45383411580595,
+  "hasil": {
+    "0.01": {
+      "B1_mean": 0.9909617535668628,
+      "B1_ci": [
+        0.9823183409700009,
+        0.997242710358937
+      ],
+      "B12_mean": 0.9912332775512899,
+      "B12_ci": [
+        0.9821893781029527,
+        0.9972670571055738
+      ],
+      "selisih_mean": 0.00027152398442706284,
+      "selisih_ci": [
+        0.0,
+        0.002824289081895567
+      ],
+      "B1_kurang_cakup": false,
+      "B12_memperbaiki": false,
+      "rasio_bobot": 1.1200312825860272
+    },
+    "0.05": {
+      "B1_mean": 0.9511183364654522,
+      "B1_ci": [
+        0.931818486364187,
+        0.9673315458780197
+      ],
+      "B12_mean": 0.9509652465173908,
+      "B12_ci": [
+        0.931818486364187,
+        0.9672949538905744
+      ],
+      "selisih_mean": -0.00015308994806146725,
+      "selisih_ci": [
+        -0.004668861926793175,
+        0.004677995034140258
+      ],
+      "B1_kurang_cakup": false,
+      "B12_memperbaiki": false,
+      "rasio_bobot": 1.1200312825860272
+    },
+    "0.10": {
+      "B1_mean": 0.9010026131710192,
+      "B1_ci": [
+        0.8740551077161363,
+        0.9255874003712196
+      ],
+      "B12_mean": 0.9002202903240214,
+      "B12_ci": [
+        0.8728068211459874,
+        0.9230823863636364
+      ],
+      "selisih_mean": -0.000782322846997589,
+      "selisih_ci": [
+        -0.005639265612992905,
+        0.0037862635127130857
+      ],
+      "B1_kurang_cakup": false,
+      "B12_memperbaiki": false,
+      "rasio_bobot": 1.1200312825860272
+    }
+  },
+  "h0_a_kurang_cakup": 0,
+  "h0_b_mekanisme": 0,
+  "putusan": "H0 TIDAK TERKONFIRMASI"
+}

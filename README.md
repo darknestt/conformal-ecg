@@ -60,7 +60,7 @@ Prediksi konformal hierarkis (HCP; Lee, Barber & Willett 2026) sudah menyelesaik
 | ~~C1~~ | ~~Teoretis~~ | ~~Teorema cakupan finite-sample untuk kalibrasi blok-pasien~~ | ❌ **DICABUT** — sudah diterbitkan Lee, Barber & Willett (ACM J. Data Science 2026). Lihat §4.0 |
 | C2 | Lema | Penutupan hierarkis mempertahankan validitas cakupan | ⚠️ Diturunkan dari "teorema" ke lema pendukung — argumennya terlalu pendek untuk klaim utama |
 | C3 | Metodologis | Algoritma `HiCoRC` yang model-agnostic | ✅ |
-| C4 | Empiris | Bukti kuantitatif bahwa conformal naif **gagal** pada EKG klinis multi-label hierarkis | ✅ **Menguat** — literatur yang ada murni teoretis |
+| C4 | Empiris | Bukti kuantitatif bahwa conformal naif **gagal** pada EKG klinis multi-label hierarkis | ❌ **TERREFUTASI pada PTB-XL level pasien** (2026-09-30). Cakupan naif tepat nominal; HCP tak berefek. Menunggu uji MIT-BIH sebelum dicabut — lihat §5.7 |
 | C5 | Artefak | Pustaka Python open-source + reproduksi penuh (GitHub + Zenodo DOI) | ✅ |
 | **C6** | **Teoretis-empiris** | **Karakterisasi tradeoff $K$ blok vs $N_k$ pengukuran**: validitas dibatasi $\alpha \ge 1/(K_1+1)$ dan **tidak bergantung $N_k$ sama sekali**; efisiensi punya **lantai $\sigma^2\rho/K$** yang tak tertembus berapa pun pengukuran ditambahkan | ✅ **Kontribusi utama** — dinyatakan sebagai pertanyaan terbuka oleh Lee-Barber-Willett sendiri |
 | **C7** | **Metodologis** | **Uji diagnostik kecukupan blok** — menentukan granularitas mana yang layak dikalibrasi, **sebelum** model dilatih | ✅ **Kontribusi utama** |
@@ -95,6 +95,8 @@ tanpa asumsi distribusi, **asalkan** data exchangeable.
 | Multi-label | Jumlah pernyataan melebihi jumlah rekaman (label ganda per rekaman) |
 
 > **Hipotesis inti H0:** Split conformal standar akan menghasilkan cakupan empiris **di bawah** target nominal pada PTB-XL bila kalibrasi dilakukan per-sampel, dan deviasi ini membesar seiring meningkatnya rata-rata rekaman per pasien.
+>
+> ❌ **H0 TERREFUTASI pada granularitas pasien PTB-XL (2026-09-30).** Cakupan naif terukur 0,9910 / 0,9511 / 0,9010 terhadap target 0,99 / 0,95 / 0,90 — **tepat di nominal**. Koreksi blok tidak berefek (CI selisih melingkupi nol). Penyebabnya struktural: rata-rata $N_k = 1{,}12$ dan 90,5% pasien hanya punya satu rekaman. Rincian: §5.7 dan [`docs/protocol.md`](docs/protocol.md) §12b.
 
 ---
 
@@ -487,6 +489,51 @@ $K_1$ superclass: NORM 905 · MI 486 · STTC 473 · CD 449 · HYP 242 — seluru
 > **Bonus untuk C2:** penutupan ke atas hanya menambahkan leluhur, dan menurut monotonisitas leluhur selalu setidaknya selayak keturunannya. Jadi penutupan hierarkis **tidak pernah** memasukkan label tak-layak — biayanya murni efisiensi.
 
 Turunan lengkap: [`docs/theory.md`](docs/theory.md) §5.
+
+### 5.7 ❌ Temuan 8 — H0 TERREFUTASI pada granularitas pasien PTB-XL
+
+Studi kelayakan (Langkah 4) dijalankan 2026-09-30. Rincian: [`docs/protocol.md`](docs/protocol.md) §12b · kode: [`experiments/feasibility.py`](experiments/feasibility.py)
+
+**Desain:** latih fold 1–6 · validasi fold 7 · evaluasi = fold 9 dibagi level-pasien, **200 pengulangan**. Backbone `SmallECGNet` 104.389 parameter, macro-AUROC 0,9016. Fold 10 tidak disentuh.
+
+| $\alpha$ | Target | B1 naif (CI95) | B12 HCP (CI95) | Selisih B12−B1 (CI95) |
+|---:|---:|---|---|---|
+| 0,01 | 0,99 | **0,9910** [0,9823; 0,9972] | 0,9912 [0,9822; 0,9973] | $+0{,}0003$ [$0{,}0000$; $+0{,}0028$] |
+| 0,05 | 0,95 | **0,9511** [0,9318; 0,9673] | 0,9510 [0,9318; 0,9673] | $-0{,}0002$ [$-0{,}0047$; $+0{,}0047$] |
+| 0,10 | 0,90 | **0,9010** [0,8741; 0,9256] | 0,9002 [0,8728; 0,9231] | $-0{,}0008$ [$-0{,}0056$; $+0{,}0038$] |
+
+Cakupan naif **tepat di nominal**, bukan di bawahnya. Koreksi blok tidak berefek: CI selisih melingkupi nol di ketiga level, cukup sempit untuk menyingkirkan efek di atas 0,5 poin persen.
+
+**Penyebabnya struktural, bukan kegagalan pengukuran.** Pada fold 9: rata-rata $N_k = 1{,}1195$, **90,5% pasien hanya punya satu rekaman**, rasio bobot atom $+\infty$ HCP vs split hanya **1,12×**. HCP secara konstruksi tidak dapat berbeda di sini — konsisten dengan $\mathrm{DEff}_{\text{blok}} = 1{,}2$.
+
+#### 🔍 Konfound yang nyaris lolos — dan positif palsu yang dihasilkannya
+
+Rancangan **pertama** studi ini mengalibrasi di fold 8 lalu menguji di fold 9, dan melaporkan cakupan 0,9357 pada $\alpha{=}0{,}05$ — defisit **1,43 poin persen**, tampak mendukung H0.
+
+Itu **positif palsu**. Fold 1–8 hanya **64–68%** divalidasi manusia; fold 9–10 **100%**. Rancangan itu mencampurkan pergeseran kualitas label ke dalam pengukuran cakupan. Begitu kalibrasi dan uji diambil dari fold 9 saja (100% vs 100%), defisitnya **hilang sepenuhnya**.
+
+| Rancangan | Kalibrasi tervalidasi | Uji tervalidasi | Cakupan $\alpha{=}0{,}05$ |
+|---|---|---|---|
+| Pertama (konfound) | 67,8% | 100% | 0,9357 — defisit semu |
+| Diperbaiki | 100% | 100% | **0,9511** — tepat nominal |
+
+> Yang menangkapnya bukan pemeriksaan cakupan, melainkan pertanyaan **"mengapa B12 identik dengan B1?"** Ambangnya 0,9136 vs 0,9137. Kalau dependensi blok penyebabnya, HCP pasti memperbaikinya.
+
+#### Tiga hal yang justru menguat
+
+1. **Ini kontrol positif yang lolos.** Split conformal mencapai cakupan nominal **persis** — tepat yang harus terjadi bila exchangeability berlaku. Hasil nol ini memvalidasi implementasi skor, kalibrasi, dan evaluasi sekaligus.
+2. **Mutu backbone tidak relevan.** Jaminan conformal model-agnostik: model lemah melebarkan $|C|$, tidak menurunkan cakupan. macro-AUROC 0,9016 vs benchmark ~0,93 memengaruhi efisiensi, bukan validitas.
+3. **Protokol bekerja.** §11 butir 2 sudah menuliskan tafsiran "pada design effect rendah, koreksi blok tidak diperlukan" **sebelum** hasil terlihat. Melaporkannya bukan rasionalisasi pasca-hoc.
+
+#### Konsekuensi
+
+| | Status |
+|---|---|
+| **C4** | ❌ Tidak terdukung di PTB-XL. **Belum dicabut** — protokol §11 butir 1 menuntut MIT-BIH diuji dulu |
+| **C6, C7, C8** | ✅ **Tidak tersentuh.** Batas kelayakan kombinatorial, terbukti tanpa model |
+| Langkah berikutnya | Uji H0b di **MIT-BIH** (~2.347 detak/rekaman, tiga orde lebih besar) |
+
+> Klaim lama *"Dependensi tergolong SEDANG — cukup untuk diteliti"* (Temuan 1) kini **terbantah secara empiris untuk keperluan cakupan**. Cukup untuk *diukur*, tidak cukup untuk *merusak* conformal.
 
 #### Klaim penelitian direposisi menjadi:
 
@@ -952,12 +999,16 @@ Setelah C1 dicabut, Anda tidak lagi menurunkan teorema dari nol — risiko desk 
 **Terkumpul:** 44.379 berkas · 661,5 MB · PTB-XL + MIT-BIH + NSTDB.
 Sisa: Challenge 2021 (P2, setelah H0 terkonfirmasi) dan UEA (P3, opsional).
 
-### Langkah 4 — Studi Kelayakan Cepat (1 minggu)
+### Langkah 4 — Studi Kelayakan Cepat ✅ SELESAI — H0 TERREFUTASI
 
-- [ ] Latih satu backbone sederhana pada PTB-XL 100 Hz
-- [ ] Terapkan split conformal naif
-- [ ] **Ukur apakah cakupan empiris < nominal** -> ini memvalidasi H0
-- [ ] Jika H0 tidak terkonfirmasi, **seluruh premis penelitian perlu ditinjau ulang**
+- [x] Latih satu backbone sederhana pada PTB-XL 100 Hz — `SmallECGNet` 104.389 parameter, macro-AUROC **0,9016**
+- [x] Terapkan split conformal naif **dan** HCP, 200 split acak level-pasien di dalam fold 9
+- [x] **Ukur cakupan empiris** — 0,9910 / 0,9511 / 0,9010 vs target 0,99 / 0,95 / 0,90: **tepat nominal, tidak kurang**
+- [x] Uji mekanisme H0 (selisih B12−B1) — CI melingkupi nol di ketiga level $\alpha$
+- [x] Catat hasil di [`docs/protocol.md`](docs/protocol.md) §12b beserta log penyimpangan
+- [ ] **Uji H0b di MIT-BIH** — protokol §11 butir 1, wajib sebelum C4 dicabut
+
+> Premis penelitian **tidak** perlu ditinjau ulang: C6/C7/C8 tidak bergantung pada H0. Yang terdampak hanya C4.
 
 ### Langkah 5 — Tulis Protokol 🟡 DRAF SELESAI
 
@@ -1102,6 +1153,10 @@ Catat setiap keputusan desain di sini beserta alasannya. Ini melindungi Anda saa
 | 2026-09-30 | **Prop. 2′ — blok tak seragam** | $\operatorname{Var}(\hat G) = \sigma^2[1+(H-1)\rho]/(KH)$ dengan $H$ = rata-rata **harmonik** ukuran blok. Rumus seragam bertahan persis dengan $N \mapsto H$ | Melengkapi sisa F1 |
 | 2026-09-30 | 🚨 **KOREKSI BESAR: klaim "dua sumbu tidak berkorelasi" DICABUT** | Design effect Kish milik estimator terboboti-**observasi**; HCP memakai terboboti-**blok**. Berimpit hanya bila $N_k$ seragam — pada `site` selisihnya **15,7×**. Dengan ukuran benar, dua granularitas yang layak justru dua yang paling efisien; urutannya **sejalan** | Terdeteksi karena tabel empiris lama bertentangan dengan Teorema C6(c) buatan sendiri. `strat_fold` (nyaris seragam) memberi rasio 1,000 — validasi internal |
 | 2026-09-30 | **Estimator $\rho(t)$ ditulis** ([`src/conformal/icc.py`](src/conformal/icc.py)) | ANOVA satu arah untuk desain tak seimbang + CI bootstrap **level blok**. Diuji memulihkan $\rho$ sejati pada $\{0;0{,}2;0{,}5;0{,}8\}$ dalam toleransi 0,05 | Bootstrap level titik akan mengulang persis kesalahan yang dikritik paper ini |
+| 2026-09-30 | ❌ **H0 TERREFUTASI pada granularitas pasien PTB-XL** | Cakupan naif 0,9910/0,9511/0,9010 vs target 0,99/0,95/0,90 — tepat nominal. Selisih B12−B1 mencakup nol di ketiga $\alpha$. Sebab: rata-rata $N_k{=}1{,}12$, 90,5% pasien satu rekaman, rasio bobot 1,12× | C4 **belum dicabut** — §11 butir 1 menuntut MIT-BIH diuji dulu. C6/C7/C8 tidak tersentuh |
+| 2026-09-30 | 🚨 **Positif palsu tertangkap: konfound kualitas label** | Rancangan pertama (kalibrasi fold 8 → uji fold 9) melaporkan defisit 1,43 pp. Fold 1–8 hanya 64–68% tervalidasi manusia vs 100% di fold 9–10. Setelah split bersih di dalam fold 9, defisit **hilang total** | Tertangkap bukan dari angka cakupan, melainkan dari pertanyaan "mengapa B12 identik B1?" |
+| 2026-09-30 | 🔧 **Uji H0 diperbaiki: tambahkan CI selisih B12−B1** | Versi pertama hanya menguji "B1 kurang-cakup" (bagian a). Mekanisme H0 justru ada di selisihnya (bagian b). Menguji (a) saja menghasilkan putusan yang menyesatkan | Memperketat uji, bukan melonggarkan |
+| 2026-09-30 | **Hasil nol diperlakukan sebagai kontrol positif** | Split conformal mencapai nominal *persis* — memvalidasi implementasi skor, kalibrasi, dan evaluasi. Mutu backbone tidak relevan: conformal model-agnostik | — |
 | | | | |
 
 ---
@@ -1114,10 +1169,11 @@ Catat setiap keputusan desain di sini beserta alasannya. Ini melindungi Anda saa
 
 | # | Prioritas | Mengapa menentukan | Gagal bila |
 |---|---|---|---|
-| **1** | **Studi kelayakan (Langkah 4)** | Melatih backbone, terapkan conformal naif, ukur cakupan. **Memvalidasi H0** sebelum berinvestasi penuh | H0 tidak konklusif → ikuti `protocol.md` §11, jangan mencari analisis baru |
+| **1** | **Uji H0b di MIT-BIH** | H0 terrefutasi di PTB-XL. Protokol §11 butir 1 menuntut MIT-BIH diuji (~2.347 detak/rekaman) **sebelum** C4 dicabut | Terrefutasi juga → C4 dicabut; naskah murni C6+C7+C8 |
 | **2** | **Review statistikawan** atas Kor. 3.2 dan §5.6 theory.md | Dua klaim ditandai 🔴/🟡 dan belum boleh masuk naskah tanpa diperiksa | Tidak lolos review → turunkan ke klaim khusus keluarga HCP/Dunn |
-| ~~3~~ | ~~Formalkan C6 + C7 + C8 di F1~~ | ✅ **Selesai 2026-09-30** kecuali review. [`docs/theory.md`](docs/theory.md): Prop 1, 2, 2′, 3–5, Teorema C6, prosedur C7, frontier C8 | — |
-| ~~4~~ | ~~Implementasi B12–B15~~ | ✅ **Selesai 2026-09-29.** [`src/conformal/`](src/conformal/), **52 unit test** lolos, Teorema 1 & Proposisi 1 terverifikasi secara empiris | — |
+| ~~3~~ | ~~Studi kelayakan (Langkah 4)~~ | ✅ **Selesai 2026-09-30.** H0 terrefutasi; implementasi tervalidasi sebagai kontrol positif | — |
+| ~~4~~ | ~~Formalkan C6 + C7 + C8 di F1~~ | ✅ **Selesai 2026-09-30** kecuali review. [`docs/theory.md`](docs/theory.md): Prop 1, 2, 2′, 3–5, Teorema C6, prosedur C7, frontier C8 | — |
+| ~~5~~ | ~~Implementasi B12–B15~~ | ✅ **Selesai 2026-09-29.** [`src/conformal/`](src/conformal/), **52 unit test** lolos | — |
 
 > **Sudah diamankan:** survei literatur ✅ selesai dan menyelamatkan sepuluh bulan. C1 ternyata sudah diterbitkan sejak 2023 — ditemukan sekarang, bukan di laporan reviewer.
 >

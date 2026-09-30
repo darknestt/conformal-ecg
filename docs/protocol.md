@@ -296,7 +296,47 @@ Setiap penyimpangan dari protokol beku dicatat di sini. **Kolom terakhir adalah 
 
 | Tanggal | Penyimpangan | Alasan | Sebelum/sesudah melihat hasil? |
 |---|---|---|---|
-| | | | |
+| 2026-09-30 | Studi kelayakan memakai fold 1–6 latih, 7 validasi, **9 dibagi level-pasien** untuk kalibrasi/uji — bukan split konfirmatori 1–8 / 9 / 10 | Menjaga fold 10 tetap perawan. Studi ini **eksploratoris**, bukan konfirmatori | **Sebelum** |
+| 2026-09-30 | Rancangan awal studi kelayakan (kalibrasi fold 8 → uji fold 9) **dibatalkan** dan diganti | Fold 1–8 hanya 64–68% divalidasi manusia; fold 9–10 100%. Rancangan itu mencampurkan **pergeseran kualitas label** ke dalam pengukuran cakupan | **Sesudah** melihat hasil pertama — dinyatakan terbuka; hasil pertama **tidak dipakai** |
+| 2026-09-30 | Uji H0 diperluas: selain "B1 kurang-cakup", ditambahkan CI untuk **selisih B12−B1** | Versi pertama hanya menguji bagian (a) H0. Mekanisme H0 justru terletak pada selisihnya | **Sesudah** — perbaikan metodologis, memperketat uji bukan melonggarkan |
+
+---
+
+## 12b. Hasil Studi Kelayakan (Langkah 4) — 2026-09-30
+
+**Desain:** latih fold 1–6 · validasi fold 7 · evaluasi = fold 9 dibagi level-pasien, **200 pengulangan**. Kedua sisi 100% tervalidasi manusia. Fold 10 tidak disentuh.
+Backbone: `SmallECGNet` 104.389 parameter, macro-AUROC **0,9016**.
+
+| $\alpha$ | Target | B1 naif (CI95) | B12 HCP (CI95) | Selisih B12−B1 (CI95) |
+|---:|---:|---|---|---|
+| 0,01 | 0,99 | **0,9910** [0,9823; 0,9972] | 0,9912 [0,9822; 0,9973] | $+0{,}00027$ [$0{,}00000$; $+0{,}00282$] |
+| 0,05 | 0,95 | **0,9511** [0,9318; 0,9673] | 0,9510 [0,9318; 0,9673] | $-0{,}00015$ [$-0{,}00467$; $+0{,}00468$] |
+| 0,10 | 0,90 | **0,9010** [0,8741; 0,9256] | 0,9002 [0,8728; 0,9231] | $-0{,}00078$ [$-0{,}00564$; $+0{,}00379$] |
+
+| Bagian H0 | Hasil |
+|---|---|
+| (a) B1 kurang-cakup | **0 / 3** |
+| (b) B12 memperbaikinya | **0 / 3** |
+
+### ❌ Putusan: H0 TERREFUTASI TEGAS pada granularitas pasien PTB-XL
+
+Cakupan split conformal naif **tepat di nominal**, bukan di bawahnya. Koreksi blok tidak memberi efek yang dapat dibedakan dari nol.
+
+**Penyebab struktural — bukan kegagalan pengukuran.** Pada fold 9: rata-rata $N_k = 1{,}1195$, **90,5% pasien hanya punya satu rekaman**, dan rasio bobot atom $+\infty$ antara HCP dan split hanya **1,12×**. Secara konstruksi HCP tidak dapat berbeda di sini. Ini konsisten dengan $\mathrm{DEff}_{\text{blok}} = 1{,}2$ yang sudah terukur sejak awal.
+
+**Mutu backbone tidak menjelaskan hasil ini.** Jaminan conformal bersifat model-agnostik: model lemah menghasilkan himpunan lebih lebar, bukan cakupan lebih rendah. macro-AUROC 0,9016 (vs benchmark ~0,93) memengaruhi $|C|$, bukan validitas.
+
+**Justru sebaliknya, ini kontrol positif yang lolos.** Split conformal mencapai cakupan nominal **secara persis** — persis yang harus terjadi bila exchangeability berlaku. Hasil nol ini memvalidasi implementasi skor, kalibrasi, dan evaluasi sekaligus.
+
+### Tindakan menurut §11
+
+Aturan "H0 tidak konklusif" butir 1 berlaku dan **harus dijalankan sebelum C4 dicabut**:
+
+1. **Uji H0b di MIT-BIH** (~2.347 detak per rekaman — tiga orde lebih besar). Bila terkonfirmasi di sana, kerangka tetap valid; PTB-XL sekadar kasus dependensi lemah.
+2. Laporkan hasil PTB-XL apa adanya sebagai **temuan**: *"pada design effect 1,2, koreksi blok tidak diperlukan."*
+3. Geser bobot naskah ke **C6+C7+C8**, yang tidak bergantung pada H0 sama sekali.
+
+> 🎯 **Butir 2 sudah tertulis di §11 sebelum hasil terlihat.** Melaporkannya karena itu **bukan rasionalisasi pasca-hoc** — ini tafsiran yang sudah dipra-registrasi. Protokolnya bekerja.
 
 ---
 
