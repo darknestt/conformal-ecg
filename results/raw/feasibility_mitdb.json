@@ -181,11 +181,16 @@
   },
   "h1_lolos": true,
   "h0b_a": 0,
-  "h0b_b": 3,
+  "h0b_b_DICABUT": 3,
   "alpha_layak": [
     0.1,
     0.15,
     0.2
   ],
-  "putusan": "H0b TERKONFIRMASI -- kerangka valid; PTB-XL sekadar dependensi lemah"
+  "kriteria_b_dicabut": {
+    "tanggal": "2026-09-30",
+    "alasan": "81-107% selisih B12-B1 mekanis, bukan efek dependensi",
+    "bukti": "results/raw/control_permutation_mitdb.json"
+  },
+  "putusan": "H1 LULUS 5/5. H0b(a) 0/3. Kriteria (b) DICABUT (mekanis) -- putusan H0b ADA DI control_permutation + monotonicity_icc + dose_response, BUKAN di berkas ini."
 }

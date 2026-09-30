@@ -230,16 +230,26 @@ def main() -> int:
     n_b = sum(ringkas[f"{a:.2f}"]["B12_memperbaiki"] for a in layak)
     print(f"\n== H0b (hanya pada {len(layak)} alpha yang LAYAK: {layak}) ==")
     print(f"  (a) B1 kurang-cakup          : {n_a}/{len(layak)}")
-    print(f"  (b) B12 memperbaiki (CI d>0) : {n_b}/{len(layak)}   <- mekanismenya")
+    print(f"  (b) B12 memperbaiki          : {n_b}/{len(layak)}  <- KRITERIA DICABUT")
+
+    print("\n" + "!" * 72)
+    print("KRITERIA (b) DICABUT 2026-09-30 -- JANGAN DIPAKAI SEBAGAI BUKTI H0b.")
+    print("Kontrol permutasi menunjukkan 81-107% selisih B12-B1 bersifat MEKANIS:")
+    print("pada K1=11 atom +inf memaksa HCP menembus persentil (1-alpha)(K1+1)/K1.")
+    print("Bukti H0b yang sah ada di experiments/control_permutation_mitdb.py")
+    print("(defisit B1 terhadap null tersuai) dan monotonicity_icc_mitdb.py")
+    print("(Spearman ICC vs defisit), lalu disatukan di dose_response.py.")
+    print("!" * 72)
 
     if not h1_ok:
-        putusan = "H1 GAGAL -- DEBUG IMPLEMENTASI SEBELUM MENAFSIRKAN APA PUN"
-    elif n_b >= max(1, len(layak) - 1):
-        putusan = "H0b TERKONFIRMASI -- kerangka valid; PTB-XL sekadar dependensi lemah"
-    elif n_a >= max(1, len(layak) - 1):
-        putusan = "H0b (a) saja; mekanisme tidak terdukung"
+        putusan = ("H1 GAGAL -- DEBUG IMPLEMENTASI SEBELUM MENAFSIRKAN APA PUN")
     else:
-        putusan = "H0b TIDAK TERKONFIRMASI"
+        putusan = (
+            f"H1 LULUS {len(ALPHAS)}/{len(ALPHAS)}. "
+            f"H0b(a) {n_a}/{len(layak)}. "
+            "Kriteria (b) DICABUT (mekanis) -- putusan H0b ADA DI control_permutation "
+            "+ monotonicity_icc + dose_response, BUKAN di berkas ini."
+        )
     print(f"\nPutusan: {putusan}")
 
     keluaran = ROOT / "results" / "raw" / "feasibility_mitdb.json"
@@ -253,7 +263,13 @@ def main() -> int:
                 "balanced_accuracy": float(balanced_accuracy_score(y_ev, pred)),
                 "macro_f1": float(f1_score(y_ev, pred, average="macro", zero_division=0)),
                 "hasil": ringkas, "h1_lolos": bool(h1_ok),
-                "h0b_a": n_a, "h0b_b": n_b, "alpha_layak": layak, "putusan": putusan,
+                "h0b_a": n_a, "h0b_b_DICABUT": n_b, "alpha_layak": layak,
+                "kriteria_b_dicabut": {
+                    "tanggal": "2026-09-30",
+                    "alasan": "81-107% selisih B12-B1 mekanis, bukan efek dependensi",
+                    "bukti": "results/raw/control_permutation_mitdb.json",
+                },
+                "putusan": putusan,
             },
             indent=2,
         ),
