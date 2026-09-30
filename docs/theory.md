@@ -58,26 +58,62 @@ Jadi ambang HCP sepenuhnya ditentukan oleh $\hat G$ — **rata-rata CDF antar-bl
 
 **Asumsi (A).** Untuk $t$ tetap, indikator $X_{k,i} = \mathbb{1}\{s_{k,i}\le t\}$ memenuhi: (i) blok saling bebas dan identik; (ii) di dalam blok, $\operatorname{Corr}(X_{k,i}, X_{k,j}) = \rho(t)$ untuk $i\ne j$; (iii) $\mathbb{E}X_{k,i} = F(t)$.
 
-**Proposisi 2.** Di bawah (A) dengan $N_k = N$ untuk semua $k$:
+**Proposisi 2 (blok seragam).** Di bawah (A) dengan $N_k = N$ untuk semua $k$:
 $$\operatorname{Var}\big(\hat G(t)\big) \;=\; \frac{\sigma^2(t)\,\big[1 + (N-1)\rho(t)\big]}{K N}, \qquad \sigma^2(t) = F(t)\big(1-F(t)\big).$$
 
 **Bukti.** $\operatorname{Var}(\bar F_k(t)) = \frac{1}{N^2}\big[N\sigma^2 + N(N-1)\rho\sigma^2\big] = \frac{\sigma^2[1+(N-1)\rho]}{N}$. Blok bebas, sehingga $\operatorname{Var}(\hat G) = \operatorname{Var}(\bar F_k)/K$. $\blacksquare$
 
-Faktor $1+(N-1)\rho(t)$ adalah **design effect**, dan pembandingnya adalah $\sigma^2/(KN)$ yang berlaku bila seluruh $KN$ titik independen.
+**Proposisi 2′ (blok tak seragam).** Di bawah (A) dengan $N_k$ sembarang:
+$$\operatorname{Var}\big(\hat G(t)\big) \;=\; \frac{\sigma^2(t)\,\big[1 + (H-1)\rho(t)\big]}{K H}, \qquad H = \frac{K}{\sum_k N_k^{-1}}$$
+dengan $H$ = **rata-rata harmonik** ukuran blok.
 
-### 2.1 Mengapa E11a wajib gagal — penjelasan formal
+**Bukti.**
+$$\operatorname{Var}(\hat G) = \frac{1}{K^2}\sum_k \frac{\sigma^2[1+(N_k-1)\rho]}{N_k} = \frac{\sigma^2}{K^2}\Big[(1-\rho)\sum_k \tfrac{1}{N_k} + \rho K\Big] = \frac{\sigma^2}{K}\Big[\frac{1-\rho}{H} + \rho\Big]. \;\blacksquare$$
 
-**Korolari 2.1.** Design effect Kish yang dihitung dari ukuran blok saja,
-$$\mathrm{DEff}_{\text{Kish}} = \frac{n}{n_{\text{eff}}}, \qquad n_{\text{eff}} = \frac{\big(\sum_k N_k\big)^2}{\sum_k N_k^2},$$
-untuk $N_k = N$ bernilai tepat $N$ — yaitu **kasus khusus $\rho = 1$** dari Proposisi 2. Karena $\rho \in [0,1]$,
-$$1 + (N-1)\rho(t) \;\le\; N \;=\; \mathrm{DEff}_{\text{Kish}},$$
-dengan kesamaan bila dan hanya bila $\rho(t) = 1$.
+Rumus seragam bertahan persis dengan $N \mapsto H$. Perhatikan $H$ **didominasi blok terkecil** — pada `site` PTB-XL, $H = 11{,}1$ walaupun rata-rata aritmetiknya 427,1.
 
-**Konsekuensi.** $\mathrm{DEff}_{\text{Kish}}$ adalah **batas atas**, bukan estimasi. Ia fungsi dari **ukuran blok semata** dan secara struktural **buta terhadap $\rho$**.
+### 2.1 ❗ Kish mengukur estimator yang SALAH
 
-Ini menjelaskan Temuan 5 (README §5.6) secara rigoros, bukan secara hand-waving. Hipotesis "dependensi meluruh terhadap interval antar-rekaman" diuji dengan $\mathrm{DEff}_{\text{Kish}}$ per bin dan hasilnya datar (2,25 / 2,71 / 2,73 / 2,77). **Itu memang harus terjadi**: ukuran blok nyaris seragam antar bin (2,14–2,44), dan Kish tidak melihat apa pun selain ukuran blok. Hipotesisnya tidak terbantahkan — ia **tidak teruji**.
+> 🔧 **KOREKSI 2026-09-30.** Versi pertama dokumen ini menyamakan $\mathrm{DEff}_{\text{Kish}}$ dengan kasus $\rho{=}1$ dari Prop. 2. Itu **hanya benar untuk blok seragam**. Untuk blok tak seragam keduanya adalah kuantitas berbeda — dan selisihnya mencapai **15,7×** pada PTB-XL.
 
-**E11b karenanya harus mengestimasi $\rho(t)$ secara langsung**, bukan $n_{\text{eff}}$. Inilah kuantitas yang benar.
+Ada **dua** estimator yang harus dibedakan:
+
+| | Rumus | Dipakai oleh |
+|---|---|---|
+| Terboboti-**blok** | $\hat G = \frac{1}{K}\sum_k \bar F_k$ | **HCP** (lihat penulisan ulang $\hat F$ di atas) |
+| Terboboti-**observasi** | $\bar X = \frac{1}{n}\sum_k\sum_i X_{k,i}$ | Kish / survei berklaster baku |
+
+Relatif terhadap $n$ titik independen ($\sigma^2/n$):
+
+$$\mathrm{DEff}_{\text{blok}}(\rho) = \frac{n\,[1+(H-1)\rho]}{K H} \;\xrightarrow{\ \rho\to1\ }\; \frac{n}{K} = \bar N \quad\text{(rata-rata \textbf{aritmetik})}$$
+
+$$\mathrm{DEff}_{\text{pooled}}(\rho) = (1-\rho) + \rho\,\frac{\sum_k N_k^2}{n} \;\xrightarrow{\ \rho\to1\ }\; \frac{\sum_k N_k^2}{n} = \mathrm{DEff}_{\text{Kish}} \quad\text{(rata-rata \textbf{terboboti-ukuran})}$$
+
+Keduanya berimpit **hanya** bila $N_k$ seragam. Karena HCP memakai $\hat G$, **$\mathrm{DEff}_{\text{Kish}}$ bukan ukuran efisiensi yang tepat untuk HCP pada blok tak seragam.**
+
+**Pengukuran pada PTB-XL** ([scripts/design_effect_nonuniform.py](../scripts/design_effect_nonuniform.py)):
+
+| Granularitas | $K$ | $\bar N$ (aritmetik) | $H$ (harmonik) | Kish | $\mathrm{DEff}_{\text{blok}}$ $\rho{=}1$ | Rasio |
+|---|---:|---:|---:|---:|---:|---:|
+| `patient_id` | 18.869 | 1,16 | 1,07 | 1,4 | 1,2 | 1,2× |
+| `site` | 51 | 427,10 | 11,11 | 6.687,0 | **427,1** | **15,7×** |
+| `nurse` | 12 | 1.693,83 | 744,55 | 5.185,3 | 1.693,8 | 3,1× |
+| `device` | 11 | 1.981,73 | 219,92 | 3.900,6 | 1.981,7 | 2,0× |
+| `strat_fold` | 10 | 2.179,90 | 2.179,87 | 2.179,9 | 2.179,9 | **1,0×** |
+
+> `strat_fold` berukuran nyaris seragam, dan di sana kedua rumus **berimpit persis** (rasio 1,000). Ini validasi internal bahwa turunannya benar.
+
+### 2.2 Kish tetap buta terhadap $\rho$ — dan itu menjelaskan E11a
+
+**Korolari 2.1.** Untuk blok seragam, $\mathrm{DEff}_{\text{Kish}} = N$, yaitu kasus $\rho = 1$ dari Prop. 2. Karena $\rho\in[0,1]$,
+$$1 + (N-1)\rho(t) \;\le\; N,$$
+dengan kesamaan bila dan hanya bila $\rho(t)=1$. Jadi $\mathrm{DEff}_{\text{Kish}}$ adalah **batas atas**, bukan estimasi — fungsi dari **ukuran blok semata**, secara struktural **buta terhadap $\rho$**.
+
+Ini menjelaskan Temuan 5 (README §5.6) secara rigoros. Hipotesis "dependensi meluruh terhadap interval antar-rekaman" diuji dengan $\mathrm{DEff}_{\text{Kish}}$ per bin dan hasilnya datar (2,25 / 2,71 / 2,73 / 2,77). **Itu memang harus terjadi**: ukuran blok nyaris seragam antar bin (2,14–2,44), dan Kish tidak melihat apa pun selain ukuran blok. Hipotesisnya tidak terbantahkan — ia **tidak teruji**.
+
+**E11b karenanya harus mengestimasi $\rho(t)$ secara langsung.** Estimator ANOVA satu arah untuk desain tak seimbang tersedia di [src/conformal/icc.py](../src/conformal/icc.py), dengan CI bootstrap **pada level blok** (meresample titik akan mengulang kesalahan yang justru dikritik paper ini). Diuji memulihkan $\rho$ sejati pada $\{0;0{,}2;0{,}5;0{,}8\}$ dalam toleransi 0,05.
+
+> Prop. 2 memakai ICC dari **indikator** $\mathbb{1}\{s\le t\}$, bukan ICC skor mentah. Keduanya kuantitas berbeda; `icc_at_threshold` dan `icc_curve` menyediakan yang benar.
 
 ---
 
@@ -102,6 +138,33 @@ naik monoton terhadap $N$ bila $\rho(t)>0$. Jadi memperbesar $K$ sambil memperke
 **(d) Di bawah kendala jumlah subjek, tradeoff-nya nyata dan menguntungkan $K$.** Bila $K$ terbatas oleh biaya rekrutmen, menambah $N$ tidak dapat memulihkan kelayakan *(Kor. 1.1)* dan tidak dapat menurunkan varians di bawah $\sigma^2\rho/K$ *(butir b)*.
 
 > **Rumusan ringkas — inilah klaim C6:** dalam inferensi bebas-distribusi pada data berhierarki, $K$ dan $N_k$ **bukan** dua cara setara membeli informasi. $K$ membeli **eksistensi** jaminan; $N_k$ hanya membeli **ketajaman**, dengan hasil yang berkurang dan berhenti pada lantai positif. Tidak ada jumlah pengukuran berulang yang dapat menggantikan blok.
+
+### 3.1 🔧 Klaim "dua sumbu tidak berkorelasi" DICABUT
+
+Versi sebelumnya menyertakan klaim empiris tambahan: *"urutan menurut design effect berlawanan dengan urutan menurut kelayakan $\alpha$"*, dengan contoh `site` (DEff 6.687, layak) versus `device` (DEff 3.901, tidak layak).
+
+**Klaim itu artefak dari memakai $\mathrm{DEff}_{\text{Kish}}$** — ukuran milik estimator yang tidak dipakai HCP. Dengan $\mathrm{DEff}_{\text{blok}}$ yang benar:
+
+| Granularitas | $\mathrm{DEff}_{\text{blok}}$ | $\alpha{=}0{,}05$ |
+|---|---:|:---:|
+| `patient_id` | 1,2 | ✅ |
+| `site` | 427,1 | ✅ |
+| `nurse` | 1.693,8 | ❌ |
+| `device` | 1.981,7 | ❌ |
+| `strat_fold` | 2.179,9 | ❌ |
+
+| | Urutan |
+|---|---|
+| Menurut Kish | `patient_id` < `strat_fold` < `device` < `nurse` < `site` |
+| Menurut $\mathrm{DEff}_{\text{blok}}$ | `patient_id` < `site` < `nurse` < `device` < `strat_fold` |
+
+Dengan ukuran yang benar, **kedua granularitas yang layak justru dua yang paling efisien**. Urutannya **sejalan**, bukan berlawanan.
+
+**Dan itu memang seharusnya.** Pada $\rho=1$, $\mathrm{DEff}_{\text{blok}} = n/K$ — turun monoton terhadap $K$, sementara kelayakan naik monoton terhadap $K$. Keduanya **digerakkan variabel yang sama**, sehingga mustahil berlawanan. Inilah persis isi butir (c): tidak ada tradeoff.
+
+> **Ini pemeriksaan koherensi yang lolos, bukan kekalahan.** Teorema memprediksi "tidak ada tradeoff"; tabel empiris memprediksi "urutan berlawanan"; keduanya bertentangan. Penyelesaiannya menunjukkan tabel empirislah yang memakai kuantitas salah. C6 kehilangan daya jual "kontra-intuitif", tetapi menjadi **konsisten secara internal** — dan konsistensi itu yang diperiksa reviewer.
+
+**Yang tetap bertahan sebagai isi C6:** butir (a)–(d) seluruhnya, Prop. 2′ (rata-rata harmonik), pemisahan $\mathrm{DEff}_{\text{blok}}$ vs Kish (temuan baru yang berguna bagi siapa pun yang memakai HCP pada blok tak seragam), dan Kor. 3.2 (ketidakmungkinan pada desain bersilang) yang tidak menyentuh efisiensi sama sekali.
 
 > ⚠️ **Batas kejujuran.** Butir (a) bebas-distribusi. Butir (b)–(d) memerlukan Asumsi (A) — model parametrik ringan. Naskah **wajib** memisahkan keduanya secara eksplisit; mencampurnya akan menjadi sasaran empuk reviewer.
 
@@ -279,8 +342,8 @@ Kalibrasi = fold 9 · blok = `patient_id` · 44 pernyataan diagnostik SCP · 3.0
 
 | # | Keterbatasan | Tindakan |
 |---|---|---|
-| 1 | Prop. 2 dan Teorema C6 (b–d) memakai Asumsi (A); tidak bebas-distribusi | Pisahkan secara eksplisit di §Metode |
-| 2 | Prop. 2 diturunkan untuk $N_k$ seragam | Rumuskan ulang untuk $N_k$ tak seragam, atau nyatakan sebagai aproksimasi |
+| 1 | Teorema C6 (b–d), Prop. 2 dan 2′ memakai Asumsi (A); tidak bebas-distribusi | Pisahkan secara eksplisit di §Metode |
+| 2 | ~~Prop. 2 diturunkan untuk $N_k$ seragam~~ | ✅ Diselesaikan oleh Prop. 2′ (rata-rata harmonik) |
 | 3 | $\rho(t)$ bergantung pada $t$ dan pada model | E11b mengestimasinya; jangan klaim nilai tunggal |
 | 4 | Kor. 3.2 baru terbukti untuk keluarga HCP/Dunn | 🔴 Jangan klaim universal sebelum direview statistikawan |
 | 5 | Kelayakan `site` bertumpu pada 37 site mungil yang `nurse`-nya kosong | Laporkan; kemungkinan rezim pengumpulan berbeda |
@@ -293,8 +356,8 @@ Kalibrasi = fold 9 · blok = `patient_id` · 44 pernyataan diagnostik SCP · 3.0
 ## 7. Yang belum dikerjakan di F1
 
 - [x] ~~**C8** — perluasan HCP ke multi-label berhierarki~~ ✅ §5
-- [ ] Proposisi 2 untuk $N_k$ tak seragam
-- [ ] Estimator $\rho(t)$ beserta CI (masukan untuk E11b)
+- [x] ~~Proposisi 2 untuk $N_k$ tak seragam~~ ✅ Prop. 2′ (rata-rata harmonik), §2
+- [x] ~~Estimator $\rho(t)$ beserta CI~~ ✅ [src/conformal/icc.py](../src/conformal/icc.py)
 - [ ] 🔴 Review statistikawan atas Kor. 3.2 dan §5.6
 - [ ] Rumusan formal C2 (penutupan hierarkis) sebagai lema, memakai Kor. 5.2
 - [ ] Kunci judul dan nama metode setelah C6/C7/C8 final

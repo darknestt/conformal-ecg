@@ -14,6 +14,9 @@ from src.conformal import (
     block_sufficiency,
     double_conformal,
     hcp,
+    icc_at_threshold,
+    icc_curve,
+    intraclass_correlation,
     label_sufficiency,
     minimum_blocks,
     pooling_cdfs,
@@ -409,3 +412,87 @@ def test_label_sufficiency_menolak_masukan_tak_sepadan():
         label_sufficiency(np.arange(10), np.ones((7, 2), dtype=bool), 0.05)
     with pytest.raises(ValueError, match="tidak muncul"):
         label_sufficiency(np.arange(10), np.zeros((10, 1), dtype=bool), 0.05)
+
+
+# --------------------------------------------------------------------------
+# Korelasi intra-blok -- masukan Prop. 2 dan E11b
+# --------------------------------------------------------------------------
+
+
+def efek_acak(k, n, rho_sejati, rng):
+    """Model efek acak satu arah dengan ICC = rho_sejati tepat."""
+    var_antar = rho_sejati
+    var_dalam = 1.0 - rho_sejati
+    efek = rng.normal(0.0, np.sqrt(var_antar), size=k)
+    nilai = efek[:, None] + rng.normal(0.0, np.sqrt(var_dalam), size=(k, n))
+    return nilai.ravel(), np.repeat(np.arange(k), n)
+
+
+@pytest.mark.parametrize("rho_sejati", [0.0, 0.2, 0.5, 0.8])
+def test_icc_memulihkan_rho_sejati(rho_sejati):
+    nilai, blocks = efek_acak(600, 8, rho_sejati, np.random.default_rng(50))
+    hasil = intraclass_correlation(nilai, blocks)
+    assert hasil.icc == pytest.approx(rho_sejati, abs=0.05)
+
+
+def test_icc_satu_bila_blok_sepenuhnya_redundan():
+    """Semua titik identik di dalam blok -> tidak ada informasi tambahan."""
+    efek = np.random.default_rng(51).normal(size=200)
+    nilai = np.repeat(efek, 5)
+    blocks = np.repeat(np.arange(200), 5)
+    assert intraclass_correlation(nilai, blocks).icc == pytest.approx(1.0)
+
+
+def test_n0_sama_dengan_ukuran_blok_saat_seragam():
+    nilai, blocks = efek_acak(100, 7, 0.3, np.random.default_rng(52))
+    assert intraclass_correlation(nilai, blocks).n0 == pytest.approx(7.0)
+
+
+def test_icc_bekerja_pada_blok_tak_seragam():
+    rng = np.random.default_rng(53)
+    ukuran = rng.integers(1, 12, size=400)
+    efek = rng.normal(0.0, np.sqrt(0.4), size=400)
+    nilai = np.concatenate(
+        [efek[b] + rng.normal(0.0, np.sqrt(0.6), size=ukuran[b]) for b in range(400)]
+    )
+    blocks = np.repeat(np.arange(400), ukuran)
+
+    hasil = intraclass_correlation(nilai, blocks)
+    assert hasil.icc == pytest.approx(0.4, abs=0.08)
+    assert 1.0 < hasil.n0 < float(ukuran.max())
+
+
+def test_ci_bootstrap_memuat_rho_sejati_dan_meresample_blok():
+    nilai, blocks = efek_acak(300, 6, 0.35, np.random.default_rng(54))
+    hasil = intraclass_correlation(
+        nilai, blocks, n_bootstrap=300, rng=np.random.default_rng(55)
+    )
+    assert hasil.ci is not None
+    assert hasil.ci[0] <= 0.35 <= hasil.ci[1]
+    assert hasil.ci[0] < hasil.icc < hasil.ci[1]
+
+
+def test_rho_terhadap_ambang_berbeda_dari_icc_skor_mentah():
+    """Prop. 2 memakai ICC INDIKATOR 1{s<=t}, bukan ICC skor mentah."""
+    skor, blocks = efek_acak(500, 6, 0.6, np.random.default_rng(56))
+    mentah = intraclass_correlation(skor, blocks).icc
+    pada_median = icc_at_threshold(skor, blocks, float(np.median(skor))).icc
+
+    assert mentah == pytest.approx(0.6, abs=0.05)
+    assert pada_median != pytest.approx(mentah, abs=1e-6)  # kuantitas berbeda
+    assert 0.0 <= pada_median <= 1.0
+
+
+def test_kurva_icc_melewati_beberapa_kuantil():
+    skor, blocks = efek_acak(400, 5, 0.5, np.random.default_rng(57))
+    kurva = icc_curve(skor, blocks)
+    assert len(kurva) >= 4
+    assert all(0.0 <= rho <= 1.0 for _, _, rho in kurva)
+    assert [q for q, _, _ in kurva] == sorted(q for q, _, _ in kurva)
+
+
+def test_icc_menolak_blok_tunggal_dan_blok_berisi_satu_titik():
+    with pytest.raises(ValueError, match="butuh >= 2 blok"):
+        intraclass_correlation(np.arange(5.0), np.zeros(5))
+    with pytest.raises(ValueError, match="ragam intra-blok"):
+        intraclass_correlation(np.arange(5.0), np.arange(5))

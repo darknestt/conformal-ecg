@@ -81,7 +81,9 @@ Ini prediksi **deterministik** dari Teorema 1, bukan hipotesis statistik. Jika g
 
 > Urutan granularitas menurut **design effect** tidak sama dengan urutan menurut **kelayakan $\alpha$**.
 
-Sudah terlihat secara struktural (`site` DEff 6.687 tapi $\alpha{=}0{,}05$ layak; `device` DEff 3.901 tapi $\alpha{=}0{,}05$ mustahil). Yang diuji: apakah **ukuran himpunan empiris** mengikuti design effect sementara **kelayakan** mengikuti $K_1$.
+Sudah terlihat secara struktural. Yang diuji: apakah **ukuran himpunan empiris** mengikuti $\mathrm{DEff}_{\text{blok}} = n[1+(H-1)\rho]/(KH)$ sementara **kelayakan** mengikuti $K_1$.
+
+> 🔧 **Dikoreksi 2026-09-30.** Versi sebelumnya memakai design effect Kish (`site` 6.687 vs `device` 3.901) dan menyimpulkan kedua urutan berlawanan. Kish milik estimator terboboti-observasi, bukan estimator terboboti-blok yang dipakai HCP. Dengan ukuran yang benar urutannya **sejalan**, bukan berlawanan — lihat [`theory.md`](theory.md) §3.1. H2 karenanya diuji terhadap $\mathrm{DEff}_{\text{blok}}$.
 
 **Kriteria:** korelasi Spearman antara design effect dan ukuran himpunan rata-rata signifikan positif, **sementara** korelasi antara design effect dan kelayakan tidak signifikan.
 

@@ -1,0 +1,104 @@
+{
+  "patient_id": {
+    "K": 18869,
+    "n": 21799,
+    "rata_aritmetik": 1.155,
+    "rata_harmonik": 1.066,
+    "deff_kish_rho1": 1.39,
+    "deff_blok": {
+      "0.1": 1.091,
+      "0.5": 1.12,
+      "1.0": 1.155
+    },
+    "deff_pooled": {
+      "0.1": 1.039,
+      "0.5": 1.196,
+      "1.0": 1.392
+    }
+  },
+  "site": {
+    "K": 51,
+    "n": 21782,
+    "rata_aritmetik": 427.098,
+    "rata_harmonik": 11.115,
+    "deff_kish_rho1": 6687.01,
+    "deff_blok": {
+      "0.1": 77.293,
+      "0.5": 232.762,
+      "1.0": 427.098
+    },
+    "deff_pooled": {
+      "0.1": 669.601,
+      "0.5": 3344.005,
+      "1.0": 6687.011
+    }
+  },
+  "nurse": {
+    "K": 12,
+    "n": 20326,
+    "rata_aritmetik": 1693.833,
+    "rata_harmonik": 744.547,
+    "deff_kish_rho1": 5185.35,
+    "deff_blok": {
+      "0.1": 171.431,
+      "0.5": 848.054,
+      "1.0": 1693.833
+    },
+    "deff_pooled": {
+      "0.1": 519.435,
+      "0.5": 2593.175,
+      "1.0": 5185.349
+    }
+  },
+  "device": {
+    "K": 11,
+    "n": 21799,
+    "rata_aritmetik": 1981.727,
+    "rata_harmonik": 219.915,
+    "deff_kish_rho1": 3900.57,
+    "deff_blok": {
+      "0.1": 206.283,
+      "0.5": 995.369,
+      "1.0": 1981.727
+    },
+    "deff_pooled": {
+      "0.1": 390.957,
+      "0.5": 1950.785,
+      "1.0": 3900.57
+    }
+  },
+  "strat_fold": {
+    "K": 10,
+    "n": 21799,
+    "rata_aritmetik": 2179.9,
+    "rata_harmonik": 2179.869,
+    "deff_kish_rho1": 2179.93,
+    "deff_blok": {
+      "0.1": 218.89,
+      "0.5": 1090.45,
+      "1.0": 2179.9
+    },
+    "deff_pooled": {
+      "0.1": 218.893,
+      "0.5": 1090.466,
+      "1.0": 2179.932
+    }
+  },
+  "peringkat": {
+    "kish": [
+      "patient_id",
+      "strat_fold",
+      "device",
+      "nurse",
+      "site"
+    ],
+    "blok": [
+      "patient_id",
+      "site",
+      "nurse",
+      "device",
+      "strat_fold"
+    ],
+    "sama": false
+  }
+}

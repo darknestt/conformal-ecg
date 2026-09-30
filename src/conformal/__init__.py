@@ -21,6 +21,7 @@ from .diagnostics import (
     label_sufficiency,
     minimum_blocks,
 )
+from .icc import ICCResult, icc_at_threshold, icc_curve, intraclass_correlation
 from .quantile import quantile_with_infinity, weighted_quantile
 
 __all__ = [
@@ -37,6 +38,10 @@ __all__ = [
     "compare_granularities",
     "label_sufficiency",
     "minimum_blocks",
+    "ICCResult",
+    "intraclass_correlation",
+    "icc_at_threshold",
+    "icc_curve",
     "weighted_quantile",
     "quantile_with_infinity",
 ]

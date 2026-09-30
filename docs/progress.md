@@ -125,7 +125,7 @@ Sebabnya jelas: $n_{\text{eff}}$ Kish hanya fungsi **ukuran blok**, bukan kekuat
 | `device` | 11 | 0,0833 | ❌ | ❌ | ✅ |
 | `strat_fold` | 8 | 0,1111 | ❌ | ❌ | ❌ |
 
-**Temuan inti (C6):** urutan menurut design effect **berlawanan** dengan urutan menurut kelayakan $\alpha$. `site` punya efisiensi terburuk tapi $\alpha{=}0{,}05$ layak; `device` efisiensinya lebih baik tapi $\alpha{=}0{,}05$ mustahil.
+**Temuan inti (C6) — 🔧 DIKOREKSI 2026-09-30:** versi pertama menyatakan urutan design effect **berlawanan** dengan urutan kelayakan $\alpha$. Itu artefak dari memakai design effect Kish, yang milik estimator terboboti-observasi — bukan estimator terboboti-blok yang dipakai HCP. Dengan $\mathrm{DEff}_{\text{blok}}$ yang benar, urutannya **sejalan**: `site` (427,1) justru paling efisien di antara granularitas kasar **dan** layak. Lihat [`theory.md`](theory.md) §3.1.
 
 ---
 
@@ -242,15 +242,16 @@ Syarat kedua tak punya padanan di HCP. Bukti numerik: pada $K{=}500$, $N_k{=}5$,
 | `feasibility_alpha.py` | Batas $\alpha$ layak per granularitas (C6/C7) |
 | `check_nesting.py` | Persarangan antar-granularitas + partisi join (C7) |
 | `label_feasibility.py` | Kelayakan per-label pada tiga tingkat hierarki (C8) |
+| `design_effect_nonuniform.py` | DEff terboboti-blok vs Kish pada blok tak seragam |
 | `check_consistency.py` | Angka dokumen vs data nyata — **jalankan sebelum commit** |
 
 ### Modul (`src/conformal/`)
 
-`quantile.py` · `calibration.py` (B1, B12–B15) · `diagnostics.py` (C7) · `__init__.py`
+`quantile.py` · `calibration.py` (B1, B12–B15) · `diagnostics.py` (C7, C8) · `icc.py` (estimator $\rho$) · `__init__.py`
 
 ### Uji (`tests/`)
 
-`conftest.py` · `test_conformal.py` — 41 uji, seluruhnya lolos
+`conftest.py` · `test_conformal.py` — 52 uji, seluruhnya lolos
 
 ### Dokumen (`docs/`)
 
@@ -264,7 +265,7 @@ Syarat kedua tak punya padanan di HCP. Bukti numerik: pada $K{=}500$, $N_k{=}5$,
 
 ### Hasil mentah (`results/raw/`)
 
-`dataset_verification.json` · `block_structure.json` · `feasibility_alpha.json` · `block_nesting.json` · `label_feasibility.json`
+`dataset_verification.json` · `block_structure.json` · `feasibility_alpha.json` · `block_nesting.json` · `label_feasibility.json` · `design_effect_nonuniform.json`
 
 ---
 
@@ -298,7 +299,7 @@ Ditulis 2026-09-30. Setiap pernyataan ditandai taraf pembuktiannya agar tidak te
 
 ## 8. Koreksi yang Dilakukan — Dicatat Terbuka
 
-Tujuh kesalahan ditemukan dan diperbaiki sendiri. Dicatat karena jejak koreksi melindungi Anda saat menulis Methods.
+Delapan kesalahan ditemukan dan diperbaiki sendiri. Dicatat karena jejak koreksi melindungi Anda saat menulis Methods.
 
 | # | Kesalahan | Koreksi | Cara ditemukan |
 |---|---|---|---|
@@ -309,12 +310,15 @@ Tujuh kesalahan ditemukan dan diperbaiki sendiri. Dicatat karena jejak koreksi m
 | 5 | Satu unit test **lolos secara hampa** — hanya membandingkan `inf >= berhingga` pada 2 dari 3 level $\alpha$ | Blok diperbesar ke $N{=}60$; ditambah uji khusus dua syarat kelayakan | Mencetak nilai ambang aktual alih-alih memercayai status "26 passed" |
 | 6 | Batas kelayakan ditulis **ketat** ($\alpha > \frac{1}{K_1+1}$) di seluruh dokumen; `minimum_blocks()` salah $+1$ | **$\alpha \ge \frac{1}{K_1+1}$**; $K_{\min} = \lceil 1/\alpha\rceil - 1$ (19 blok untuk $\alpha{=}0{,}05$, bukan 20) | Menurunkan ulang massa berhingga $\frac{K_1}{K_1+1}$ sebelum menulis teorema, lalu menguji kasus batas ke kode |
 | 7 | Pemeriksaan persarangan memakai `dropna()` lintas **seluruh** kolom | Disaring **berpasangan**. Versi lama melaporkan `site` $K{=}4$; yang benar 51 | Angka 4 bertentangan dengan 51 yang terdokumentasi — ditelusuri, bukan diterima |
+| 8 | 🚨 **Klaim utama C6 "dua sumbu tidak berkorelasi"** disusun di atas design effect **Kish** | Kish milik estimator terboboti-observasi; HCP memakai terboboti-blok. Selisih **15,7×** pada `site`. Klaim **dicabut** — urutannya ternyata sejalan | Tabel empiris lama bertentangan dengan Teorema C6(c) yang saya tulis sendiri. Kontradiksi internal itu yang memaksa penelusuran |
 
 > **Pelajaran yang paling mahal:** kesalahan #3 punya intuisi yang benar tapi kuantitas yang salah. Membaca abstrak saja tidak cukup — teoremanya harus dibuka.
 >
 > **Pelajaran kedua (#5):** uji yang lolos tidak membuktikan apa pun sampai angkanya diperiksa. Suite hijau dapat menyembunyikan perbandingan yang trivial.
 >
 > **Pelajaran ketiga (#6, #7):** keduanya tertangkap hanya karena angka baru **dibenturkan** dengan angka lama. Ketaksamaan ketat tertangkap saat diturunkan ulang; `site` $K{=}4$ tertangkap karena bertabrakan dengan 51. Verifikasi silang lebih berharga daripada kehati-hatian.
+>
+> **Pelajaran keempat (#8) — yang paling penting:** klaim utama penelitian bertahan dua hari karena tidak ada yang membenturkannya dengan teorema penelitian itu sendiri. **Teori dan empiri wajib saling diperiksa**, bukan hanya masing-masing diperiksa terhadap data.
 
 ---
 

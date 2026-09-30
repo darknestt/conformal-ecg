@@ -62,7 +62,7 @@ Prediksi konformal hierarkis (HCP; Lee, Barber & Willett 2026) sudah menyelesaik
 | C3 | Metodologis | Algoritma `HiCoRC` yang model-agnostic | ✅ |
 | C4 | Empiris | Bukti kuantitatif bahwa conformal naif **gagal** pada EKG klinis multi-label hierarkis | ✅ **Menguat** — literatur yang ada murni teoretis |
 | C5 | Artefak | Pustaka Python open-source + reproduksi penuh (GitHub + Zenodo DOI) | ✅ |
-| **C6** | **Teoretis-empiris** | **Karakterisasi tradeoff $K$ blok vs $N_k$ pengukuran**: validitas dibatasi $\alpha \ge 1/(K_1+1)$, efisiensi dibatasi design effect, dan keduanya **tidak berkorelasi** | ✅ **Kontribusi utama** — dinyatakan sebagai pertanyaan terbuka oleh Lee-Barber-Willett sendiri |
+| **C6** | **Teoretis-empiris** | **Karakterisasi tradeoff $K$ blok vs $N_k$ pengukuran**: validitas dibatasi $\alpha \ge 1/(K_1+1)$ dan **tidak bergantung $N_k$ sama sekali**; efisiensi punya **lantai $\sigma^2\rho/K$** yang tak tertembus berapa pun pengukuran ditambahkan | ✅ **Kontribusi utama** — dinyatakan sebagai pertanyaan terbuka oleh Lee-Barber-Willett sendiri |
 | **C7** | **Metodologis** | **Uji diagnostik kecukupan blok** — menentukan granularitas mana yang layak dikalibrasi, **sebelum** model dilatih | ✅ **Kontribusi utama** |
 | **C8** | **Metodologis** | **Kelayakan kalibrasi per-label pada hierarki**: cakupan-superset tereduksi sepele ke HCP, tetapi jaminan **terkondisi-label** melahirkan batas $\alpha \ge 1/(K_1(\ell)+1)$ yang monoton naik menuju akar — menghasilkan **frontier kelayakan** pada pohon label | ✅ Diformalkan §5 [`docs/theory.md`](docs/theory.md) |
 
@@ -176,13 +176,13 @@ Dan Anda sudah memiliki datanya: lima tingkat granularitas terukur pada satu dat
 
 ### 4.2 Klaim yang direkomendasikan
 
-> Kami **mengoperasionalkan** prediksi konformal hierarkis (HCP; Lee dkk., 2026) untuk klasifikasi EKG **multi-label berhierarki** — perluasan non-trivial, karena HCP dirumuskan untuk regresi bernilai skalar. Kami kemudian menjawab pertanyaan terbuka yang diajukan penulisnya sendiri: bagaimana desain studi ($K$ blok versus $N_k$ pengukuran) menentukan inferensi bebas-distribusi. Kami menunjukkan bahwa **validitas** dibatasi jumlah blok ($\alpha \ge 1/(K_1+1)$) sedangkan **efisiensi** dibatasi design effect, bahwa kedua batas ini tidak berkorelasi, dan bahwa keduanya menghasilkan rekomendasi granularitas yang berbeda pada data klinis nyata. Kami menyediakan uji diagnostik yang menentukan tingkat blok mana yang layak dikalibrasi sebelum model apa pun dilatih.
+> Kami **mengoperasionalkan** prediksi konformal hierarkis (HCP; Lee dkk., 2026) untuk klasifikasi EKG **multi-label berhierarki**, lalu menjawab pertanyaan terbuka yang diajukan penulisnya sendiri: bagaimana desain studi ($K$ blok versus $N_k$ pengukuran) menentukan inferensi bebas-distribusi. Kami menunjukkan bahwa **validitas** dibatasi jumlah blok ($\alpha \ge 1/(K_1+1)$) dan **sama sekali tidak bergantung pada $N_k$**, sedangkan **efisiensi** memiliki lantai $\sigma^2\rho/K$ yang tak tertembus berapa pun pengukuran berulang ditambahkan. Kami menunjukkan pula bahwa design effect Kish mengukur estimator yang **bukan** dipakai HCP — selisihnya mencapai 15,7× pada data nyata — dan menurunkan ukuran yang tepat untuk blok tak seragam. Pada desain **bersilang**, mengendalikan beberapa sumber dependensi sekaligus menuntut partisi *join*, yang pada PTB-XL meruntuhkan set kalibrasi menjadi satu blok. Kami menyediakan uji diagnostik yang menentukan tingkat blok dan tingkat label mana yang layak dikalibrasi sebelum model apa pun dilatih.
 
 **Mengapa ini tetap layak Q1:**
 
 - Menjawab **pertanyaan terbuka yang dinyatakan eksplisit** oleh penulis teorema rujukan — argumen novelty terkuat yang tersedia
 - Perluasan regresi → multi-label berhierarki adalah kontribusi metodologis nyata, bukan penerapan ulang
-- Temuan "dua batas tidak berkorelasi" bersifat kontra-intuitif dan langsung berguna
+- Temuan "design effect Kish salah estimator untuk HCP" langsung berguna bagi siapa pun yang memakai HCP pada blok tak seragam
 - Uji diagnostik berjalan **sebelum pelatihan model** — artefak yang langsung dipakai praktisi
 - Risiko teoretis rendah: fondasinya sudah terbit dan teruji
 
@@ -332,13 +332,15 @@ Dependensi tergolong **SEDANG** — cukup untuk diteliti, dan cukup ringan sehin
 
 #### Temuan 3 — ❗ PTB-XL punya LIMA tingkat blok sekaligus
 
-| Pengelompokan | Blok | Rata-rata | Maks | % di blok>1 | n_eff | Design effect | Intensitas |
-|---|---:|---:|---:|---:|---:|---:|---|
-| `patient_id` | 18.869 | 1,16 | 10 | 23,1% | 15.659 | **1,39** | SEDANG |
-| `strat_fold` | 10 | 2.179,90 | 2.198 | 100% | 10 | 2.179,9 | SANGAT KUAT |
-| `device` | 11 | 1.981,73 | 6.140 | 100% | 6 | 3.900,6 | SANGAT KUAT |
-| `nurse` | 12 | 1.693,83 | 8.295 | 100% | 4 | 5.185,4 | SANGAT KUAT |
-| `site` | 51 | 427,10 | 8.940 | 100% | 3 | 6.687,0 | SANGAT KUAT |
+| Pengelompokan | Blok | Rata-rata | Maks | % di blok>1 | n_eff | DEff **Kish** | DEff **blok** | Intensitas |
+|---|---:|---:|---:|---:|---:|---:|---:|---|
+| `patient_id` | 18.869 | 1,16 | 10 | 23,1% | 15.659 | 1,39 | **1,2** | SEDANG |
+| `strat_fold` | 10 | 2.179,90 | 2.198 | 100% | 10 | 2.179,9 | **2.179,9** | SANGAT KUAT |
+| `device` | 11 | 1.981,73 | 6.140 | 100% | 6 | 3.900,6 | **1.981,7** | SANGAT KUAT |
+| `nurse` | 12 | 1.693,83 | 8.295 | 100% | 4 | 5.185,4 | **1.693,8** | SANGAT KUAT |
+| `site` | 51 | 427,10 | 8.940 | 100% | 3 | 6.687,0 | **427,1** | SANGAT KUAT |
+
+> ⚠️ **Kolom "DEff Kish" dipertahankan hanya untuk jejak sejarah.** Kish mengukur estimator terboboti-**observasi**, sedangkan HCP memakai terboboti-**blok**. Yang benar untuk penelitian ini adalah kolom **DEff blok** ($= n/K$ pada $\rho{=}1$). Keduanya berimpit hanya bila ukuran blok seragam — perhatikan `strat_fold` yang memang seragam dan menghasilkan angka identik. Lihat koreksi di Temuan 4 dan [`docs/theory.md`](docs/theory.md) §2.1.
 
 #### Temuan 4 — ❗❗ BATAS KELAYAKAN DITENTUKAN JUMLAH BLOK, BUKAN $n_{\text{eff}}$
 
@@ -375,9 +377,15 @@ kuantilnya jatuh di $+\infty$ dan himpunan prediksi menjadi **tak hingga** — v
 | | Penentu | Mengatur | Gagal ketika |
 |---|---|---|---|
 | **Validitas** | $K_1$ (jumlah blok) | Apakah jaminan non-trivial **mungkin** | $\alpha < 1/(K_1+1)$ → himpunan tak hingga |
-| **Efisiensi** | Design effect Kish | Seberapa **lebar** himpunannya | Blok besar → varians tinggi, himpunan lebar |
+| **Efisiensi** | $K$, rata-rata harmonik $H$, dan $\rho$ | Seberapa **lebar** himpunannya | Lantai $\sigma^2\rho/K$ tak tertembus |
 
-Keduanya **tidak berkorelasi**. Perhatikan `site`: design effect 6.687 (efisiensi terburuk) tetapi $\alpha=0{,}05$ masih layak. Sedangkan `device` punya design effect lebih rendah namun $\alpha=0{,}05$ **mustahil**. Memisahkan kedua sumbu ini adalah kontribusi yang tidak dapat dilihat dari satu angka saja.
+> 🔧 **DIKOREKSI 2026-09-30 — klaim "dua sumbu tidak berkorelasi" DICABUT.** Versi sebelumnya menyatakan *"urutan menurut design effect berlawanan dengan urutan menurut kelayakan"*, memakai `site` (DEff 6.687, layak) versus `device` (DEff 3.901, tidak layak).
+>
+> **Itu artefak dari memakai design effect Kish** — ukuran milik estimator terboboti-**observasi**, padahal HCP memakai estimator terboboti-**blok** $\hat G = \frac{1}{K}\sum_k \bar F_k$. Keduanya berimpit hanya bila $N_k$ seragam; pada `site` selisihnya **15,7×**.
+>
+> Dengan ukuran yang benar ($\mathrm{DEff}_{\text{blok}}$ pada $\rho{=}1$ = $n/K$): `patient_id` 1,2 ✅ · `site` **427,1** ✅ · `nurse` 1.693,8 ❌ · `device` 1.981,7 ❌ · `strat_fold` 2.179,9 ❌. **Kedua granularitas yang layak justru dua yang paling efisien** — urutannya sejalan, bukan berlawanan.
+>
+> **Dan itu memang seharusnya:** pada $\rho{=}1$, $\mathrm{DEff}_{\text{blok}} = n/K$ turun monoton terhadap $K$ sementara kelayakan naik monoton terhadap $K$. Keduanya digerakkan variabel yang sama. Ini justru **konsisten dengan Teorema C6(c)** yang menyatakan tidak ada tradeoff — tabel empiris lamalah yang bertentangan dengan teorinya sendiri. Rincian: [`docs/theory.md`](docs/theory.md) §2.1 dan §3.1.
 
 **Implikasi praktis:** untuk PTB-XL pada level pasien, $K_1 = 1.942$ blok kalibrasi → seluruh level $\alpha$ yang direncanakan aman. Klaim lintas-perangkat dan lintas-fold **tidak dapat dijamin** pada $\alpha=0{,}05$. Ini batas informasi yang melekat pada desain studi, bukan kegagalan metode.
 
@@ -482,7 +490,7 @@ Turunan lengkap: [`docs/theory.md`](docs/theory.md) §5.
 
 #### Klaim penelitian direposisi menjadi:
 
-> Pelanggaran exchangeability pada data klinis muncul pada beberapa tingkat granularitas (detak → rekaman → pasien → perangkat → perawat → situs). Kami menunjukkan bahwa **validitas** dibatasi oleh **jumlah blok kalibrasi** ($\alpha \ge 1/(K_1+1)$) sedangkan **efisiensi** dibatasi oleh *design effect*, bahwa kedua batas ini **tidak berkorelasi**, dan bahwa keduanya menghasilkan rekomendasi granularitas yang berbeda. Kami menyediakan uji diagnostik untuk menentukan tingkat blok mana yang layak dikalibrasi sebelum model apa pun dilatih.
+> Pelanggaran exchangeability pada data klinis muncul pada beberapa tingkat granularitas (detak → rekaman → pasien → perangkat → perawat → situs). Kami menunjukkan bahwa **validitas** dibatasi oleh **jumlah blok kalibrasi** ($\alpha \ge 1/(K_1+1)$) dan **sama sekali tidak bergantung pada jumlah pengukuran per blok**, sedangkan **efisiensi** memiliki lantai $\sigma^2\rho/K$ yang tak tertembus berapa pun pengukuran ditambahkan. Kami juga menunjukkan bahwa design effect Kish mengukur estimator yang **tidak** dipakai HCP, dan menyediakan ukuran yang tepat beserta uji diagnostik untuk menentukan tingkat blok mana yang layak dikalibrasi sebelum model apa pun dilatih.
 
 #### Pemetaan dataset ke titik pengamatan
 
@@ -490,12 +498,12 @@ Turunan lengkap: [`docs/theory.md`](docs/theory.md) §5.
 |---|---|---:|---:|---|
 | Detak → Rekaman | MIT-BIH | ~23 subjek | ~2.347 | Ujung ekstrem; bukti eksistensi masalah |
 | Rekaman → Pasien | PTB-XL | **1.942** | **1,39** | **Kasus utama**; seluruh $\alpha$ layak |
-| Rekaman → Situs | PTB-XL | 40 | 6.687 | Design effect terburuk, **tetapi $\alpha{=}0{,}05$ layak** |
-| Rekaman → Perangkat | PTB-XL | 11 | 3.901 | Design effect lebih baik, **tetapi $\alpha{=}0{,}05$ mustahil** |
-| Rekaman → Perawat | PTB-XL | 12 | 5.185 | Hanya $\alpha{=}0{,}10$ yang layak |
+| Rekaman → Situs | PTB-XL | 40 | 427,1 | Efisiensi terbaik di antara granularitas kasar, **dan $\alpha{=}0{,}05$ layak** |
+| Rekaman → Perangkat | PTB-XL | 11 | 1.981,7 | Kurang efisien, **dan $\alpha{=}0{,}05$ mustahil** |
+| Rekaman → Perawat | PTB-XL | 12 | 1.693,8 | Hanya $\alpha{=}0{,}10$ yang layak |
 | Covariate shift | NSTDB | — | — | 6 level SNR; robustness cakupan |
 
-> Dua baris tengah adalah inti C6: **urutan menurut design effect berlawanan dengan urutan menurut kelayakan $\alpha$.**
+> Design effect di tabel ini memakai $\mathrm{DEff}_{\text{blok}}$ pada $\rho{=}1$ (ukuran yang benar untuk HCP), **bukan** Kish. Lihat koreksi di Temuan 4.
 
 #### Konfirmasi lain yang lolos verifikasi
 
@@ -627,7 +635,7 @@ Minimal **15 baseline** — melampaui standar Q1. Semua dievaluasi pada protokol
 
 > **B12–B15 wajib ada.** Tanpa membandingkan terhadap HCP dan ketiga metode Dunn dkk., reviewer akan langsung bertanya mengapa metode hierarkis yang sudah mapan tidak diuji. Dunn dkk. (2022) ✅ terverifikasi: **JASA**, `10.1080/01621459.2022.2060112`.
 
-> ✅ **SELESAI (2026-09-29).** B1 dan B12–B15 terimplementasi di [src/conformal/calibration.py](src/conformal/calibration.py); **41 unit test** lolos di [tests/test_conformal.py](tests/test_conformal.py). Ini memenuhi satu prasyarat pembekuan protokol §13.
+> ✅ **SELESAI (2026-09-29).** B1 dan B12–B15 terimplementasi di [src/conformal/calibration.py](src/conformal/calibration.py); **52 unit test** lolos di [tests/test_conformal.py](tests/test_conformal.py). Ini memenuhi satu prasyarat pembekuan protokol §13.
 
 #### Temuan sampingan — B15 punya **dua** syarat kelayakan, bukan satu
 
@@ -774,7 +782,7 @@ Macro/micro AUROC, AUPRC, F1-max, ECE, Brier score, per-superclass AUROC (khusus
 | Fase | Durasi | Luaran | Gate |
 |---|---|---|---|
 | **F0 — Validasi Kelayakan** | ✅ **SELESAI** | Survei literatur; C1 ditemukan tertutup; kontribusi direposisi ke C6+C7 | ✅ **GO** dengan sudut yang digeser |
-| **F1 — Fondasi Teoretis** | Minggu 1–6 | Kuasai HCP; formalkan **batas kelayakan $\alpha \ge 1/(K_1+1)$ vs design effect** (C6) dan **uji diagnostik** (C7); rumuskan perluasan multi-label (C8) | 🟡 **SEBAGIAN BESAR SELESAI** — [`docs/theory.md`](docs/theory.md) memuat Prop 1–5 + Teorema C6. Sisa: Prop 2 untuk $N_k$ tak seragam, estimator $\rho(t)$, review statistikawan |
+| **F1 — Fondasi Teoretis** | Minggu 1–6 | Kuasai HCP; formalkan **batas kelayakan $\alpha \ge 1/(K_1+1)$ vs design effect** (C6) dan **uji diagnostik** (C7); rumuskan perluasan multi-label (C8) | 🟡 **SELESAI kecuali review** — [`docs/theory.md`](docs/theory.md): Prop 1, 2, 2′, 3–5 + Teorema C6. Sisa: 🔴 review statistikawan atas Kor. 3.2 dan §5.6 |
 | **F2 — Infrastruktur** | Minggu 4–10 | Pipeline data, backbone terlatih, kerangka evaluasi, implementasi baseline | Pipeline lolos uji sanity |
 | **F3 — Eksperimen Inti** | Minggu 11–20 | E1–E5 tuntas | Hasil E1 mengonfirmasi H0? |
 | **F4 — Eksperimen Perluasan** | Minggu 21–28 | E6–E11b; dataset generalisasi | Generalisasi terbukti |
@@ -817,6 +825,7 @@ Sqopus/
 │   ├── feasibility_alpha.py       ✅ batas alpha layak per granularitas (C6/C7)
 │   ├── check_nesting.py           ✅ persarangan & partisi gabungan (C7)
 │   ├── label_feasibility.py       ✅ kelayakan per-label pada hierarki (C8)
+│   ├── design_effect_nonuniform.py ✅ DEff blok vs Kish pada blok tak seragam
 │   └── check_consistency.py       ✅ angka dokumen vs data nyata (jalankan sebelum commit)
 ├── data/
 │   ├── README.md                 ✅ dibuat - panduan akuisisi
@@ -825,7 +834,7 @@ Sqopus/
 ├── src/
 │   ├── data/                     <- loader, preprocessing, split
 │   ├── models/                   <- backbone (xresnet1d, inception1d, ...)
-│   ├── conformal/                ✅ B1 + B12-B15, diagnostik kecukupan blok (C7) & per-label (C8)
+│   ├── conformal/                ✅ B1 + B12-B15, diagnostik blok (C7) & per-label (C8), estimator ICC
 │   ├── hicorc/                   <- implementasi K1, K2, K3
 │   ├── baselines/                <- B1-B15 (termasuk HCP & Dunn dkk.)
 │   ├── metrics/                  <- coverage, SSCV, HCVR, set size
@@ -1067,7 +1076,7 @@ Catat setiap keputusan desain di sini beserta alasannya. Ini melindungi Anda saa
 | 2026-09-29 | **Target venue digeser** dari jurnal statistika ke jurnal klinis/terapan | Tanpa C1, pembeda utama bukan lagi teorema melainkan karakterisasi batas + diagnostik + validasi klinis. IEEE JBHI / AI in Medicine / CBM / MedIA semuanya tetap Scopus Q1 | — |
 | 2026-09-29 | **B1, B2, B3, A3 dikonfirmasi TIDAK menutup kontribusi** | Abstrak lengkap dibaca: B1 review dependensi antar-label (bukan antar-sampel); B3 efisiensi Label Powerset pada teks; B2 irisan lintas-resolusi dengan pembagian $\alpha$ (arah berlawanan dengan penutupan ke atas); A3 kelompok menentukan pergeseran kovariat, exchangeability intra-kelompok tetap berlaku | — |
 | 2026-09-29 | 🔧 **KOREKSI: batas validitas ditentukan $K_1$, bukan $n_{\text{eff}}$ Kish** | Teks lengkap Lee-Barber-Willett dibaca. Teorema 1 memberi bobot $\frac{1}{(K_1+1)N_k}$ per skor dan massa $\frac{1}{K_1+1}$ pada $+\infty$ → himpunan menjadi tak hingga bila $\alpha \leq 1/(K_1+1)$. Penentunya **jumlah blok**, bukan $n_{\text{eff}}$. Klaim lama "situs $n_{\text{eff}}=3$ → mustahil untuk $\alpha \leq 0{,}25$" **salah**; angka benar: situs $K_1=40 \Rightarrow \alpha_{\min}=0{,}024$ | — |
-| 2026-09-29 | **C6 direformulasi menjadi "dua batas yang tidak berkorelasi"** | Validitas diatur $K_1$; efisiensi diatur design effect. `site` punya design effect terburuk (6.687) tetapi $\alpha=0{,}05$ layak; `device` design effect lebih baik (3.901) tetapi $\alpha=0{,}05$ mustahil. Pemisahan dua sumbu ini lebih tajam daripada klaim ketidakmungkinan tunggal | — |
+| 2026-09-29 | ~~**C6 direformulasi menjadi "dua batas yang tidak berkorelasi"**~~ ⚠️ **DICABUT 2026-09-30** | Validitas diatur $K_1$; efisiensi diatur design effect. `site` punya design effect terburuk (6.687) tetapi $\alpha=0{,}05$ layak; `device` design effect lebih baik (3.901) tetapi $\alpha=0{,}05$ mustahil. **Angka-angka itu memakai Kish, ukuran milik estimator yang salah** — lihat entri koreksi 2026-09-30 | — |
 | 2026-09-29 | 🎯 **C6 divalidasi sebagai pertanyaan terbuka oleh penulis teorema sendiri** | Discussion Lee-Barber-Willett: *"the analyst can choose between a large number of independent groups $K$ with a small number of measurements $N_k$... **Characterizing the pros and cons of this tradeoff is an important question**"*. Ini argumen novelty terkuat yang tersedia | — |
 | 2026-09-29 | **Ditambahkan C8** — perluasan HCP dari regresi skalar ke multi-label berhierarki | HCP dirumuskan untuk $\hat\mu(x) \pm T$ dan diuji pada Lorenz 96 (regresi). Jembatan ke himpunan label multi-label berhierarki belum ada dan tidak sepele | — |
 | 2026-09-29 | **Ditambahkan baseline B12–B15** | HCP (Lee dkk.) + tiga metode Dunn dkk. (Pooling CDFs, Subsampling Once, Double Conformal). Tanpa ini reviewer akan langsung menolak: metode hierarkis mapan tidak diuji | — |
@@ -1090,6 +1099,9 @@ Catat setiap keputusan desain di sini beserta alasannya. Ini melindungi Anda saa
 | 2026-09-30 | 🎯 **C8 direposisi ke kelayakan per-label** (Prop. 4–5) | Jaminan terkondisi-label menuntut $\alpha \ge 1/(K_1(\ell)+1)$ dengan $K_1(\ell)$ = blok yang memuat $\ell$. Pada PTB-XL: **24/44 kode SCP tak-layak** pada $\alpha{=}0{,}05$ marginal, **43/44** serentak. Superclass seluruhnya aman | Terhitung dari metadata saja — artefak praktisi, bukan sekadar teorema |
 | 2026-09-30 | **Frontier kelayakan pada pohon label** | $K_1$ monoton naik menuju akar (0 pelanggaran dari 23 pasangan), sehingga ada antirantai pemisah wilayah layak/tak-layak. Letaknya **di antara superclass dan subclass** | Menentukan tingkat mana yang boleh diklaim di naskah |
 | 2026-09-30 | **C2 diperkuat lewat Kor. 5.2** | Penutupan ke atas hanya menambahkan leluhur, yang selalu setidaknya selayak keturunannya → penutupan tak pernah memasukkan label tak-layak. Biayanya murni efisiensi | Memberi C2 isi formal yang sebelumnya hanya "monoton + ekspansif" |
+| 2026-09-30 | **Prop. 2′ — blok tak seragam** | $\operatorname{Var}(\hat G) = \sigma^2[1+(H-1)\rho]/(KH)$ dengan $H$ = rata-rata **harmonik** ukuran blok. Rumus seragam bertahan persis dengan $N \mapsto H$ | Melengkapi sisa F1 |
+| 2026-09-30 | 🚨 **KOREKSI BESAR: klaim "dua sumbu tidak berkorelasi" DICABUT** | Design effect Kish milik estimator terboboti-**observasi**; HCP memakai terboboti-**blok**. Berimpit hanya bila $N_k$ seragam — pada `site` selisihnya **15,7×**. Dengan ukuran benar, dua granularitas yang layak justru dua yang paling efisien; urutannya **sejalan** | Terdeteksi karena tabel empiris lama bertentangan dengan Teorema C6(c) buatan sendiri. `strat_fold` (nyaris seragam) memberi rasio 1,000 — validasi internal |
+| 2026-09-30 | **Estimator $\rho(t)$ ditulis** ([`src/conformal/icc.py`](src/conformal/icc.py)) | ANOVA satu arah untuk desain tak seimbang + CI bootstrap **level blok**. Diuji memulihkan $\rho$ sejati pada $\{0;0{,}2;0{,}5;0{,}8\}$ dalam toleransi 0,05 | Bootstrap level titik akan mengulang persis kesalahan yang dikritik paper ini |
 | | | | |
 
 ---
@@ -1104,8 +1116,8 @@ Catat setiap keputusan desain di sini beserta alasannya. Ini melindungi Anda saa
 |---|---|---|---|
 | **1** | **Studi kelayakan (Langkah 4)** | Melatih backbone, terapkan conformal naif, ukur cakupan. **Memvalidasi H0** sebelum berinvestasi penuh | H0 tidak konklusif → ikuti `protocol.md` §11, jangan mencari analisis baru |
 | **2** | **Review statistikawan** atas Kor. 3.2 dan §5.6 theory.md | Dua klaim ditandai 🔴/🟡 dan belum boleh masuk naskah tanpa diperiksa | Tidak lolos review → turunkan ke klaim khusus keluarga HCP/Dunn |
-| ~~3~~ | ~~Formalkan C6 + C7 + C8 di F1~~ | 🟡 **Sebagian besar selesai 2026-09-30.** [`docs/theory.md`](docs/theory.md): Prop 1–5, Teorema C6, prosedur C7, frontier C8 | Sisa: $N_k$ tak seragam, estimator $\rho(t)$ |
-| ~~4~~ | ~~Implementasi B12–B15~~ | ✅ **Selesai 2026-09-29.** [`src/conformal/`](src/conformal/), **41 unit test** lolos, Teorema 1 & Proposisi 1 terverifikasi secara empiris | — |
+| ~~3~~ | ~~Formalkan C6 + C7 + C8 di F1~~ | ✅ **Selesai 2026-09-30** kecuali review. [`docs/theory.md`](docs/theory.md): Prop 1, 2, 2′, 3–5, Teorema C6, prosedur C7, frontier C8 | — |
+| ~~4~~ | ~~Implementasi B12–B15~~ | ✅ **Selesai 2026-09-29.** [`src/conformal/`](src/conformal/), **52 unit test** lolos, Teorema 1 & Proposisi 1 terverifikasi secara empiris | — |
 
 > **Sudah diamankan:** survei literatur ✅ selesai dan menyelamatkan sepuluh bulan. C1 ternyata sudah diterbitkan sejak 2023 — ditemukan sekarang, bukan di laporan reviewer.
 >
