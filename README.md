@@ -62,7 +62,7 @@ Prediksi konformal hierarkis (HCP; Lee, Barber & Willett 2026) sudah menyelesaik
 | C3 | Metodologis | Algoritma `HiCoRC` yang model-agnostic | ✅ |
 | C4 | Empiris | Bukti kuantitatif bahwa conformal naif **gagal** pada EKG klinis multi-label hierarkis | ✅ **Menguat** — literatur yang ada murni teoretis |
 | C5 | Artefak | Pustaka Python open-source + reproduksi penuh (GitHub + Zenodo DOI) | ✅ |
-| **C6** | **Teoretis-empiris** | **Karakterisasi tradeoff $K$ blok vs $N_k$ pengukuran**: validitas dibatasi $\alpha > 1/(K_1+1)$, efisiensi dibatasi design effect, dan keduanya **tidak berkorelasi** | ✅ **Kontribusi utama** — dinyatakan sebagai pertanyaan terbuka oleh Lee-Barber-Willett sendiri |
+| **C6** | **Teoretis-empiris** | **Karakterisasi tradeoff $K$ blok vs $N_k$ pengukuran**: validitas dibatasi $\alpha \ge 1/(K_1+1)$, efisiensi dibatasi design effect, dan keduanya **tidak berkorelasi** | ✅ **Kontribusi utama** — dinyatakan sebagai pertanyaan terbuka oleh Lee-Barber-Willett sendiri |
 | **C7** | **Metodologis** | **Uji diagnostik kecukupan blok** — menentukan granularitas mana yang layak dikalibrasi, **sebelum** model dilatih | ✅ **Kontribusi utama** |
 | **C8** | **Metodologis** | **Perluasan HCP dari regresi skalar ke himpunan prediksi multi-label berhierarki** | ✅ HCP dirumuskan untuk $\hat\mu(x) \pm T$; jembatan ke multi-label belum ada |
 
@@ -109,7 +109,7 @@ Prediksi konformal hierarkis (HCP) memulihkan validitas cakupan di bawah depende
 | ID | Pertanyaan |
 |---|---|
 | **RQ1** | Seberapa besar deviasi cakupan empiris dari nominal ketika split conformal standar diterapkan pada data klinis dengan dependensi pasien? |
-| **RQ2** | Pada tingkat granularitas blok mana jaminan cakupan non-trivial masih **mungkin**, dan bagaimana batas $\alpha > 1/(K_1+1)$ berinteraksi dengan design effect? |
+| **RQ2** | Pada tingkat granularitas blok mana jaminan cakupan non-trivial masih **mungkin**, dan bagaimana batas $\alpha \ge 1/(K_1+1)$ berinteraksi dengan design effect? |
 | **RQ3** | Bagaimana HCP diperluas dari regresi skalar ke himpunan prediksi multi-label berhierarki, dan berapa harga efisiensi penutupan hierarkis? |
 | **RQ4** | Apakah kendali risiko terkondisi-kelompok menghasilkan cakupan yang adil lintas subkelompok umur/jenis kelamin, dibandingkan kendali marginal? |
 | **RQ5** | Seberapa jauh temuan RQ1–RQ4 bertahan pada dataset dengan intensitas dependensi berbeda (MIT-BIH, Challenge 2021)? |
@@ -117,7 +117,7 @@ Prediksi konformal hierarkis (HCP) memulihkan validitas cakupan di bawah depende
 ### 3.3 Research Objectives
 
 - **O1** Memperluas HCP (Lee dkk., 2026) dari regresi skalar ke **himpunan prediksi multi-label berhierarki** — C8.
-- **O2** Mengarakterisasi tradeoff $K$ blok vs $N_k$ pengukuran: memisahkan batas **validitas** ($\alpha > 1/(K_1+1)$) dari batas **efisiensi** (design effect) — C6.
+- **O2** Mengarakterisasi tradeoff $K$ blok vs $N_k$ pengukuran: memisahkan batas **validitas** ($\alpha \ge 1/(K_1+1)$) dari batas **efisiensi** (design effect) — C6.
 - **O3** Merumuskan dan memvalidasi **uji diagnostik kecukupan blok** yang berjalan sebelum pelatihan model — C7.
 - **O4** Memvalidasi secara empiris pada >= 2 dataset klinis dengan intensitas dependensi berbeda.
 - **O5** Merilis artefak reproduksi penuh.
@@ -169,14 +169,14 @@ Dan Anda sudah memiliki datanya: lima tingkat granularitas terukur pada satu dat
 | Celah | Mengapa terbuka | Bukti yang sudah Anda punya |
 |---|---|---|
 | **G1 — Tradeoff $K$ vs $N_k$ pada data nyata** | Dinyatakan terbuka di Discussion Lee-Barber-Willett. Simulasi mereka hanya memakai $K \in \{20, 100, 800, 1000\}$ dengan $N_k$ konstan dan data sintetis | §5.6 Temuan 4: lima granularitas, $K_1$ dari 8 hingga 1.942, $N_k$ sangat tidak seragam (1–10 untuk pasien, 1–8.940 untuk situs) |
-| **G2 — Uji diagnostik kecukupan blok** | Tidak ada prosedur untuk memutuskan granularitas mana yang layak. Praktisi harus menebak | §5.6 Temuan 4: batas $\alpha > 1/(K_1+1)$ terhitung eksak per granularitas |
+| **G2 — Uji diagnostik kecukupan blok** | Tidak ada prosedur untuk memutuskan granularitas mana yang layak. Praktisi harus menebak | §5.6 Temuan 4: batas $\alpha \ge 1/(K_1+1)$ terhitung eksak per granularitas |
 | **G3 — Multi-label hierarkis klinis** | HCP diuji pada **regresi** (residual absolut, Lorenz 96). Tidak ada pengujian pada himpunan prediksi multi-label, apalagi dengan hierarki label | PTB-XL: 27.765 label, 44 pernyataan diagnostik berhierarki, 23,1% rekaman di blok multi-rekaman |
 
 > ❗ **Jarak antara HCP dan kebutuhan Anda lebih lebar dari dugaan awal.** HCP adalah metode **regresi** yang menghasilkan interval $\hat\mu(x) \pm T$. Anda butuh **himpunan label multi-label berhierarki**. Menjembataninya bukan pekerjaan sepele — dan itu justru ruang kontribusi C3.
 
 ### 4.2 Klaim yang direkomendasikan
 
-> Kami **mengoperasionalkan** prediksi konformal hierarkis (HCP; Lee dkk., 2026) untuk klasifikasi EKG **multi-label berhierarki** — perluasan non-trivial, karena HCP dirumuskan untuk regresi bernilai skalar. Kami kemudian menjawab pertanyaan terbuka yang diajukan penulisnya sendiri: bagaimana desain studi ($K$ blok versus $N_k$ pengukuran) menentukan inferensi bebas-distribusi. Kami menunjukkan bahwa **validitas** dibatasi jumlah blok ($\alpha > 1/(K_1+1)$) sedangkan **efisiensi** dibatasi design effect, bahwa kedua batas ini tidak berkorelasi, dan bahwa keduanya menghasilkan rekomendasi granularitas yang berbeda pada data klinis nyata. Kami menyediakan uji diagnostik yang menentukan tingkat blok mana yang layak dikalibrasi sebelum model apa pun dilatih.
+> Kami **mengoperasionalkan** prediksi konformal hierarkis (HCP; Lee dkk., 2026) untuk klasifikasi EKG **multi-label berhierarki** — perluasan non-trivial, karena HCP dirumuskan untuk regresi bernilai skalar. Kami kemudian menjawab pertanyaan terbuka yang diajukan penulisnya sendiri: bagaimana desain studi ($K$ blok versus $N_k$ pengukuran) menentukan inferensi bebas-distribusi. Kami menunjukkan bahwa **validitas** dibatasi jumlah blok ($\alpha \ge 1/(K_1+1)$) sedangkan **efisiensi** dibatasi design effect, bahwa kedua batas ini tidak berkorelasi, dan bahwa keduanya menghasilkan rekomendasi granularitas yang berbeda pada data klinis nyata. Kami menyediakan uji diagnostik yang menentukan tingkat blok mana yang layak dikalibrasi sebelum model apa pun dilatih.
 
 **Mengapa ini tetap layak Q1:**
 
@@ -350,11 +350,15 @@ Dependensi tergolong **SEDANG** — cukup untuk diteliti, dan cukup ringan sehin
 
 $$T = Q_{1-\alpha}\Big( \sum_{k}\sum_{i} \tfrac{1}{(K_1+1)N_k}\,\delta_{s(Z_{k,i})} \;+\; \tfrac{1}{K_1+1}\,\delta_{+\infty} \Big)$$
 
-Setiap blok diberi bobot **sama** terlepas dari ukurannya. Massa $\frac{1}{K_1+1}$ diletakkan pada $+\infty$. Akibatnya, bila
+Setiap blok diberi bobot **sama** terlepas dari ukurannya. Massa $\frac{1}{K_1+1}$ diletakkan pada $+\infty$, sehingga massa yang tersisa pada atom berhingga tepat $\frac{K_1}{K_1+1}$. Akibatnya, bila
 
-$$\alpha \leq \frac{1}{K_1 + 1}$$
+$$\alpha < \frac{1}{K_1 + 1}$$
 
 kuantilnya jatuh di $+\infty$ dan himpunan prediksi menjadi **tak hingga** — valid secara teknis, tetapi tanpa informasi. Penentunya adalah $K_1$ = **jumlah blok kalibrasi**, bukan jumlah sampel dan bukan $n_{\text{eff}}$.
+
+> 🔧 **DIKOREKSI 2026-09-30: ketaksamaannya TIDAK ketat.** Versi sebelumnya menulis syarat kelayakan sebagai $\alpha > \frac{1}{K_1+1}$. Itu keliru pada kasus batas. Tepat di $\alpha = \frac{1}{K_1+1}$, massa berhingga $\frac{K_1}{K_1+1}$ **persis menyamai** level $1-\alpha$; karena kuantil didefinisikan dengan $\inf\{t : F(t) \ge 1-\alpha\}$, level itu tercapai di skor maksimum. Ambangnya berhingga, dan cakupan terukur 0,9512 pada $K_1{=}19$, $\alpha{=}0{,}05$ — sah.
+>
+> Syarat yang benar: $\boxed{\alpha \ge \frac{1}{K_1+1}}$, setara $K_1 \ge \lceil 1/\alpha \rceil - 1$. Bentuk ini **sejajar dengan syarat baku split conformal** $n \ge 1/\alpha - 1$ — yang justru menjadi pemeriksaan silang bahwa koreksi ini benar. Tidak ada satu pun verdict di tabel bawah yang berubah, karena tak ada granularitas yang kebetulan jatuh tepat di batas.
 
 **Hasil pengukuran** (`python .\scripts\feasibility_alpha.py`, kalibrasi = fold 9):
 
@@ -370,7 +374,7 @@ kuantilnya jatuh di $+\infty$ dan himpunan prediksi menjadi **tak hingga** — v
 
 | | Penentu | Mengatur | Gagal ketika |
 |---|---|---|---|
-| **Validitas** | $K_1$ (jumlah blok) | Apakah jaminan non-trivial **mungkin** | $\alpha \leq 1/(K_1+1)$ → himpunan tak hingga |
+| **Validitas** | $K_1$ (jumlah blok) | Apakah jaminan non-trivial **mungkin** | $\alpha < 1/(K_1+1)$ → himpunan tak hingga |
 | **Efisiensi** | Design effect Kish | Seberapa **lebar** himpunannya | Blok besar → varians tinggi, himpunan lebar |
 
 Keduanya **tidak berkorelasi**. Perhatikan `site`: design effect 6.687 (efisiensi terburuk) tetapi $\alpha=0{,}05$ masih layak. Sedangkan `device` punya design effect lebih rendah namun $\alpha=0{,}05$ **mustahil**. Memisahkan kedua sumbu ini adalah kontribusi yang tidak dapat dilihat dari satu angka saja.
@@ -407,9 +411,46 @@ E11a sudah menjalankan fungsinya: membuktikan bin-bin tersebut **sepadan secara 
 
 > Ini menggantikan gagasan "coverage under temporal shift" yang **tidak valid** pada PTB-XL karena tanggal absolutnya tergeser acak.
 
+#### Temuan 6 — ❗❗ GRANULARITAS PTB-XL TIDAK BERSARANG — dan itu menghasilkan batas ketidakmungkinan
+
+Ditemukan 2026-09-30 saat memformalkan C7 ([`scripts/check_nesting.py`](scripts/check_nesting.py)). Aturan keputusan C7 yang semula hendak ditulis — *"pilih granularitas terkasar yang masih layak"* — **runtuh**, karena aturan itu diam-diam mengandaikan granularitasnya bersarang. Ternyata tidak.
+
+**Pelanggaran persarangan (pasien yang menyeberang):**
+
+| Pasien muncul di | Jumlah |
+|---|---:|
+| >1 `site` | **46** |
+| >1 `nurse` | **247** |
+| >1 `device` | **174** |
+| >1 `strat_fold` | **0** ✅ |
+
+Hanya `patient_id` $\subset$ `strat_fold` yang bersarang. Akibatnya **memblok per `site` tidak mengandung dependensi pasien**: 46 pasien terbelah ke site berbeda lalu diperlakukan sebagai independen — persis kesalahan yang penelitian ini kritik.
+
+**Konsekuensi formal.** Untuk mengendalikan dua sumber dependensi sekaligus pada desain bersilang, blok yang sah adalah **komponen terhubung** dari gabungan kedua partisi (join pada kekisi partisi). Jumlah bloknya **tidak pernah lebih besar** daripada masing-masing, dan dapat runtuh drastis:
+
+| Sumber yang dikendalikan | $K_1$ (fold 9) | Blok terbesar | $\alpha_{\min}$ | $\alpha{=}0{,}05$ |
+|---|---:|---:|---:|:---:|
+| `patient_id` | 1.942 | 8 | 0,00051 | ✅ |
+| `patient_id` + `nurse` | 204 | 1.467 | 0,00488 | ✅ |
+| `patient_id` + `site` | 34 | 843 | 0,02857 | ✅ |
+| `patient_id` + `device` | **5** | 889 | **0,16667** | ❌ |
+| keempatnya | **1** | 2.183 | **0,50000** | ❌ |
+
+**Tiga bacaan yang masuk naskah:**
+
+1. **Mengendalikan pasien + perangkat sekaligus mustahil pada $\alpha \le 0{,}167$.** 174 pasien menyeberang perangkat, sehingga union-find merantai 11 perangkat menjadi hanya **5** komponen.
+2. **Mengendalikan keempat sumber meruntuhkan set kalibrasi menjadi SATU blok** ($\alpha_{\min}{=}0{,}5$). Tidak ada jaminan bermakna yang mungkin — ini batas **desain studi**, bukan kekurangan metode.
+3. `patient_id` + `nurse` layak, tetapi satu blok memuat **1.467 dari 2.183** rekaman kalibrasi (67%). **Layak belum tentu berguna.**
+
+> $K_1{=}1.942$ untuk `patient_id` tunggal **cocok persis** dengan hasil `feasibility_alpha.py` yang dihitung lewat jalur berbeda — pemeriksaan silang bahwa union-find-nya benar.
+
+> ⚠️ **Konteks yang juga terungkap:** `nurse` kosong pada 1.473 rekaman (6,8%), dan site 0/1/2 memuat 20.309 rekaman (93,2%). Ke-47 site sisanya hanya membawa 1.469 rekaman — dan hampir seluruhnya justru yang `nurse`-nya kosong. Jadi kelayakan `site` bertumpu pada 37 site mungil yang tampaknya rezim pengumpulan berbeda. Wajib dilaporkan.
+
+Turunan lengkap: [`docs/theory.md`](docs/theory.md) §4.
+
 #### Klaim penelitian direposisi menjadi:
 
-> Pelanggaran exchangeability pada data klinis muncul pada beberapa tingkat granularitas (detak → rekaman → pasien → perangkat → perawat → situs). Kami menunjukkan bahwa **validitas** dibatasi oleh **jumlah blok kalibrasi** ($\alpha > 1/(K_1+1)$) sedangkan **efisiensi** dibatasi oleh *design effect*, bahwa kedua batas ini **tidak berkorelasi**, dan bahwa keduanya menghasilkan rekomendasi granularitas yang berbeda. Kami menyediakan uji diagnostik untuk menentukan tingkat blok mana yang layak dikalibrasi sebelum model apa pun dilatih.
+> Pelanggaran exchangeability pada data klinis muncul pada beberapa tingkat granularitas (detak → rekaman → pasien → perangkat → perawat → situs). Kami menunjukkan bahwa **validitas** dibatasi oleh **jumlah blok kalibrasi** ($\alpha \ge 1/(K_1+1)$) sedangkan **efisiensi** dibatasi oleh *design effect*, bahwa kedua batas ini **tidak berkorelasi**, dan bahwa keduanya menghasilkan rekomendasi granularitas yang berbeda. Kami menyediakan uji diagnostik untuk menentukan tingkat blok mana yang layak dikalibrasi sebelum model apa pun dilatih.
 
 #### Pemetaan dataset ke titik pengamatan
 
@@ -479,7 +520,7 @@ E11a sudah menjalankan fungsinya: membuktikan bin-bin tersebut **sepadan secara 
 | | Apa yang baru |
 |---|---|
 | **C8** | HCP dirumuskan untuk regresi skalar ($\hat\mu(x) \pm T$). Perluasan ke **skor per-label multi-label** dengan hierarki belum ada |
-| **C6** | Batas kelayakan $\alpha > \frac{1}{K_1+1}$ terhadap design effect — pertanyaan terbuka mereka |
+| **C6** | Batas kelayakan $\alpha \ge \frac{1}{K_1+1}$ terhadap design effect — pertanyaan terbuka mereka |
 | **C7** | Uji diagnostik memilih granularitas blok sebelum pelatihan |
 
 **Intuisi kunci:** ukuran efektif set kalibrasi adalah **jumlah pasien**, bukan jumlah rekaman. Pada PTB-XL fold 9: $K_1 = 1.942$ blok, bukan 2.183 rekaman.
@@ -701,7 +742,7 @@ Macro/micro AUROC, AUPRC, F1-max, ECE, Brier score, per-superclass AUROC (khusus
 | Fase | Durasi | Luaran | Gate |
 |---|---|---|---|
 | **F0 — Validasi Kelayakan** | ✅ **SELESAI** | Survei literatur; C1 ditemukan tertutup; kontribusi direposisi ke C6+C7 | ✅ **GO** dengan sudut yang digeser |
-| **F1 — Fondasi Teoretis** | Minggu 1–6 | Kuasai HCP; formalkan **batas kelayakan $\alpha > 1/(K_1+1)$ vs design effect** (C6) dan **uji diagnostik** (C7); rumuskan perluasan multi-label (C8) | ❗ **GO/NO-GO**: jika C6/C7 tidak dapat diformalkan → jadikan paper murni empiris |
+| **F1 — Fondasi Teoretis** | Minggu 1–6 | Kuasai HCP; formalkan **batas kelayakan $\alpha \ge 1/(K_1+1)$ vs design effect** (C6) dan **uji diagnostik** (C7); rumuskan perluasan multi-label (C8) | ❗ **GO/NO-GO**: jika C6/C7 tidak dapat diformalkan → jadikan paper murni empiris |
 | **F2 — Infrastruktur** | Minggu 4–10 | Pipeline data, backbone terlatih, kerangka evaluasi, implementasi baseline | Pipeline lolos uji sanity |
 | **F3 — Eksperimen Inti** | Minggu 11–20 | E1–E5 tuntas | Hasil E1 mengonfirmasi H0? |
 | **F4 — Eksperimen Perluasan** | Minggu 21–28 | E6–E11b; dataset generalisasi | Generalisasi terbukti |
@@ -732,7 +773,7 @@ Sqopus/
 │   ├── references.md             ✅ dibuat - 42 sitasi terverifikasi + 2 praterbit + 5 dataset
 │   ├── protocol.md               ✅ dibuat - pre-registration, status DRAF
 │   ├── progress.md               ✅ dibuat - catatan kemajuan & koreksi
-│   ├── theory.md                 <- turunan teorema, bukti, notasi
+│   ├── theory.md                 ✅ dibuat - Prop 1-3, Teorema C6, prosedur C7
 │   ├── literature-review.md      <- hasil survei sistematis + tabel gap
 │   └── paper/                    <- draf naskah
 ├── scripts/
@@ -742,6 +783,7 @@ Sqopus/
 │   ├── verify_datasets.py         ✅ verifikasi struktural + statistik blok
 │   ├── analyze_block_structure.py ✅ n_eff & design effect multi-granularitas
 │   ├── feasibility_alpha.py       ✅ batas alpha layak per granularitas (C6/C7)
+│   ├── check_nesting.py           ✅ persarangan & partisi gabungan (C7)
 │   └── check_consistency.py       ✅ angka dokumen vs data nyata (jalankan sebelum commit)
 ├── data/
 │   ├── README.md                 ✅ dibuat - panduan akuisisi
@@ -750,6 +792,7 @@ Sqopus/
 ├── src/
 │   ├── data/                     <- loader, preprocessing, split
 │   ├── models/                   <- backbone (xresnet1d, inception1d, ...)
+│   ├── conformal/                ✅ B1 + B12-B15, diagnostik kecukupan blok (C7)
 │   ├── hicorc/                   <- implementasi K1, K2, K3
 │   ├── baselines/                <- B1-B15 (termasuk HCP & Dunn dkk.)
 │   ├── metrics/                  <- coverage, SSCV, HCVR, set size
@@ -825,7 +868,7 @@ Kerjakan **berurutan**. Jangan lompat.
 - [x] ❗ **DITEMUKAN: C1 sudah tertutup** oleh Lee, Barber & Willett, *Distribution-free inference with hierarchical data*, ACM J. Data Science 2026 (`10.1145/3786352`)
 - [x] ⚠️ **DITEMUKAN: C2 berisiko** — arXiv:2410.06296 (Bastani dkk.), conformal pada DAG label hierarkis
 - [x] **Kontribusi direposisi** ke C6 (tradeoff $K$ vs $N_k$) + C7 (uji diagnostik) + C8 (perluasan multi-label) — lihat §4
-- [x] **Teks lengkap A0 dibaca** — Teorema 1 HCP, batas $\alpha > 1/(K_1+1)$, dan pertanyaan terbuka di Discussion
+- [x] **Teks lengkap A0 dibaca** — Teorema 1 HCP, batas $\alpha \ge 1/(K_1+1)$, dan pertanyaan terbuka di Discussion
 - [x] **Batas kelayakan dihitung pada data nyata**: `python .\scripts\feasibility_alpha.py` — lihat §5.6 Temuan 4
 - [x] **Dunn, Wasserman & Ramdas (2022) ditemukan & diverifikasi** — JASA, `10.1080/01621459.2022.2060112`, sumber baseline B13–B15
 - [x] **Pustaka conformal diverifikasi di PyPI** — MAPIE 1.5.0 (mendukung risk control multi-label), TorchCP 1.2.1 (APS/RAPS/LAC/SAPS)
@@ -848,7 +891,7 @@ Setelah C1 dicabut, Anda tidak lagi menurunkan teorema dari nol — risiko desk 
 
 - [ ] Identifikasi dosen/peneliti berlatar **statistika atau matematika**
 - [ ] Presentasikan rencana **C6 (tradeoff $K$ vs $N_k$)** dan **C7 (uji diagnostik)**
-- [ ] Minta review atas perumusan batas $\alpha > 1/(K_1+1)$ dan perluasannya ke multi-label
+- [ ] Minta review atas perumusan batas $\alpha \ge 1/(K_1+1)$ dan perluasannya ke multi-label
 
 ### Langkah 3 — Verifikasi Dataset ✅ SELESAI
 
@@ -1005,6 +1048,11 @@ Catat setiap keputusan desain di sini beserta alasannya. Ini melindungi Anda saa
 | 2026-09-30 | **Repositori git diinisialisasi** — commit `5ba06f6` | 24 berkas / 277,8 KB. `.gitignore` diperbaiki agar `results/raw/*.json` (11,4 KB bukti provenance) ikut ter-commit sementara dataset 661,5 MB tetap di luar. `data/raw/ptbxl.zip` dihapus setelah diverifikasi rusak | Verifikasi integritas zip dilakukan **sebelum** penghapusan, bukan diasumsikan |
 | 2026-09-30 | ❌ **`git tag protocol-v1` sengaja DITUNDA** | Protokol masih 🟡 draf; backbone belum dilatih dan pipeline belum end-to-end. Menandai sekarang akan mengubah pre-registration menjadi formalitas kosong | Tag dibuat setelah checklist §13 protokol tuntas, sebelum fold 10 disentuh |
 | 2026-09-30 | 🔧 **`check_consistency.py` diperbaiki** — `UnicodeEncodeError` saat output di-pipe | Gerbang pra-commit yang hanya berfungsi bila dijalankan manual adalah gerbang palsu. Ditambahkan `reconfigure(encoding="utf-8")` | — |
+| 2026-09-30 | 🔧 **KOREKSI: batas kelayakan TIDAK ketat** — $\alpha \ge \frac{1}{K_1+1}$, bukan $\alpha >$ | Tepat di batas, massa berhingga $\frac{K_1}{K_1+1}$ menyamai $1-\alpha$ sehingga ambangnya jatuh di skor maksimum. Cakupan terukur 0,9512 pada $K_1{=}19,\alpha{=}0{,}05$. `minimum_blocks()` salah $+1$ di semua kasus | Ditemukan sebelum menulis teorema. Tidak ada verdict tabel yang berubah; pemeriksaan silang = syarat baku split conformal $n \ge 1/\alpha - 1$ |
+| 2026-09-30 | ❗❗ **DITEMUKAN: granularitas PTB-XL tidak bersarang** | 46 pasien menyeberang `site`, 247 menyeberang `nurse`, 174 menyeberang `device`. Hanya `patient_id` ⊂ `strat_fold`. Aturan keputusan C7 "pilih yang terkasar dan layak" **runtuh** — ia mengandaikan persarangan | Aturan diganti: desain bersilang menuntut partisi **join** (komponen terhubung) |
+| 2026-09-30 | 🎯 **Hasil ketidakmungkinan pada data nyata** | Mengendalikan `patient_id`+`device` sekaligus → $K_1{=}5$, $\alpha_{\min}{=}0{,}167$. Keempat sumber → $K_1{=}1$, $\alpha_{\min}{=}0{,}5$. Ini batas **desain studi**, bukan kekurangan metode — pernyataan C6 yang jauh lebih kuat daripada rumusan sebelumnya | Klaim universal ditahan: baru terbukti untuk keluarga HCP/Dunn, menunggu review statistikawan |
+| 2026-09-30 | **Kish $n_{\text{eff}}$ diidentifikasi sebagai kasus $\rho{=}1$** | $\mathrm{DEff} = 1+(N-1)\rho \le N = \mathrm{DEff}_{\text{Kish}}$. Kish adalah **batas atas**, fungsi ukuran blok semata, dan buta terhadap $\rho$. Menjelaskan secara formal mengapa E11a wajib datar | E11b diarahkan ulang: estimasi $\rho(t)$, bukan $n_{\text{eff}}$ |
+| 2026-09-30 | **[`docs/theory.md`](docs/theory.md) ditulis** — luaran F1 | Prop 1 (kelayakan), Prop 2 (design effect), Teorema C6 (a–d), Prop 3 (partisi join), prosedur C7. Setiap pernyataan ditandai 🟢 terbukti / 🟡 butuh asumsi / 🔴 butuh statistikawan | Pemisahan taraf pembuktian dibuat eksplisit agar tidak tercampur di naskah |
 | | | | |
 
 ---

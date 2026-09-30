@@ -54,7 +54,7 @@ class CalibrationResult:
     n_points: int
     n_blocks: int
     alpha_min: float
-    """Batas bawah alpha agar jaminan non-trivial mungkin: 1/(n_blocks+1)."""
+    """Batas kelayakan: alpha harus >= 1/(n_blocks+1) agar ambang berhingga."""
 
     extra: dict = field(default_factory=dict)
 
@@ -65,8 +65,13 @@ class CalibrationResult:
 
     @property
     def is_feasible(self) -> bool:
-        """True bila alpha melampaui batas kelayakan blok."""
-        return self.alpha > self.alpha_min
+        """True bila alpha memenuhi batas kelayakan blok.
+
+        Ketaksamaannya TIDAK ketat: pada alpha = 1/(K+1) tepat, massa berhingga
+        K/(K+1) sudah menyamai level 1-alpha, sehingga ambangnya jatuh di skor
+        maksimum -- berhingga, dan cakupannya tetap >= 1-alpha.
+        """
+        return self.alpha >= self.alpha_min
 
     def __str__(self) -> str:
         t = "inf" if self.is_trivial else f"{self.threshold:.4f}"

@@ -75,12 +75,12 @@ def test_hcp_selalu_lebih_konservatif_daripada_split_naif():
 
 @pytest.mark.parametrize("alpha", [0.001, 0.01, 0.02])
 def test_h1_ambang_menjadi_takhingga_di_bawah_batas_kelayakan(alpha):
-    """H1 protokol: bila alpha <= 1/(K+1), himpunan prediksi wajib trivial."""
+    """H1 protokol: bila alpha < 1/(K+1), himpunan prediksi wajib trivial."""
     rng = np.random.default_rng(2)
     scores, blocks = hierarchical_scores(k=11, n=40, rng=rng)  # K=11 -> alpha_min = 1/12
 
     result = hcp(scores, blocks, alpha)
-    assert alpha <= result.alpha_min
+    assert alpha < result.alpha_min
     assert result.is_trivial
     assert not result.is_feasible
 
@@ -92,6 +92,42 @@ def test_ambang_berhingga_tepat_di_atas_batas_kelayakan():
     result = hcp(scores, blocks, alpha=0.09)  # 0,09 > 1/12 = 0,0833
     assert result.is_feasible
     assert np.isfinite(result.threshold)
+
+
+@pytest.mark.parametrize("k", [9, 19, 39, 99])
+def test_batas_kelayakan_TIDAK_ketat(k):
+    """Tepat pada alpha = 1/(K+1), ambangnya BERHINGGA -- bukan +inf.
+
+    Massa berhingga totalnya K/(K+1), yang persis menyamai level 1-alpha.
+    Karena kuantil didefinisikan dengan `>=`, level itu tercapai di skor
+    maksimum. Jadi syaratnya alpha >= 1/(K+1), sejajar dengan syarat baku
+    split conformal n >= 1/alpha - 1.
+    """
+    scores = np.arange(1.0, k + 1.0)
+    blocks = np.arange(k)
+
+    di_batas = hcp(scores, blocks, alpha=1.0 / (k + 1))
+    assert np.isfinite(di_batas.threshold)
+    assert di_batas.threshold == scores.max()
+    assert di_batas.is_feasible
+
+    sedikit_di_bawah = hcp(scores, blocks, alpha=1.0 / (k + 1) - 1e-9)
+    assert sedikit_di_bawah.is_trivial
+
+
+def test_cakupan_tetap_sah_tepat_di_batas_kelayakan():
+    """Rezim batas bukan sekadar berhingga secara teknis -- cakupannya benar."""
+    k, alpha, trials = 19, 0.05, 20_000
+    rng = np.random.default_rng(7)
+    blocks = np.arange(k)
+
+    tertutup = 0
+    for _ in range(trials):
+        tertutup += rng.normal() <= hcp(rng.normal(size=k), blocks, alpha).threshold
+
+    cakupan = tertutup / trials
+    assert alpha == pytest.approx(1.0 / (k + 1))
+    assert cakupan >= 1 - alpha - 3 * np.sqrt(0.95 * 0.05 / trials)
 
 
 def test_ambang_menurun_secara_monoton_terhadap_alpha():
@@ -260,13 +296,24 @@ def test_seluruh_metode_trivial_serempak_di_bawah_batas_kelayakan():
 
 @pytest.mark.parametrize(
     ("alpha", "diharapkan"),
-    [(0.5, 2), (0.1, 10), (0.05, 20), (0.03, 33), (0.01, 100)],
+    [(0.5, 1), (0.1, 9), (0.05, 19), (0.03, 33), (0.01, 99)],
 )
 def test_jumlah_blok_minimum(alpha, diharapkan):
     k = minimum_blocks(alpha)
     assert k == diharapkan
-    assert alpha > 1.0 / (k + 1)
-    assert alpha <= 1.0 / k
+    assert alpha >= 1.0 / (k + 1)  # K blok cukup
+    assert alpha < 1.0 / k  # K-1 blok tidak cukup
+
+
+@pytest.mark.parametrize("alpha", [0.5, 0.2, 0.1, 0.05, 0.03, 0.01])
+def test_jumlah_blok_minimum_cocok_dengan_perilaku_sebenarnya(alpha):
+    """Angka yang dikembalikan harus cocok dengan K terkecil yang benar-benar
+    menghasilkan ambang berhingga -- bukan sekadar hasil aljabar di atas kertas."""
+    k = minimum_blocks(alpha)
+
+    assert np.isfinite(hcp(np.arange(1.0, k + 1.0), np.arange(k), alpha).threshold)
+    if k > 1:
+        assert not np.isfinite(hcp(np.arange(1.0, k), np.arange(k - 1), alpha).threshold)
 
 
 def test_diagnostik_mereproduksi_angka_ptbxl_untuk_situs():

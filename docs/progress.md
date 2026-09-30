@@ -213,7 +213,7 @@ Uji diikat ke **pernyataan formal makalah**, bukan ke intuisi:
 | $1-\alpha \le$ cakupan $\le 1-\alpha+\frac{2}{K+1}$ | Lee dkk. Teorema 1 | ✅ **0,8237** ∈ [0,800; 0,895], $K{=}20$, 4.000 ulangan |
 | Pooling CDFs $\equiv$ HCP dengan $\alpha'=\alpha+\frac{1-\alpha}{K+1}$ | Lee dkk. Proposisi 1 | ✅ identik numerik |
 | Cakupan Pooling $\ge 1-\alpha-\frac{1-\alpha}{K+1}$ | Lee dkk. Proposisi 1 | ✅ 0,7895 ≥ 0,762 — **memang** di bawah $1-\alpha$ |
-| $\alpha \le \frac{1}{K+1}$ ⇒ ambang $=+\infty$ | H1 protokol | ✅ deterministik di semua metode |
+| $\alpha < \frac{1}{K+1}$ ⇒ ambang $=+\infty$ | H1 protokol | ✅ deterministik di semua metode |
 | Repeated Subsampling $\to$ HCP untuk $B$ besar | Lee dkk. Proposisi 2 | ✅ selisih < 0,25 SD |
 
 ### 🔍 Temuan baru: B15 punya **dua** syarat kelayakan
@@ -240,6 +240,7 @@ Syarat kedua tak punya padanan di HCP. Bukti numerik: pada $K{=}500$, $N_k{=}5$,
 | `verify_datasets.py` | 29 pemeriksaan struktural |
 | `analyze_block_structure.py` | $n_{\text{eff}}$ & design effect multi-granularitas + E11a |
 | `feasibility_alpha.py` | Batas $\alpha$ layak per granularitas (C6/C7) |
+| `check_nesting.py` | Persarangan antar-granularitas + partisi join (C7) |
 | `check_consistency.py` | Angka dokumen vs data nyata — **jalankan sebelum commit** |
 
 ### Modul (`src/conformal/`)
@@ -248,7 +249,7 @@ Syarat kedua tak punya padanan di HCP. Bukti numerik: pada $K{=}500$, $N_k{=}5$,
 
 ### Uji (`tests/`)
 
-`conftest.py` · `test_conformal.py` — 26 uji, seluruhnya lolos
+`conftest.py` · `test_conformal.py` — 37 uji, seluruhnya lolos
 
 ### Dokumen (`docs/`)
 
@@ -256,18 +257,42 @@ Syarat kedua tak punya padanan di HCP. Bukti numerik: pada $K{=}500$, $N_k{=}5$,
 |---|---|
 | `dataset-verification.md` | Laporan verifikasi D1–D5 lengkap |
 | `references.md` | 42 sitasi + 2 praterbit + 5 dataset, dengan analisis ancaman |
+| `theory.md` | **Luaran F1** — Prop 1–3, Teorema C6, prosedur C7 |
 | `protocol.md` | Pre-registration |
 | `progress.md` | Dokumen ini |
 
 ### Hasil mentah (`results/raw/`)
 
-`dataset_verification.json` · `block_structure.json` · `feasibility_alpha.json`
+`dataset_verification.json` · `block_structure.json` · `feasibility_alpha.json` · `block_nesting.json`
+
+---
+
+## 7b. Fondasi Teoretis F1 — [`theory.md`](theory.md)
+
+Ditulis 2026-09-30. Setiap pernyataan ditandai taraf pembuktiannya agar tidak tercampur di naskah.
+
+| | Pernyataan | Taraf |
+|---|---|---|
+| **Prop. 1** | $\hat T < \infty \iff \alpha \ge \frac{1}{K_1+1}$ | 🟢 Terbukti, bebas-distribusi |
+| Kor. 1.1 | Batas kelayakan **tidak bergantung pada $N_k$** sama sekali | 🟢 |
+| Kor. 1.3 | Tereduksi ke syarat baku split conformal saat $N_k{=}1$ | 🟢 Diverifikasi numerik |
+| **Prop. 2** | $\operatorname{Var}(\hat G) = \frac{\sigma^2[1+(N-1)\rho]}{KN}$ | 🟡 Butuh model efek acak |
+| Kor. 2.1 | Kish $\mathrm{DEff}$ = kasus $\rho{=}1$, jadi **batas atas** | 🟡 |
+| **Teorema C6** | (a) validitas hanya diatur $K$; (b) lantai varians $\sigma^2\rho/K$; (c) anggaran tetap → $K$ besar/$N$ kecil lemah-dominan; (d) $K$ terbatas → $N$ tak dapat menolong | 🟢 (a) · 🟡 (b–d) |
+| **Prop. 3** | Desain bersilang menuntut partisi **join** (komponen terhubung) | 🟢 Aljabar kekisi |
+| Kor. 3.2 | Ketidakmungkinan bila $K_1(\text{join})$ terlalu kecil | 🟢 untuk HCP/Dunn · 🔴 klaim universal **ditahan** |
+
+### Dua hasil yang mengubah isi naskah
+
+**1. Kish $n_{\text{eff}}$ adalah kasus $\rho = 1$.** Karena $1+(N-1)\rho \le N = \mathrm{DEff}_{\text{Kish}}$, ukuran Kish merupakan **batas atas** yang hanya fungsi ukuran blok — secara struktural buta terhadap $\rho$. Ini menjelaskan Temuan 5 secara formal: E11a **wajib** datar, jadi hipotesis peluruhan temporal bukan terbantahkan melainkan **tidak teruji**. E11b diarahkan ulang untuk mengestimasi $\rho(t)$.
+
+**2. Hasil ketidakmungkinan pada data nyata.** Granularitas PTB-XL tidak bersarang (46/247/174 pasien menyeberang site/nurse/device). Mengendalikan `patient_id`+`device` sekaligus meninggalkan $K_1{=}5$ blok ($\alpha_{\min}{=}0{,}167$); keempat sumber meninggalkan $K_1{=}1$ ($\alpha_{\min}{=}0{,}5$). Ini pernyataan C6 yang jauh lebih kuat daripada rumusan sebelumnya — dan bentuknya batas **desain studi**, bukan kekurangan metode.
 
 ---
 
 ## 8. Koreksi yang Dilakukan — Dicatat Terbuka
 
-Lima kesalahan ditemukan dan diperbaiki sendiri. Dicatat karena jejak koreksi melindungi Anda saat menulis Methods.
+Tujuh kesalahan ditemukan dan diperbaiki sendiri. Dicatat karena jejak koreksi melindungi Anda saat menulis Methods.
 
 | # | Kesalahan | Koreksi | Cara ditemukan |
 |---|---|---|---|
@@ -275,11 +300,15 @@ Lima kesalahan ditemukan dan diperbaiki sendiri. Dicatat karena jejak koreksi me
 | 2 | Klaim gap disusun **tanpa pencarian literatur** | C1 dicabut, kontribusi direposisi | Pencarian arXiv terarah menemukan Lee-Barber-Willett |
 | 3 | Validitas dikira ditentukan $n_{\text{eff}}$ Kish → "situs mustahil untuk $\alpha \leq 0{,}25$" | Ditentukan **$K_1$** (jumlah blok) → situs $\alpha_{\min}=0{,}024$, jadi $\alpha{=}0{,}05$ **layak** | Membaca teks penuh Teorema 1, bukan hanya abstrak |
 | 4 | Jumlah rekaman per fold dihitung dengan **pengurangan**, fold 9–10 tertukar | 17.418 / 2.183 / 2.198 dari CSV | Verifikasi langsung sebelum membekukan protokol |
-| 5 | Satu unit test **lolos secara hampa** — hanya membandingkan `inf >= berhingga` pada 2 dari 3 level $\alpha$ | Blok diperbesar ke $N{=}60$ agar ambang B15 berhingga; ditambah uji khusus dua syarat kelayakan | Mencetak nilai ambang aktual alih-alih memercayai status "26 passed" |
+| 5 | Satu unit test **lolos secara hampa** — hanya membandingkan `inf >= berhingga` pada 2 dari 3 level $\alpha$ | Blok diperbesar ke $N{=}60$; ditambah uji khusus dua syarat kelayakan | Mencetak nilai ambang aktual alih-alih memercayai status "26 passed" |
+| 6 | Batas kelayakan ditulis **ketat** ($\alpha > \frac{1}{K_1+1}$) di seluruh dokumen; `minimum_blocks()` salah $+1$ | **$\alpha \ge \frac{1}{K_1+1}$**; $K_{\min} = \lceil 1/\alpha\rceil - 1$ (19 blok untuk $\alpha{=}0{,}05$, bukan 20) | Menurunkan ulang massa berhingga $\frac{K_1}{K_1+1}$ sebelum menulis teorema, lalu menguji kasus batas ke kode |
+| 7 | Pemeriksaan persarangan memakai `dropna()` lintas **seluruh** kolom | Disaring **berpasangan**. Versi lama melaporkan `site` $K{=}4$; yang benar 51 | Angka 4 bertentangan dengan 51 yang terdokumentasi — ditelusuri, bukan diterima |
 
 > **Pelajaran yang paling mahal:** kesalahan #3 punya intuisi yang benar tapi kuantitas yang salah. Membaca abstrak saja tidak cukup — teoremanya harus dibuka.
 >
-> **Pelajaran kedua (dari #5):** uji yang lolos tidak membuktikan apa pun sampai angkanya diperiksa. Suite hijau dapat menyembunyikan perbandingan yang trivial.
+> **Pelajaran kedua (#5):** uji yang lolos tidak membuktikan apa pun sampai angkanya diperiksa. Suite hijau dapat menyembunyikan perbandingan yang trivial.
+>
+> **Pelajaran ketiga (#6, #7):** keduanya tertangkap hanya karena angka baru **dibenturkan** dengan angka lama. Ketaksamaan ketat tertangkap saat diturunkan ulang; `site` $K{=}4$ tertangkap karena bertabrakan dengan 51. Verifikasi silang lebih berharga daripada kehati-hatian.
 
 ---
 

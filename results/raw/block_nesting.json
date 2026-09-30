@@ -1,0 +1,148 @@
+{
+  "blok": {
+    "patient_id": 18869,
+    "site": 51,
+    "nurse": 12,
+    "device": 11,
+    "strat_fold": 10
+  },
+  "persarangan": {
+    "patient_id|site": {
+      "bersarang": false,
+      "blok_melanggar": 46,
+      "blok_total": 18855
+    },
+    "patient_id|nurse": {
+      "bersarang": false,
+      "blok_melanggar": 247,
+      "blok_total": 17522
+    },
+    "patient_id|device": {
+      "bersarang": false,
+      "blok_melanggar": 174,
+      "blok_total": 18869
+    },
+    "patient_id|strat_fold": {
+      "bersarang": true,
+      "blok_melanggar": 0,
+      "blok_total": 18869
+    },
+    "site|patient_id": {
+      "bersarang": false,
+      "blok_melanggar": 51,
+      "blok_total": 51
+    },
+    "site|nurse": {
+      "bersarang": false,
+      "blok_melanggar": 2,
+      "blok_total": 4
+    },
+    "site|device": {
+      "bersarang": false,
+      "blok_melanggar": 6,
+      "blok_total": 51
+    },
+    "site|strat_fold": {
+      "bersarang": false,
+      "blok_melanggar": 51,
+      "blok_total": 51
+    },
+    "nurse|patient_id": {
+      "bersarang": false,
+      "blok_melanggar": 12,
+      "blok_total": 12
+    },
+    "nurse|site": {
+      "bersarang": false,
+      "blok_melanggar": 9,
+      "blok_total": 12
+    },
+    "nurse|device": {
+      "bersarang": false,
+      "blok_melanggar": 11,
+      "blok_total": 12
+    },
+    "nurse|strat_fold": {
+      "bersarang": false,
+      "blok_melanggar": 12,
+      "blok_total": 12
+    },
+    "device|patient_id": {
+      "bersarang": false,
+      "blok_melanggar": 11,
+      "blok_total": 11
+    },
+    "device|site": {
+      "bersarang": false,
+      "blok_melanggar": 7,
+      "blok_total": 11
+    },
+    "device|nurse": {
+      "bersarang": false,
+      "blok_melanggar": 8,
+      "blok_total": 10
+    },
+    "device|strat_fold": {
+      "bersarang": false,
+      "blok_melanggar": 11,
+      "blok_total": 11
+    },
+    "strat_fold|patient_id": {
+      "bersarang": false,
+      "blok_melanggar": 10,
+      "blok_total": 10
+    },
+    "strat_fold|site": {
+      "bersarang": false,
+      "blok_melanggar": 10,
+      "blok_total": 10
+    },
+    "strat_fold|nurse": {
+      "bersarang": false,
+      "blok_melanggar": 10,
+      "blok_total": 10
+    },
+    "strat_fold|device": {
+      "bersarang": false,
+      "blok_melanggar": 10,
+      "blok_total": 10
+    }
+  },
+  "gabungan": {
+    "patient_id": {
+      "blok_data_penuh": 18869,
+      "blok_kalibrasi": 1942,
+      "blok_terbesar_kalibrasi": 8,
+      "alpha_min": 0.000515,
+      "layak_005": true
+    },
+    "patient_id + device": {
+      "blok_data_penuh": 3,
+      "blok_kalibrasi": 5,
+      "blok_terbesar_kalibrasi": 889,
+      "alpha_min": 0.166667,
+      "layak_005": false
+    },
+    "patient_id + nurse": {
+      "blok_data_penuh": 1349,
+      "blok_kalibrasi": 204,
+      "blok_terbesar_kalibrasi": 1467,
+      "alpha_min": 0.004878,
+      "layak_005": true
+    },
+    "patient_id + site": {
+      "blok_data_penuh": 43,
+      "blok_kalibrasi": 34,
+      "blok_terbesar_kalibrasi": 843,
+      "alpha_min": 0.028571,
+      "layak_005": true
+    },
+    "patient_id + site + device + nurse": {
+      "blok_data_penuh": 1,
+      "blok_kalibrasi": 1,
+      "blok_terbesar_kalibrasi": 2183,
+      "alpha_min": 0.5,
+      "layak_005": false
+    }
+  }
+}

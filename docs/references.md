@@ -96,7 +96,7 @@ $$T = Q_{1-\alpha}\Big( \sum_{k}\sum_{i} \tfrac{1}{(K_1+1)N_k}\,\delta_{s(Z_{k,i
 
 Jaminan: $\mathbb{P}\{Y_{\text{test}} \in \hat C(X_{\text{test}})\} \geq 1-\alpha$, dan bila skor berbeda hampir pasti, $\leq 1-\alpha + \frac{2}{K_1+1}$.
 
-**Massa $\frac{1}{K_1+1}$ pada $+\infty$** berarti: bila $\alpha \leq \frac{1}{K_1+1}$, himpunan prediksi menjadi tak hingga. **$K_1$ = jumlah blok kalibrasi**, bukan jumlah sampel dan bukan $n_{\text{eff}}$ Kish.
+**Massa $\frac{1}{K_1+1}$ pada $+\infty$** berarti: bila $\alpha < \frac{1}{K_1+1}$, himpunan prediksi menjadi tak hingga. **$K_1$ = jumlah blok kalibrasi**, bukan jumlah sampel dan bukan $n_{\text{eff}}$ Kish. Ketaksamaannya tidak ketat — pada $\alpha = \frac{1}{K_1+1}$ tepat, ambangnya masih berhingga.
 
 #### 🎯 Pertanyaan terbuka yang dinyatakan penulisnya sendiri (Discussion)
 

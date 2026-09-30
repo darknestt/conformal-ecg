@@ -5,7 +5,7 @@ pada tingkat granularitas blok mana jaminan cakupan non-trivial masih mungkin?
 
 Dua batas yang terpisah dan tidak berkorelasi
 ---------------------------------------------
-VALIDITAS  diatur jumlah blok K. Bila ``alpha <= 1/(K+1)`` ambang kalibrasi
+VALIDITAS  diatur jumlah blok K. Bila ``alpha < 1/(K+1)`` ambang kalibrasi
            jatuh di +inf dan himpunan prediksi memuat seluruh label. Tidak ada
            metode yang dapat memperbaikinya -- ini batas informasi.
 
@@ -28,13 +28,14 @@ __all__ = ["BlockDiagnostic", "block_sufficiency", "minimum_blocks", "compare_gr
 
 
 def minimum_blocks(alpha: float) -> int:
-    """Jumlah blok kalibrasi minimum agar ``alpha > 1/(K+1)`` terpenuhi."""
+    """Jumlah blok kalibrasi minimum agar ``alpha >= 1/(K+1)`` terpenuhi.
+
+    ``K_min = ceil(1/alpha) - 1``. Ketaksamaannya tidak ketat, jadi alpha=0,05
+    hanya menuntut 19 blok, bukan 20.
+    """
     if not 0.0 < alpha < 1.0:
         raise ValueError(f"alpha harus di (0,1), diterima {alpha}")
-    k = int(np.ceil(1.0 / alpha - 1.0))
-    if alpha <= 1.0 / (k + 1):
-        k += 1
-    return k
+    return int(np.ceil(1.0 / alpha)) - 1
 
 
 def _kish_neff(sizes: np.ndarray) -> float:
@@ -104,7 +105,7 @@ def block_sufficiency(
         n_blocks=k,
         alpha_min=alpha_min,
         blocks_required=minimum_blocks(alpha),
-        feasible=alpha > alpha_min,
+        feasible=alpha >= alpha_min,
         mean_block_size=float(counts.mean()),
         max_block_size=int(counts.max()),
         n_eff=n_eff,

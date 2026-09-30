@@ -28,7 +28,7 @@ Ketika reviewer bertanya *"mengapa Anda memakai α=0,05 dan bukan 0,10?"* atau *
 | Verifikasi struktural dataset (29 pemeriksaan) | **Deskriptif** | Tidak ada model, tidak ada hipotesis diuji |
 | Analisis struktur blok multi-granularitas | **Deskriptif** | Statistik struktur data murni |
 | E11a (struktur blok per bin interval) | **Deskriptif** | Tidak ada model |
-| Perhitungan batas kelayakan $\alpha > 1/(K_1+1)$ | **Deterministik** | Konsekuensi aljabar dari Teorema 1, bukan temuan statistik |
+| Perhitungan batas kelayakan $\alpha \ge 1/(K_1+1)$ | **Deterministik** | Konsekuensi aljabar dari Teorema 1, bukan temuan statistik |
 
 **Tidak ada satu pun analisis di atas yang menyentuh keluaran model.** Karena itu semuanya boleh dilaporkan sebagai karakterisasi dataset, bukan hasil eksperimen.
 
@@ -63,7 +63,7 @@ Diuji lintas: MIT-BIH (detak→rekaman, DEff ≈ 2.347) vs PTB-XL pasien (DEff =
 
 ### H1 — Kelayakan (C6)
 
-> Untuk granularitas dengan $\alpha \leq 1/(K_1+1)$, metode hierarkis menghasilkan himpunan prediksi **tak hingga atau memuat seluruh label** pada ≥ 95% kasus uji.
+> Untuk granularitas dengan $\alpha < 1/(K_1+1)$, metode hierarkis menghasilkan himpunan prediksi **tak hingga atau memuat seluruh label** pada ≥ 95% kasus uji.
 
 Ini prediksi **deterministik** dari Teorema 1, bukan hipotesis statistik. Jika gagal, implementasi Anda salah — bukan teorinya.
 

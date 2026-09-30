@@ -4,10 +4,15 @@ Teorema 1 (Lee, Barber & Willett 2026) untuk HCP memberi ambang
 
     T = Q_{1-alpha}( sum_k sum_i 1/((K1+1) N_k) delta_{s(Z_ki)} + 1/(K1+1) delta_{+inf} )
 
-Massa 1/(K1+1) pada +inf berarti: bila alpha <= 1/(K1+1), kuantilnya jatuh di
+Massa 1/(K1+1) pada +inf berarti: bila alpha < 1/(K1+1), kuantilnya jatuh di
 +inf dan himpunan prediksi menjadi tak hingga (trivial). Jadi syarat kelayakan
-adalah alpha > 1/(K1+1), dengan K1 = JUMLAH BLOK kalibrasi -- bukan jumlah
+adalah alpha >= 1/(K1+1), dengan K1 = JUMLAH BLOK kalibrasi -- bukan jumlah
 sampel, dan bukan n_eff Kish.
+
+Ketaksamaan ini TIDAK ketat. Pada alpha = 1/(K1+1) tepat, massa berhingga
+K1/(K1+1) sudah menyamai level 1-alpha, sehingga ambangnya jatuh di skor
+maksimum -- berhingga, dan cakupannya tetap >= 1-alpha. Bentuk ini sejajar
+dengan syarat baku split conformal, n >= 1/alpha - 1.
 """
 
 from __future__ import annotations
@@ -57,7 +62,7 @@ def analyse(df: pd.DataFrame, column: str) -> dict:
         "records_calibration": int(len(calib)),
         "mean_block_size_calib": round(float(sizes_calib.mean()), 3),
         "alpha_min_feasible": round(alpha_min, 5),
-        "feasible": {f"{a:.2f}": bool(a > alpha_min) for a in ALPHAS},
+        "feasible": {f"{a:.2f}": bool(a >= alpha_min) for a in ALPHAS},
         "kish_neff_full": round(kish_neff(sizes_all), 1),
         "design_effect_full": round(float(sizes_all.sum()) / kish_neff(sizes_all), 2),
         "note": note,
@@ -92,7 +97,7 @@ def main() -> int:
             f"{r['design_effect_full']:>8.2f}"
         )
 
-    print("\nCatatan: alpha_min = 1/(K1+1). Bila alpha <= alpha_min, himpunan prediksi")
+    print("\nCatatan: alpha_min = 1/(K1+1). Bila alpha < alpha_min, himpunan prediksi")
     print("menjadi tak hingga -- tidak ada jaminan non-trivial yang mungkin diberikan.")
     print("Design effect Kish mengukur EFISIENSI, bukan VALIDITAS. Keduanya berbeda.")
 
