@@ -115,6 +115,65 @@ Ini menjelaskan Temuan 5 (README §5.6) secara rigoros. Hipotesis "dependensi me
 
 > Prop. 2 memakai ICC dari **indikator** $\mathbb{1}\{s\le t\}$, bukan ICC skor mentah. Keduanya kuantitas berbeda; `icc_at_threshold` dan `icc_curve` menyediakan yang benar.
 
+### 2.3 ✅ Validasi empiris Prop. 2′ — dan kegagalan ICC sebagai sumbu
+
+**Ini pengujian paling tajam yang tersedia bagi Prop. 2′**, karena teorinya diminta meramalkan di titik yang membuat ukuran saingannya keliru.
+
+Sumbu pertama yang dicoba adalah $\rho$ sendiri. Di dalam MIT-BIH, sumbu itu bekerja — defisit cakupan naik monoton terhadap $\rho$, Spearman $+0{,}88/+0{,}78/+0{,}80$. Tetapi sumbu itu **runtuh ketika PTB-XL dimasukkan**:
+
+| Sumber | $\rho$ | Defisit $\alpha{=}0{,}15$ |
+|---|---:|---:|
+| MIT-BIH, $p{=}0{,}2$ | 0,3351 | **+0,0048** |
+| **PTB-XL (pasien)** | **0,3525** | **−0,0012** |
+
+$\rho$ hampir sama, defisit berlawanan tanda. **ICC saja bukan sumbu yang benar.**
+
+Prop. 2′ menjelaskannya tanpa parameter tambahan. Karena $H$ adalah rata-rata **harmonik**:
+
+$$\mathrm{DEff} = 1 + (H-1)\rho \quad\Longrightarrow\quad
+\begin{cases}
+\text{PTB-XL:} & H = 1{,}05 \Rightarrow \mathrm{DEff} = 1{,}02\\[2pt]
+\text{MIT-BIH:} & H = 1.355 \Rightarrow \mathrm{DEff} = 703{,}93
+\end{cases}$$
+
+Isinya dapat dinyatakan dalam satu kalimat: **dependensi baru merusak kalibrasi bila ada pengulangan di dalam blok untuk dikorelasikan.** Pada blok nyaris-tunggal, $\rho$ setinggi apa pun tidak berakibat, karena $H-1 \approx 0$ meredamnya.
+
+Pada sumbu $\mathrm{DEff}$, kedua dataset jatuh pada satu kurva monoton:
+
+| Sumber | $H$ | $\rho$ | $\mathrm{DEff}$ | Defisit $\alpha{=}0{,}15$ |
+|---|---:|---:|---:|---:|
+| PTB-XL (pasien) | 1,05 | 0,3525 | **1,02** | −0,0012 |
+| MIT-BIH $p{=}1$ | 1.355 | 0,0001 | 1,10 | +0,0001 |
+| MIT-BIH $p{=}0{,}5$ | 1.355 | 0,1334 | 181,60 | −0,0004 |
+| MIT-BIH $p{=}0{,}2$ | 1.355 | 0,3351 | 454,67 | +0,0048 |
+| MIT-BIH $p{=}0$ | 1.355 | 0,5192 | **703,93** | **+0,0102** |
+
+Spearman gabungan: $+0{,}84 / +0{,}80 / +0{,}85$, seluruhnya $p < 0{,}002$.
+
+#### Mengapa ini bukan pemilihan sumbu pasca-hoc
+
+$\mathrm{DEff} = 1+(H-1)\rho$ **sudah tertulis sebagai Prop. 2′ di dokumen ini sebelum data tersebut dikumpulkan**. Urutannya: ICC dicoba lebih dulu, gagal menyatukan, lalu proposisi yang sudah ada menjelaskan kegagalannya. Rata-rata harmonik bukan pilihan bebas — ia **turunan** dari $\operatorname{Var}(\hat G)$, dan justru perbedaan harmonik-vs-aritmetik itulah yang membuat PTB-XL jatuh di $\mathrm{DEff}{\approx}1$.
+
+Sekalipun demikian, penetapan sumbu ini terjadi **sesudah** melihat hasil dan tercatat demikian di [protocol.md §12](protocol.md).
+
+#### Ketimpangan $N_k$ bukan mekanisme terpisah
+
+Faktorial 2×2 ([experiments/factorial_mitdb.py](../experiments/factorial_mitdb.py)) memisahkan klasterisasi dari ketimpangan ukuran blok pada $n$ yang disamakan:
+
+| Faktor | Besar efek | Signifikan |
+|---|---|---|
+| Klasterisasi | −0,0122 … −0,0155 | **3/3** |
+| Ketimpangan $N_k$ | −0,0026 … −0,0044 | 0/3 |
+| Interaksi | −0,0052 … −0,0079 | 0/3 |
+
+Lengan teracak mengenai nominal nyaris sempurna **termasuk saat blok timpang**. Itu konsisten dengan Prop. 2′: ketimpangan masuk hanya lewat $H$, dan $H$ hanya berpengaruh melalui hasil kalinya dengan $\rho$. Tanpa $\rho$, ketimpangan tidak mengerjakan apa pun.
+
+#### Keterbatasan yang wajib dinyatakan
+
+1. Defisit **per titik tidak signifikan sendiri-sendiri**; seluruh CI memuat nol. Buktinya terletak pada tren monoton, yang memang merupakan kriteria pra-registrasi.
+2. PTB-XL menyumbang **1 dari 12 titik**; korelasi gabungan digerakkan gradien internal MIT-BIH. Peran PTB-XL adalah **uji ramalan** lintas modalitas, tugas, dan jenis blok — bukan tren independen.
+3. Titik MIT-BIH dihasilkan dengan **melemahkan dependensi secara sintetis**, bukan dengan mengamati kohort ber-$\rho$ berbeda.
+
 ---
 
 ## 3. Teorema C6 — Desain studi menentukan inferensi

@@ -11,14 +11,14 @@
 
 | § | Bagian | Siap? | Bergantung pada | Kebal hasil H0? |
 |---|---|:---:|---|:---:|
-| 1 | Introduction | ⚠️ | Hook bergantung nasib C4 | ❌ |
-| 2 | Related Work | ✅ | `references.md` | ✅ |
-| 3 | Preliminaries & Notation | ✅ | `theory.md` §0–1 | ✅ |
-| 4 | Problem Formulation | ✅ | `theory.md` §1, 3, 4.1 | ✅ |
-| 5 | Proposed Method | ✅ | `theory.md` §2–5 | ✅ |
+| 1 | Introduction | ⚠️ | Hook bergantung nasib C4 — **kini dipulihkan berkualifikasi** | ❌ |
+| 2 | Related Work | ✅ **DRAF ADA** → [`sec2-draft.md`](sec2-draft.md) | `references.md` | ✅ |
+| 3 | Preliminaries & Notation | ✅ **DRAF ADA** → [`sec3-4-draft.md`](sec3-4-draft.md) | `theory.md` §0–1 | ✅ |
+| 4 | Problem Formulation | ✅ **DRAF ADA** → [`sec3-4-draft.md`](sec3-4-draft.md) | `theory.md` §1, 3, 4.1 | ✅ |
+| 5 | Proposed Method | ✅ **DRAF ADA** → [`sec5-draft.md`](sec5-draft.md) | `theory.md` §2–5 | ✅ |
 | 6 | Datasets | ⚠️ | Angka final | ✅ |
 | 7 | Experimental Setup | ⚠️ | Backbone final (F2) | ✅ |
-| 8 | Results | ❌ | **E1–E5** | — |
+| 8 | Results | 🟡 **sebagian** | E1–E5; **kurva dosis-respons sudah ada** (`theory.md` §2.3) | — |
 | 9 | Ablation | ❌ | **E5** | — |
 | 10 | Discussion | ❌ | §8–9 | — |
 | 11 | Threats to Validity | ✅ | README §11 | ✅ |
