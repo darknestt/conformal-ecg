@@ -1,0 +1,79 @@
+{
+  "per_folder": 6,
+  "seed": 0,
+  "header_diperiksa": 42,
+  "medan_per_sumber": {
+    "cpsc_2018": [
+      "age",
+      "dx",
+      "hx",
+      "rx",
+      "sex",
+      "sx"
+    ],
+    "cpsc_2018_extra": [
+      "age",
+      "dx",
+      "hx",
+      "rx",
+      "sex",
+      "sx"
+    ],
+    "st_petersburg_incart": [
+      "age",
+      "dx",
+      "hx",
+      "rx",
+      "sex",
+      "sx"
+    ],
+    "ptb": [
+      "age",
+      "dx",
+      "hx",
+      "rx",
+      "sex"
+    ],
+    "georgia": [
+      "age",
+      "dx",
+      "hx",
+      "rx",
+      "sex"
+    ],
+    "chapman_shaoxing": [
+      "age",
+      "dx",
+      "hx",
+      "rx",
+      "sex",
+      "sx"
+    ],
+    "ningbo": [
+      "age",
+      "dx",
+      "hx",
+      "rx",
+      "sex",
+      "sx"
+    ]
+  },
+  "gabungan": [
+    "age",
+    "dx",
+    "hx",
+    "rx",
+    "sex",
+    "sx"
+  ],
+  "irisan": [
+    "age",
+    "dx",
+    "hx",
+    "rx",
+    "sex"
+  ],
+  "seragam": false,
+  "kandidat_pengenal": [],
+  "sensus": false
+}

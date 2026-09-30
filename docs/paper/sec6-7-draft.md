@@ -10,26 +10,54 @@
 
 ## 6. Datasets
 
+> **Konvensi status.** Setiap pernyataan substantif di bagian ini ditandai:
+> **[T]** teorema · **[P]** proposisi · **[K]** korolari · **[D]** definisi ·
+> **[AK]** aturan keputusan · **[H]** heuristik · **[Dok]** klaim dokumentasi/provenans ·
+> **[Obs]** pengamatan empiris.
+> Tanda **[Dok]** berarti pernyataan tentang *apa yang tercatat*, bukan tentang
+> *apa yang benar di dunia*. Perbedaan itu menentukan dan tidak boleh dikaburkan.
+
 ### 6.1 Selection rationale
 
-The two datasets are chosen for a reason that is central to the argument rather
-than incidental: **they occupy opposite corners of the block-geometry space that
-Section 5.1 identifies as decisive.** A single dataset, however large, cannot
-distinguish a theory in which the number of blocks matters from one in which the
-number of measurements per block matters, because both quantities are fixed.
+Tiga dataset dipakai untuk **tiga peran yang berbeda secara logis**, bukan sebagai
+replikasi yang saling menguatkan.
+
+| Dataset | Peran | Status S0 |
+|---|---|---|
+| **PTB-XL** | Kasus utama: dependensi pasien, multi-label, hierarki label | **[Dok]** terpenuhi — `patient_id` terdokumentasi |
+| **MIT-BIH** | Ujung dependensi kuat pada sumbu design effect | **[Dok]** terpenuhi — pengenal rekaman terdokumentasi |
+| **Challenge 2021** | Studi kasus **batas keteramatan** | **[Dok]** tak teramati |
+
+**[Obs]** Dua dataset pertama menempati sudut berlawanan pada ruang geometri blok.
+Satu dataset, sebesar apa pun, tidak dapat membedakan teori yang bergantung pada
+jumlah blok dari teori yang bergantung pada jumlah pengukuran per blok, karena
+kedua besaran itu terkunci di dalamnya.
 
 | | PTB-XL | MIT-BIH |
 |---|---:|---:|
-| Block unit | patient | record (subject) |
-| Calibration blocks $K_1$ | 958 | 11 |
-| Harmonic mean block size $H$ | 1.05 | 1,355 |
-| Design effect | **1.02** | **703.93** |
+| Satuan blok | pasien | rekaman (subjek) |
+| Blok kalibrasi $K_1$ | 958 | 11 |
+| Rata-rata harmonik $H$ | 1,05 | 1.355 |
+| Design effect | **1,02** | **703,93** |
 
-The contrast spans roughly three orders of magnitude in design effect while
-holding the modality (ECG) and the conformal machinery fixed. A third dataset
-was considered and **deliberately excluded**: once the two extremes are covered,
-additional datasets add computational cost without addressing a distinct
-question.
+> ⚠️ **Dua besaran di tabel ini bukan sifat dataset.**
+>
+> $K_1$ **bergantung rancangan split**: 958 adalah separuh dari 1.917 pasien pada
+> subhimpunan evaluasi fold 9 yang kami pilih, bukan properti PTB-XL. Rancangan
+> lain memberi $K_1$ lain.
+>
+> $\mathrm{DEff} = 1+(H-1)\rho$ **bergantung model**, karena $\rho$ adalah ICC dari
+> skor konformitas dan skor berasal dari model. Backbone berbeda menghasilkan
+> $\rho$ berbeda, sehingga $\mathrm{DEff}$ berbeda. Hanya $H$ yang murni properti
+> struktural.
+>
+> Menyajikan tabel ini tanpa kedua catatan itu akan menyiratkan bahwa design effect
+> adalah karakteristik dataset yang dapat dikutip ulang. Ia bukan.
+
+**Challenge 2021 tidak dipakai untuk klaim generalisasi.** Datanya tidak mendukung
+klaim itu. Perannya tunggal dan spesifik: memberi kasus di mana diagnostik
+mengeluarkan vonis **selain** "lolos". Diagnostik yang hanya pernah bilang "lolos"
+tidak menunjukkan daya pisah apa pun.
 
 ### 6.2 PTB-XL
 
@@ -106,6 +134,105 @@ The NSTDB supplies records 118 and 119 corrupted at six signal-to-noise ratios
 (baseline wander, electrode motion, muscle artefact). It is used solely for the
 coverage-robustness analysis under input degradation, not for calibration.
 
+### 6.5 Challenge 2021 — an observability-limited case
+
+Setiap pernyataan di bawah diberi status logis. Yang **tidak** diklaim
+dicantumkan di akhir, karena itulah yang paling mudah disalahbaca.
+
+#### Struktur terverifikasi
+
+**[Obs]** Tujuh folder sumber non-duplikat memuat 66.416 rekaman: `ningbo`
+34.905 · `georgia` 10.344 · `chapman_shaoxing` 10.247 · `cpsc_2018` 6.877 ·
+`cpsc_2018_extra` 3.453 · `ptb` 516 · `st_petersburg_incart` 74. Folder `ptb-xl`
+(21.837) dikecualikan karena duplikat §6.2.
+
+> Pemeriksaan silang: $66.416 + 21.837 = 88.253$, persis total resmi.
+
+#### Medan header
+
+**[Dok]** Pada **sampel 42 header yang diambil dari ketujuh sumber**, medan yang
+ditemukan adalah `#Age`, `#Sex`, `#Dx`, `#Rx`, `#Hx`, dan pada lima dari tujuh
+sumber juga `#Sx`. **Tidak ditemukan medan yang terdokumentasi sebagai pengenal
+pasien.**
+
+> ⚠️ **Ini sampel, bukan sensus.** 42 dari 66.416. Skemanya pun terbukti **tidak
+> seragam** — `ptb` dan `georgia` tidak memuat `#Sx` — sehingga keseragaman tidak
+> dapat diandaikan. Yang dapat dinyatakan: *pada sampel lintas seluruh sumber
+> tidak ditemukan pengenal pasien yang terdokumentasi.* Yang **tidak** dapat
+> dinyatakan: *tidak ada satu pun di antara 66.416 rekaman.*
+
+#### S0
+
+**[Dok]** Partisi pasien **tidak $V$-teramati**: tidak ada variabel metadata
+substantif yang terdokumentasi menentukan keanggotaan pasien.
+
+Ini klaim tentang dokumentasi, bukan teorema. Ketakteramatan tidak dapat
+dibuktikan dari data — tanpa label pasien, tidak ada cara memeriksa apakah
+partisi pasien memfaktor melalui $V$.
+
+#### S1 pada partisi sumber — dan hanya pada partisi itu
+
+**[K]** *(Korolari Prop. 1, berlaku pointwise pada partisi sumber.)* Partisi
+sumber memiliki $K = 7$. Karena $K_1 \le K$ untuk sembarang pembagian
+kalibrasi/uji,
+
+$$\alpha_{\min}^{\text{sumber}} \;=\; \frac{1}{K_1+1} \;\ge\; \frac{1}{8} = 0{,}125 .$$
+
+Bila rancangan menuntut sekurangnya satu sumber ditahan sebagai uji, maka
+$K_1 \le 6$ dan batasnya mengetat menjadi $\alpha \ge 1/7 \approx 0{,}1429$.
+Kami melaporkan batas longgar $1/8$ karena ia berlaku untuk **setiap** rancangan.
+
+> ⚠️ **Lingkup kuantifier.** Pernyataan ini berlaku **bagi partisi sumber**, bukan
+> bagi dataset. Ia **tidak** menyiratkan bahwa tidak ada partisi teramati lain
+> yang lebih halus dan layak. Menuliskannya sebagai "$\alpha_{\min}$ dataset ini
+> adalah 0,125" adalah kesalahan kuantifier.
+
+#### Akibat kegagalan S0 terhadap $K_1$
+
+**[P]** *(Prop. 0′, uniform atas kelas $\mathfrak{P}$.)* Bila $\mathcal{P}$ tidak
+teramati, jaminan yang berlaku tanpa mengetahui $\mathcal{P}$ menuntut partisi
+kalibrasi lebih kasar daripada **join seluruh kelas admissible** $\mathfrak{P}$,
+sehingga $\alpha \ge 1/\big(K_1(\bigvee_{\mathfrak{P}}\mathcal{P})+1\big)$.
+
+**[K]** *(Kor. 0′.1.)* Bila $\mathfrak{P}$ tidak dibatasi sehingga memuat partisi
+satu-blok, join-nya adalah partisi satu-blok, $K_1 = 1$, dan batasnya $\alpha \ge 1/2$.
+
+> **Kor. 0′.1 tidak diterapkan pada dataset ini.** Ia menuntut partisi satu-blok
+> admissible — di sini absurd secara domain: satu pasien dengan 66.416 EKG di
+> tujuh institusi. Menyebut angka $1/2$ untuk Challenge 2021 akan salah.
+
+**[AK]** *(Aturan keputusan, bukan teorema.)* Konsekuensi yang benar dilaporkan:
+$K_1$ untuk partisi pasien berhenti menjadi besaran **terhitung** dan berubah
+menjadi **asumsi tentang $\mathfrak{P}$** yang wajib dinyatakan penulis. Naskah
+karena itu tidak melaporkan satu angka $\alpha_{\min}$ untuk dataset ini.
+
+#### Prasyarat model untuk S2
+
+**[D]** S2 hanya terdefinisi di bawah **exchangeability hierarkis [A0]**, yaitu
+bila dependensi dibangkitkan struktur blok laten. Bila dependensi antar-rekaman
+dalam satu institusi bersifat kontinu — misalnya kemiripan yang meluruh terhadap
+kedekatan protokol — maka tidak ada $\mathcal{P}$ yang dapat ditulis, dan S2
+bukan sekadar tak teramati melainkan **bukan pertanyaan yang tepat**.
+
+Ketakpastian karena itu berlapis: kita tidak tahu $\mathcal{P}$, **dan** tidak
+tahu apakah model yang mengandaikan adanya $\mathcal{P}$ berlaku.
+
+#### Yang secara eksplisit TIDAK diklaim
+
+| Pernyataan | Mengapa tidak |
+|---|---|
+| "Challenge 2021 tidak dapat dipakai untuk conformal prediction" | Terlalu luas; bergantung partisi teramati **dan** kerangka jaminan |
+| "Rekaman dalam dataset ini independen" | Justru kebalikannya — tidak ada yang dapat dibuktikan |
+| "$\alpha_{\min}$ dataset ini 0,125" | Berlaku bagi partisi **sumber** saja |
+| "$\alpha \ge 1/2$ berlaku di sini" | Menuntut partisi satu-blok admissible; absurd secara domain |
+| "Tidak ada pengenal pasien di 66.416 rekaman" | Diperiksa 42; sampel, bukan sensus |
+
+#### Biaya vonis
+
+**[Obs]** Seluruh pemeriksaan di atas memerlukan **~0,5 MB** unduhan (70 berkas
+indeks + 42 header) terhadap dataset berukuran 12,6 GB. Vonis diperoleh sebelum
+preprocessing dan sebelum melatih model apa pun.
+
 ---
 
 ## 7. Experimental Setup
@@ -180,7 +307,110 @@ leave a partially written cache that a later run would silently treat as valid.
 
 ---
 
-## Catatan penyusunan
+## Audit adversarial §6 — upaya membangun kontra-contoh
+
+> Dikerjakan 2026-09-30 setelah §6 ditulis. Tiap proposisi dan korolari yang
+> dipakai diserang dengan upaya membangun kontra-contoh. Serangan yang **gagal**
+> dicatat karena menunjukkan pernyataannya tahan; serangan yang **berhasil**
+> dicatat sebagai kerentanan yang bertahan.
+
+### Serangan yang gagal — pernyataannya tahan
+
+**Prop. 1 pada kasus batas dan kasus seri.** Dicoba: bila banyak skor bernilai
+sama, CDF empiris melompat, mungkinkah ambang jatuh ke $+\infty$ meski
+$\alpha = 1/(K_1+1)$? Tidak. Pada titik itu massa berhingga tepat
+$K_1/(K_1+1) = 1-\alpha$, dan karena $Q_\beta = \inf\{t: F(t)\ge\beta\}$, level
+$1-\alpha$ tercapai di skor berhingga maksimum. Seri tidak mengubahnya.
+
+**$K_1 \le K$.** Dicoba mencari kasus $K_1 > K$. Blok kalibrasi adalah
+himpunan bagian blok; mustahil.
+
+**Prop. 3 (join).** Dicoba: adakah $\mathcal{Q}$ yang lebih kasar daripada setiap
+$\mathcal{P}_i$ tetapi lebih halus daripada join-nya? Tidak — join adalah batas
+atas terkecil pada kekisi, jadi $\mathcal{Q} \succeq \mathcal{P}_i\ \forall i$
+mengimplikasikan $\mathcal{Q} \succeq \bigvee \mathcal{P}_i$ menurut definisi.
+
+**Kor. 3.2 pada PTB-XL — apakah enumerasinya lengkap?** Dicoba: kekisi partisi
+yang dibangkitkan empat sumber memuat lebih dari 15 elemen; mungkinkah ada
+$\mathcal{Q}$ pemenuh S2 di luar daftar join-himpunan-bagian? Tidak. Setiap
+$\mathcal{Q}$ yang memenuhi S2 bagi keempat sumber wajib $\succeq$ join keempatnya,
+dan join itu sudah $K_1=1$; setiap yang lebih kasar juga $K_1=1$. Ketidakmungkinan
+karena itu ekshaustif **bagi klaim "mengendalikan keempat sumber"**.
+
+**Kor. 0′.1.** Dicoba: bila $\mathcal{P}_\top \in \mathfrak{P}$, mungkinkah
+join-nya bukan $\mathcal{P}_\top$? Tidak — join keluarga yang memuat elemen
+teratas adalah elemen teratas itu.
+
+### 🔴 Kerentanan yang bertahan
+
+**V1 — "Partisi sumber $K=7$" mengandaikan penilaian domain, bukan teorema.**
+
+Struktur subfolder (`g1/`…`g35/`) **juga teramati**. Bila subfolder diperlakukan
+sebagai blok, $K = 70$ dan $\alpha_{\min} \ge 1/71 \approx 0{,}014$ — yang
+membalikkan vonis S1 sepenuhnya.
+
+**Bukti terhadap penafsiran itu.** Ukuran subfolder diperiksa langsung:
+
+| Sumber | Subfolder tepat 1.000 rekaman | Sisa (subfolder terakhir) |
+|---|---:|---:|
+| `ningbo` | **34 / 35** | 905 |
+| `chapman_shaoxing` | **10 / 11** | 247 |
+| `cpsc_2018` | **6 / 7** | 877 |
+| `ptb` | 0 / 1 | 516 (di bawah 1.000) |
+
+Setiap subfolder berisi **tepat 1.000 rekaman** kecuali yang terakhir pada tiap
+sumber. Pola itu adalah pemenggalan berkas pada kelipatan 1.000, bukan
+pengelompokan bermakna. Menambah bahwa **tidak ada semantik terdokumentasi** bagi
+subfolder, memakainya sebagai blok dependensi berarti mengandaikan independensi
+antar-penggalan yang batasnya ditentukan urutan berkas.
+
+**Yang tetap bertahan sebagai kerentanan.** Argumen di atas **induktif**, bukan
+deduktif. Ia menunjukkan subfolder *hampir pasti* artefak penyimpanan, tetapi
+tidak membuktikan bahwa tidak ada korespondensi tersembunyi antara urutan berkas
+dan pengelompokan klinis. Reviewer berhak menuntut asumsi ini dinyatakan, dan
+naskah **harus menyatakannya** — bukan menyajikan $K=7$ sebagai fakta.
+
+**V2 — Klaim "tidak ada pengenal pasien" bersandar pada sampel 42/66.416.**
+
+Skema header terbukti **tidak seragam** (`ptb` dan `georgia` tanpa `#Sx`),
+sehingga keseragaman tidak dapat diandaikan dan ekstrapolasi dari sampel
+melemah. Sensus penuh memerlukan 66.416 permintaan; PhysioNet memutus koneksi
+pada permintaan beruntun. Klaim karena itu tetap **[Dok] berbasis sampel**.
+
+**V3 — $K_1$ menuntut blok kalibrasi TAK KOSONG.**
+
+Prop. 1 memakai bobot $1/\big((K_1+1)N_k\big)$, yang tak terdefinisi bila
+$N_k = 0$. Variabel pengelompokan dengan level kosong akan menggelembungkan
+$K_1$ bila dihitung naif. Skrip kami mencacah nilai yang **hadir** sehingga aman,
+tetapi pernyataan Prop. 1 di naskah harus menyebut syarat ini secara eksplisit.
+
+**V4 — Prop. 0′ tidak menyatakan $\mathfrak{P} \ne \emptyset$.**
+
+Bila kelas admissible kosong, pernyataannya hampa. Syarat sepele, tetapi harus
+tertulis.
+
+**V5 — Kriteria seragam atas $\mathfrak{P}$ adalah pilihan, bukan keharusan.**
+
+Prop. 0′ mengadopsi sikap kasus-terburuk. Sikap alternatif — rata-rata terhadap
+prior pada $\mathfrak{P}$ — menghasilkan batas berbeda dan mungkin jauh lebih
+longgar. Kami menyatakan pilihan ini, tetapi tidak membuktikan ia yang tepat.
+
+**V6 — Pemeriksaan silang 66.416 tidak sepenuhnya independen.**
+
+$66.416 + 21.837 = 88.253$ memakai angka `ptb-xl` dari dokumentasi dataset, yang
+tidak kami hitung ulang. Kecocokannya tetap bermakna — hitungan keliru tidak akan
+menutup — tetapi ia bukan verifikasi dua jalur penuh.
+
+### Kerentanan yang TIDAK ditemukan meski dicari
+
+Tidak ditemukan cacat pada: penurunan Prop. 1, sifat kekisi Prop. 3, aritmetika
+Kor. 0′.1, maupun kelengkapan enumerasi Kor. 3.2 dalam lingkup klaimnya.
+
+> **Tindak lanjut sebelum §8.** V1 harus dinyatakan di naskah sebagai asumsi
+> terbuka, bukan didiamkan. V3 dan V4 adalah perbaikan redaksional pada pernyataan
+> proposisi. V2, V5, V6 masuk §11 Threats to Validity.
+
+---
 
 ### ⚠️ Empat besaran MIT-BIH yang mudah tertukar
 
