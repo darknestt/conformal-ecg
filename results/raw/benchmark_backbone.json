@@ -1,0 +1,33 @@
+{
+  "torch": "2.14.0+cpu",
+  "thread": 2,
+  "cpu_logis": 4,
+  "batch": 32,
+  "ptbxl_latih": 17418,
+  "hasil": [
+    {
+      "parameter": 1746405,
+      "detik_per_batch": 0.34319139999570325,
+      "nama": "SmallECGNet-setara (BasicBlock [1,1,1,1], lebar 16)",
+      "menit_per_epoch_ptbxl": 3.1173218832943044
+    },
+    {
+      "parameter": 7225733,
+      "detik_per_batch": 1.418254633337104,
+      "nama": "resnet1d34  (BasicBlock [3,4,6,3])",
+      "menit_per_epoch_ptbxl": 12.882479586145362
+    },
+    {
+      "parameter": 15969413,
+      "detik_per_batch": 3.323843266659727,
+      "nama": "resnet1d50  (Bottleneck [3,4,6,3])",
+      "menit_per_epoch_ptbxl": 30.19157633882585
+    },
+    {
+      "parameter": 28276869,
+      "detik_per_batch": 7.077142899991789,
+      "nama": "xresnet1d101-skala (Bottleneck [3,4,23,3])",
+      "menit_per_epoch_ptbxl": 64.28404800825875
+    }
+  ]
+}
