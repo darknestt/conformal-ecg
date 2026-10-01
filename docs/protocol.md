@@ -312,6 +312,49 @@ Setiap penyimpangan dari protokol beku dicatat di sini. **Kolom terakhir adalah 
 | 2026-09-30 | **Friedman + Nemenyi + CD diagram dicabut** dari §9 | Prosedur Demšar menuntut banyak dataset (lazimnya ≥5); rancangan ini memakai dua. Uji tidak bermakna | **Sebelum** — tak satu pun hasil Friedman pernah dihitung |
 | 2026-09-30 | Tuas uji monotonisitas diganti dari **ukuran blok** menjadi **ICC**, lalu sumbu pelaporan menjadi **DEff** | Faktorial 2×2 menunjukkan ukuran blok bukan penggerak (0/3 signifikan) sedangkan klaster ya (3/3). Uji monotonisitas pertama karena itu memutar tuas yang salah | **Sesudah** — dinyatakan terbuka. Uji pertama dilaporkan apa adanya sebagai **temuan negatif**, tidak disembunyikan |
 | 2026-09-30 | Sumbu dosis-respons ditetapkan **DEff**, bukan ICC | PTB-XL ber-ICC 0,3525 namun defisit nol; ICC saja gagal menyatukan kedua dataset. Prop 2' ($H{=}1{,}05 \Rightarrow \mathrm{DEff}{=}1{,}02$) menjelaskannya | **Sesudah** — tetapi sumbunya adalah besaran yang **sudah ada di teori sebelum data dilihat**, bukan dipilih agar cocok |
+| 2026-10-01 | **Analisis sensitivitas checkpoint** ditambahkan pada eksperimen invariansi backbone (rincian di bawah) | `mitdb_resnet1d50` memilih bobot **epoch 1** karena rugi validasi tidak pernah membaik lagi; set validasi MIT-BIH hanya **4 rekaman** sehingga rugi validasinya bising (0,144–0,474). Reviewer dapat menyebut model itu kurang terlatih | **Sesudah** melihat riwayat rugi validasi, **sebelum** melihat hasil konformal dari checkpoint alternatif. **Analisis utama tidak diubah** |
+
+### Pra-registrasi analisis sensitivitas checkpoint — ditulis 2026-10-01 sebelum dijalankan
+
+**Pertanyaan.** Apakah temuan konformal bergantung pada checkpoint mana yang dipilih oleh set validasi 4 rekaman?
+
+**Rancangan.** Untuk setiap backbone yang dilatih (`resnet1d34`, `resnet1d50`) pada setiap dataset, audit konformal diulang memakai **bobot epoch terakhir** (yang tersimpan saat pelatihan berhenti) menggantikan **bobot terbaik-validasi**. Protokol lain identik: split, $\alpha$, 200 split acak level-blok, seed. `SmallECGNet` dikecualikan karena checkpoint lamanya hanya menyimpan bobot terbaik.
+
+**Kriteria — ditetapkan sekarang, tidak diubah sesudah hasil keluar.**
+
+| Kriteria | Lolos bila |
+|---|---|
+| **S-1** arah perbaikan HCP | `B12_memperbaiki` (CI selisih B12−B1 di atas nol) **sama** untuk kedua checkpoint pada **setiap** $\alpha$ |
+| **S-2** arah kurang-cakup B1 | tanda defisit B1 **sama** untuk kedua checkpoint pada setiap $\alpha$ |
+| **S-3** kontrol negatif | $K_1(\ell)$ identik — wajib, karena tidak bergantung bobot |
+
+**Pelaporan.** Analisis utama tetap memakai bobot terbaik-validasi sebagaimana ditetapkan. Hasil sensitivitas dilaporkan **apa pun hasilnya**, di naskah §8 dan §11. Bila S-1 gagal pada suatu $\alpha$, naskah wajib menyatakan bahwa temuan pada $\alpha$ itu peka terhadap pemilihan checkpoint.
+
+**Yang tidak dilakukan.** Aturan pemilihan model utama **tidak** diganti, dan tidak satu pun backbone dilatih ulang dengan aturan berbeda sebelum hasil ini keluar. Mengganti aturan sesudah melihat hasil adalah *p-hacking*.
+
+**Hasil MIT-BIH — 2026-10-01** (`*_terakhir.json`; dinilai otomatis oleh `scripts/summarize_backbone_invariance.py`)
+
+| Backbone | Epoch terbaik-val → terakhir | S-1 | S-2 | S-3 | Vonis |
+|---|---|:-:|:-:|:-:|:-:|
+| `resnet1d34` | 8 → 13 | 5/5 | 5/5 | ya | **LOLOS** |
+| `resnet1d50` | 1 → 6 | 5/5 | 5/5 | ya | **LOLOS** |
+
+Defisit B1 (pp), terbaik-val → terakhir:
+
+| $\alpha$ | `resnet1d34` | `resnet1d50` |
+|---|---|---|
+| 0,01 | −2,09 → −1,69 | −1,73 → −2,57 |
+| 0,05 | −1,00 → −1,08 | −1,38 → −2,38 |
+| 0,10 | −1,16 → −1,15 | −2,54 → −2,79 |
+| 0,15 | −1,01 → −1,42 | −3,41 → −1,70 |
+| 0,20 | −0,81 → −1,51 | −3,18 → −1,36 |
+
+**Tafsiran yang wajib dibawa ke naskah.**
+1. **Arah** temuan (B1 kurang-cakup; B12 memulihkan) tahan terhadap pemilihan checkpoint di 20/20 sel.
+2. **Besaran** defisit **tidak** tahan: berubah hingga 1,8 pp, dan urutan antar-backbone berubah. Klaim "besaran tidak monoton terhadap kapasitas" karena itu **tidak boleh** diangkat sebagai temuan, sebab ia ada dalam rentang derau pemilihan checkpoint. Naskah hanya mengklaim arah.
+3. Bobot epoch 6 `resnet1d50` (rugi latih 0,035 vs 0,161 di epoch 1) memberi kesimpulan yang sama, sehingga temuan tidak bergantung pada model yang "kurang terlatih".
+
+PTB-XL: dijalankan setelah pelatihan utama selesai, dengan kriteria yang sama.
 
 ---
 

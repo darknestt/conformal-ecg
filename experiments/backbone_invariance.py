@@ -198,18 +198,25 @@ def main() -> int:
     p.add_argument("--repeats", type=int, default=200)
     p.add_argument("--seed", type=int, default=0)
     p.add_argument("--smoke", action="store_true", help="3 batch, 1 epoch, 5 split; keluaran terpisah")
+    p.add_argument(
+        "--checkpoint", choices=["terbaik", "terakhir"], default="terbaik",
+        help="terakhir = analisis sensitivitas pra-registrasi (protocol.md §12): bobot saat pelatihan berhenti",
+    )
     args = p.parse_args()
+    if args.checkpoint == "terakhir" and args.backbone == "small":
+        p.error("checkpoint lama SmallECGNet hanya menyimpan bobot terbaik")
 
     prot = PROTOKOL[args.dataset]
     sub = "smoke" if args.smoke else "backbone_invariance"
     dir_hasil, dir_ckpt = RAW / sub, RAW / sub / "ckpt"
     dir_ckpt.mkdir(parents=True, exist_ok=True)
     nama = f"{args.dataset}_{args.backbone}"
+    akhiran = "_terakhir" if args.checkpoint == "terakhir" else ""
     repeats = 5 if args.smoke else args.repeats
 
     t_mulai = time.perf_counter()
     torch.manual_seed(args.seed)
-    print(f"== {nama}{'  [SMOKE]' if args.smoke else ''} ==")
+    print(f"== {nama}{akhiran}{'  [SMOKE]' if args.smoke else ''} ==")
     d = siapkan_ptbxl() if args.dataset == "ptbxl" else siapkan_mitdb()
     print(f"  latih {len(d['idx_latih']):,} | val {len(d['idx_val']):,} | evaluasi {len(d['idx_eval']):,}")
     if args.dataset == "ptbxl":
@@ -224,6 +231,21 @@ def main() -> int:
         model.eval()
         info_latih = {"sumber": f"checkpoint lama {CKPT_LAMA[args.dataset].name} (tidak dilatih ulang)"}
         print(f"  {info_latih['sumber']}")
+    elif args.checkpoint == "terakhir":
+        final, resume = dir_ckpt / f"{nama}.pt", dir_ckpt / f"{nama}.resume.pt"
+        if not (final.exists() and resume.exists()):
+            p.error(f"{nama} belum selesai dilatih; sensitivitas hanya untuk pelatihan yang tuntas")
+        keadaan = torch.load(resume, weights_only=False)
+        model.load_state_dict(keadaan["model"])
+        model.eval()
+        terbaik = min(range(len(keadaan["riwayat"])), key=lambda i: keadaan["riwayat"][i]["val"])
+        info_latih = {
+            "sumber": f"bobot epoch terakhir dari {resume.name}",
+            "epoch_dipakai": keadaan["epoch"],
+            "epoch_terbaik_validasi": keadaan["riwayat"][terbaik]["epoch"],
+            "riwayat": keadaan["riwayat"],
+        }
+        print(f"  bobot epoch {keadaan['epoch']} (terbaik-validasi: epoch {info_latih['epoch_terbaik_validasi']})")
     else:
         final = dir_ckpt / f"{nama}.pt"
         if final.exists():
@@ -260,9 +282,10 @@ def main() -> int:
         print(f"{a:>6}{r['B1_mean']:>9.4f}{r['B12_mean']:>9.4f}{r['defisit_B1_pp']:>+11.2f}p"
               f"{f'[{lo:+.4f},{hi:+.4f}]':>24}{r['ukuran_B1']:>8.3f}{r['ukuran_B12']:>8.3f}")
 
-    keluar = dir_hasil / f"{nama}.json"
+    keluar = dir_hasil / f"{nama}{akhiran}.json"
     keluar.write_text(json.dumps({
         "dataset": args.dataset, "backbone": args.backbone, "smoke": args.smoke,
+        "checkpoint": args.checkpoint,
         "parameter": model.n_params(), "protokol": prot, "repeats": repeats, "seed": args.seed,
         "pelatihan": info_latih, "diskriminasi": metrik, "k1_per_label": k1,
         "konformal": ringkas, "detik_total": time.perf_counter() - t_mulai,

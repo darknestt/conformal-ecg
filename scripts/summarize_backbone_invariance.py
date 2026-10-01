@@ -88,8 +88,43 @@ def ringkas_dataset(dataset: str, hasil: dict[str, dict]) -> dict:
     }
 
 
+def sensitivitas(dataset: str, utama: dict[str, dict]) -> list[dict]:
+    """Kriteria S-1..S-3 pra-registrasi (protocol.md §12): bobot terakhir vs terbaik-validasi."""
+    keluar = []
+    for b in ("resnet1d34", "resnet1d50"):
+        p = DIR / f"{dataset}_{b}_terakhir.json"
+        if b not in utama or not p.exists():
+            continue
+        alt, ref = json.loads(p.read_text(encoding="utf-8")), utama[b]
+        s1 = {a: alt["konformal"][a]["B12_memperbaiki"] == ref["konformal"][a]["B12_memperbaiki"]
+              for a in ref["konformal"]}
+        s2 = {a: (alt["konformal"][a]["defisit_B1_pp"] < 0) == (ref["konformal"][a]["defisit_B1_pp"] < 0)
+              for a in ref["konformal"]}
+        s3 = alt["k1_per_label"] == ref["k1_per_label"]
+        lolos = all(s1.values()) and all(s2.values()) and s3
+        print(f"\n  Sensitivitas {dataset}/{b}: epoch terakhir {alt['pelatihan']['epoch_dipakai']}"
+              f" vs terbaik-validasi {alt['pelatihan']['epoch_terbaik_validasi']}"
+              f"  ->  {'LOLOS' if lolos else 'GAGAL'}")
+        print(f"    S-1 arah perbaikan HCP sama : {sum(s1.values())}/{len(s1)}")
+        print(f"    S-2 tanda defisit B1 sama   : {sum(s2.values())}/{len(s2)}")
+        print(f"    S-3 K1 identik              : {'ya' if s3 else 'TIDAK -- BUG'}")
+        for a in ref["konformal"]:
+            r, s = ref["konformal"][a], alt["konformal"][a]
+            print(f"    alpha {a}: defisit B1 {r['defisit_B1_pp']:+.2f} -> {s['defisit_B1_pp']:+.2f} pp"
+                  f" | |C| B12 {r['ukuran_B12']:.3f} -> {s['ukuran_B12']:.3f}")
+        keluar.append({"backbone": b, "S1": s1, "S2": s2, "S3": s3, "lolos": lolos,
+                       "epoch_terakhir": alt["pelatihan"]["epoch_dipakai"],
+                       "epoch_terbaik": alt["pelatihan"]["epoch_terbaik_validasi"]})
+    return keluar
+
+
 def main() -> int:
-    ringkasan = [ringkas_dataset(d, muat(d)) for d in DATASET]
+    ringkasan = []
+    for d in DATASET:
+        utama = muat(d)
+        r = ringkas_dataset(d, utama)
+        r["sensitivitas_checkpoint"] = sensitivitas(d, utama)
+        ringkasan.append(r)
     total = sum(r["selesai"] for r in ringkasan)
     print(f"\n{'=' * 78}\n  {total}/{len(DATASET) * len(BACKBONE)} konfigurasi selesai\n{'=' * 78}")
     (DIR / "summary.json").write_text(json.dumps(ringkasan, indent=2), encoding="utf-8")

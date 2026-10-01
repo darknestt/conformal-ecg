@@ -1,11 +1,13 @@
 [
   {
     "dataset": "mitdb",
-    "selesai": 1,
+    "selesai": 3,
     "backbone": [
-      "small"
+      "small",
+      "resnet1d34",
+      "resnet1d50"
     ],
-    "k1_identik": null,
+    "k1_identik": true,
     "per_alpha": {
       "0.01": {
         "B1_kurang_cakup_konsisten": true,
@@ -58,8 +60,52 @@
         ]
       }
     },
-    "alpha_konsisten": null,
-    "alpha_total": 5
+    "alpha_konsisten": 5,
+    "alpha_total": 5,
+    "sensitivitas_checkpoint": [
+      {
+        "backbone": "resnet1d34",
+        "S1": {
+          "0.01": true,
+          "0.05": true,
+          "0.10": true,
+          "0.15": true,
+          "0.20": true
+        },
+        "S2": {
+          "0.01": true,
+          "0.05": true,
+          "0.10": true,
+          "0.15": true,
+          "0.20": true
+        },
+        "S3": true,
+        "lolos": true,
+        "epoch_terakhir": 13,
+        "epoch_terbaik": 8
+      },
+      {
+        "backbone": "resnet1d50",
+        "S1": {
+          "0.01": true,
+          "0.05": true,
+          "0.10": true,
+          "0.15": true,
+          "0.20": true
+        },
+        "S2": {
+          "0.01": true,
+          "0.05": true,
+          "0.10": true,
+          "0.15": true,
+          "0.20": true
+        },
+        "S3": true,
+        "lolos": true,
+        "epoch_terakhir": 6,
+        "epoch_terbaik": 1
+      }
+    ]
   },
   {
     "dataset": "ptbxl",
@@ -101,6 +147,7 @@
       }
     },
     "alpha_konsisten": null,
-    "alpha_total": 3
+    "alpha_total": 3,
+    "sensitivitas_checkpoint": []
   }
 ]
