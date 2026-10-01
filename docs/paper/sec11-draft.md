@@ -63,6 +63,26 @@ accuracy 0.8690 with balanced accuracy 0.3748 and macro-F1 0.3144 — weak on
 minority classes. These figures affect the *size* of reported prediction sets and
 must not be read as evidence about coverage.
 
+We tested this directly rather than asserting it. On MIT-BIH the audit was
+repeated with three backbones spanning a 157-fold range in parameter count
+(101,925; 7,220,805; 15,964,485). Accuracy rose from 0.869 to 0.926, while
+balanced accuracy stayed at 0.370–0.376. Across all 15 backbone×$\alpha$ cells,
+naive split conformal under-covers and HCP restores coverage. $K_1(\ell)$ is
+identical across backbones, as it must be, since it depends on the partition
+alone; this serves as a negative control on the pipeline. The PTB-XL arm of this
+experiment is reported in §8.
+
+**Checkpoint selection on a small validation set.** The MIT-BIH validation set
+comprises only 4 records, and its loss is noisy (0.13–0.56 across epochs). Under
+our pre-specified rule, early stopping selected the **epoch-1** weights for the
+largest backbone. A reviewer may fairly object that this model is under-trained.
+Before examining any result, we pre-registered a sensitivity analysis: repeat the
+audit with the **last-epoch** weights and require that (S-1) whether HCP improves
+on B1 and (S-2) the sign of the B1 deficit agree at every $\alpha$, and that
+(S-3) $K_1(\ell)$ be identical. Both trained backbones pass all three criteria
+in 5/5 $\alpha$ levels (epoch 8 vs 13; epoch 1 vs 6). The primary selection rule
+was not altered.
+
 **Subgroup definitions are researcher choices.** Sensitivity to alternative
 grouping schemes is examined explicitly.
 
@@ -117,6 +137,14 @@ attains 0.9615 coverage against B1's 0.8851 — but at an average set size of 2.
 labels out of 5, against B1's 1.05. Reporting coverage alone would make HCP appear
 uniformly superior when much of the gain is abstention.
 
+**Direction is robust; magnitude is not.** The same sensitivity analysis shows
+that the *size* of the B1 deficit moves by up to 1.8 percentage points between
+checkpoints of a single backbone (e.g. $-3.41$ to $-1.70$ pp at $\alpha=0.15$),
+and that the ordering of backbones by deficit magnitude changes with it. An
+apparent non-monotone relation between capacity and deficit magnitude, visible in
+the primary analysis, therefore lies within checkpoint noise. We claim only the
+direction of the effect.
+
 **A criterion we pre-registered turned out to be near-vacuous.** Our initial test
 of H0b asked whether HCP improves coverage over naive split conformal. A
 permutation control showed that at $K_1=11$ the $+\infty$ atom mechanically forces
@@ -151,10 +179,15 @@ not move. The prediction survives on the quantity the theory actually specifies.
 
 **Scope of the impossibility result.** *Corollary 3.2 is proved for the HCP/Dunn
 family. Whether it holds for every distribution-free method that relies on
-exchangeability between blocks remains an open question.* The existence claim
-itself is verified exhaustively on the PTB-XL partition lattice: of the fifteen
-joins of dependence sources, eight satisfy sufficiency and all eight collapse to
-a single block.
+exchangeability between blocks remains an open question.* The collapse of joined
+partitions into a giant component is not itself new [P2]. On PTB-XL, the check is
+exhaustive **only with respect to the declared sources** {patient, site, nurse,
+device}: of the fifteen joins, eight satisfy sufficiency and all eight collapse
+to a single block. That set cannot be verified from data. Restricting it to
+{patient, site} yields $K_1=34$, and $\alpha=0.05$ becomes feasible. We therefore state the
+result conditionally: *if patient, site, nurse, and device are all treated as
+dependence sources, no admissible calibration grouping exists at any
+conventional $\alpha$.*
 
 **Formal proofs require statistical review.** All derivations in §5 are to be
 reviewed by a statistician before submission.
@@ -198,6 +231,7 @@ A complete deviation log is maintained in the accompanying protocol.
 | Panjang | ~1.200 kata; target 1 halaman jurnal (padat, boleh dipangkas ke tabel bila perlu) |
 | §11.6 | **Bagian terpenting.** Empat pembalikan dilaporkan sebagai urutan, bukan disembunyikan |
 | Kor. 3.2 | Kalimat ruang lingkup ditulis **verbatim**, sama persis dengan §5 |
+| 2026-10-01 | Ditambah: invariansi backbone MIT-BIH, sensitivitas checkpoint (pra-registrasi `protocol.md` §12), arah-vs-besaran, syarat "sumber yang dideklarasikan" + [P2]. **PTB-XL menunggu** pelatihan selesai |
 | Angka | Seluruhnya terverifikasi dari log sesi; tidak ada yang dibulatkan tanpa sumber |
 | Nada | Menyatakan batas tanpa merendahkan hasil; tiap ancaman disertai apa yang sudah dikerjakan |
 
