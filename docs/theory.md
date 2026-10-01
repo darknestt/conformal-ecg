@@ -252,14 +252,18 @@ Dengan ukuran yang benar, **kedua granularitas yang layak justru dua yang paling
 
 > Ditulis 2026-09-30 untuk menjawab risiko yang sah: sebuah "diagnostik" dapat tampak berguna padahal hanya merupakan kumpulan kondisi intuitif tanpa status matematis yang jelas. Tabel ini menyatakan status setiap komponen secara terbuka.
 
-| Komponen | Status | Sumber |
-|---|---|---|
-| **S1** Kelayakan | 🟢 **Teorema** — konsekuensi langsung Prop. 1 | Teorema 1 [A0] |
-| **S2** Kecukupan | � **Definisi + Prop. 3**, sah **hanya di bawah model [A0]** | §4.0b serangan 3 |
-| **S0** Keteramatan | 🟡 **Klaim dokumentasi**, bukan teorema | §4.0b serangan 2 |
-| **Prop. 0′** Harga ketakteramatan | 🟢 **Korolari Prop. 3** — batas lewat join kelas $\mathfrak{P}$ | §4.0b serangan 1 & 4 |
-| Urutan $S_0 \to S_1 \to S_2$ | 🟡 **Aturan keputusan** | pilihan desain, bukan teorema |
-| Pemeringkatan granularitas admissible | 🟡 **Heuristik** berbasis Prop. 2′ | bukan optimalitas terbukti |
+> 🔧 **DIPERBARUI 2026-10-01 sesudah audit prior-art.** C7 adalah **prosedur Metode**, bukan kontribusi teoretis. Kolom "Baru?" mencatat apakah komponen boleh dijual sebagai kontribusi.
+
+| Komponen | Status | Baru? | Sumber / prior art |
+|---|---|---|---|
+| **S1** Kelayakan | 🟢 korolari langsung Prop. 1 | ❌ | [A0] Teorema 1 |
+| **S2** Kecukupan | 🔴 **pembukuan asumsi, bukan verifikasi** — hanya memeriksa sumber yang **dideklarasikan**; sumber yang tidak disebut membuatnya lolos secara hampa | ❌ | §4.0b serangan 3; audit 2026-10-01 |
+| **S0** Keteramatan | 🟡 klaim dokumentasi, bukan teorema | ❌ | §4.0b serangan 2 |
+| **Prop. 0′** Harga ketakteramatan | 🟡 matematikanya benar, tetapi **seluruh daya pisahnya berasal dari asumsi domain yang menyempitkan $\mathfrak{P}$** | ❌ | fakta kekisi + Kor. 3.1 |
+| Urutan $S_0 \to S_1 \to S_2$ | 🟡 aturan keputusan | ❌ | pilihan desain |
+| Pemeringkatan granularitas admissible | 🟡 heuristik berbasis Prop. 2′ | ❌ | bukan optimalitas terbukti |
+
+**Yang dijual dari C7 hanyalah hasil penerapannya**: enumerasi ekshaustif 15 join pada PTB-XL (§4.2) dan instansiasi Challenge 2021 (§4.6) — keduanya temuan empiris yang dapat diperiksa, bukan teorema.
 
 > Status di atas adalah hasil **sesudah** audit adversarial §4.0b. Versi pertama menandai S0 dan S2 sebagai 🟢; keduanya diturunkan setelah serangan berhasil menembusnya.
 
@@ -350,7 +354,9 @@ Empat serangan dilancarkan, **keempatnya menembus**. Itu hasil yang benar: rumus
 
 #### Hubungan C7 ↔ C6
 
-C7 bukan kontribusi terpisah yang kebetulan bertetangga dengan C6. Ia adalah **C6 yang dijadikan dapat diperiksa**, ditambah dua prasyarat yang C6 andaikan secara diam-diam.
+> 🔧 **2026-10-01.** Versi lama menyebut C7 sebagai "C6 yang dijadikan dapat diperiksa". Karena C6 kini diturunkan menjadi hasil yang sudah dikenal, rumusan yang benar: C7 **mengoperasionalkan [A0]** — mengubah syarat kelayakan Teorema 1 menjadi daftar periksa yang dijalankan sebelum kalibrasi.
+
+C7 bukan kontribusi terpisah yang kebetulan bertetangga dengan C6. Ia adalah **[A0] yang dijadikan dapat diperiksa**, ditambah dua prasyarat yang [A0] andaikan secara diam-diam.
 
 | C6 menyatakan | C7 menjadikannya |
 |---|---|
@@ -409,7 +415,7 @@ Bila tidak cukup, pengamatan yang bergantung tersebar ke blok berbeda dan **dipe
 
 ### 4.2 Desain bersilang memaksa pemakaian partisi gabungan
 
-> 🟢 **TERBUKTI.** Aljabar kekisi partisi.
+> 🟢 **TERBUKTI, tetapi TIDAK BARU.** Join pada kekisi partisi adalah objek klasik desain eksperimen (Nelder 1965; Bailey 1977, 1996) dan sama dengan komponen terhubung graf (matroid grafik). Fenomena "tiap lapis pengelompokan lolos sendiri, union-nya runtuh menjadi komponen raksasa" sudah dilaporkan untuk kontrol kebocoran (Zheng & Xu 2026, arXiv:2608.08892, yang mengatribusikannya ke Guvenilir & Dogan — ⚠️ sumber asli belum diverifikasi). Proposisi di bawah dipertahankan sebagai **Metode**.
 
 **Proposisi 3.** Agar $\mathcal{Q}$ cukup bagi $\mathcal{P}_1$ **dan** $\mathcal{P}_2$ sekaligus, $\mathcal{Q}$ harus lebih kasar daripada keduanya. Partisi terhalus yang memenuhi itu adalah **join** $\mathcal{P}_1 \vee \mathcal{P}_2$ pada kekisi partisi — yaitu komponen terhubung dari graf yang menautkan dua pengamatan bila mereka berbagi blok $\mathcal{P}_1$ atau berbagi blok $\mathcal{P}_2$.
 
@@ -417,6 +423,8 @@ Bila tidak cukup, pengamatan yang bergantung tersebar ke blok berbeda dan **dipe
 $$\alpha_{\min}(\mathcal{P}_1\vee\mathcal{P}_2) \;\ge\; \max\big(\alpha_{\min}(\mathcal{P}_1),\, \alpha_{\min}(\mathcal{P}_2)\big).$$
 
 **Korolari 3.2 (ketidakmungkinan).** Bila $K_1(\mathcal{P}_1\vee\mathcal{P}_2) < \lceil 1/\alpha\rceil - 1$, maka **tidak ada** kalibrasi HCP yang memberi jaminan non-trivial pada tingkat $\alpha$ sambil mengendalikan kedua sumber dependensi. Ini batas **desain studi**, bukan kekurangan metode.
+
+> 🟡 **Status kebaruan.** Kor. 3.2 adalah **komposisi mekanis** dua hasil yang sudah dikenal: runtuhnya join (literatur kebocoran) dan batas $1/(K_1+1)$ ([A0]). Yang tidak kami temukan tertulis — dan karena itu hanya kami nyatakan sebagai **pengamatan**, bukan teorema — adalah perbedaan sifat akibatnya: pada pemisahan latih/uji atau CV, keruntuhan join menurunkan mutu secara **bertingkat** (lebih sedikit fold, varians naik); pada kalibrasi HCP akibatnya **kategoris** — di bawah $1/(K_1+1)$ tidak ada ambang berhingga sama sekali.
 
 > 🔴 **Ruang lingkup dikunci.** Saya menduga Kor. 3.2 berlaku bagi **setiap** metode bebas-distribusi yang validitasnya bersandar pada exchangeability antar-blok, bukan hanya HCP — karena argumen leave-one-block-out memaksa massa $\ge \frac{1}{K_1+1}$ pada $+\infty$. Dugaan itu **tidak diklaim di naskah**. Naskah hanya mengklaimnya untuk keluarga HCP/Dunn, dan menyatakan sisanya sebagai pertanyaan terbuka.
 
@@ -440,6 +448,8 @@ Kor. 3.2 adalah **klaim eksistensi**, sehingga dapat ditegakkan sepenuhnya oleh 
 **Hasil: 8 granularitas memenuhi S2, seluruhnya $K_1 = 1$. Nol granularitas memenuhi S1 dan S2 sekaligus** pada $\alpha \in \{0{,}01;\,0{,}05;\,0{,}10;\,0{,}20\}$.
 
 Granularitas **terhalus** yang memenuhi S2 adalah `site` ∨ `nurse`, dan ia sudah runtuh menjadi satu blok. Setiap pemenuh S2 lainnya lebih kasar lagi, sehingga $K_1$-nya tidak mungkin lebih besar. Ketidakmungkinan karena itu **ekshaustif pada kekisi ini**, bukan hasil pemeriksaan sebagian.
+
+> ⚠️ **Syarat yang wajib menyertai klaim ini.** "Ekshaustif" berarti ekshaustif **terhadap himpunan sumber yang dideklarasikan**, $D = \{\texttt{patient\_id}, \texttt{site}, \texttt{nurse}, \texttt{device}\}$. Vonisnya bergantung pada pilihan $D$, dan pilihan itu **tidak dapat diverifikasi dari data**. Tabel §4.3 sendiri menunjukkan: dengan $D = \{\texttt{patient\_id}, \texttt{site}\}$, $K_1 = 34$ dan $\alpha = 0{,}05$ **layak**. Satu keputusan — memasukkan `device` — membalik vonisnya. Rumusan yang boleh masuk naskah: *"if patient, site, nurse, and device are all treated as dependence sources, no admissible calibration grouping exists at any conventional $\alpha$"* — bukan *"PTB-XL admits no valid calibration"*.
 
 > ⚠️ **Kesalahan yang tertangkap saat menyusunnya.** Versi pertama skrip menghitung join dengan menggabungkan label (`"a|b"`). Itu menghasilkan **irisan** — yakni *meet*, partisi terhalus yang memperhalus keduanya — bukan *join*. Arahnya terbalik. Gejalanya: `patient_id` ∨ `site` memberi $K{=}1.739$, sama persis dengan `patient_id` sendiri, padahal join sejati harus **lebih kasar**. Akibatnya tabel melaporkan **nol** granularitas pemenuh S2, termasuk join seluruh sumber — yang secara konstruksi mustahil. Tabel itu sendiri yang mengungkap bugnya. Join yang benar dihitung sebagai komponen terhubung (union-find).
 
