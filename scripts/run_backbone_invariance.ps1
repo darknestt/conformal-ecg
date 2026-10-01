@@ -45,6 +45,7 @@ foreach ($j in $jadwal) {
 
     if ($LASTEXITCODE -ne 0) {
         Write-Host "GAGAL: $nama (kode $LASTEXITCODE). Lihat $log"
+        & (Join-Path $PSScriptRoot 'notify_backbone_invariance.ps1')
         exit $LASTEXITCODE
     }
     $menit = [math]::Round(((Get-Date) - $mulai).TotalMinutes, 1)
@@ -52,5 +53,4 @@ foreach ($j in $jadwal) {
 }
 
 Write-Host 'Seluruh eksperimen invariansi selesai.'
-# Tugas login hanya berguna selama pelatihan belum tuntas.
-Unregister-ScheduledTask -TaskName 'Sqopus-BackboneInvariance' -Confirm:$false -ErrorAction SilentlyContinue
+& (Join-Path $PSScriptRoot 'notify_backbone_invariance.ps1')
