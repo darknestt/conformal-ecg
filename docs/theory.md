@@ -192,27 +192,26 @@ Seluruh kurva dihitung ulang dengan besaran yang benar, memakai ambang **tetap**
 
 ---
 
-## 3. Teorema C6 — Desain studi menentukan inferensi
+## 3. Analisis desain C6 — jumlah blok kalibrasi menentukan eksistensi jaminan
 
-> 🟡 Butir (a) 🟢 terbukti. Butir (b)–(d) bergantung pada Asumsi (A).
+> 🔧 **DITURUNKAN 2026-10-01 dari "Teorema" menjadi "analisis desain", dan DOMAINNYA DIPERSEMPIT.** Butir (a) adalah korolari [A0] Teorema 1, bukan hasil baru. Butir (b)–(d) adalah varians klaster baku (Kish 1965; Kerry & Bland 2001) yang diterapkan pada $\hat G$. Pertanyaan anggaran $K$ versus $N$ untuk ambang sudah dibahas Noonan 2026. Bagian ini karena itu **Metode**, bukan kontribusi. Dua cacat kebenaran diperbaiki di bawah; rumusan lama tidak dipertahankan dengan nama baru.
 
-Ini jawaban langsung atas pertanyaan terbuka di Discussion Lee-Barber-Willett.
+**Ruang lingkup.** Desain berparameter $(K_1, N)$ dengan $K_1$ = jumlah blok **kalibrasi** — bukan jumlah seluruh blok — dan $N$ seragam. Butir (b)–(d) **hanya** berlaku di bawah Asumsi (A), yaitu korelasi antarpengukuran **simetri majemuk**: $\rho(t)$ sama untuk setiap pasangan di dalam blok dan **tidak bergantung pada $N$**.
 
-**Teorema.** Tinjau desain berparameter $(K, N)$ dengan $n = KN$.
+**(a) Eksistensi ambang berhingga hanya diatur $K_1$.** Ambang HCP berhingga $\iff \alpha \ge \frac{1}{K_1+1}$, bebas dari $N$. *(Prop. 1 = [A0] Teorema 1)*
 
-**(a) Validitas hanya diatur $K$.** Jaminan non-trivial ada $\iff \alpha \ge \frac{1}{K+1}$. Sepenuhnya bebas dari $N$. *(Proposisi 1)*
+**(b) Di bawah simetri majemuk, ada lantai varians.** Untuk $K_1$ tetap dan $\rho(t)$ tetap terhadap $N$,
+$$\lim_{N\to\infty} \operatorname{Var}\big(\hat G(t)\big) \;=\; \frac{\sigma^2(t)\,\rho(t)}{K_1} \;>\; 0 \quad \text{bila } \rho(t)>0 .$$
 
-**(b) Ada lantai varians yang tak dapat ditembus.** Untuk $K$ tetap,
-$$\lim_{N\to\infty} \operatorname{Var}\big(\hat G(t)\big) \;=\; \frac{\sigma^2(t)\,\rho(t)}{K} \;>\; 0 \quad \text{bila } \rho(t)>0 .$$
-Pengukuran berulang tak berhingga banyaknya **tidak** membawa varians ke nol.
+> 🔴 **Butir (b) SALAH di luar simetri majemuk.** Bila korelasi meluruh terhadap jarak di dalam blok — misalnya detak berurutan dalam rekaman Holter — korelasi rata-rata $\bar\rho_N$ dapat menyusut seiring $N$. Bila $N\bar\rho_N$ terbatas, $\operatorname{Var}(\bar F_k) \to 0$ dan **lantainya lenyap**. Klaim lama *"tidak ada jumlah pengukuran berulang yang dapat menggantikan blok"* karena itu **dicabut** sebagai klaim umum. Kami juga **tidak** mengklaim kebalikannya; yang terjadi di luar simetri majemuk bergantung pada laju peluruhan, dan itu tidak kami analisis.
 
-**(c) Di bawah anggaran total $n$ tetap, blok banyak-dangkal lemah-dominan.**
+**(c) Di bawah anggaran $n = K_1 N$ tetap dan simetri majemuk,**
 $$\operatorname{Var}\big(\hat G(t)\big) \;=\; \frac{\sigma^2(t)\big[1+(N-1)\rho(t)\big]}{n}$$
-naik monoton terhadap $N$ bila $\rho(t)>0$. Jadi memperbesar $K$ sambil memperkecil $N$ memperbaiki **kedua** sumbu sekaligus — tidak ada tradeoff.
+naik monoton terhadap $N$ bila $\rho(t)>0$. Memperbesar $K_1$ sambil memperkecil $N$ memperbaiki eksistensi dan presisi sekaligus.
 
-**(d) Di bawah kendala jumlah subjek, tradeoff-nya nyata dan menguntungkan $K$.** Bila $K$ terbatas oleh biaya rekrutmen, menambah $N$ tidak dapat memulihkan kelayakan *(Kor. 1.1)* dan tidak dapat menurunkan varians di bawah $\sigma^2\rho/K$ *(butir b)*.
+**(d) Bila $K_1$ dibatasi biaya rekrutmen**, menambah $N$ tidak dapat memulihkan eksistensi ambang *(butir a, bebas-model)*. Bahwa ia juga tidak dapat menurunkan varians di bawah suatu lantai **hanya** berlaku di bawah simetri majemuk *(butir b)*.
 
-> **Rumusan ringkas — inilah klaim C6:** dalam inferensi bebas-distribusi pada data berhierarki, $K$ dan $N_k$ **bukan** dua cara setara membeli informasi. $K$ membeli **eksistensi** jaminan; $N_k$ hanya membeli **ketajaman**, dengan hasil yang berkurang dan berhenti pada lantai positif. Tidak ada jumlah pengukuran berulang yang dapat menggantikan blok.
+> **Rumusan yang boleh masuk naskah:** *the number of calibration blocks, not the number of observations, governs whether a finite HCP threshold exists at a given level $\alpha$ (a direct consequence of [A0], Theorem 1). Under a compound-symmetric within-block correlation, additional observations per block also yield diminishing returns in precision.* Kalimat kedua **wajib** menyertakan syaratnya.
 
 ### 3.1 🔧 Klaim "dua sumbu tidak berkorelasi" DICABUT
 
@@ -239,7 +238,9 @@ Dengan ukuran yang benar, **kedua granularitas yang layak justru dua yang paling
 
 > **Ini pemeriksaan koherensi yang lolos, bukan kekalahan.** Teorema memprediksi "tidak ada tradeoff"; tabel empiris memprediksi "urutan berlawanan"; keduanya bertentangan. Penyelesaiannya menunjukkan tabel empirislah yang memakai kuantitas salah. C6 kehilangan daya jual "kontra-intuitif", tetapi menjadi **konsisten secara internal** — dan konsistensi itu yang diperiksa reviewer.
 
-**Yang tetap bertahan sebagai isi C6:** butir (a)–(d) seluruhnya, Prop. 2′ (rata-rata harmonik), pemisahan $\mathrm{DEff}_{\text{blok}}$ vs Kish (temuan baru yang berguna bagi siapa pun yang memakai HCP pada blok tak seragam), dan Kor. 3.2 (ketidakmungkinan pada desain bersilang) yang tidak menyentuh efisiensi sama sekali.
+**Yang tetap bertahan:** butir (a) sebagai korolari [A0]; butir (b)–(d) di bawah simetri majemuk; Prop. 2′ dan pemisahan $\mathrm{DEff}_{\text{blok}}$ vs Kish sebagai **instansiasi** hasil survei baku pada estimator HCP. Tidak satu pun dijual sebagai kontribusi.
+
+> 🔧 **2026-10-01.** Versi lama menyebut pemisahan $\mathrm{DEff}_{\text{blok}}$ vs Kish sebagai *"temuan baru yang berguna"*. Pembandingan desain-efek di bawah pembobotan klaster **sama** versus **ukuran** sudah dikerjakan Kerry & Bland (2001), dan rata-rata harmonik untuk analisis tingkat-klaster tanpa bobot sudah baku (White & Thomas 2005; Lai 2021). Yang tersisa sebagai pengamatan, bukan kontribusi: pada HCP pembobotan sama itu **dipaksakan** oleh struktur ambang, sehingga obat baku CRT — bobot varians-minimum — tidak dapat dipakai tanpa merusak jaminan.
 
 > ⚠️ **Batas kejujuran.** Butir (a) bebas-distribusi. Butir (b)–(d) memerlukan Asumsi (A) — model parametrik ringan. Naskah **wajib** memisahkan keduanya secara eksplisit; mencampurnya akan menjadi sasaran empuk reviewer.
 

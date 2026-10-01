@@ -1,0 +1,109 @@
+{
+  "dataset": "ptbxl",
+  "backbone": "small",
+  "smoke": false,
+  "parameter": 104389,
+  "protokol": {
+    "alphas": [
+      0.01,
+      0.05,
+      0.1
+    ],
+    "epochs": 25,
+    "batch": 128,
+    "mikro": 32
+  },
+  "repeats": 200,
+  "seed": 0,
+  "pelatihan": {
+    "sumber": "checkpoint lama feasibility_backbone.pt (tidak dilatih ulang)"
+  },
+  "diskriminasi": {
+    "macro_auroc": 0.9016486953495637
+  },
+  "k1_per_label": {
+    "NORM": 905,
+    "MI": 486,
+    "STTC": 473,
+    "CD": 449,
+    "HYP": 242
+  },
+  "konformal": {
+    "0.01": {
+      "target": 0.99,
+      "B1_mean": 0.9909617535668628,
+      "B1_ci": [
+        0.9823183409700009,
+        0.997242710358937
+      ],
+      "B12_mean": 0.9912332775512899,
+      "B12_ci": [
+        0.9821893781029527,
+        0.9972670571055738
+      ],
+      "defisit_B1_pp": 0.09617535668627886,
+      "selisih_mean": 0.00027152398442706284,
+      "selisih_ci": [
+        0.0,
+        0.002824289081895567
+      ],
+      "B1_kurang_cakup": false,
+      "B12_memperbaiki": false,
+      "ukuran_B1": 3.7692498354664337,
+      "ukuran_B12": 3.7876572484355484,
+      "frac_B12_trivial": 0.0,
+      "n_split": 200
+    },
+    "0.05": {
+      "target": 0.95,
+      "B1_mean": 0.9511183364654522,
+      "B1_ci": [
+        0.931818486364187,
+        0.9673315458780197
+      ],
+      "B12_mean": 0.9509652465173908,
+      "B12_ci": [
+        0.931818486364187,
+        0.9672949538905744
+      ],
+      "defisit_B1_pp": 0.11183364654522299,
+      "selisih_mean": -0.00015308994806146725,
+      "selisih_ci": [
+        -0.004668861926793175,
+        0.004677995034140258
+      ],
+      "B1_kurang_cakup": false,
+      "B12_memperbaiki": false,
+      "ukuran_B1": 2.7410887277156557,
+      "ukuran_B12": 2.7415209702393946,
+      "frac_B12_trivial": 0.0,
+      "n_split": 200
+    },
+    "0.10": {
+      "target": 0.9,
+      "B1_mean": 0.9010026131710192,
+      "B1_ci": [
+        0.8740551077161363,
+        0.9255874003712196
+      ],
+      "B12_mean": 0.9002202903240214,
+      "B12_ci": [
+        0.8728068211459874,
+        0.9230823863636364
+      ],
+      "defisit_B1_pp": 0.10026131710191288,
+      "selisih_mean": -0.000782322846997589,
+      "selisih_ci": [
+        -0.005639265612992905,
+        0.0037862635127130857
+      ],
+      "B1_kurang_cakup": false,
+      "B12_memperbaiki": false,
+      "ukuran_B1": 2.2478924253285784,
+      "ukuran_B12": 2.239981916972035,
+      "frac_B12_trivial": 0.0,
+      "n_split": 200
+    }
+  },
+  "detik_total": 15.463765499996953
+}
