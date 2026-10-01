@@ -1,8 +1,10 @@
 # Daftar Pustaka Terverifikasi
 
 > Dokumen pendukung [README.md](../README.md) §17
-> **Diverifikasi:** 2026-09-30 · **Sumber:** OpenAlex API + **daftar sumber Scopus RESMI Elsevier**
-> **Jumlah:** **35 artikel jurnal** + 2 praterbit kritis (dipantau, bukan sitasi) + 5 rujukan dataset
+> **Diverifikasi:** 2026-09-30 · **Diverifikasi ulang:** 2026-10-01 · **Sumber:** OpenAlex API + Crossref + **daftar sumber Scopus RESMI Elsevier**
+> **Jumlah:** **35 artikel** (tetap) + 2 praterbit wajib-sitasi (§I) + 2 praterbit dipantau + 5 rujukan dataset
+>
+> 🔧 **2026-10-01: penukaran 1:1**, empat keluar dan empat masuk — lihat §5c. Dua sumber masuk adalah **pengecualian aturan 5 tahun yang dinyatakan terbuka** (§I).
 >
 > ✅ **Indeksasi Scopus kini terverifikasi langsung**, bukan lewat proksi. Lihat §1a.
 > Hasil mesin: [scopus-verification.json](scopus-verification.json) · skrip: [scripts/verify_scopus.py](../scripts/verify_scopus.py)
@@ -28,19 +30,23 @@ Setiap entri di bawah ini **telah saya buka sendiri** lewat OpenAlex API. Tidak 
 
 ---
 
-## 1a. Hasil Verifikasi Scopus — 2026-09-30
+## 1a. Hasil Verifikasi Scopus — diperbarui 2026-10-01
 
 Daftar sumber resmi diunduh dari halaman *Scopus Content* Elsevier (tautan **Download the Source title list**). Setiap DOI di dokumen ini diambil metadatanya dari OpenAlex, lalu ISSN/EISSN-nya dicocokkan ke daftar tersebut, **dan tahun terbitnya diperiksa berada di dalam rentang cakupan**.
 
 | Hasil | Jumlah |
 |---|---:|
-| DOI aktif diperiksa | **40** (35 artikel + 5 dataset) |
-| **Terindeks Scopus** | **35 / 40** |
-| Artikel jurnal terindeks | **34 / 35** |
+| DOI aktif diperiksa | **41** (35 artikel + 5 dataset + 1 praterbit Zenodo) |
+| Artikel terindeks — otomatis | **33 / 35** |
+| Artikel terindeks — **sesudah pemeriksaan manual** | **34 / 35** |
 | Tidak ditemukan — rujukan dataset PhysioNet (dikecualikan) | 4 |
 | Tidak ditemukan — **jurnal** | **1** (A0) |
 | Dihentikan Scopus | 0 |
-| Melanggar aturan 5 tahun sesudah koreksi | **0** |
+| Melanggar aturan 5 tahun | **2 — disengaja** (I1, I2; lihat §I) |
+
+> **A12 (Ding dkk., NeurIPS 2023) diverifikasi manual.** OpenAlex tidak mengembalikan venue untuk DOI `10.52202/...`, sehingga pencocokan ISSN otomatis gagal. Lembar *Serial Conf. Proc. with Profile* memuat *Advances in Neural Information Processing Systems*, ISSN 1049-5258, cakupan 2012–2025; lembar *All Conf. Proceedings* memuat **vol. 36, 2023**, ISBN 9781713899921, source ID 85191147773. **Terindeks.** Skrip hanya membaca lembar *Sources*, jadi prosiding konferensi selalu memerlukan pemeriksaan manual.
+
+> 🔧 **Dua bug skrip diperbaiki 2026-10-01.** (1) Regex DOI berhenti di `<`, `>`, `(`, `)` sehingga DOI SICI lama (I1) terpotong dan **diam-diam memverifikasi DOI yang salah**; DOI dalam backtick kini diambil utuh. (2) Hanya blok *❌ Dikeluarkan* yang disaring, padahal tabel pemangkasan §5b dan penukaran §5c juga memuat DOI yang sudah dibuang — angka sempat menggelembung ke **54**. Pemindaian kini berhenti di §4.
 
 > Blok §5 *❌ Dikeluarkan* sengaja **tidak** ikut diperiksa — DOI di sana sudah dibuang dari daftar. Skrip menyaringnya agar angka di atas tidak menggelembung.
 
@@ -186,8 +192,8 @@ Memperkenalkan empat metode yang menjadi **baseline B13–B15** Anda:
 | A2 | `10.1214/20-aos1965` | Predictive inference with the jackknife+ | Annals of Statistics | 2021 | **338** | **21,21** | J3 N2 A\* | ⬜ |
 | A3 | `10.1214/26-ejs2506` | Group-weighted conformal prediction | Electronic J. of Statistics | 2026 | 18 | — | J2 N1 | ⬜ |
 | A4 | `10.1111/rssb.12445` | Conformal Inference of Counterfactuals and Individual Treatment Effects | JRSS-B | 2021 | **95** | **10,13** | J3 N2 A\* | ⬜ |
-| A5 | `10.1111/rssb.12443` | Prediction and Outlier Detection in Classification Problems | JRSS-B | 2022 | 44 | 5,95 | J3 N2 A\* | ⬜ |
-| A6 | `10.1080/01621459.2023.2298037` | Robust Validation: Confident Predictions Even When Distributions Shift | JASA | 2023 | 46 | 8,07 | J3 N2 A\* | ⬜ |
+| **A12** | `10.52202/075280-2817` | Class-Conditional Conformal Prediction with Many Classes (Ding, Angelopoulos, Bates, Jordan, Tibshirani) | **NeurIPS 36** | 2023 | — | — | — | ⬜ |
+| **A13** | `10.1371/journal.pone.0255389` | Methods for dealing with unequal cluster sizes in cluster randomized trials: A scoping review (Zhan, Xu, Ouyang, Sawatzky, Wong) | PLOS ONE 16:e0255389 | 2021 | — | — | — | ⬜ |
 | A7 | `10.1080/01621459.2022.2147531` | Valid Model-Free Spatial Prediction | JASA | 2022 | 26 | 1,49 | J3 N2 A\* | ⬜ |
 | A8 | `10.1080/01621459.2025.2506198` | Conformal Prediction for Network-Assisted Regression | JASA | 2025 | 4 | 3,66 | J3 N2 A\* | ⬜ |
 | A9 | `10.1016/j.spl.2024.110350` | Universal distribution of the empirical coverage in split conformal prediction | Statistics & Probability Letters | 2025 | 9 | 5,23 | J1 N1 | ⬜ |
@@ -199,6 +205,8 @@ Memperkenalkan empat metode yang menjadi **baseline B13–B15** Anda:
 - **A2** — ⭐ Ini adalah **baseline B6** Anda (Jackknife+). Sebelumnya tercatat "BELUM TERVERIFIKASI" di README; kini terkonfirmasi sebagai artikel Annals of Statistics dengan 338 sitasi.
 - **A4, A7, A8** — Ketiganya menangani **data yang tidak independen** (counterfactual berbobot, dependensi spasial, dependensi jaringan). Paling dekat dengan masalah dependensi pasien Anda dari sisi statistik murni.
 - **A9** — Penting untuk **E1**: memberi distribusi teoretis cakupan empiris, sehingga deviasi yang Anda ukur bisa diuji secara formal, bukan sekadar dibandingkan mata.
+- **A12** — ⭐ **Ditambahkan 2026-10-01.** Prior art untuk Prop. 4: kelas langka membuat kalibrasi terkondisi-kelas tidak layak pada data exchangeable. Metadata Crossref terverifikasi. Wajib disitasi di §5.3.2 — tanpanya Prop. 4 terbaca sebagai klaim kebaruan.
+- **A13** — ⭐ **Ditambahkan 2026-10-01.** Tinjauan cakupan 79 makalah tentang ukuran klaster tak seimbang; teks penuh dibaca. Menopang §5.1.3: pembobotan sama vs ukuran sudah dibandingkan di literatur CRT, dan obat bakunya adalah bobot varians-minimum. Sumber ≥ 2021 yang menggantikan kebutuhan menyitasi banyak makalah klasik.
 - **A11** — ⭐ **Pengganti resmi Vovk 2012.** Tinjauan terpadu di *Bernoulli* (jurnal probabilitas papan atas) yang menyajikan **Mondrian CP secara formal**, bukan sekadar menyebutnya. 186 sitasi, FWCI 16,11. Inilah jangkar sitasi untuk baseline B2 Anda.
 
 ---
@@ -292,7 +300,6 @@ Mendukung **§5 K3**, **§9 Metrik**
 | C1 | `10.1098/rsta.2025.0068` | Conformal risk control for non-monotonic losses | Phil. Trans. R. Soc. A | 2026 | 1 | **7,18** | J2 N2 | ⬜ |
 | C2 | `10.1109/tnnls.2024.3356512` | Conformal Loss-Controlling Prediction | IEEE TNNLS | 2024 | 6 | 1,30 | J3 N2 | ⬜ |
 | C4 | `10.1109/tpami.2023.3272339` | Conformal Prediction for Time Series | IEEE TPAMI | 2023 | **64** | **8,09** | J3 N2 | ⬜ |
-| C5 | `10.1016/j.patcog.2025.111999` | Beyond conformal predictors: Adaptive Conformal Inference with confidence predictors | Pattern Recognition | 2025 | 7 | 6,41 | J3 N2 | ⬜ |
 
 - **C4** — ⭐ Temuan baru yang penting. **TPAMI** adalah salah satu jurnal paling bergengsi di ilmu komputer (J3 N2), dan judulnya persis menyasar conformal untuk deret waktu. Tidak ada di daftar sebelumnya.
 - **C2** — "Loss-controlling prediction" adalah kerabat dekat conformal risk control. Relevan untuk kendali FNR@MI Anda.
@@ -306,7 +313,6 @@ Mendukung **§5 K1/K3**, **§8 E10**, **§11 Threats**
 
 | # | DOI | Judul | Jurnal | Thn | Sitasi | FWCI | Register | Scopus |
 |---|---|---|---|---|---:|---:|---|---|
-| D1 | `10.1073/pnas.2204569119` | Conformal prediction under feedback covariate shift for biomolecular design | PNAS | 2022 | 46 | 4,98 | J3 N2 | ⬜ |
 | D2 | `10.1016/j.patcog.2026.114113` | Calibrated Mondrian conformal prediction for uncertainty quantification in spatial modeling | Pattern Recognition | 2026 | 0 | — | J3 N2 | ⬜ |
 | D4 | `10.1109/taffc.2026.3702998` | Fair Uncertainty Quantification for Depression Prediction | IEEE Trans. Affective Computing | 2026 | 1 | **9,09** | J3 N1 | ⬜ |
 
@@ -377,6 +383,32 @@ Mendukung **§1 Introduction**, **§10 Discussion**
 
 ---
 
+## I. Fondasi Varians Klaster — Pengecualian Aturan 5 Tahun
+
+Ditambahkan **2026-10-01** sesudah audit prior-art. Mendukung **§5.1.2–5.1.3 Metode**.
+
+| # | DOI | Judul | Jurnal | Thn | Scopus |
+|---|---|---|---|---|---|
+| **I1** | `10.1002/1097-0258(20010215)20:3<377::aid-sim799>3.0.co;2-n` | Unequal cluster sizes for trials in English and Welsh general practice: implications for sample size calculations (Kerry, Bland) | Statistics in Medicine 20:377–390 | 2001 | ⬜ |
+| **I2** | `10.1191/1740774505cn081oa` | Standardized mean differences in individually-randomized and cluster-randomized trials, with applications to meta-analysis (White, Thomas) | Clinical Trials 2:141–151 | 2005 | ⬜ |
+
+**Mengapa melanggar aturan 5 tahun — dan mengapa itu benar.** §5 memakai **rumus mereka secara langsung**: varians rata-rata klaster tanpa bobot dengan rata-rata harmonik ukuran klaster (I2), dan pembandingan desain-efek di bawah bobot sama versus bobot ukuran (I1). Atribusi pemilik rumus tidak dapat diganti dengan sumber sekunder yang lebih baru tanpa menyesatkan pembaca tentang asal hasilnya. Reviewer statistik **mengharapkan** sumber ini; ketiadaannya terbaca sebagai ketidaktahuan bidang, bukan kepatuhan aturan.
+
+Pengecualian dibatasi **dua** dan dinyatakan terbuka. Sumber klasik lain yang relevan (Kish 1965; Gabler, Häder & Lahiri 1999; Nelder 1965; Bailey 1996) **tidak** disitasi: rumus $b^*$ dinyatakan sebagai desain-efek klaster baku dengan rujukan ke A13, dan join kekisi partisi dinyatakan sebagai aljabar baku.
+
+> ⚠️ **Yang dicoba dan GAGAL diverifikasi — tidak disitasi:** Lai (2021), *Composite reliability of multilevel data*, Psychological Methods 26(1):90. Cuplikan Google Scholar menyebut rumus harmonik yang sama, tetapi metadata Crossref tidak dapat dikonfirmasi. I2 menutup kebutuhan yang sama.
+
+### Praterbit wajib-sitasi (di luar hitungan 35 artikel jurnal)
+
+| # | Rujukan | Status | Dipakai untuk |
+|---|---|---|---|
+| **P1** | Noonan A. (2026). *The Exceedance Design Effect: Effective Sample Size for Thresholds under Clustering*. arXiv:2608.21262; Zenodo `10.5281/zenodo.22048277` (v8) | ⚠️ praterbit, CC-BY, teks hlm. 1 dibaca | ESS untuk ambang; pembobotan-ukuran. **Sumbu §5.1.4 kami dinyatakan heuristik terhadap karya ini** |
+| **P2** | Zheng J., Xu G. (2026). *A Symmetric Layer-Union Audit of Component Collapse in Hierarchical Procedural Corpora*. arXiv:2608.08892 | ⚠️ praterbit, abstrak dibaca | Keruntuhan join menjadi komponen raksasa |
+
+> P1 menyubsumsi analisis ESS/ICC kami. Tidak menyitasinya adalah risiko penolakan terbesar yang tersisa — satu reviewer yang mengenalnya cukup untuk menjatuhkan naskah.
+
+---
+
 ## H. Rujukan Dataset — Wajib Menurut Lisensi
 
 Diverifikasi langsung dari halaman resmi penyedia, bukan dari pencarian.
@@ -412,7 +444,7 @@ Dihitung ulang dari 33 baris tabel rujukan (A0 dan A0b berada di kotak rinci, di
 
 Di luar tabel: **A0b = JASA** (JUFO-3, Norway-2) dan **A11 = Bernoulli** (jurnal probabilitas papan atas). **A0** tidak punya register — jurnal ACM baru.
 
-**Distribusi tahun (35 artikel, sesudah koreksi F1):** 2021: 7 · 2022: 7 · 2023: 5 · 2024: 2 · 2025: 6 · 2026: 8
+**Distribusi tahun (35 artikel, sesudah penukaran §5c — dihitung dari `scopus-verification.json`):** 2001: 1 · 2005: 1 · 2021: 8 · 2022: 5 · 2023: 5 · 2024: 2 · 2025: 5 · 2026: 8. Dua pra-2021 adalah pengecualian §I yang disengaja.
 
 **Praterbit yang dipantau (bukan sitasi final):** arXiv:2410.06296 (B7, ancaman C2) · arXiv:2601.01223 (E5, kelompok Baheri)
 
@@ -476,6 +508,28 @@ Daftar pustaka Q1 dinilai dari **apakah tiap rujukan mengerjakan sesuatu di dala
 **F5** (1 sitasi, FWCI 0,65, venue tanpa JUFO) tetap dipertahankan. Ia satu-satunya yang membandingkan inter-patient / intra-patient / patient-specific secara eksplisit — persis pembedaan yang menjadi dasar seluruh argumen Anda. Tidak ada penggantinya.
 
 Ini sisi lain dari kaidah yang sama: **relevansi mengalahkan gengsi, ke dua arah.**
+
+---
+
+## 5c. Penukaran 1:1 Sesudah Reposisi — 2026-10-01
+
+Paper diposisikan ulang dari *metode usulan* (HiCoRC) menjadi *audit empiris*. Akibatnya empat rujukan kehilangan fungsinya, sementara empat kewajiban atribusi baru muncul. **Batas 35 artikel jurnal dipertahankan.**
+
+| Keluar | Alasan |
+|---|---|
+| A5 `10.1111/rssb.12443` | Deteksi outlier klasifikasi — tidak disitasi di naskah mana pun |
+| A6 `10.1080/01621459.2023.2298037` | Validasi robust di bawah pergeseran — pergeseran distribusi bukan sumbu paper |
+| C5 `10.1016/j.patcog.2025.111999` | Adaptive conformal inference — tidak disitasi; menopang K3 yang sudah dikeluarkan |
+| D1 `10.1073/pnas.2204569119` | Pergeseran kovariat umpan-balik — tidak disitasi; domain biomolekul |
+
+| Masuk | Alasan |
+|---|---|
+| A12 Ding dkk. 2023 | Prior art Prop. 4 |
+| A13 Zhan dkk. 2021 | Prior art bobot sama vs ukuran, sumber ≥ 2021 |
+| I1 Kerry & Bland 2001 | Pemilik rumus pembandingan desain-efek — **pengecualian aturan 5 tahun** |
+| I2 White & Thomas 2005 | Pemilik rumus rata-rata harmonik — **pengecualian aturan 5 tahun** |
+
+Kriterianya sama dengan §5b: **daya dukung argumen**. Empat yang keluar bersitasi tinggi dan berasal dari venue papan atas, tetapi tidak menopang satu kalimat pun di naskah. Empat yang masuk menopang klaim yang, tanpa sitasinya, akan terbaca sebagai klaim kebaruan palsu.
 
 ---
 

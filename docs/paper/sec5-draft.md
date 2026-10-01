@@ -56,7 +56,7 @@ indicators has the same correlation $\rho(t)$, **not depending on $N_k$**
 Rewriting the HCP threshold shows that it is determined by
 $\hat G(t)=\frac{1}{K_1}\sum_k \bar F_k(t)$, the **unweighted** mean of block-level
 empirical CDFs. Under (A), the standard variance of an unweighted mean of cluster
-means applies [White & Thomas 2005; Lai 2021]:
+means applies [I2]:
 
 $$
 \operatorname{Var}\big(\hat G(t)\big) \;=\; \frac{\sigma^2(t)\,[\,1+(H-1)\rho(t)\,]}{K_1 H},
@@ -81,15 +81,15 @@ $$
 \mathrm{DEff}_{\text{pooled}}(\rho)=1+\Big(\tfrac{\sum_k N_k^2}{n}-1\Big)\rho .
 $$
 
-The second expression is the familiar clustering design effect with
-$b^*=\sum_k N_k^2/n$ [Gabler, Häder & Lahiri 1999], and comparing design effects
-under equal versus size weighting of cluster means is established practice in
-cluster-randomised trials [Kerry & Bland 2001]. We use both formulas as given.
+The second expression is the standard clustering design effect for unequal cluster
+sizes, and comparing design effects under equal versus size weighting of cluster
+means is established practice in cluster-randomised trials [I1, A13]. We use both
+formulas as given.
 
 What differs in the conformal setting is not the formula but the freedom to choose.
 In a cluster-randomised trial, equal weighting is an analyst's choice and is known
 to be inefficient under unequal cluster sizes; the standard remedy is
-minimum-variance weighting [Kerry & Bland 2001; Zhan et al. 2021]. In HCP the
+minimum-variance weighting [I1, A13]. In HCP the
 equal weighting follows from the structure of the threshold itself, and departing
 from it can break the finite-sample guarantee rather than merely cost efficiency:
 with $K_1=2$ singleton blocks and $\alpha=1/3$, HCP places mass $\tfrac13$ on each
@@ -115,7 +115,7 @@ quantity predicts that dependence is harmless whenever blocks are near-singleton
 opposite. We state this prediction here, before the results.
 
 We use this quantity only as an **ordering axis**, not as a calibrated effective
-sample size. Noonan (2026) derives a closed-form effective sample size for
+sample size. Noonan [P1] derives a closed-form effective sample size for
 thresholds under clustering and shows that the correction currently used in the
 conformal literature is the wrong quantity. Our axis shares its central ingredient
 — the correlation of threshold indicators rather than of scores — but is a
@@ -140,9 +140,10 @@ of a stated assumption, not a test of it.
 When declared sources are crossed rather than nested, the finest grouping
 satisfying S2 for all of them is their **join** in the partition lattice — the
 connected components of the graph that links two observations whenever they share
-a block under any declared source. This is classical [Nelder 1965; Bailey 1977,
-1996], as is the observation that joining several individually fine groupings can
-collapse into a giant component [Zheng & Xu 2026]. Combined with Proposition 1 it
+a block under any declared source. This is standard partition-lattice algebra, and
+the observation that joining several individually fine groupings can collapse into
+a giant component has been reported for leakage control [P2]. Combined with
+Proposition 1 it
 yields a design-level bound that we use as a diagnostic:
 
 **Corollary (feasibility under crossed sources).** *If
@@ -177,7 +178,7 @@ superset-valid prediction set.
 #### 5.3.2 Per-label guarantees are bounded by the number of blocks carrying the label
 
 That rare classes starve class-conditional calibration is well established for
-exchangeable data [Ding et al. 2023]. Under hierarchical dependence the unit that
+exchangeable data [A12]. Under hierarchical dependence the unit that
 must be counted changes from observations to blocks.
 
 **Proposition 4 (necessary condition).** *A finite per-label HCP threshold for
@@ -191,7 +192,7 @@ $\ell$-positive observations in that block, whereas a block enters the calibrati
 stratum merely by containing one. Unless that fraction is constant across blocks,
 test and calibration blocks are not exchangeable, and the rank argument does not
 deliver $\mathbb{P}(\ell\in\hat C\mid\ell\in Y)\ge1-\alpha$. The same size-biased
-selection appears in the analysis of thresholds under clustering [Noonan 2026]. We
+selection appears in the analysis of thresholds under clustering [P1]. We
 therefore use Proposition 4 only to **rule out** guarantees, never to certify them.
 
 Because every block containing a label contains its ancestors, $K_1$ is monotone
@@ -218,48 +219,36 @@ control on the pipeline. PTB-XL fold 10 is never used.
 
 ### Status setiap alat — yang dipinjam vs yang dilaporkan
 
-| Alat di §5 | Pemilik | Kami klaim |
+| Alat di §5 | Rujukan | Kami klaim |
 |---|---|---|
 | Prop. 1 | [A0] Teorema 1 | hanya penyajian dapat-diperiksa |
-| Varians $\hat G$, rata-rata harmonik | White & Thomas 2005; Lai 2021 | — |
-| $\mathrm{DEff}$ pooled, $b^*$ | Kish 1965; Gabler, Häder & Lahiri 1999 | — |
-| Bobot sama vs ukuran | Kerry & Bland 2001 | **pengamatan**: pada HCP bobot sama dipaksakan |
-| ESS untuk ambang | **Noonan 2026** | sumbu kami hanya heuristik pengurut |
-| Join, komponen terhubung | Nelder 1965; Bailey 1977, 1996 | — |
-| Keruntuhan join | Zheng & Xu 2026 (← Guvenilir & Dogan, ⚠️ belum diverifikasi) | **pengamatan**: akibatnya kategoris pada HCP |
-| Prop. 4 | Ding dkk. 2023 (versi exchangeable) | satuan hitung = blok; **perlu saja** |
-| Pembobotan-ukuran | Noonan 2026 | — |
+| Varians $\hat G$, rata-rata harmonik | [I2] White & Thomas 2005 | — |
+| $\mathrm{DEff}$ pooled | desain-efek klaster baku; [I1, A13] | — |
+| Bobot sama vs ukuran, obat varians-minimum | [I1] Kerry & Bland 2001; [A13] Zhan dkk. 2021 | **pengamatan**: pada HCP bobot sama dipaksakan |
+| ESS untuk ambang | [P1] Noonan 2026 | sumbu kami hanya heuristik pengurut |
+| Join, komponen terhubung | aljabar kekisi partisi baku, **tanpa sitasi** | — |
+| Keruntuhan join | [P2] Zheng & Xu 2026 | **pengamatan**: akibatnya kategoris pada HCP |
+| Prop. 4 | [A12] Ding dkk. 2023 (versi exchangeable) | satuan hitung = blok; **perlu saja** |
+| Pembobotan-ukuran | [P1] Noonan 2026 | — |
 
-### Konflik dengan aturan pustaka (35 rujukan, 5 tahun) — BELUM DIPUTUSKAN
+### Keputusan pustaka — DIPUTUSKAN 2026-10-01
 
-Atribusi prior art tidak dapat ditawar: memakai hasil tanpa menyitasi pemiliknya
-adalah alasan tolak langsung. Rencana di bawah meminimalkan pelanggaran dengan
-memakai **sumber baru yang benar-benar menyatakan hasilnya**, dan menyisakan sumber
-klasik hanya bila tidak ada penggantinya.
+Penukaran 1:1, **batas 35 tetap**. Rincian di [`../references.md`](../references.md) §5c dan §I.
 
-| Kebutuhan sitasi | Klasik (< 2021) | Pengganti ≥ 2021 yang menyatakan hasil yang sama | Usul |
-|---|---|---|---|
-| Bobot sama vs ukuran, obat varians-minimum | Kerry & Bland 2001 | **Zhan dkk. 2021**, PLoS ONE ✅ teks penuh dibaca | pakai Zhan; Kerry & Bland lewat Zhan |
-| Rata-rata harmonik, rata-rata klaster tanpa bobot | White & Thomas 2005 | **Lai 2021**, Psychological Methods ⚠️ cuplikan | pakai Lai sesudah teks penuh dicek |
-| $b^*$, DEff klaster tak seimbang | Gabler dkk. 1999 | **Noonan 2026** ⚠️ praterbit | **pertahankan Gabler** — Noonan belum peer-reviewed |
-| Join, kekisi partisi | Nelder 1965; Bailey 1977/1996 | — | nyatakan sebagai aljabar baku **tanpa sitasi**, atau 1 sitasi Bailey 1996 |
-| Keruntuhan join | — | Zheng & Xu 2026 ⚠️ praterbit | pakai, ditandai praterbit |
-| Kelas langka, conformal terkondisi-kelas | — | **Ding dkk. 2023**, NeurIPS (Scopus ✅) | pakai |
-| ESS ambang, pembobotan-ukuran | — | Noonan 2026 ⚠️ praterbit | pakai, ditandai praterbit |
-
-**Tambahan bersih minimal: 5 rujukan** (Zhan 2021, Lai 2021, Ding 2023, Noonan 2026,
-Zheng & Xu 2026) + **1–2 klasik** (Gabler 1999; opsional Bailey 1996). Agar tetap 35,
-5–7 rujukan lama harus keluar — kandidat terkuat adalah rujukan yang dulu menopang
-klaim kebaruan yang kini sudah dicabut.
+- Keluar: A5, A6, C5, D1 — tidak disitasi di naskah mana pun; menopang HiCoRC atau pergeseran distribusi.
+- Masuk: A12 Ding 2023, A13 Zhan 2021, I1 Kerry & Bland 2001, I2 White & Thomas 2005.
+- **I1 dan I2 melanggar aturan 5 tahun secara sengaja dan terbuka**: §5 memakai rumus mereka secara langsung.
+- Praterbit wajib-sitasi P1 dan P2 ditandai sebagai praterbit, di luar hitungan 35.
+- **Tidak disitasi**: Kish 1965, Gabler dkk. 1999, Nelder 1965, Bailey 1996 — dinyatakan sebagai hasil baku. Lai 2021 **gagal diverifikasi** Crossref dan tidak dipakai.
 
 ### Yang wajib diverifikasi sebelum submit
 
 | Hal | Alasan |
 |---|---|
-| Teks penuh Kerry & Bland 2001 | Sitasi dari cuplikan indeks + tinjauan Zhan dkk. |
-| Teks penuh Noonan 2026 §2 | Klaim "berbagi bahan pokok" belum dicocokkan dengan rumusnya |
-| Guvenilir & Dogan | Atribusi sekunder; jangan sitasi sebelum ditemukan |
-| White & Thomas 2005; Lai 2021 | Rumus harmonik dari cuplikan Google Scholar |
+| Teks penuh I1 Kerry & Bland 2001 | Isi diketahui dari tinjauan A13 dan cuplikan; metadata Crossref ✅ |
+| Teks penuh I2 White & Thomas 2005 | Rumus harmonik dari cuplikan Google Scholar; metadata Crossref ✅ |
+| Teks penuh P1 Noonan 2026 §2 | Klaim "berbagi bahan pokok" belum dicocokkan dengan rumusnya |
+| Guvenilir & Dogan | Atribusi sekunder lewat P2; **tidak disitasi** sebelum ditemukan |
 
 ### Yang sengaja tidak dimasukkan
 

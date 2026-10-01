@@ -141,9 +141,19 @@ def buang_blok_dikeluarkan(teks: str) -> str:
 
 def main() -> int:
     teks = buang_blok_dikeluarkan(REFS.read_text(encoding="utf-8"))
+    # Rujukan aktif hanya ada di tabel sebelum §4; sesudahnya log pemangkasan
+    # dan penukaran yang memuat DOI yang SUDAH DIBUANG.
+    batas = teks.find("## 4. Ringkasan Mutu Jurnal")
+    if batas != -1:
+        teks = teks[:batas]
     doi_list, lihat = [], set()
-    for m in re.finditer(r"\b10\.\d{4,9}/[^\s`|)>\]]+", teks):
-        d = m.group(0).rstrip(".,;`*")
+    # DOI dalam backtick diambil utuh: DOI SICI lama memuat <, >, ( dan ) yang
+    # memotong regex umum dan diam-diam memverifikasi DOI yang salah.
+    dalam_backtick = [m.group(1) for m in re.finditer(r"`(10\.\d{4,9}/[^`\s]+)`", teks)]
+    umum = [m.group(0).rstrip(".,;`*") for m in re.finditer(r"\b10\.\d{4,9}/[^\s`|)>\]]+", teks)]
+    for d in dalam_backtick + umum:
+        if any(b.lower() != d.lower() and b.lower().startswith(d.lower()) for b in dalam_backtick):
+            continue
         if d.lower() not in lihat:
             lihat.add(d.lower())
             doi_list.append(d)
@@ -220,7 +230,7 @@ def main() -> int:
     for h in tidak:
         print(f"    TIDAK ADA  {h['doi']}  {h.get('venue')}")
     for h in periksa:
-        print(f"    PERIKSA    {h['doi']}  {h.get('venue')}  ({h['scopus']})")
+        print(f"    PERIKSA    {h['doi']}  {h.get('venue')}  ({h.get('scopus', 'DOI_TIDAK_RESOLVE')})")
     for h in mati:
         print(f"    DIHENTIKAN {h['doi']}  {h.get('venue')}")
     for h in tua:

@@ -138,41 +138,36 @@
     "lolos_aturan_5_tahun": true
   },
   {
-    "doi": "10.1111/rssb.12443",
-    "judul": "Prediction and Outlier Detection in Classification Problems",
-    "tahun": 2022,
-    "tahun_sitasi": 2022,
-    "venue": "Journal of the Royal Statistical Society Series B (Statistical Methodology)",
-    "issn": [
-      "13697412",
-      "14679868",
-      "13697412"
-    ],
-    "issn_cocok": "13697412",
-    "scopus": "TERINDEKS",
-    "aktif": "Active",
+    "doi": "10.52202/075280-2817",
+    "judul": "Class-Conditional Conformal Prediction with Many Classes",
+    "tahun": 2023,
+    "tahun_sitasi": 2023,
+    "venue": "(tanpa venue)",
+    "issn": [],
+    "issn_cocok": null,
+    "scopus": "TIDAK_DITEMUKAN",
+    "aktif": "",
     "dihentikan": false,
-    "coverage": "1997-2026",
-    "tahun_dalam_cakupan": true,
+    "coverage": null,
+    "tahun_dalam_cakupan": null,
     "dataset": false,
     "lolos_aturan_5_tahun": true
   },
   {
-    "doi": "10.1080/01621459.2023.2298037",
-    "judul": "Robust Validation: Confident Predictions Even When Distributions Shift",
-    "tahun": 2023,
-    "tahun_sitasi": 2023,
-    "venue": "Journal of the American Statistical Association",
+    "doi": "10.1371/journal.pone.0255389",
+    "judul": "Methods for dealing with unequal cluster sizes in cluster randomized trials: A scoping review",
+    "tahun": 2021,
+    "tahun_sitasi": 2021,
+    "venue": "PLoS ONE",
     "issn": [
-      "01621459",
-      "1537274X",
-      "01621459"
+      "19326203",
+      "19326203"
     ],
-    "issn_cocok": "01621459",
+    "issn_cocok": "19326203",
     "scopus": "TERINDEKS",
     "aktif": "Active",
     "dihentikan": false,
-    "coverage": "1922-2026",
+    "coverage": "2006-2026",
     "tahun_dalam_cakupan": true,
     "dataset": false,
     "lolos_aturan_5_tahun": true
@@ -420,46 +415,6 @@
     "lolos_aturan_5_tahun": true
   },
   {
-    "doi": "10.1016/j.patcog.2025.111999",
-    "judul": "Beyond conformal predictors: Adaptive Conformal Inference with confidence predictors",
-    "tahun": 2025,
-    "tahun_sitasi": 2025,
-    "venue": "Pattern Recognition",
-    "issn": [
-      "00313203",
-      "18735142",
-      "00313203"
-    ],
-    "issn_cocok": "00313203",
-    "scopus": "TERINDEKS",
-    "aktif": "Active",
-    "dihentikan": false,
-    "coverage": "1968-2027",
-    "tahun_dalam_cakupan": true,
-    "dataset": false,
-    "lolos_aturan_5_tahun": true
-  },
-  {
-    "doi": "10.1073/pnas.2204569119",
-    "judul": "Conformal prediction under feedback covariate shift for biomolecular design",
-    "tahun": 2022,
-    "tahun_sitasi": 2022,
-    "venue": "Proceedings of the National Academy of Sciences",
-    "issn": [
-      "00278424",
-      "10916490",
-      "00278424"
-    ],
-    "issn_cocok": "00278424",
-    "scopus": "TERINDEKS",
-    "aktif": "Active",
-    "dihentikan": false,
-    "coverage": "1961-2026; 1945-1951",
-    "tahun_dalam_cakupan": true,
-    "dataset": false,
-    "lolos_aturan_5_tahun": true
-  },
-  {
     "doi": "10.1016/j.patcog.2026.114113",
     "judul": "Calibrated Mondrian conformal prediction for uncertainty quantification in spatial modeling",
     "tahun": 2026,
@@ -699,6 +654,50 @@
     "lolos_aturan_5_tahun": true
   },
   {
+    "doi": "10.1002/1097-0258(20010215)20:3<377::aid-sim799>3.0.co;2-n",
+    "judul": "Unequal cluster sizes for trials in English and Welsh general practice: implications for sample size calculations",
+    "tahun": 2001,
+    "tahun_sitasi": 2001,
+    "venue": "Statistics in Medicine",
+    "issn": [
+      "02776715",
+      "10970258",
+      "02776715"
+    ],
+    "issn_cocok": "02776715",
+    "scopus": "TERINDEKS",
+    "aktif": "Active",
+    "dihentikan": false,
+    "coverage": "1982-2026",
+    "tahun_dalam_cakupan": true,
+    "dataset": false,
+    "lolos_aturan_5_tahun": false
+  },
+  {
+    "doi": "10.1191/1740774505cn081oa",
+    "judul": "Standardized mean differences in individually-randomized and cluster-randomized trials, with applications to meta-analysis",
+    "tahun": 2005,
+    "tahun_sitasi": 2005,
+    "venue": "Clinical Trials",
+    "issn": [
+      "17407745",
+      "17407753",
+      "17407745"
+    ],
+    "issn_cocok": "17407745",
+    "scopus": "TERINDEKS",
+    "aktif": "Active",
+    "dihentikan": false,
+    "coverage": "2004-2026",
+    "tahun_dalam_cakupan": true,
+    "dataset": false,
+    "lolos_aturan_5_tahun": false
+  },
+  {
+    "doi": "10.5281/zenodo.22048277",
+    "status": "DOI_TIDAK_RESOLVE"
+  },
+  {
     "doi": "10.1038/s41597-020-0495-6",
     "judul": "PTB-XL, a large publicly available electrocardiography dataset",
     "tahun": 2020,
@@ -779,182 +778,6 @@
     "coverage": null,
     "tahun_dalam_cakupan": null,
     "dataset": true,
-    "lolos_aturan_5_tahun": true
-  },
-  {
-    "doi": "10.1016/j.patcog.2021.108507",
-    "judul": "Introduction to conformal predictors",
-    "tahun": 2021,
-    "tahun_sitasi": 2021,
-    "venue": "Pattern Recognition",
-    "issn": [
-      "00313203",
-      "18735142",
-      "00313203"
-    ],
-    "issn_cocok": "00313203",
-    "scopus": "TERINDEKS",
-    "aktif": "Active",
-    "dihentikan": false,
-    "coverage": "1968-2027",
-    "tahun_dalam_cakupan": true,
-    "dataset": false,
-    "lolos_aturan_5_tahun": true
-  },
-  {
-    "doi": "10.1002/cjs.70053",
-    "judul": "A multi‐label classification approach for functional data based on conformal prediction bands",
-    "tahun": 2026,
-    "tahun_sitasi": 2026,
-    "venue": "Canadian Journal of Statistics",
-    "issn": [
-      "03195724",
-      "1708945X",
-      "03195724"
-    ],
-    "issn_cocok": "03195724",
-    "scopus": "TERINDEKS",
-    "aktif": "Active",
-    "dihentikan": false,
-    "coverage": "1973-2026",
-    "tahun_dalam_cakupan": true,
-    "dataset": false,
-    "lolos_aturan_5_tahun": true
-  },
-  {
-    "doi": "10.1109/jsait.2024.3368229",
-    "judul": "Forking Uncertainties: Reliable Prediction and Model Predictive Control With Sequence Models via Conformal Risk Control",
-    "tahun": 2024,
-    "tahun_sitasi": 2024,
-    "venue": "IEEE Journal on Selected Areas in Information Theory",
-    "issn": [
-      "26418770",
-      "26418770"
-    ],
-    "issn_cocok": "26418770",
-    "scopus": "TERINDEKS",
-    "aktif": "Active",
-    "dihentikan": false,
-    "coverage": "2020-2026",
-    "tahun_dalam_cakupan": true,
-    "dataset": false,
-    "lolos_aturan_5_tahun": true
-  },
-  {
-    "doi": "10.1109/tii.2025.3529920",
-    "judul": "Uncertainty Quantification Based on Conformal Prediction for Industrial Time Series With Distribution Shift",
-    "tahun": 2025,
-    "tahun_sitasi": 2025,
-    "venue": "IEEE Transactions on Industrial Informatics",
-    "issn": [
-      "15513203",
-      "19410050",
-      "15513203"
-    ],
-    "issn_cocok": "15513203",
-    "scopus": "TERINDEKS",
-    "aktif": "Active",
-    "dihentikan": false,
-    "coverage": "2005-2026",
-    "tahun_dalam_cakupan": true,
-    "dataset": false,
-    "lolos_aturan_5_tahun": true
-  },
-  {
-    "doi": "10.3389/frai.2026.1844254",
-    "judul": "Novel nested conformal prediction analysis to unravel complexity in patient subtyping",
-    "tahun": 2026,
-    "tahun_sitasi": 2026,
-    "venue": "Frontiers in Artificial Intelligence",
-    "issn": [
-      "26248212",
-      "26248212"
-    ],
-    "issn_cocok": "26248212",
-    "scopus": "TERINDEKS",
-    "aktif": "Active",
-    "dihentikan": false,
-    "coverage": "2018-2026",
-    "tahun_dalam_cakupan": true,
-    "dataset": false,
-    "lolos_aturan_5_tahun": true
-  },
-  {
-    "doi": "10.1016/j.bspc.2023.105271",
-    "judul": "A transformer model blended with CNN and denoising autoencoder for inter-patient ECG arrhythmia classification",
-    "tahun": 2023,
-    "tahun_sitasi": 2023,
-    "venue": "Biomedical Signal Processing and Control",
-    "issn": [
-      "17468094",
-      "17468108",
-      "17468094"
-    ],
-    "issn_cocok": "17468094",
-    "scopus": "TERINDEKS",
-    "aktif": "Active",
-    "dihentikan": false,
-    "coverage": "2006-2027",
-    "tahun_dalam_cakupan": true,
-    "dataset": false,
-    "lolos_aturan_5_tahun": true
-  },
-  {
-    "doi": "10.1016/j.bspc.2024.106141",
-    "judul": "Deep learning for ECG classification: A comparative study of 1D and 2D representations and multimodal fusion approaches",
-    "tahun": 2024,
-    "tahun_sitasi": 2024,
-    "venue": "Biomedical Signal Processing and Control",
-    "issn": [
-      "17468094",
-      "17468108",
-      "17468094"
-    ],
-    "issn_cocok": "17468094",
-    "scopus": "TERINDEKS",
-    "aktif": "Active",
-    "dihentikan": false,
-    "coverage": "2006-2027",
-    "tahun_dalam_cakupan": true,
-    "dataset": false,
-    "lolos_aturan_5_tahun": true
-  },
-  {
-    "doi": "10.3390/e23091121",
-    "judul": "ECG Signal Classification Using Deep Learning Techniques Based on the PTB-XL Dataset",
-    "tahun": 2021,
-    "tahun_sitasi": 2021,
-    "venue": "Entropy",
-    "issn": [
-      "10994300",
-      "10994300"
-    ],
-    "issn_cocok": "10994300",
-    "scopus": "TERINDEKS",
-    "aktif": "Active",
-    "dihentikan": false,
-    "coverage": "1999-2026",
-    "tahun_dalam_cakupan": true,
-    "dataset": false,
-    "lolos_aturan_5_tahun": true
-  },
-  {
-    "doi": "10.3390/s22030904",
-    "judul": "Study of the Few-Shot Learning for ECG Classification Based on the PTB-XL Dataset",
-    "tahun": 2022,
-    "tahun_sitasi": 2022,
-    "venue": "Sensors",
-    "issn": [
-      "14248220",
-      "14248220"
-    ],
-    "issn_cocok": "14248220",
-    "scopus": "TERINDEKS",
-    "aktif": "Active",
-    "dihentikan": false,
-    "coverage": "2001-2026",
-    "tahun_dalam_cakupan": true,
-    "dataset": false,
     "lolos_aturan_5_tahun": true
   }
 ]

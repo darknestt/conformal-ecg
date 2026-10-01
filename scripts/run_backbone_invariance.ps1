@@ -52,3 +52,5 @@ foreach ($j in $jadwal) {
 }
 
 Write-Host 'Seluruh eksperimen invariansi selesai.'
+# Tugas login hanya berguna selama pelatihan belum tuntas.
+Unregister-ScheduledTask -TaskName 'Sqopus-BackboneInvariance' -Confirm:$false -ErrorAction SilentlyContinue
