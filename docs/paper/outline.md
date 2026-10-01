@@ -103,10 +103,12 @@ Jual poinnya: verdict **deterministik**, tanpa galat sampling, dan berjalan **se
 
 ### 5.3 Kelayakan per-label pada hierarki (C8)
 
-- ⚠️ Nyatakan sendiri bahwa cakupan-superset **sepele** (§5.1 `theory.md`) — jadikan bagian Metode, bukan klaim
-- Prop. 4 — $\alpha \ge 1/(K_1(\ell)+1)$
-- Prop. 5 — monotonisitas → **frontier kelayakan**; 0 pelanggaran dari 23 pasangan
-- Kor. 5.2 — penutupan ke atas tak pernah memasukkan label tak-layak → **isi formal bagi C2**
+> 🔧 **2026-10-01.** Seluruh isi bagian ini **Metode, bukan kontribusi** (prior art: Ding dkk. NeurIPS 2023; den Hengst dkk. 2025). Yang dijual hanyalah **temuan empirisnya**.
+
+- ⚠️ Cakupan-superset **sepele** (§5.1 `theory.md`) — Metode
+- Prop. 4 — $\alpha \ge 1/(K_1(\ell)+1)$ sebagai **syarat perlu saja**; arah cukup dicabut (pembobotan-ukuran)
+- Monotonisitas — satu kalimat, bukan proposisi → frontier kelayakan; 0 pelanggaran dari 23 pasangan
+- **Temuan yang dijual:** 24/44 kode SCP gagal syarat perlu pada $\alpha=0{,}05$; `2AVB` $K_1=1$; direplikasi di MIT-BIH: kelas Q $K_1=2$
 
 ### 5.4 Algoritma
 

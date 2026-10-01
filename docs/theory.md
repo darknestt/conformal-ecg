@@ -628,10 +628,20 @@ Untuk cakupan **terkondisi-label**
 $$\mathbb{P}\big(\ell \in \hat C(X) \,\big|\, \ell \in Y\big) \;\ge\; 1-\alpha,$$
 kalibrasi hanya boleh memakai titik kalibrasi yang benar-benar memuat $\ell$. Blok yang tersedia karenanya menyusut menjadi blok yang **memuat** $\ell$.
 
-**Proposisi 4 (kelayakan per-label).** Tulis $K_1(\ell)$ = jumlah blok kalibrasi yang memuat setidaknya satu pengamatan berlabel $\ell$. Jaminan terkondisi-label non-trivial pada tingkat $\alpha$ ada bila dan hanya bila
+**Proposisi 4 (syarat perlu kelayakan per-label).** Tulis $K_1(\ell)$ = jumlah blok kalibrasi yang memuat setidaknya satu pengamatan berlabel $\ell$. Agar kalibrasi HCP yang dibatasi pada stratum $\ell$ menghasilkan ambang berhingga pada tingkat $\alpha$, **perlu**
 $$\alpha \;\ge\; \frac{1}{K_1(\ell)+1}.$$
 
-*Bukti:* terapkan Prop. 1 pada stratum $\ell$. $\blacksquare$
+*Bukti:* terapkan Prop. 1 pada stratum $\ell$; di bawah batas itu atom $+\infty$ menguasai kuantil. $\blacksquare$
+
+> 🔧 **KOREKSI 2026-10-01 — arah kecukupan DICABUT.** Versi sebelumnya menulis "bila dan hanya bila". Arah **perlu** benar. Arah **cukup** tidak terbukti, dan pada umumnya **salah** untuk sasaran $\mathbb{P}(\ell \in \hat C \mid \ell \in Y)$.
+>
+> *Sebabnya — dua peristiwa seleksi yang berbeda.* Blok kalibrasi masuk stratum karena **memuat setidaknya satu** pengamatan berlabel $\ell$, sehingga tiap blok berbobot $\propto \mathbb{1}\{p_k(\ell) > 0\}$, dengan $p_k(\ell)$ fraksi pengamatan berlabel $\ell$ di blok $k$. Pengamatan uji diambil sebagai blok baru lalu satu pengamatan seragam; **bersyarat** pada pengamatan itu berlabel $\ell$, blok uji berbobot $\propto p_k(\ell)$ — **terbobot-ukuran**. Keduanya berimpit hanya bila $p_k(\ell)$ konstan antar-blok.
+>
+> *Kontra-contoh.* Blok berukuran 2. Tipe A: kedua pengamatan berlabel $\ell$ ($p=1$). Tipe B: tepat satu ($p=\tfrac12$). Di kalibrasi keduanya berbobot sama; di uji, tipe A berbobot **dua kali** relatif terhadap frekuensi populasinya. Bila sebaran skor berbeda antar-tipe, blok uji dan blok kalibrasi **tidak exchangeable** dan argumen peringkat gagal.
+>
+> *Yang tetap sah.* Jaminan HCP berlaku untuk sasaran **lain**: uji = blok baru dari populasi blok yang memuat $\ell$, lalu satu pengamatan berlabel $\ell$ seragam dari blok itu. Sasaran itu sah tetapi **bukan** cakupan terkondisi-label yang lazim dilaporkan, dan naskah wajib menyebut mana yang dimaksud.
+>
+> *Akibat bagi §5.5.* Angka-angka di sana **tetap benar sebagai batas bawah**: bila syarat perlu gagal, tidak ada jaminan. Yang tidak boleh ditulis adalah bahwa label yang lolos syarat itu **dijamin** tercakup. Fenomena pembobotan-ukuran ini sudah dikenal di literatur ambang berklaster (Noonan 2026, Lampiran B, *size-biased substitution*).
 
 **Ini bukan formalitas.** Label langka punya $K_1(\ell)$ kecil, dan kelayakannya dapat gagal walaupun $K_1$ global berlimpah. Kuantitasnya **terhitung dari metadata saja** — tanpa model, tanpa skor, tanpa pelatihan.
 

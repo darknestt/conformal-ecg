@@ -156,35 +156,44 @@ score, and Theorem 1 of [A0] applies verbatim. **No new guarantee is obtained.**
 We include the construction because it is the operationally correct way to obtain
 a superset-valid prediction set, not because it is novel.
 
-#### 5.3.2 Per-label guarantees do not reduce, and yield a new boundary
+#### 5.3.2 Per-label guarantees are bounded by the number of blocks carrying the label
 
 Per-label validity is a different statement, and it is here that the feasibility
-question reappears in sharper form.
+question reappears in sharper form. That rare classes starve class-conditional
+calibration is well established for exchangeable data (Ding et al., NeurIPS 2023);
+what changes under hierarchical dependence is the **unit** that is counted.
 
-**Proposition 4.** *A per-label guarantee for label $\ell$ at level $\alpha$
-requires $\alpha \ge \tfrac{1}{K_1(\ell)+1}$, where $K_1(\ell)$ is the number of
-calibration blocks containing at least one instance of $\ell$.*
+**Proposition 4 (necessary condition).** *A finite per-label HCP threshold for
+label $\ell$ at level $\alpha$ requires $\alpha \ge \tfrac{1}{K_1(\ell)+1}$, where
+$K_1(\ell)$ is the number of calibration blocks containing at least one instance
+of $\ell$.*
 
 The binding resource is not the number of calibration points carrying the label,
 but the number of **blocks** that contain it — a quantity that can be orders of
 magnitude smaller for rare labels.
 
-**Proposition 5 (monotonicity).** *If $\ell'$ is an ancestor of $\ell$ in the
-label hierarchy, then $K_1(\ell') \ge K_1(\ell)$.*
+The condition is **necessary, not sufficient**. Conditioning a test observation
+on carrying $\ell$ selects its block with probability proportional to the fraction
+of $\ell$-positive observations in that block, whereas a block enters the
+calibration stratum merely by containing one. Unless that fraction is constant
+across blocks, test and calibration blocks are not exchangeable, and the standard
+rank argument does not deliver $\mathbb{P}(\ell\in\hat C\mid\ell\in Y)\ge1-\alpha$.
+We therefore use Proposition 4 only to **rule out** guarantees, never to certify
+them.
 
-Monotonicity implies the existence of a **feasibility frontier**: a level of the
-taxonomy above which all labels are feasible and below which some are not. On
-PTB-XL, at $\alpha=0.05$, all five superclasses are feasible, six of twenty-three
-subclasses are not, and twenty-four of forty-four SCP codes are not. The frontier
-lies strictly between the superclass and subclass levels.
+**Monotonicity.** If $\ell'$ is an ancestor of $\ell$ in the label hierarchy,
+every block containing $\ell$ contains $\ell'$, so $K_1(\ell') \ge K_1(\ell)$.
+This is immediate and we do not dignify it as a proposition. Its practical
+consequence is that the necessary condition fails along a **frontier** in the
+taxonomy that can be mapped from metadata before any model is trained. On
+PTB-XL, at $\alpha=0.05$, all five superclasses pass, six of twenty-three
+subclasses fail, and twenty-four of forty-four SCP codes fail. The frontier lies
+strictly between the superclass and subclass levels.
 
-**Corollary 5.1 (simultaneous coverage).** *Controlling $m$ labels simultaneously
-requires $K_1(\ell) \ge \lceil m/\alpha\rceil - 1$ for every $\ell$*, which at
-$m=44$ is unattainable for all but one SCP code.
-
-**Corollary 5.2.** *Upward closure never introduces an infeasible label into a
-prediction set*, since every ancestor of a feasible label is itself feasible by
-Proposition 5. This is the formal content of the hierarchical closure operation.
+**Simultaneous coverage.** Controlling $m$ labels jointly by a union bound
+requires $K_1(\ell) \ge \lceil m/\alpha\rceil - 1$ for every $\ell$, which at
+$m=44$ fails for all but one SCP code. Upward closure of a prediction set adds
+only ancestors and therefore never adds a label failing the necessary condition.
 
 ---
 

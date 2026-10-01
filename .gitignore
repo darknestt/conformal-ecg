@@ -15,6 +15,9 @@ data/external/
 # JSON dikecualikan: berisi provenance setiap angka yang dikutip di dokumen
 results/raw/*
 !results/raw/*.json
+!results/raw/backbone_invariance/
+results/raw/backbone_invariance/*
+!results/raw/backbone_invariance/*.json
 *.ckpt
 *.pth
 *.pt

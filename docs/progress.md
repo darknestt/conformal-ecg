@@ -273,19 +273,22 @@ Syarat kedua tak punya padanan di HCP. Bukti numerik: pada $K{=}500$, $N_k{=}5$,
 
 Ditulis 2026-09-30. Setiap pernyataan ditandai taraf pembuktiannya agar tidak tercampur di naskah.
 
-| | Pernyataan | Taraf |
-|---|---|---|
-| **Prop. 1** | $\hat T < \infty \iff \alpha \ge \frac{1}{K_1+1}$ | 🟢 Terbukti, bebas-distribusi |
-| Kor. 1.1 | Batas kelayakan **tidak bergantung pada $N_k$** sama sekali | 🟢 |
-| Kor. 1.3 | Tereduksi ke syarat baku split conformal saat $N_k{=}1$ | 🟢 Diverifikasi numerik |
-| **Prop. 2** | $\operatorname{Var}(\hat G) = \frac{\sigma^2[1+(N-1)\rho]}{KN}$ | 🟡 Butuh model efek acak |
-| Kor. 2.1 | Kish $\mathrm{DEff}$ = kasus $\rho{=}1$, jadi **batas atas** | 🟡 |
-| **Teorema C6** | (a) validitas hanya diatur $K$; (b) lantai varians $\sigma^2\rho/K$; (c) anggaran tetap → $K$ besar/$N$ kecil lemah-dominan; (d) $K$ terbatas → $N$ tak dapat menolong | 🟢 (a) · 🟡 (b–d) |
-| **Prop. 3** | Desain bersilang menuntut partisi **join** (komponen terhubung) | 🟢 Aljabar kekisi |
-| Kor. 3.2 | Ketidakmungkinan bila $K_1(\text{join})$ terlalu kecil | 🟢 untuk HCP/Dunn · 🔴 klaim universal **ditahan** |
-| **Prop. 4** | Kelayakan per-label: $\alpha \ge 1/(K_1(\ell)+1)$ | 🟡 Prop. 1 per-stratum |
-| **Prop. 5** | $K_1$ monoton naik menuju akar → **frontier kelayakan** | 🟢 Diverifikasi, 0 pelanggaran |
-| Kor. 5.2 | Penutupan hierarkis tak pernah memasukkan label tak-layak | 🟢 Memberi C2 isi formal |
+> 🔧 **DIPERBARUI 2026-10-01 sesudah audit prior-art.** Kolom "Taraf" mencatat kebenaran matematis; kolom "Baru?" mencatat apakah klaim itu boleh dijual sebagai kontribusi. Keduanya berbeda: hampir seluruh baris **benar tetapi tidak baru**. Paper karena itu diposisikan sebagai **audit empiris**, bukan kontribusi teoretis.
+
+| | Pernyataan | Taraf | Baru? | Prior art |
+|---|---|---|---|---|
+| **Prop. 1** | $\hat T < \infty \iff \alpha \ge \frac{1}{K_1+1}$ | 🟢 Terbukti | ❌ | Lee, Barber & Willett [A0], Teorema 1 |
+| Kor. 1.1 | Batas kelayakan tidak bergantung pada $N_k$ | 🟢 | ❌ | idem |
+| **Prop. 2/2′** | $\operatorname{Var}(\hat G)$, rata-rata harmonik | 🟡 Butuh model efek acak | ❌ | White & Thomas 2005; Smeeth & Ng 2002; Lai 2021 |
+| Kor. 2.1 | Kish = batas atas | 🟡 | ❌ | Gabler, Häder & Lahiri 1999 |
+| §2.1 | Kish ≠ ukuran efisiensi estimator terboboti-blok | 🟡 | ❌ | Kerry & Bland 2001 |
+| §2.2–2.4 | ESS/DEff bergantung ambang; ICC indikator | 🟡 | ❌ | **Noonan 2026** — hukum bentuk-tertutup |
+| **Teorema C6** | (a)–(d) | 🟢 (a) · 🔴 (b) lantai varians **salah** bila korelasi meluruh | ❌ | [A0]; Noonan `p5b_cluster_budget` |
+| **Prop. 3** | Desain bersilang menuntut join | 🟢 Aljabar kekisi | ❌ | Nelder 1965; Bailey 1977/1996; Zheng & Xu 2026 |
+| Kor. 3.2 | Join runtuh → $\alpha_{\min}=\tfrac12$ | 🟢 | 🟡 komposisi mekanis | Guvenilir & Dogan (⚠️ belum diverifikasi) + [A0] |
+| **Prop. 4** | Per-label: $\alpha \ge 1/(K_1(\ell)+1)$ | 🟢 **perlu saja** — arah cukup **dicabut** | ❌ | Ding dkk. NeurIPS 2023 |
+| Prop. 5 | $K_1$ monoton menuju akar | 🟢 elementer | ❌ | — |
+| Kor. 5.1/5.2 | antirantai; penutupan aman | 🟢 elementer | ❌ | — |
 
 ### Tiga hasil yang mengubah isi naskah
 
