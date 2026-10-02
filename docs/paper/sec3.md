@@ -1,44 +1,45 @@
 # §3 Problem Formulation and HCP Feasibility
 
-> **v5 — 2026-10-02.** Diparafrasekan dan dipadatkan dari v4 (commit 2bbdbec). Pernyataan formal (Proposisi 1–3, Corollary 1–2, Definisi, Asumsi (A), kalimat ruang lingkup Corollary 2) dan persamaan (1)–(6) kata per kata sama; hanya prosa penghubung yang diringkas.
+> **v7 — 2026-10-02.** Prosa penghubung diparafrasekan penuh dari v6 (commit 3edc1f0). Pernyataan formal (Proposisi 1–3 + bukti, Corollary 1–2, Definisi, "Scope of Corollary 2") dan persamaan (1)–(6) kata per kata sama.
 
 ---
 
 ## 3. Problem Formulation and HCP Feasibility
 
-Section 3.1 restates the framework of Lee et al. [A0] to fix notation; none of it
-is claimed as ours. Sections 3.2–3.4 derive three feasibility diagnostics from
-established results and cite the source of each where it enters, so that
-borrowed tools are not mistaken for findings.
+The notation in §3.1 follows Lee et al. [A0] and is restated rather than
+claimed. Sections 3.2–3.4 build three feasibility diagnostics from established
+results and cite each source where it is used, so that borrowed tools stay
+distinct from findings.
 
 ### 3.1 Hierarchical calibration
 
-The calibration data consist of $K$ blocks, block $k$ holding $N_k$ observations
-$Z_{k,1},\dots,Z_{k,N_k}$, with $n=\sum_k N_k$ and $H$ the harmonic mean of the
-$N_k$. Here a block is typically a patient and an observation a 10-second
-recording, but the framework does not depend on what defines a block. Lee et al.
-[A0] show that standard exchangeability fails when observations are nested
-within groups and introduce **hierarchical exchangeability**: blocks are
-exchangeable with one another and observations are exchangeable within each
-block, but not across the pooled sample.
+Calibration data are organized in $K$ blocks: block $k$ contains $N_k$
+observations $Z_{k,1},\dots,Z_{k,N_k}$, the total is $n=\sum_k N_k$, and $H$ is the
+harmonic mean of the $N_k$. In this study a block is usually a patient and an
+observation a 10-second recording, although nothing in the framework depends on
+how blocks are defined. Lee et al. [A0] show that nesting observations within
+groups breaks ordinary exchangeability and replace it with **hierarchical
+exchangeability**: blocks are exchangeable among themselves and observations are
+exchangeable within a block, while the pooled sample is not.
 
-Let $s(\cdot)$ be a nonconformity score fixed independently of the calibration
-data, write $s_{k,i}=s(Z_{k,i})$, and let $Q_\beta(F)=\inf\{t:F(t)\ge\beta\}$ be
-the lower $\beta$-quantile of a distribution $F$ on $\mathbb{R}\cup\{+\infty\}$.
-With $K_1$ calibration blocks, HCP sets the threshold
+Fix a nonconformity score $s(\cdot)$ independently of the calibration data, set
+$s_{k,i}=s(Z_{k,i})$, and denote by $Q_\beta(F)=\inf\{t:F(t)\ge\beta\}$ the lower
+$\beta$-quantile of a distribution $F$ on $\mathbb{R}\cup\{+\infty\}$. For $K_1$
+calibration blocks, the HCP threshold is
 
 $$\hat T \;=\; Q_{1-\alpha}\!\left(\sum_{k=1}^{K_1}\sum_{i=1}^{N_k}\frac{1}{(K_1+1)N_k}\,\delta_{s_{k,i}}\;+\;\frac{1}{K_1+1}\,\delta_{+\infty}\right).\tag{1}$$
 
-Each block carries total mass $1/(K_1+1)$, shared evenly among its $N_k$
-observations, and a further $1/(K_1+1)$ sits at $+\infty$ — the price of not
-knowing the test block in advance. For a test point from a previously unseen
-block, Lee et al. [A0, Thm. 1] prove
+Every block receives the same total mass $1/(K_1+1)$, split evenly over its $N_k$
+observations, and a further $1/(K_1+1)$ is placed at $+\infty$; this is the cost
+of not knowing in advance which block the test point comes from. When the test
+point belongs to a block not seen during calibration, Lee et al. [A0, Thm. 1]
+establish
 $$1-\alpha\;\le\;\mathbb{P}\{Y_{\text{test}}\in\hat C(X_{\text{test}})\}\;\le\;1-\alpha+\frac{2}{K_1+1}.\tag{2}$$
 
 ### 3.2 Finite-threshold feasibility
 
-Equation (1) fixes the threshold once $K_1$, $\{N_k\}$ and $\alpha$ are given, but
-does not say whether the resulting guarantee is informative.
+Once $K_1$, $\{N_k\}$ and $\alpha$ are fixed, (1) determines the threshold, but it
+does not reveal whether the resulting guarantee is informative.
 
 **Proposition 1 (feasibility).** $\hat T<\infty$ if and only if
 $$\alpha\;\ge\;\frac{1}{K_1+1}.\tag{3}$$
@@ -49,30 +50,32 @@ satisfies $\hat F(t)\le K_1/(K_1+1)$ for every finite $t$, with equality at
 $t=M=\max_{k,i}s_{k,i}$. Since $Q_{1-\alpha}(\hat F)=\inf\{t:\hat F(t)\ge1-\alpha\}$,
 the threshold is finite iff $K_1/(K_1+1)\ge1-\alpha$. ∎
 
-When (3) fails, $\hat C(X)=\mathcal{L}$ for every input and (2) holds vacuously.
-Proposition 1 restates a consequence of the $+\infty$ atom in Theorem 1 of [A0]
-in a form checkable from metadata, and we claim nothing beyond that. Three of its
-features matter here: the bound does not involve $N_k$, so more measurements per
-block can never restore feasibility; it is not strict, so a grouping lying on it
-is feasible (Appendix A.1); and with $N_k=1$ for all $k$ it reduces to the
-familiar split-conformal requirement $n\ge1/\alpha-1$, which we also verified
-numerically.
+If (3) is violated, $\hat C(X)=\mathcal{L}$ for every input and (2) is satisfied
+only vacuously. Proposition 1 recasts a consequence of the $+\infty$ atom in
+Theorem 1 of [A0] so that it can be checked from metadata; we claim nothing
+further. Three of its properties matter for the audit. Since $N_k$ does not appear
+in the bound, adding measurements to existing blocks never restores
+feasibility. Since the inequality is not strict, a grouping lying exactly on the
+boundary is still feasible (Appendix A.1). And when $N_k=1$ throughout, the bound
+collapses to the familiar split-conformal condition $n\ge1/\alpha-1$, which we
+also confirmed numerically.
 
 **Corollary 1.** The minimum number of calibration blocks is
 $K_{\min}(\alpha)=\lceil 1/\alpha\rceil-1$; at $\alpha=0.05$ this is 19, not 20.
 
-**Precision.** Feasibility is distribution-free; precision is not. It requires
-**Assumption (A)**: blocks are independent and identically distributed, and every
-pair of indicators $\mathbb{1}\{s\le t\}$ within a block has the same correlation
-$\rho(t)$, which does not depend on $N_k$ (compound symmetry). Here $\rho(t)$ is
-the intraclass correlation of the indicator at threshold $t$, not of the raw
-score. The HCP threshold is determined by $\hat G(t)=\frac{1}{K_1}\sum_k \bar F_k(t)$,
-the unweighted mean of block-level empirical CDFs, whose variance under (A) is
-the standard one for an unweighted mean of cluster means [I2],
+**Precision.** Unlike feasibility, precision depends on distributional
+assumptions. It requires **Assumption (A)**: blocks are independent and
+identically distributed, and any two indicators $\mathbb{1}\{s\le t\}$ within one
+block share a correlation $\rho(t)$ that does not vary with $N_k$ (compound
+symmetry). The quantity $\rho(t)$ is thus the intraclass correlation of the
+indicator at threshold $t$ rather than of the raw score. The HCP threshold is a
+functional of $\hat G(t)=\frac{1}{K_1}\sum_k \bar F_k(t)$, the unweighted average
+of the block-level empirical CDFs, and under (A) its variance takes the textbook
+form for an unweighted mean of cluster means [I2],
 $\sigma^2(t)[1+(H-1)\rho(t)]/(K_1H)$ with $\sigma^2(t)=F(t)\{1-F(t)\}$
-(Appendix A.2). This variance belongs to a block-weighted estimator, whereas the
-Kish effective sample size describes an observation-weighted one, and the two
-design effects coincide only for uniform block sizes:
+(Appendix A.2). That variance refers to a block-weighted estimator, whereas the
+Kish effective sample size refers to an observation-weighted one, and the two
+design effects agree only when all blocks have the same size:
 
 $$
 \mathrm{DEff}_{\text{block}}(\rho)=\frac{n[1+(H-1)\rho]}{K_1H},
@@ -81,37 +84,40 @@ $$
 \tag{6}
 $$
 
-The second is the standard design effect for unequal cluster sizes, and equal
-versus size weighting of cluster means is a familiar choice in cluster-randomized
-trials, where equal weighting is known to be inefficient under unequal cluster
-sizes and is usually replaced by minimum-variance weights [I1, A13]. In HCP it is
-not a choice: it is fixed by the structure of the threshold, and departing from
-it can break the guarantee rather than merely cost efficiency (Appendix A.3).
-The practitioner is thus bound to the estimator that cluster-sampling theory
-finds most affected by block imbalance, without its usual remedy; we report this
-as an observation and do not prove that equal weights are the only valid choice.
-On PTB-XL the two design effects differ by a factor of 15.7 at the site level,
-and on `strat_fold`, whose blocks are nearly uniform by construction, their ratio
-is 1.000, an internal check of the computation.
+The second expression is the usual design effect for clusters of unequal size.
+Cluster-randomized trials routinely compare equal and size-proportional
+weighting of cluster means, and there equal weighting is known to lose
+efficiency when cluster sizes vary, which is why minimum-variance weights are
+usually preferred [I1, A13]. HCP offers no such option: equal weighting is built
+into its threshold, and abandoning it can invalidate the guarantee instead of
+merely reducing efficiency (Appendix A.3). The practitioner is therefore tied to
+the estimator that cluster-sampling theory regards as most sensitive to block
+imbalance, without access to the standard remedy. We state this as an
+observation and do not prove that equal weights are the only valid choice. On
+PTB-XL the two design effects differ by a factor of 15.7 at the site level, while
+on `strat_fold`, whose blocks are almost uniform by construction, their ratio is
+1.000, which serves as an internal check of the computation.
 
-**The axis used to organize results.** To compare datasets with very different
-block geometry we order configurations by the variance-inflation factor
-$\mathrm{DEff}=1+(H-1)\rho$. Because $H$ enters only through $(H-1)\rho$, the factor
-predicts that dependence is harmless whenever blocks are near-singleton, however
-strong the within-block correlation — the opposite of what raw $\rho$ suggests.
-The primary analysis takes $\rho$ from conformity scores and is repeated with the
-indicator correlation $\rho(t)$ (§5.4); when the axis was adopted is recorded in
-§6.4. The axis only orders configurations and is not a calibrated effective
-sample size: Noonan derives a closed-form effective sample size for thresholds
-under clustering and shows that the correction currently used in the conformal
-literature is the wrong quantity [P1]. Our axis shares its central ingredient,
-the correlation of threshold indicators, but is a heuristic under (A), and we
-defer to that work for the principled quantity.
+**The axis used to organize results.** Datasets with very different block
+geometry are compared through the variance-inflation factor
+$\mathrm{DEff}=1+(H-1)\rho$. Because $H$ enters only through the product
+$(H-1)\rho$, the factor predicts no harm from dependence whenever blocks are close
+to singletons, however strong the within-block correlation — contrary to what raw
+$\rho$ would suggest. In the primary analysis $\rho$ is estimated from conformity
+scores, and the analysis is repeated with the indicator correlation $\rho(t)$
+(§5.4); §6.4 records when the axis was adopted. The axis serves only to rank
+configurations and should not be read as a calibrated effective sample size. For
+that quantity we defer to Noonan, who derives a closed-form effective sample size
+for thresholds under clustering and shows that the correction now used in the
+conformal literature targets the wrong quantity [P1]. Our axis shares its key
+ingredient, the correlation of threshold indicators, but remains a heuristic
+under (A).
 
 ### 3.3 Crossed dependence sources
 
-Clinical datasets often carry several candidate blocking variables at once —
-patient, device, operator, site — and these need not be nested.
+Clinical datasets frequently offer several candidate blocking variables at the
+same time — patient, device, operator, site — and nothing guarantees that they
+are nested.
 
 **Definition (sufficiency).** A partition $\mathcal{Q}$ is *sufficient* for a
 dependence source with partition $\mathcal{P}$ if $\mathcal{P}$ refines
@@ -127,10 +133,10 @@ observations whenever they share a $\mathcal{P}_1$-block or a $\mathcal{P}_2$-bl
 Consequently $K(\mathcal{P}_1\vee\mathcal{P}_2)\le\min\{K(\mathcal{P}_1),K(\mathcal{P}_2)\}$
 and $\alpha_{\min}(\mathcal{P}_1\vee\mathcal{P}_2)\ge\max\{\alpha_{\min}(\mathcal{P}_1),\alpha_{\min}(\mathcal{P}_2)\}$.
 
-This is a standard fact about partition lattices; its consequence for
-calibration is what matters here. Fig. 1 illustrates it on eight hypothetical
-records: five patient blocks and three device blocks, each fine on its own,
-leave only two blocks once both sources must be respected.
+The result is standard for partition lattices; what concerns us is its
+implication for calibration. Fig. 1 illustrates it with eight hypothetical
+records, where five patient blocks and three device blocks, each acceptable on
+its own, shrink to two blocks once both sources have to be respected.
 
 ![**Fig. 1.** Schematic of Proposition 2 on eight hypothetical records (circles). Solid arcs link records of the same patient and dashed arcs records of the same device. A grouping sufficient for both sources must keep every linked pair in one block, so the finest such grouping is the join, the connected components (shaded). On PTB-XL the same mechanism collapses four declared sources to a single block (§5.1).](figures/fig1_join_schematic.png)
 
@@ -142,55 +148,57 @@ between-block exchangeability remains open. We conjecture that it does, by
 analogy with the unavoidable $n\ge1/\alpha-1$ requirement of split conformal, but
 we do not claim it.
 
-**Admissible groupings.** A calibration grouping $g$ is admissible at level
-$\alpha$ if it satisfies **(S1) feasibility**, $K_1(g)\ge\lceil 1/\alpha\rceil-1$
-(exact, by Proposition 1), and **(S2) sufficiency**: every *declared* dependence
-source is nested within $g$ (exact, given the declaration). S1 alone is not
-enough, because a grouping can admit a finite threshold while leaving dependence
-across its blocks unaccounted for. S2 is only as complete as the declared list:
-an undeclared source passes vacuously, so S2 checks the consistency of a stated
-assumption rather than testing it. For crossed sources the finest grouping
-satisfying S2 is their join (Proposition 2). Joins of individually fine groupings
-are known to form giant components in leakage control [P2], but the consequence
-here differs in kind: there a collapsed join degrades a split, whereas here,
-below $1/(K_1+1)$, no finite threshold exists (Corollary 2). Because the declared
-set cannot be verified from data, every verdict is reported as a function of that
-set, never as a property of a dataset.
+**Admissible groupings.** We call a calibration grouping $g$ admissible at level
+$\alpha$ when it passes two checks: **(S1) feasibility**,
+$K_1(g)\ge\lceil 1/\alpha\rceil-1$, which is exact by Proposition 1, and **(S2)
+sufficiency**, under which every *declared* dependence source is nested in $g$,
+exact relative to that declaration. Passing S1 alone does not suffice, because a
+grouping may admit a finite threshold yet leave dependence between its blocks
+unaddressed. S2, in turn, can be no more complete than the list it is given: a
+source left undeclared passes trivially, so S2 verifies that a stated assumption
+is internally consistent rather than testing whether it holds. With crossed
+sources the finest grouping that passes S2 is their join (Proposition 2). In
+leakage control, joins of individually fine groupings are already known to form
+giant components [P2]; the consequence here is of a different kind, since a
+collapsed join there merely weakens a split, whereas here, below $1/(K_1+1)$, no
+finite threshold exists at all (Corollary 2). Because no dataset can confirm the
+declared set, each verdict is reported as a function of that set and never as a
+property of the data.
 
 ### 3.4 Label-conditional feasibility
 
-PTB-XL arranges diagnoses in a three-level tree of 5 superclasses, 23 subclasses
-and 44 diagnostic SCP statements. A recording may carry several labels, so the
-target is a set $Y\subseteq\mathcal{L}$ and a notion of coverage must be chosen.
-**Superset coverage**,
+The PTB-XL diagnoses form a three-level tree with 5 superclasses, 23 subclasses
+and 44 diagnostic SCP statements. Since one recording may carry several labels,
+the target is a set $Y\subseteq\mathcal{L}$ and a notion of coverage has to be
+selected. **Superset coverage**,
 $$\mathbb{P}\big(Y_{\text{test}}\subseteq\hat C(X_{\text{test}})\big)\;\ge\;1-\alpha,\tag{4}$$
-is not a new result: Theorem 1 of [A0] only requires a fixed scalar score, and
-setting $s(x,Y)=\max_{\ell\in Y}s_\ell(x)$ gives
-$\{Y\subseteq\hat C\}\iff s(x,Y)\le\hat T$, so HCP applies unchanged. The
-substantive question is the **label-conditional** target
+involves nothing new: Theorem 1 of [A0] needs only a fixed scalar score, and with
+$s(x,Y)=\max_{\ell\in Y}s_\ell(x)$ one has $\{Y\subseteq\hat C\}\iff s(x,Y)\le\hat T$,
+so HCP carries over unchanged. The substance lies in the **label-conditional**
+target
 $$\mathbb{P}\big(\ell\in\hat C(X)\,\big|\,\ell\in Y\big)\;\ge\;1-\alpha,\tag{5}$$
-which does not reduce in this way. Rare classes are known to starve
-class-conditional calibration for exchangeable data [A12]; under hierarchical
-dependence the unit to be counted becomes the block.
+which admits no such reduction. For exchangeable data it is well known that rare
+classes starve class-conditional calibration [A12]; under hierarchical
+dependence the quantity to count is the number of blocks.
 
 **Proposition 3 (necessary condition).** *A finite per-label HCP threshold for
 label $\ell$ at level $\alpha$ requires $\alpha \ge \tfrac{1}{K_1(\ell)+1}$, where
 $K_1(\ell)$ is the number of calibration blocks containing at least one instance
 of $\ell$.*
 
-The condition is necessary, not sufficient. Conditioning a test observation on
-carrying $\ell$ selects its block with probability proportional to the fraction
-of $\ell$-positive observations in that block, whereas a block enters the
-calibration stratum merely by containing one. Unless that fraction is constant
-across blocks, test and calibration blocks are not exchangeable, and the rank
-argument does not deliver $\mathbb{P}(\ell\in\hat C\mid\ell\in Y)\ge1-\alpha$; the
-same size-biased selection arises for thresholds under clustering [P1].
-Proposition 3 is therefore used only to rule out guarantees, never to certify
-them. Since every block containing a label also contains its ancestors,
-$K_1(\ell)$ is monotone toward the root, and the condition fails along a frontier
-in the taxonomy that can be mapped from metadata. Controlling $m$ labels jointly
-by a union bound raises the requirement to $K_1(\ell)\ge\lceil m/\alpha\rceil-1$
-for every $\ell$.
+The condition is necessary, not sufficient. When a test observation is
+conditioned on carrying $\ell$, its block is drawn with probability proportional
+to the share of $\ell$-positive observations it contains, whereas a calibration
+block qualifies as soon as it contains a single one. Unless that share is the
+same in every block, test and calibration blocks cease to be exchangeable and the
+rank argument no longer yields $\mathbb{P}(\ell\in\hat C\mid\ell\in Y)\ge1-\alpha$;
+thresholds under clustering face the same size-biased selection [P1].
+Proposition 3 is accordingly used only to exclude guarantees, never to certify
+them. Every block that contains a label also contains its ancestors, so
+$K_1(\ell)$ cannot decrease toward the root, and the condition breaks along a
+frontier of the taxonomy that metadata suffice to map. A union bound over $m$
+jointly controlled labels raises the requirement to
+$K_1(\ell)\ge\lceil m/\alpha\rceil-1$ for each $\ell$.
 
 ---
 
@@ -198,6 +206,5 @@ for every $\ell$.
 
 | Hal | Keputusan |
 |---|---|
-| Kata per kata | Prop. 1 + bukti, Corollary 1, Definisi, Prop. 2, Corollary 2, "Scope of Corollary 2", Prop. 3, Asumsi (A), persamaan (1)–(6) |
-| Diparafrasekan | Prosa penghubung §3.1–3.4, paragraf bobot sama, sumbu DEff, "Admissible groupings" |
-| Struktur v4 → v3 | Lihat catatan di commit 2bbdbec |
+| Kata per kata | Prop. 1 + bukti, Corollary 1, Definisi, Prop. 2, Corollary 2, "Scope of Corollary 2", Prop. 3, persamaan (1)–(6), keterangan Fig. 1 |
+| Diparafrasekan | Seluruh prosa penghubung, Asumsi (A) (isi sama), paragraf bobot sama, sumbu DEff, "Admissible groupings", §3.4 |

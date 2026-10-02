@@ -114,7 +114,7 @@ def nomori_tabel(md: str) -> str:
 def gambar(md: str) -> str:
     def ganti(m: re.Match) -> str:
         cap = m.group(1).replace("**", "")
-        tunggal = ("join_schematic", "feasibility_frontier", "dose_response", "backbone_permutation")
+        tunggal = ("join_schematic", "feasibility_frontier", "dose_response")
         lebar = "3.4in" if any(k in m.group(2) for k in tunggal) else "6.6in"
         return f"![{cap}]({m.group(2)}){{width={lebar}}}"
     return re.sub(r"^!\[(.+?)\]\((.+?)\)[ \t]*$", ganti, md, flags=re.M)

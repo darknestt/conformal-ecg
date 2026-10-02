@@ -302,11 +302,11 @@ def fig5_dosis() -> None:
 
 
 def fig6_backbone() -> None:
-    """Defisit B1 terhadap null permutasi per backbone (forest plot)."""
+    """(a) Defisit B1 terhadap null permutasi per backbone; (b) bobot terbaik vs. epoch terakhir."""
     sumber = [("SmallECGNet", RAW / "control_permutation_mitdb.json"),
               ("ResNet1D-34", BI / "control_permutation_mitdb_resnet1d34.json"),
               ("ResNet1D-50", BI / "control_permutation_mitdb_resnet1d50.json")]
-    fig, ax = plt.subplots(figsize=(LEBAR_TUNGGAL, 2.3))
+    fig, (ax, ax2) = plt.subplots(1, 2, figsize=(LEBAR_GANDA, 2.4), gridspec_kw={"width_ratios": [1.15, 1]})
     gaya = {"0.10": ("o", -0.18), "0.15": ("s", 0.0), "0.20": ("^", 0.18)}
     for i, (nama, p) in enumerate(sumber):
         h = json.loads(p.read_text(encoding="utf-8"))["hasil"]
@@ -324,8 +324,39 @@ def fig6_backbone() -> None:
     for a, (m, _) in gaya.items():
         ax.plot([], [], m, color=WARNA["mit"], ms=3.2, label=f"$\\alpha$={float(a):g}")
     ax.plot([], [], "o", mfc="white", mec=WARNA["mit"], ms=3.2, label="CI includes 0")
-    ax.legend(loc="lower right", frameon=False, ncol=2, columnspacing=0.8, handletextpad=0.2)
-    simpan(fig, "fig8_backbone_permutation.png")
+    ax.legend(loc="upper right", frameon=False, ncol=2, columnspacing=0.8, handletextpad=0.2)
+    ax.set_xlim(-0.9, 6.4)
+    ax.set_title("(a) Deficit against the permutation null, MIT-BIH")
+
+    penanda = {"resnet1d34": "o", "resnet1d50": "s"}
+    batas = 0.0
+    for ds, warna in (("mitdb", WARNA["mit"]), ("ptbxl", WARNA["ptb"])):
+        for bb, m in penanda.items():
+            terbaik = json.loads((BI / f"{ds}_{bb}.json").read_text(encoding="utf-8"))["konformal"]
+            akhir = json.loads((BI / f"{ds}_{bb}_terakhir.json").read_text(encoding="utf-8"))["konformal"]
+            x = np.array([(terbaik[a]["B1_mean"] - terbaik[a]["target"]) * 100 for a in terbaik])
+            y = np.array([(akhir[a]["B1_mean"] - akhir[a]["target"]) * 100 for a in terbaik])
+            batas = max(batas, np.abs(x).max(), np.abs(y).max())
+            ax2.plot(x, y, m, ms=3.4, mfc=warna, mec="black", mew=0.4, ls="none")
+    batas = np.ceil(batas * 1.1)
+    ax2.fill_between([-batas, 0], -batas, 0, color="#eef3f8", lw=0, zorder=0)
+    ax2.fill_between([0, batas], 0, batas, color="#fbeee6", lw=0, zorder=0)
+    ax2.plot([-batas, batas], [-batas, batas], color=WARNA["abu"], lw=0.6, ls=":")
+    ax2.axhline(0, color="black", lw=0.5)
+    ax2.axvline(0, color="black", lw=0.5)
+    ax2.set_xlim(-batas, batas)
+    ax2.set_ylim(-batas, batas)
+    ax2.set_aspect("equal")
+    ax2.set_xlabel("Best-validation weights: B1 coverage $-$ $(1-\\alpha)$ [pp]", fontsize=7)
+    ax2.set_ylabel("Last-epoch weights [pp]")
+    ax2.set_title("(b) Checkpoint sensitivity")
+    ax2.plot([], [], "o", mfc=WARNA["mit"], mec="black", mew=0.4, ms=3.4, ls="none", label="MIT-BIH")
+    ax2.plot([], [], "o", mfc=WARNA["ptb"], mec="black", mew=0.4, ms=3.4, ls="none", label="PTB-XL")
+    ax2.plot([], [], "o", mfc="white", mec="black", mew=0.4, ms=3.4, ls="none", label="ResNet1D-34")
+    ax2.plot([], [], "s", mfc="white", mec="black", mew=0.4, ms=3.4, ls="none", label="ResNet1D-50")
+    ax2.legend(loc="upper left", frameon=False, handletextpad=0.2, fontsize=6.3)
+    fig.tight_layout(w_pad=1.5)
+    simpan(fig, "fig8_robustness.png")
 
 
 def main() -> int:
