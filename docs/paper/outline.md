@@ -9,6 +9,36 @@
 
 ## Status kesiapan per bagian
 
+> **2026-10-02 — seluruh bagian sudah berdraf.** Penomoran naskah Word: §9 Discussion, §10 Threats (sumber `sec11-draft.md`), §11 Conclusion. Ablation dihapus (E5 tidak dijalankan, lihat `protocol.md` §12).
+
+| § naskah | Bagian | Draf | Catatan |
+|---|---|---|---|
+| — | Abstract + Index Terms | ✅ [`abstract-conclusion-draft.md`](abstract-conclusion-draft.md) | 242 kata (≤ 250) |
+| 1 | Introduction | ✅ [`sec1-draft.md`](sec1-draft.md) | Ditulis terakhir, sesudah §8–§9 |
+| 2 | Related Work | ✅ [`sec2-draft.md`](sec2-draft.md) | |
+| 3–4 | Preliminaries, Problem Formulation | ✅ [`sec3-4-draft.md`](sec3-4-draft.md) | |
+| 5 | Methods | ✅ [`sec5-draft.md`](sec5-draft.md) | |
+| 6–7 | Datasets, Experimental Setup | ✅ [`sec6-7-draft.md`](sec6-7-draft.md) | NSTDB dihapus |
+| 8 | Results | ✅ [`sec8-draft.md`](sec8-draft.md) | 6 tabel, 5 figure |
+| 9 | Discussion | ✅ [`sec9-draft.md`](sec9-draft.md) | |
+| 10 | Threats to Validity | ✅ [`sec11-draft.md`](sec11-draft.md) | |
+| 11 | Conclusion | ✅ [`abstract-conclusion-draft.md`](abstract-conclusion-draft.md) | |
+
+### Daftar revisi (dikerjakan pada putaran "revisi dan rapikan")
+
+| # | Masalah | Lokasi | Bobot |
+|---|---|---|---|
+| R1 | **Proposition 1 tertulis dua kali** (§4.1 dan §5.1.1) | sec3-4, sec5 | Tinggi — reviewer melihatnya sebagai penyusunan ceroboh |
+| R2 | Rujukan ke **"Proposition 2" dan "Proposition 2′"** yang tidak ada di naskah (hanya di `theory.md`) | sec8 §8.4, sec11 §11.5 | Tinggi — rujukan silang patah |
+| R3 | Panjang **±13.400 kata / 27 halaman satu kolom**; JBHI/CIBM ≈ 10–12 halaman dua kolom. Kandidat pangkas: §6.4 Challenge 2021, §10.6, Tabel 6.2, Kor. 1.x | semua | Tinggi |
+| R4 | Penomoran ganda bagian sumber (§11 di draf = §10 di naskah) | builder | Sedang — sumber sebaiknya diganti nama |
+| R5 | Klaim "Code ... released" sementara repo privat | §1 | Wajib sebelum submit |
+| R6 | [F5] disitasi hanya dari judul; I1, I2, P1 §2 belum dibaca teks penuh | §9, §5 | Wajib sebelum submit |
+| R7 | Judul "3–4" dan "6–7" digabung di builder — pertimbangkan satu §3 "Background" | struktur | Rendah |
+| R8 | Konsistensi istilah: "naive split conformal" vs "split conformal (B1)"; "beats/records/blocks" | semua | Sedang |
+
+<details><summary>Tabel status lama (sebelum 2026-10-02)</summary>
+
 | § | Bagian | Siap? | Bergantung pada | Kebal hasil H0? |
 |---|---|:---:|---|:---:|
 | 1 | Introduction | ⚠️ | Hook bergantung nasib C4 — **kini dipulihkan berkualifikasi** | ❌ |
@@ -23,6 +53,8 @@
 | 10 | Discussion | ❌ | §8–9 | — |
 | 11 | Threats to Validity | ✅ **DRAF ADA** → [`sec11-draft.md`](sec11-draft.md) | README §11 | ✅ |
 | 12 | Conclusion | ❌ | Semuanya | — |
+
+</details>
 
 **Kolom terakhir adalah alasan utama menulis §2–§5 sekarang.** Bila H0 gagal, hanya C4 yang mati; batas kelayakan bersifat kombinatorial dan sudah terbukti pada data nyata tanpa model apa pun. §2–§5 tidak akan terbuang.
 

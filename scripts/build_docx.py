@@ -40,16 +40,17 @@ REFS = PAPER / "references.json"
 JUDUL = "Block-Level Feasibility of Conformal Calibration on Clinical ECG Data: An Empirical Audit"
 
 URUTAN = [
-    ("1", "Introduction", None),
+    ("1", "Introduction", "sec1-draft.md"),
     ("2", "Related Work", "sec2-draft.md"),
     ("3–4", "Preliminaries and Problem Formulation", "sec3-4-draft.md"),
     ("5", "Methods", "sec5-draft.md"),
     ("6–7", "Datasets and Experimental Setup", "sec6-7-draft.md"),
     ("8", "Results", "sec8-draft.md"),
-    ("9", "Discussion", None),
+    ("9", "Discussion", "sec9-draft.md"),
     ("10", "Threats to Validity", "sec11-draft.md"),
-    ("11", "Conclusion", None),
+    ("11", "Conclusion", "abstract-conclusion-draft.md"),
 ]
+ABSTRAK = "abstract-conclusion-draft.md"
 CATATAN_KERJA = re.compile(r"^## (Catatan penyusunan|Checklist|Audit adversarial)", re.M)
 BAGIAN_NASKAH = re.compile(r"^## \d+\.", re.M)
 KODE = re.compile(r"^[A-IP]\d+[a-z]?$")
@@ -67,6 +68,14 @@ def ambil_prosa(teks: str) -> str:
     return re.sub(r"\n---\s*$", "\n", isi.rstrip()) + "\n"
 
 
+def ambil_abstrak(teks: str) -> str:
+    isi = teks.split("## Abstract", 1)[1].split("\n---", 1)[0].strip()
+    badan, _, istilah = isi.partition("**Index Terms**")
+    badan = " ".join(badan.split())
+    istilah = " ".join(istilah.split()).lstrip("—- ").strip()
+    return f"**Abstract—**{badan}\n\n**Index Terms—**{istilah}\n"
+
+
 def rapikan_baris(md: str) -> str:
     keluar = []
     for baris in md.splitlines():
@@ -78,7 +87,7 @@ def rapikan_baris(md: str) -> str:
         if b.startswith("|"):
             keluar.append(b.replace("**", "").replace("`", ""))
             continue
-        lead = re.match(r"^(\*\*[^*]+?[.:)]\*\*)(.*)$", b)
+        lead = re.match(r"^(\*\*[^*]+?[.:)—]\*\*)(.*)$", b)
         if lead:
             keluar.append(lead.group(1) + lead.group(2).replace("**", ""))
         else:
@@ -206,7 +215,8 @@ def susun_markdown() -> tuple[str, int]:
                             capture_output=True, text=True).stdout.strip() or "?"
     potong = [f"# {JUDUL}\n",
               f"*Working draft for internal review — generated {datetime.date.today():%Y-%m-%d} "
-              f"from commit {commit}. Sections marked NOT YET WRITTEN are intentionally empty.*\n"]
+              f"from commit {commit}.*\n",
+              ambil_abstrak((PAPER / ABSTRAK).read_text(encoding="utf-8"))]
     for nomor, judul, berkas in URUTAN:
         if berkas is None:
             potong.append(f"## {nomor}. {judul}\n\n[NOT YET WRITTEN]\n")
@@ -312,6 +322,11 @@ def rapikan_docx(path: pathlib.Path) -> None:
             pf.space_after = Pt(2)
             pf.tab_stops.add_tab_stop(Pt(22))
             p.alignment = WD_ALIGN_PARAGRAPH.JUSTIFY
+        elif teks.startswith(("Abstract—", "Index Terms—")):
+            for r in p.runs:
+                r.font.bold = True
+                r.font.size = Pt(9.5)
+            p.alignment = WD_ALIGN_PARAGRAPH.JUSTIFY
         elif p.style.name in ("Body Text", "First Paragraph", "Normal") and len(teks) > 80:
             p.alignment = WD_ALIGN_PARAGRAPH.JUSTIFY
         elif p.style.name == "Title":
@@ -324,18 +339,26 @@ def rapikan_docx(path: pathlib.Path) -> None:
 
 
 def main() -> int:
+    keluar = pathlib.Path(sys.argv[1]).resolve() if len(sys.argv) > 1 else KELUAR
     md, n_ref = susun_markdown()
     with tempfile.TemporaryDirectory() as tmp:
         ref = pathlib.Path(tmp) / "reference.docx"
         siapkan_reference_docx(ref)
-        pypandoc.convert_text(
-            md, "docx", format="markdown+tex_math_dollars+pipe_tables+implicit_figures",
-            outputfile=str(KELUAR),
-            extra_args=["--shift-heading-level-by=-1", f"--resource-path={PAPER}",
-                        f"--reference-doc={ref}"],
-        )
-    rapikan_docx(KELUAR)
-    print(f"Ditulis: {KELUAR.relative_to(ROOT)}  ({KELUAR.stat().st_size / 1024:.0f} KB, {n_ref} rujukan)")
+        try:
+            pypandoc.convert_text(
+                md, "docx", format="markdown+tex_math_dollars+pipe_tables+implicit_figures",
+                outputfile=str(keluar),
+                extra_args=["--shift-heading-level-by=-1", f"--resource-path={PAPER}",
+                            f"--reference-doc={ref}"],
+            )
+        except RuntimeError as e:
+            if "permission denied" in str(e).lower():
+                print(f"GALAT: {keluar.name} sedang terbuka (mis. di Word). Tutup dulu, lalu ulangi.",
+                      file=sys.stderr)
+                return 1
+            raise
+    rapikan_docx(keluar)
+    print(f"Ditulis: {keluar}  ({keluar.stat().st_size / 1024:.0f} KB, {n_ref} rujukan)")
     return 0
 
 
