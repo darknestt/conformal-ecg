@@ -381,7 +381,7 @@ Di PTB-XL, defisit B1 tetap positif (+0,05 sampai +0,19 pp) pada kedua checkpoin
 |---|---:|---|:-:|---|
 | `small` | 0,519 | +1,49 [0,34; 2,71] / +2,21 [0,85; 3,60] / +2,37 [0,79; 3,93] | **3/3** | 81–107% |
 | `resnet1d34` | 0,436 | +1,15 [0,10; 2,23] / +1,02 [−0,16; 2,23] / +0,81 [−0,59; 2,17] | **1/3** | 88–110% |
-| `resnet1d50` | 0,463 | +2,54 [1,25; 3,87] / +3,42 [1,91; 4,98] / +3,18 [1,54; 4,82] | **3/3** | 75–97% |
+| `resnet1d50` | 0,462 | +2,54 [1,25; 3,87] / +3,42 [1,91; 4,98] / +3,18 [1,54; 4,82] | **3/3** | 75–97% |
 
 **Vonis: kriteria TIDAK terpenuhi untuk `resnet1d34`** pada $\alpha \in \{0{,}15;\,0{,}20\}$. Yang boleh diklaim: **arah** defisit positif di 9/9 sel; **signifikan** di 7/9 sel. Kriteria (b) `B12_memperbaiki` tetap sebagian besar mekanis di ketiga backbone (75–110%), sehingga pencabutannya kini didukung lintas arsitektur.
 

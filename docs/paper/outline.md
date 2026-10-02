@@ -18,7 +18,7 @@
 | 5 | Proposed Method | ✅ **DRAF ADA** → [`sec5-draft.md`](sec5-draft.md) | `theory.md` §2–5 | ✅ |
 | 6 | Datasets | ✅ **DRAF ADA** → [`sec6-7-draft.md`](sec6-7-draft.md) | Angka final — **sudah dihitung ulang** | ✅ |
 | 7 | Experimental Setup | ✅ **DRAF ADA** → [`sec6-7-draft.md`](sec6-7-draft.md) | Backbone final (F2) | ✅ |
-| 8 | Results | 🟡 **sebagian** | E1–E5; **kurva dosis-respons sudah ada** (`theory.md` §2.3) | — |
+| 8 | Results | ✅ **DRAF ADA** → [`sec8-draft.md`](sec8-draft.md) | E1, E2, E4 + invariansi backbone + kontrol permutasi; **E3, E5 belum** | — |
 | 9 | Ablation | ❌ | **E5** | — |
 | 10 | Discussion | ❌ | §8–9 | — |
 | 11 | Threats to Validity | ✅ **DRAF ADA** → [`sec11-draft.md`](sec11-draft.md) | README §11 | ✅ |
