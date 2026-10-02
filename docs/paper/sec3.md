@@ -128,7 +128,11 @@ Consequently $K(\mathcal{P}_1\vee\mathcal{P}_2)\le\min\{K(\mathcal{P}_1),K(\math
 and $\alpha_{\min}(\mathcal{P}_1\vee\mathcal{P}_2)\ge\max\{\alpha_{\min}(\mathcal{P}_1),\alpha_{\min}(\mathcal{P}_2)\}$.
 
 This is a standard fact about partition lattices; its consequence for
-calibration is what matters here.
+calibration is what matters here. Fig. 1 illustrates it on eight hypothetical
+records: five patient blocks and three device blocks, each fine on its own,
+leave only two blocks once both sources must be respected.
+
+![**Fig. 1.** Schematic of Proposition 2 on eight hypothetical records (circles). Solid arcs link records of the same patient and dashed arcs records of the same device. A grouping sufficient for both sources must keep every linked pair in one block, so the finest such grouping is the join, the connected components (shaded). On PTB-XL the same mechanism collapses four declared sources to a single block (§5.1).](figures/fig1_join_schematic.png)
 
 **Corollary 2 (impossibility).** If $K_1(\mathcal{P}_1\vee\mathcal{P}_2)<\lceil1/\alpha\rceil-1$, no HCP calibration yields a non-trivial guarantee at level $\alpha$ while accounting for both dependence sources; the same holds for any number of sources and their joint join. This is a property of the study design, not a shortcoming of any estimator.
 

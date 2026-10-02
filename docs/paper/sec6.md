@@ -40,7 +40,7 @@ data, HCP appears to "restore" coverage that naive split conformal loses, yet
 empirical quantile whether or not the data are dependent, and with small $K_1$ —
 precisely where block-level calibration matters — this mechanical inflation
 dominates. Below $\alpha_{\min}$ the comparison is degenerate, because HCP covers
-by returning every label (Fig. 4). A claim that a hierarchical method improves
+by returning every label (Fig. 5). A claim that a hierarchical method improves
 coverage should therefore be tested against a null that preserves block sizes
 and score marginals while removing dependence, and coverage should be reported
 with set size, since abstention is the cheapest way to cover.

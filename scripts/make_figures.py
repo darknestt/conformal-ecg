@@ -1,10 +1,11 @@
 """Bangkitkan seluruh figure naskah langsung dari results/raw/*.json.
 
 Tidak ada angka yang diketik tangan: setiap titik, batang, dan selang dibaca dari
-berkas hasil yang sama yang dipakai tabel. Keluaran 300 dpi, lebar satu kolom
-ganda IEEE (7,16 in) atau satu kolom (3,5 in).
+berkas hasil yang sama yang dipakai tabel. Pengecualian: Fig. 1 adalah skema
+delapan rekaman hipotetis (diberi label demikian di keterangannya). Keluaran
+300 dpi, lebar satu kolom ganda IEEE (7,16 in) atau satu kolom (3,5 in).
 
-    python scripts/make_figures.py   -> docs/paper/figures/fig{1..6}.png
+    python scripts/make_figures.py   -> docs/paper/figures/fig{1..8}_*.png
 """
 
 from __future__ import annotations
@@ -17,7 +18,7 @@ import matplotlib
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt  # noqa: E402
 import numpy as np  # noqa: E402
-from matplotlib.patches import FancyArrowPatch, FancyBboxPatch  # noqa: E402
+from matplotlib.patches import Arc, FancyArrowPatch, FancyBboxPatch, Patch  # noqa: E402
 
 ROOT = pathlib.Path(__file__).resolve().parents[1]
 RAW = ROOT / "results" / "raw"
@@ -43,6 +44,99 @@ def simpan(fig, nama: str) -> None:
     fig.savefig(KELUAR / nama)
     plt.close(fig)
     print(f"  {nama}")
+
+
+def fig_join() -> None:
+    """Skema Proposisi 2: dua sumber bersilang, join = komponen terhubung."""
+    pasien = [(1, 2), (3,), (4, 5), (6,), (7, 8)]
+    perangkat = [(1, 3, 5), (2, 4, 6), (7, 8)]
+    komponen = [(1, 6), (7, 8)]
+    fig, ax = plt.subplots(figsize=(LEBAR_TUNGGAL, 1.25))
+    ax.set_xlim(0.4, 8.6)
+    ax.set_ylim(-1.55, 0.95)
+    ax.axis("off")
+    for a, b in komponen:
+        ax.add_patch(FancyBboxPatch((a - 0.38, -0.36), b - a + 0.76, 0.72,
+                                    boxstyle="round,pad=0.02,rounding_size=0.3",
+                                    fc="#e2e2e2", ec="none", zorder=0))
+
+    def busur(x1, x2, atas, gaya, warna):
+        lebar = x2 - x1
+        ax.add_patch(Arc(((x1 + x2) / 2, 0.22 if atas else -0.22), lebar, 0.55 * lebar + 0.35,
+                         theta1=0 if atas else 180, theta2=180 if atas else 360,
+                         ls=gaya, lw=0.9, color=warna))
+
+    for g in pasien:
+        for x1, x2 in zip(g, g[1:]):
+            busur(x1, x2, True, "-", WARNA["ptb"])
+    for g in perangkat:
+        for x1, x2 in zip(g, g[1:]):
+            busur(x1, x2, False, "--", WARNA["mit"])
+    for x in range(1, 9):
+        ax.plot(x, 0, "o", ms=7, mfc="white", mec="black", mew=0.6, zorder=3)
+        ax.text(x, 0, f"{x}", ha="center", va="center", fontsize=5.8, zorder=4)
+    ax.plot([], [], "-", color=WARNA["ptb"], label="same patient (5 blocks)")
+    ax.plot([], [], "--", color=WARNA["mit"], label="same device (3 blocks)")
+    tangan, label = ax.get_legend_handles_labels()
+    tangan.append(Patch(fc="#e2e2e2", ec="none"))
+    label.append("join (2 blocks)")
+    ax.legend(tangan, label, loc="lower center", bbox_to_anchor=(0.5, -0.1), ncol=3, frameon=False,
+              handlelength=1.6, columnspacing=1.0, fontsize=6.3)
+    simpan(fig, "fig1_join_schematic.png")
+
+
+def fig_atribusi() -> None:
+    """(a) Efek faktorial 2x2 pada cakupan B1; (b) selisih B12-B1 asli vs. permutasi."""
+    fk = muat("factorial_mitdb.json")["hasil"]
+    cp = muat("control_permutation_mitdb.json")["hasil"]
+    alfa = ["0.10", "0.15", "0.20"]
+    gaya = {"0.10": ("o", -0.2), "0.15": ("s", 0.0), "0.20": ("^", 0.2)}
+    fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(LEBAR_GANDA, 2.25), gridspec_kw={"width_ratios": [1.1, 1]})
+
+    efek = [("efek_klaster", "Clustering"), ("efek_ketimpangan", "Block-size\nimbalance"),
+            ("interaksi", "Interaction")]
+    for i, (kunci, _) in enumerate(efek):
+        for a in alfa:
+            m, dy = gaya[a]
+            v = fk[a][kunci]
+            sig = v["ci"][1] < 0 or v["ci"][0] > 0
+            ax1.errorbar(v["nilai"] * 100, i + dy,
+                         xerr=[[(v["nilai"] - v["ci"][0]) * 100], [(v["ci"][1] - v["nilai"]) * 100]],
+                         fmt=m, ms=3.2, mfc=WARNA["mit"] if sig else "white", mec=WARNA["mit"],
+                         color=WARNA["mit"], capsize=1.5, elinewidth=0.6)
+    ax1.axvline(0, color="black", lw=0.6)
+    ax1.set_yticks(range(len(efek)))
+    ax1.set_yticklabels([n for _, n in efek])
+    ax1.invert_yaxis()
+    ax1.set_xlabel("Effect on B1 coverage [pp] (95% bootstrap CI)")
+    ax1.set_title("(a) 2$\\times$2 factorial design")
+    for a in alfa:
+        ax1.plot([], [], gaya[a][0], color=WARNA["mit"], ms=3.2, label=f"$\\alpha$={float(a):g}")
+    ax1.plot([], [], "o", mfc="white", mec=WARNA["mit"], ms=3.2, label="CI includes 0")
+    ax1.legend(loc="upper right", frameon=False, ncol=2, columnspacing=0.8, handletextpad=0.2)
+
+    x = np.arange(len(alfa))
+    for j, (lengan, nama, warna) in enumerate((("asli", "original data", WARNA["mit"]),
+                                                ("permutasi", "dependence removed", "#9dc3e6"))):
+        d = np.array([cp[a][lengan]["d"] for a in alfa]) * 100
+        lo = np.array([cp[a][lengan]["d_ci"][0] for a in alfa]) * 100
+        hi = np.array([cp[a][lengan]["d_ci"][1] for a in alfa]) * 100
+        ax2.bar(x + (j - 0.5) * 0.36, d, width=0.36, color=warna, label=nama, lw=0)
+        ax2.errorbar(x + (j - 0.5) * 0.36, d, yerr=[d - lo, hi - d], fmt="none", ecolor="black",
+                     elinewidth=0.5, capsize=1.5)
+    for i, a in enumerate(alfa):
+        ax2.text(i, 26.0, f"{cp[a]['dd']['porsi_mekanis']:.0%}", ha="center", fontsize=6.3)
+    ax2.text(1, 28.4, "mechanical share (permuted gap / original gap)", fontsize=6.3, ha="center")
+    ax2.set_ylim(0, 37)
+    ax2.set_yticks(range(0, 26, 5))
+    ax2.set_xticks(x)
+    ax2.set_xticklabels([f"{float(a):g}" for a in alfa])
+    ax2.set_xlabel("Target miscoverage $\\alpha$")
+    ax2.set_ylabel("B12 $-$ B1 coverage [pp]")
+    ax2.set_title("(b) HCP advantage with and without dependence")
+    ax2.legend(loc="upper center", ncol=2, frameon=False)
+    fig.tight_layout(w_pad=1.5)
+    simpan(fig, "fig6_attribution.png")
 
 
 def fig1_alur() -> None:
@@ -72,7 +166,7 @@ def fig1_alur() -> None:
     ax.annotate("", xy=(67, 3.2), xytext=(98.5, 3.2), arrowprops=dict(arrowstyle="<->", lw=0.6, color=WARNA["ptb"]))
     ax.text(82.7, 0.6, "Requires scores from a trained model", ha="center", fontsize=6.8, color=WARNA["ptb"])
     ax.text(4.0, 26.6, "S0", fontsize=6.5, color=WARNA["abu"])
-    simpan(fig, "fig1_audit_workflow.png")
+    simpan(fig, "fig2_audit_workflow.png")
 
 
 def fig2_kelayakan() -> None:
@@ -115,7 +209,7 @@ def fig2_kelayakan() -> None:
     ax.plot([], [], "s", mfc=WARNA["ptb"], mec="black", mew=0.4, ms=3.6, label="PTB-XL join of sources")
     ax.plot([], [], "D", mfc=WARNA["mit"], mec="black", mew=0.4, ms=3.6, label="MIT-BIH (DS2, 11/11)")
     ax.legend(loc="upper right", frameon=False, handletextpad=0.2)
-    simpan(fig, "fig2_feasibility_frontier.png")
+    simpan(fig, "fig3_feasibility_frontier.png")
 
 
 def fig3_label() -> None:
@@ -143,7 +237,7 @@ def fig3_label() -> None:
     axs[2].text(len(lf["scp_code"]["label"]) - 0.5, 21, "$K_{\\min}(0.05)=19$", fontsize=5.8, ha="right", va="bottom")
     axs[2].text(len(lf["scp_code"]["label"]) - 0.5, 7.6, "$K_{\\min}(0.10)=9$", fontsize=5.8, ha="right", va="top")
     fig.tight_layout(w_pad=0.4)
-    simpan(fig, "fig3_label_feasibility.png")
+    simpan(fig, "fig4_label_feasibility.png")
 
 
 def fig4_cakupan() -> None:
@@ -177,7 +271,7 @@ def fig4_cakupan() -> None:
     axs[0].set_ylabel("Coverage $-$ $(1-\\alpha)$ [pp]")
     axs[0].legend(loc="lower left", frameon=False)
     fig.tight_layout(w_pad=1.0)
-    simpan(fig, "fig4_coverage.png")
+    simpan(fig, "fig5_coverage.png")
 
 
 def fig5_dosis() -> None:
@@ -204,7 +298,7 @@ def fig5_dosis() -> None:
     ax.text(0.03, 0.97, "Spearman (12 points): " + ", ".join(f"{v['spearman']:.2f}" for v in sp.values()),
             transform=ax.transAxes, fontsize=6, va="top")
     ax.legend(loc="center left", frameon=False, bbox_to_anchor=(0.0, 0.62))
-    simpan(fig, "fig5_dose_response.png")
+    simpan(fig, "fig7_dose_response.png")
 
 
 def fig6_backbone() -> None:
@@ -231,12 +325,13 @@ def fig6_backbone() -> None:
         ax.plot([], [], m, color=WARNA["mit"], ms=3.2, label=f"$\\alpha$={float(a):g}")
     ax.plot([], [], "o", mfc="white", mec=WARNA["mit"], ms=3.2, label="CI includes 0")
     ax.legend(loc="lower right", frameon=False, ncol=2, columnspacing=0.8, handletextpad=0.2)
-    simpan(fig, "fig6_backbone_permutation.png")
+    simpan(fig, "fig8_backbone_permutation.png")
 
 
 def main() -> int:
     KELUAR.mkdir(parents=True, exist_ok=True)
-    for f in (fig1_alur, fig2_kelayakan, fig3_label, fig4_cakupan, fig5_dosis, fig6_backbone):
+    for f in (fig_join, fig1_alur, fig2_kelayakan, fig3_label, fig4_cakupan, fig_atribusi, fig5_dosis,
+              fig6_backbone):
         f()
     return 0
 

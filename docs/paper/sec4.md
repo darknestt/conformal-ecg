@@ -14,10 +14,10 @@ block-level splits per configuration, repeated on three backbones of 0.10 M,
 and the join structure — do not involve a model, they must be identical across
 backbones, which gives a negative control on the pipeline. PTB-XL fold 10 is
 never used, and throughout we separate what is *documented* for a dataset from
-what is *observed* in it. Fig. 1 summarizes the protocol, separating the four
+what is *observed* in it. Fig. 2 summarizes the protocol, separating the four
 metadata-only steps from the two that require conformity scores.
 
-![**Fig. 1.** Audit protocol. The first four steps use metadata only and return verdicts that are exact given the declared dependence sources, before any patient is enrolled or any model trained; the last two require conformity scores from a trained model.](figures/fig1_audit_workflow.png)
+![**Fig. 2.** Audit protocol. The first four steps use metadata only and return verdicts that are exact given the declared dependence sources, before any patient is enrolled or any model trained; the last two require conformity scores from a trained model.](figures/fig2_audit_workflow.png)
 
 ### 4.1 Datasets and dependence structures
 
