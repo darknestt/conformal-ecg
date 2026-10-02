@@ -69,7 +69,7 @@ introduce no new conformal procedure. The contributions are the following.
   apparent improvement of HCP over naive split conformal is 75–110% mechanical:
   it persists when dependence is removed. We recommend matched permutation nulls
   and joint reporting of set size.
-- **Pre-registered robustness checks reported in full** (§8.5, §11). The direction
+- **Pre-registered robustness checks reported in full** (§8.5, §10). The direction
   of every finding holds across three backbones spanning a more than hundredfold
   range of parameters and across checkpoints. Its statistical strength does not:
   one of three backbones fails the pre-registered significance criterion, and we
@@ -95,4 +95,4 @@ validity, and Section 11 concludes.
 | Klaim kinerja model | Kalimat "match or exceed specialist performance" **dibuang sebelum disimpan**: [F1] adalah benchmark PTB-XL dan tidak membandingkan dengan kardiolog. Diganti "routinely benchmarked" |
 | "Code ... released" | Repo saat ini **privat** (`darknestt/conformal-ecg`). Wajib dibuka (atau diarsip di Zenodo dengan DOI) sebelum submit, atau kalimat ini dihapus |
 | Split MIT-BIH | 11/11 adalah **rancangan kami** atas DS2, bukan bagian dari partisi kanonik DS1/DS2 — rumusan disesuaikan |
-| Penomoran bagian | Mengikuti naskah Word (Threats = §10, Conclusion = §11). Sumber draf memakai §11 untuk Threats; builder memetakan §11→§10, jadi di sini Threats ditulis §11 |
+| Penomoran bagian | Sama dengan naskah Word: Threats = §10 (`sec10-draft.md`), Conclusion = §11 |

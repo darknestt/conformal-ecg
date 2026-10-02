@@ -63,11 +63,11 @@ sources, 8 satisfy sufficiency (every source nested within the grouping), and al
 8 have $K_1=1$. *If patient, site, nurse, and device are all treated as dependence
 sources, no admissible calibration grouping exists at any conventional $\alpha$.*
 The conclusion is conditional on that declaration, which cannot be verified from
-data (§11.5); the collapse of joined partitions into a giant component is itself
+data (§10.5); the collapse of joined partitions into a giant component is itself
 known [P2].
 
 **Labels.** The bound applies per label when coverage is required conditional on
-a label (Proposition 4, a necessary condition). Table 8.2 shows how the feasible
+a label (Proposition 3, a necessary condition). Table 8.2 shows how the feasible
 region shrinks as the PTB-XL hierarchy is refined. At the superclass level every
 label is feasible. At the finest level, 24 of 44 SCP codes fail the necessary
 condition at $\alpha=0.05$; `2AVB` has a single calibration block. Under a
@@ -144,7 +144,7 @@ The same control shows why the comparison of B12 with B1 is not informative.
 Under permutation, where no dependence remains, the B12−B1 gap persists at
 81–107% of its original size: HCP's finite-block correction forces it to the
 $(1-\alpha)(K_1+1)/K_1$ quantile regardless of dependence. We therefore withdrew
-"B12 improves on B1" as a criterion (§11.4) and rely on the deficit against the
+"B12 improves on B1" as a criterion (§10.4) and rely on the deficit against the
 permutation null throughout.
 
 **Factorial decomposition.** A 2×2 design crossed clustering (original vs.
@@ -173,7 +173,7 @@ deficit. The design effect $\mathrm{DEff}=1+(H-1)\rho$, with $H$ the harmonic
 mean block size, does: $H=1.05$ gives PTB-XL a DEff of 1.02, against 704 for
 intact MIT-BIH. We use DEff as a summary axis, not as a sufficient statistic;
 see [P1] for an exceedance-specific design effect. On this axis the combined
-correlation remains positive and significant (Fig. 5). Because the ICC of Proposition 2
+correlation remains positive and significant (Fig. 5). Because the correlation in (6)
 concerns the coverage *indicator* rather than raw scores, we recomputed the curve
 with the indicator ICC at a fixed threshold; the conclusion is unchanged.
 
@@ -187,7 +187,7 @@ with the indicator ICC at a fixed threshold; the conclusion is unchanged.
 
 The combined correlation is driven by the internal MIT-BIH gradient; PTB-XL serves
 as a prediction check at the low-dependence end, not as an independent trend
-(§11.3). PTB-XL's deficits on this protocol are −0.05, −0.12 and −0.16 pp, i.e.
+(§10.3). PTB-XL's deficits on this protocol are −0.05, −0.12 and −0.16 pp, i.e.
 slight over-coverage, with every interval containing zero.
 
 ![**Fig. 5.** B1 coverage deficit against the design effect. MIT-BIH points (blue) are obtained by randomly reassigning a growing fraction of beats to other records at a fixed block size; PTB-XL (orange) is the observed patient partition with 95% CI. The annotation gives the Spearman correlation over the 12 points at $\alpha=0.10, 0.15, 0.20$.](figures/fig5_dose_response.png)

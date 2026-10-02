@@ -21,7 +21,7 @@
 | 6–7 | Datasets, Experimental Setup | ✅ [`sec6-7-draft.md`](sec6-7-draft.md) | NSTDB dihapus |
 | 8 | Results | ✅ [`sec8-draft.md`](sec8-draft.md) | 6 tabel, 5 figure |
 | 9 | Discussion | ✅ [`sec9-draft.md`](sec9-draft.md) | |
-| 10 | Threats to Validity | ✅ [`sec11-draft.md`](sec11-draft.md) | |
+| 10 | Threats to Validity | ✅ [`sec10-draft.md`](sec10-draft.md) | v2, dipangkas ±1.100 kata; menggantikan `sec11-draft.md` |
 | 11 | Conclusion | ✅ [`abstract-conclusion-draft.md`](abstract-conclusion-draft.md) | |
 
 ### Daftar revisi (dikerjakan pada putaran "revisi dan rapikan")

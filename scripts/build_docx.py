@@ -47,7 +47,7 @@ URUTAN = [
     ("6–7", "Datasets and Experimental Setup", "sec6-7-draft.md"),
     ("8", "Results", "sec8-draft.md"),
     ("9", "Discussion", "sec9-draft.md"),
-    ("10", "Threats to Validity", "sec11-draft.md"),
+    ("10", "Threats to Validity", "sec10-draft.md"),
     ("11", "Conclusion", "abstract-conclusion-draft.md"),
 ]
 ABSTRAK = "abstract-conclusion-draft.md"
@@ -221,15 +221,8 @@ def susun_markdown() -> tuple[str, int]:
         if berkas is None:
             potong.append(f"## {nomor}. {judul}\n\n[NOT YET WRITTEN]\n")
             continue
-        isi = ambil_prosa((PAPER / berkas).read_text(encoding="utf-8"))
-        if berkas == "sec11-draft.md":
-            isi = re.sub(r"^(#+ )11(\.)", rf"\g<1>{nomor}\2", isi, flags=re.M)
-            isi = re.sub(r"(#+ )11\.(\d)", rf"\g<1>{nomor}.\2", isi)
-            isi = re.sub(r"§11\.(\d)", rf"§{nomor}.\1", isi)
-        potong.append(isi)
+        potong.append(ambil_prosa((PAPER / berkas).read_text(encoding="utf-8")))
     md = "\n\n".join(potong)
-    md = re.sub(r"§11\.(\d)", r"§10.\1", md)
-    md = re.sub(r"§11\b", "§10", md)
     md = rapikan_baris(md)
     md = tag_persamaan(md)
     md = nomori_tabel(md)

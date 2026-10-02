@@ -71,14 +71,14 @@ Real clinical datasets carry several candidate blocking variables at once: patie
 
 If $\mathcal{Q}$ is not sufficient for $\mathcal{P}$, then dependent observations are split across different $\mathcal{Q}$-blocks and are treated as independent — exactly the error the hierarchical machinery exists to prevent.
 
-**Proposition 3 (crossed designs force the join).** For $\mathcal{Q}$ to be sufficient for both $\mathcal{P}_1$ and $\mathcal{P}_2$, it must be coarser than each. The finest such $\mathcal{Q}$ is the join $\mathcal{P}_1\vee\mathcal{P}_2$ in the partition lattice: the connected components of the graph linking two observations whenever they share a $\mathcal{P}_1$-block or a $\mathcal{P}_2$-block. This is a standard fact about the partition lattice; we state it because its consequence for conformal calibration is what matters here.
+**Proposition 2 (crossed designs force the join).** For $\mathcal{Q}$ to be sufficient for both $\mathcal{P}_1$ and $\mathcal{P}_2$, it must be coarser than each. The finest such $\mathcal{Q}$ is the join $\mathcal{P}_1\vee\mathcal{P}_2$ in the partition lattice: the connected components of the graph linking two observations whenever they share a $\mathcal{P}_1$-block or a $\mathcal{P}_2$-block. This is a standard fact about the partition lattice; we state it because its consequence for conformal calibration is what matters here.
 
-**Corollary 3.1.** $K(\mathcal{P}_1\vee\mathcal{P}_2)\le\min\{K(\mathcal{P}_1),K(\mathcal{P}_2)\}$, hence
+**Corollary 2.1.** $K(\mathcal{P}_1\vee\mathcal{P}_2)\le\min\{K(\mathcal{P}_1),K(\mathcal{P}_2)\}$, hence
 $$\alpha_{\min}(\mathcal{P}_1\vee\mathcal{P}_2)\;\ge\;\max\{\alpha_{\min}(\mathcal{P}_1),\alpha_{\min}(\mathcal{P}_2)\}.$$
 
-**Corollary 3.2 (impossibility).** If $K_1(\mathcal{P}_1\vee\mathcal{P}_2)<\lceil1/\alpha\rceil-1$ then no HCP calibration yields a non-trivial guarantee at level $\alpha$ while accounting for both dependence sources. This is a property of the **study design**, not a shortcoming of any estimator.
+**Corollary 2.2 (impossibility).** If $K_1(\mathcal{P}_1\vee\mathcal{P}_2)<\lceil1/\alpha\rceil-1$ then no HCP calibration yields a non-trivial guarantee at level $\alpha$ while accounting for both dependence sources. The same holds for any number of sources with their joint join. This is a property of the study design, not a shortcoming of any estimator.
 
-**Scope of Corollary 3.2.** We prove Corollary 3.2 for the HCP/Dunn family. Whether it extends to every distribution-free method whose validity rests on between-block exchangeability remains open. We conjecture that it does, by analogy with the unavoidability of the $n\ge1/\alpha-1$ requirement for split conformal, but we do not claim it.
+**Scope of Corollary 2.2.** We prove Corollary 2.2 for the HCP/Dunn family. Whether it extends to every distribution-free method whose validity rests on between-block exchangeability remains open. We conjecture that it does, by analogy with the unavoidability of the $n\ge1/\alpha-1$ requirement for split conformal, but we do not claim it.
 
 ### 4.3 What the guarantee is *about*: multi-label targets
 

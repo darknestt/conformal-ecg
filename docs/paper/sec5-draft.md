@@ -32,19 +32,14 @@ $\mathbb{1}\{s\le t\}$ at threshold $t$ — not of the raw score.
 
 #### 5.1.1 Existence depends on the number of calibration blocks alone
 
-**Proposition 1.** *The HCP threshold satisfies $\hat T < \infty$ if and only if
-$\alpha \ge \tfrac{1}{K_1+1}$.*
-
-This is an immediate consequence of the location of the $+\infty$ atom in
-Theorem 1 of [A0], and we claim nothing beyond restating it in a form that can be
-checked from metadata. Two consequences matter for the audit. First, the boundary
-does not involve $N_k$: adding observations to existing blocks cannot make an
-infeasible level feasible. Second, with $N_k=1$ for all $k$ it reduces to the
-familiar split-conformal requirement $n \ge \lceil 1/\alpha\rceil - 1$.
-
-> The inequality is **not strict**. At exactly $\alpha = \tfrac{1}{K_1+1}$ the
-> threshold remains finite. An off-by-one here silently misreports feasibility for
-> every grouping whose $K_1$ sits on the boundary.
+By Proposition 1 (§4.1), a finite HCP threshold exists if and only if
+$\alpha \ge 1/(K_1+1)$. The proposition restates a consequence of the $+\infty$
+atom in Theorem 1 of [A0] in a form that can be checked from metadata, and we
+claim nothing beyond that. Two consequences matter for the audit. First, the
+boundary does not involve $N_k$: adding observations to existing blocks cannot
+make an infeasible level feasible. Second, the inequality is not strict, so a
+grouping whose $K_1$ lies exactly on the boundary is feasible; an off-by-one here
+would silently misreport it.
 
 #### 5.1.2 Precision under a compound-symmetric model
 
@@ -54,13 +49,14 @@ indicators has the same correlation $\rho(t)$, **not depending on $N_k$**
 (compound symmetry).
 
 Rewriting the HCP threshold shows that it is determined by
-$\hat G(t)=\frac{1}{K_1}\sum_k \bar F_k(t)$, the **unweighted** mean of block-level
+$\hat G(t)=\frac{1}{K_1}\sum_k \bar F_k(t)$, the unweighted mean of block-level
 empirical CDFs. Under (A), the standard variance of an unweighted mean of cluster
 means applies [I2]:
 
 $$
 \operatorname{Var}\big(\hat G(t)\big) \;=\; \frac{\sigma^2(t)\,[\,1+(H-1)\rho(t)\,]}{K_1 H},
 \qquad \sigma^2(t)=F(t)\{1-F(t)\}.
+\tag{6}
 $$
 
 Under (A) the variance tends to $\sigma^2\rho/K_1$ as $N_k\to\infty$. **This floor
@@ -78,7 +74,8 @@ coincide only for uniform block sizes:
 $$
 \mathrm{DEff}_{\text{block}}(\rho)=\frac{n[1+(H-1)\rho]}{K_1H},
 \qquad
-\mathrm{DEff}_{\text{pooled}}(\rho)=1+\Big(\tfrac{\sum_k N_k^2}{n}-1\Big)\rho .
+\mathrm{DEff}_{\text{pooled}}(\rho)=1+\Big(\frac{\sum_k N_k^2}{n}-1\Big)\rho .
+\tag{7}
 $$
 
 The second expression is the standard clustering design effect for unequal cluster
@@ -108,11 +105,13 @@ ratio is **1.000** — an internal check of the computation.
 #### 5.1.4 The axis used to organise results
 
 The audit in §8 needs an axis on which datasets with very different block geometry
-can be compared. We use $\mathrm{DEff}_{\text{block}}$ evaluated with the
-threshold-indicator ICC $\rho(t)$. Because $H$ enters only through $(H-1)\rho$, the
-quantity predicts that dependence is harmless whenever blocks are near-singleton,
-**however strong the within-block correlation**; raw $\rho$ alone predicts the
-opposite. We state this prediction here, before the results.
+can be compared. We use the factor $\mathrm{DEff}=1+(H-1)\rho$ of (6). Because $H$
+enters only through $(H-1)\rho$, the quantity predicts that dependence is harmless
+whenever blocks are near-singleton, however strong the within-block correlation;
+raw $\rho$ alone predicts the opposite. The primary analysis computes $\rho$ from
+conformity scores; because (6) is stated for the threshold indicator, we repeat
+it with the indicator correlation $\rho(t)$ (§8.4). When this axis was adopted is
+recorded in §10.6.
 
 We use this quantity only as an **ordering axis**, not as a calibrated effective
 sample size. Noonan [P1] derives a closed-form effective sample size for
@@ -146,18 +145,11 @@ connected components of the graph that links two observations whenever they shar
 a block under any declared source. This is standard partition-lattice algebra, and
 the observation that joining several individually fine groupings can collapse into
 a giant component has been reported for leakage control [P2]. Combined with
-Proposition 1 it
-yields a design-level bound that we use as a diagnostic:
-
-**Corollary (feasibility under crossed sources).** *If
-$K_1(\mathcal{P}_1\vee\cdots\vee\mathcal{P}_m) < \lceil 1/\alpha\rceil - 1$, no HCP
-calibration provides a finite threshold at level $\alpha$ while respecting all $m$
-declared sources.*
-
-> **Scope.** This is stated for the HCP family only. The difference from the
-> leakage-control setting is one of kind rather than degree: there, a collapsed
-> join degrades a split (fewer folds, higher variance); here, below
-> $1/(K_1+1)$ no finite threshold exists at all.
+Proposition 1 it yields the design-level bound of Corollary 2.2 (§4.2), which we
+use as a diagnostic. It is stated for the HCP family only. The difference from the
+leakage-control setting is one of kind rather than degree: there, a collapsed join
+degrades a split (fewer folds, higher variance); here, below $1/(K_1+1)$ no finite
+threshold exists at all.
 
 The bound depends on which sources are declared, and that choice cannot be
 verified from data. We therefore report it as a function of the declared set and
@@ -186,7 +178,7 @@ That rare classes starve class-conditional calibration is well established for
 exchangeable data [A12]. Under hierarchical dependence the unit that
 must be counted changes from observations to blocks.
 
-**Proposition 4 (necessary condition).** *A finite per-label HCP threshold for
+**Proposition 3 (necessary condition).** *A finite per-label HCP threshold for
 label $\ell$ at level $\alpha$ requires $\alpha \ge \tfrac{1}{K_1(\ell)+1}$, where
 $K_1(\ell)$ is the number of calibration blocks containing at least one instance
 of $\ell$.*
@@ -198,7 +190,7 @@ stratum merely by containing one. Unless that fraction is constant across blocks
 test and calibration blocks are not exchangeable, and the rank argument does not
 deliver $\mathbb{P}(\ell\in\hat C\mid\ell\in Y)\ge1-\alpha$. The same size-biased
 selection appears in the analysis of thresholds under clustering [P1]. We
-therefore use Proposition 4 only to **rule out** guarantees, never to certify them.
+therefore use Proposition 3 only to **rule out** guarantees, never to certify them.
 
 Because every block containing a label contains its ancestors, $K_1$ is monotone
 toward the root of the hierarchy, so the necessary condition fails along a frontier

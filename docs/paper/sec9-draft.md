@@ -144,7 +144,7 @@ datasets whose dependence structures differ along one axis. Post hoc explanation
 of what ECG networks learn [F6] and benchmark discrimination [F1] are orthogonal
 to the question asked here: a highly accurate model calibrated on too few blocks
 remains without a guarantee. The threats to validity of each result are
-detailed in §11.
+detailed in §10.
 
 ---
 
