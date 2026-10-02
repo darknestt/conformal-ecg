@@ -10,54 +10,45 @@
 
 ## 6. Datasets
 
-> **Konvensi status.** Setiap pernyataan substantif di bagian ini ditandai:
-> **[T]** teorema · **[P]** proposisi · **[K]** korolari · **[D]** definisi ·
-> **[AK]** aturan keputusan · **[H]** heuristik · **[Dok]** klaim dokumentasi/provenans ·
-> **[Obs]** pengamatan empiris.
-> Tanda **[Dok]** berarti pernyataan tentang *apa yang tercatat*, bukan tentang
-> *apa yang benar di dunia*. Perbedaan itu menentukan dan tidak boleh dikaburkan.
+Throughout this section we distinguish statements about *what is documented* for
+a dataset from statements about *what is observed* in the data. The distinction
+matters most where the two diverge (§6.5).
 
 ### 6.1 Selection rationale
 
-Tiga dataset dipakai untuk **tiga peran yang berbeda secara logis**, bukan sebagai
-replikasi yang saling menguatkan.
+The three datasets serve **logically distinct roles**; they are not replications
+intended to corroborate one another.
 
-| Dataset | Peran | Status S0 |
+| Dataset | Role | Block identifier |
 |---|---|---|
-| **PTB-XL** | Kasus utama: dependensi pasien, multi-label, hierarki label | **[Dok]** terpenuhi — `patient_id` terdokumentasi |
-| **MIT-BIH** | Ujung dependensi kuat pada sumbu design effect | **[Dok]** terpenuhi — pengenal rekaman terdokumentasi |
-| **Challenge 2021** | Studi kasus **batas keteramatan** | **[Dok]** tak teramati |
+| **PTB-XL** | Primary case: patient-level dependence, multi-label targets, label hierarchy | Documented (`patient_id`) |
+| **MIT-BIH** | Strong-dependence end of the design-effect axis | Documented (record = subject) |
+| **Challenge 2021** | Case study at the limit of observability | Not documented |
 
-**[Obs]** Dua dataset pertama menempati sudut berlawanan pada ruang geometri blok.
-Satu dataset, sebesar apa pun, tidak dapat membedakan teori yang bergantung pada
-jumlah blok dari teori yang bergantung pada jumlah pengukuran per blok, karena
-kedua besaran itu terkunci di dalamnya.
+The first two datasets occupy opposite corners of the space of block geometries.
+A single dataset, however large, cannot separate a theory that depends on the
+number of blocks from one that depends on the number of measurements per block,
+because the two quantities are fixed within it.
 
 | | PTB-XL | MIT-BIH |
 |---|---:|---:|
-| Satuan blok | pasien | rekaman (subjek) |
-| Blok kalibrasi $K_1$ | 958 | 11 |
-| Rata-rata harmonik $H$ | 1,05 | 1.355 |
-| Design effect | **1,02** | **703,93** |
+| Block unit | patient | record (subject) |
+| Calibration blocks $K_1$ | 958 | 11 |
+| Harmonic mean block size $H$ | 1.05 | 1,355 |
+| Design effect | **1.02** | **703.93** |
 
-> ⚠️ **Dua besaran di tabel ini bukan sifat dataset.**
->
-> $K_1$ **bergantung rancangan split**: 958 adalah separuh dari 1.917 pasien pada
-> subhimpunan evaluasi fold 9 yang kami pilih, bukan properti PTB-XL. Rancangan
-> lain memberi $K_1$ lain.
->
-> $\mathrm{DEff} = 1+(H-1)\rho$ **bergantung model**, karena $\rho$ adalah ICC dari
-> skor konformitas dan skor berasal dari model. Backbone berbeda menghasilkan
-> $\rho$ berbeda, sehingga $\mathrm{DEff}$ berbeda. Hanya $H$ yang murni properti
-> struktural.
->
-> Menyajikan tabel ini tanpa kedua catatan itu akan menyiratkan bahwa design effect
-> adalah karakteristik dataset yang dapat dikutip ulang. Ia bukan.
+Two quantities in this table are not properties of the datasets. $K_1$ depends on
+the split design: 958 is half of the 1,917 patients in our fold-9 evaluation
+subset, and another design would give another value. The design effect
+$\mathrm{DEff}=1+(H-1)\rho$ depends on the model, because $\rho$ is the ICC of
+conformity scores produced by a particular backbone. Only $H$ is purely
+structural. The design effect should therefore not be quoted as a characteristic
+of either dataset.
 
-**Challenge 2021 tidak dipakai untuk klaim generalisasi.** Datanya tidak mendukung
-klaim itu. Perannya tunggal dan spesifik: memberi kasus di mana diagnostik
-mengeluarkan vonis **selain** "lolos". Diagnostik yang hanya pernah bilang "lolos"
-tidak menunjukkan daya pisah apa pun.
+Challenge 2021 is not used to support any claim of generality. Its role is
+narrow: to provide a case in which the diagnostic returns a verdict *other than*
+"admissible". A diagnostic that has only ever returned "admissible" has not
+demonstrated that it discriminates.
 
 ### 6.2 PTB-XL
 
@@ -136,144 +127,82 @@ coverage-robustness analysis under input degradation, not for calibration.
 
 ### 6.5 Challenge 2021 — an observability-limited case
 
-Setiap pernyataan di bawah diberi status logis. Yang **tidak** diklaim
-dicantumkan di akhir, karena itulah yang paling mudah disalahbaca.
+**Structure.** Seven non-duplicate source folders contain 66,416 records:
+`ningbo` 34,905; `georgia` 10,344; `chapman_shaoxing` 10,247; `cpsc_2018` 6,877;
+`cpsc_2018_extra` 3,453; `ptb` 516; `st_petersburg_incart` 74. The `ptb-xl`
+folder (21,837 records) is excluded as a duplicate of §6.2; the two totals sum to
+the official 88,253.
 
-#### Struktur terverifikasi
+**Header fields.** In a sample of 42 headers drawn from all seven sources, the
+fields present were `#Age`, `#Sex`, `#Dx`, `#Rx`, `#Hx`, and, in five of the seven
+sources, `#Sx`. No field documented as a patient identifier was found. This is a
+sample, not a census, and the header schema is demonstrably not uniform across
+sources; we therefore claim only that no documented patient identifier appears in
+a sample spanning every source.
 
-**[Obs]** Tujuh folder sumber non-duplikat memuat 66.416 rekaman: `ningbo`
-34.905 · `georgia` 10.344 · `chapman_shaoxing` 10.247 · `cpsc_2018` 6.877 ·
-`cpsc_2018_extra` 3.453 · `ptb` 516 · `st_petersburg_incart` 74. Folder `ptb-xl`
-(21.837) dikecualikan karena duplikat §6.2.
+**Observability.** The patient partition is not observable from the documented
+metadata: no substantive variable is documented to determine patient membership.
+This is a statement about documentation, not a theorem; without patient labels it
+cannot be checked whether the patient partition factors through the available
+variables.
 
-> Pemeriksaan silang: $66.416 + 21.837 = 88.253$, persis total resmi.
+**Repetition is documented while its identifier is not.** The official
+documentation describes the INCART source as *"74 annotated ECGs ... extracted
+from 32 Holter monitor recordings."* Multiple records may therefore originate
+from the same monitoring episode, while the corresponding grouping identifier is
+not distributed. What is documented is the monitoring episode, not patient
+identity. The same holds for the excluded `ptb-xl` folder, whose 21,837 records
+derive from 18,869 patients in the original release. This closes the most
+dangerous reading of an unobservable partition — that there is no dependence to
+worry about. The documentation itself shows that the number of records exceeds
+the number of independent units, while the identifier needed to form blocks is
+absent.
 
-#### Medan header
+**Age censoring.** Censoring conventions for age differ across sources: CPSC
+encodes ages above 89 as 92, and PTB-XL uses 300. Sentinel values are never
+treated as literal ages. We define $\texttt{age\_censored}=\mathbb{1}\{\texttt{age}>89\}$
+and use age only where $\texttt{age}\le 89$, with censored records forming a
+separate category. Averaging 92 and 300 as numbers would corrupt any age-based
+stratification.
 
-**[Dok]** Pada **sampel 42 header yang diambil dari ketujuh sumber**, medan yang
-ditemukan adalah `#Age`, `#Sex`, `#Dx`, `#Rx`, `#Hx`, dan pada lima dari tujuh
-sumber juga `#Sx`. **Tidak ditemukan medan yang terdokumentasi sebagai pengenal
-pasien.**
+**Feasibility on the source partition.** The source partition has $K=7$. Since
+$K_1\le K$ for any calibration split, Proposition 1 gives
 
-> ⚠️ **Ini sampel, bukan sensus.** 42 dari 66.416. Skemanya pun terbukti **tidak
-> seragam** — `ptb` dan `georgia` tidak memuat `#Sx` — sehingga keseragaman tidak
-> dapat diandaikan. Yang dapat dinyatakan: *pada sampel lintas seluruh sumber
-> tidak ditemukan pengenal pasien yang terdokumentasi.* Yang **tidak** dapat
-> dinyatakan: *tidak ada satu pun di antara 66.416 rekaman.*
+$$\alpha_{\min}^{\text{source}} \;=\; \frac{1}{K_1+1} \;\ge\; \frac{1}{8} = 0.125 .$$
 
-#### S0
+If at least one source must be held out for testing, $K_1\le 6$ and the bound
+tightens to $\alpha\ge 1/7\approx 0.143$. We report the looser bound because it
+holds for every design. The bound concerns the **source partition**, not the
+dataset: it does not imply that no finer observable partition is admissible.
 
-**[Dok]** Partisi pasien **tidak $V$-teramati**: tidak ada variabel metadata
-substantif yang terdokumentasi menentukan keanggotaan pasien.
+**Consequence of unobservability.** If the dependence partition $\mathcal{P}$ is
+not observable, a guarantee that holds without knowing $\mathcal{P}$ requires a
+calibration partition coarser than the join of every admissible candidate. If the
+candidate class were unrestricted it would include the single-block partition,
+yielding $\alpha\ge 1/2$; for this dataset that is absurd on domain grounds — it
+would posit one patient contributing 66,416 ECGs across seven institutions — and
+we do not apply it. The correct consequence is that $K_1$ for the patient
+partition ceases to be a computable quantity and becomes an **assumption** about
+the candidate class, which an author must state. We therefore report no single
+$\alpha_{\min}$ for Challenge 2021.
 
-Ini klaim tentang dokumentasi, bukan teorema. Ketakteramatan tidak dapat
-dibuktikan dari data — tanpa label pasien, tidak ada cara memeriksa apakah
-partisi pasien memfaktor melalui $V$.
+**A modelling prerequisite.** The sufficiency condition of §5.2 is defined only
+under hierarchical exchangeability [A0], i.e. when dependence is generated by a
+latent block structure. If dependence within an institution were continuous —
+for instance, similarity decaying with proximity of acquisition protocol — no
+partition $\mathcal{P}$ would exist, and sufficiency would be not merely
+unobservable but ill-posed. The uncertainty is therefore layered: $\mathcal{P}$
+is unknown, and so is whether a model positing $\mathcal{P}$ applies.
 
-#### ❗ Dokumentasi menyatakan pengulangan ADA, sekaligus pengenalnya tidak tersedia
+**What we do not claim.** We do not claim that Challenge 2021 cannot be used for
+conformal prediction, nor that its records are independent, nor that its
+$\alpha_{\min}$ is 0.125 (that bound applies to the source partition only), nor
+that $\alpha\ge 1/2$ applies, nor that none of the 66,416 records carries a
+patient identifier (42 headers were inspected).
 
-**[Dok]** Halaman resmi menyatakan bahwa sumber INCART berisi
-
-> *"74 annotated ECGs (all shared as training data) **extracted from 32 Holter
-> monitor recordings**."*
-
-Rumusan yang boleh masuk naskah:
-
-> *The dataset documentation explicitly reports repeated extraction from 32
-> Holter monitor recordings, demonstrating that multiple ECG records may
-> originate from the same underlying monitoring episode, while the corresponding
-> grouping identifier is not provided in the distributed metadata.*
-
-> ⚠️ **Yang tidak boleh ditulis:** *"Challenge 2021 membuktikan dependensi
-> tingkat pasien."* Yang terdokumentasi adalah **episode pemantauan**, bukan
-> identitas pasien. Satu pasien dapat menjalani beberapa pemantauan, dan satu
-> pemantauan hanya menyangkut satu pasien — tetapi pemetaan itu tidak diberikan.
-
-Hal serupa berlaku bagi folder `ptb-xl` (dikecualikan sebagai duplikat): 21.837
-rekaman yang di sumber aslinya berasal dari 18.869 pasien.
-
-> **Ini menutup penafsiran yang paling berbahaya.** Kegagalan S0 sering
-> disalahbaca sebagai "tidak ada dependensi yang perlu dikhawatirkan". Di sini
-> dokumentasi dataset sendiri menunjukkan bahwa **jumlah rekaman ≠ jumlah satuan
-> pengamatan independen**, sementara pengenal untuk membentuk bloknya tidak
-> tersedia. Celah itulah yang relevan bagi S0.
-
-**[Obs]** Catatan tambahan yang relevan bagi analisis subkelompok: konvensi
-sensor usia **berbeda antar sumber**. CPSC menyandikan usia di atas 89 sebagai
-**92**; PTB-XL memakai **300**.
-
-> 🔧 **Aturan praproses kanonik — wajib diterapkan sebelum analisis subkelompok.**
-> Nilai sentinel **tidak boleh** dipakai sebagai usia literal. Aturan yang dipakai:
->
-> $$\texttt{age\_censored} \;=\; \mathbb{1}\{\texttt{age} > 89\}, \qquad
-> \texttt{age\_usable} \;=\; \begin{cases}\texttt{age} & \text{bila } \texttt{age} \le 89\\ \text{tak terdefinisi} & \text{selainnya}\end{cases}$$
->
-> Stratifikasi usia memakai `age_usable` dengan kategori terpisah untuk
-> `age_censored`. Merata-ratakan 92 dan 300 sebagai angka akan menghasilkan
-> kuartil usia yang keliru dan membuat RQ4 tidak dapat dipertahankan.
-
-#### S1 pada partisi sumber — dan hanya pada partisi itu
-
-**[K]** *(Korolari Prop. 1, berlaku pointwise pada partisi sumber.)* Partisi
-sumber memiliki $K = 7$. Karena $K_1 \le K$ untuk sembarang pembagian
-kalibrasi/uji,
-
-$$\alpha_{\min}^{\text{sumber}} \;=\; \frac{1}{K_1+1} \;\ge\; \frac{1}{8} = 0{,}125 .$$
-
-Bila rancangan menuntut sekurangnya satu sumber ditahan sebagai uji, maka
-$K_1 \le 6$ dan batasnya mengetat menjadi $\alpha \ge 1/7 \approx 0{,}1429$.
-Kami melaporkan batas longgar $1/8$ karena ia berlaku untuk **setiap** rancangan.
-
-> ⚠️ **Lingkup kuantifier.** Pernyataan ini berlaku **bagi partisi sumber**, bukan
-> bagi dataset. Ia **tidak** menyiratkan bahwa tidak ada partisi teramati lain
-> yang lebih halus dan layak. Menuliskannya sebagai "$\alpha_{\min}$ dataset ini
-> adalah 0,125" adalah kesalahan kuantifier.
-
-#### Akibat kegagalan S0 terhadap $K_1$
-
-**[P]** *(Prop. 0′, uniform atas kelas $\mathfrak{P}$.)* Bila $\mathcal{P}$ tidak
-teramati, jaminan yang berlaku tanpa mengetahui $\mathcal{P}$ menuntut partisi
-kalibrasi lebih kasar daripada **join seluruh kelas admissible** $\mathfrak{P}$,
-sehingga $\alpha \ge 1/\big(K_1(\bigvee_{\mathfrak{P}}\mathcal{P})+1\big)$.
-
-**[K]** *(Kor. 0′.1.)* Bila $\mathfrak{P}$ tidak dibatasi sehingga memuat partisi
-satu-blok, join-nya adalah partisi satu-blok, $K_1 = 1$, dan batasnya $\alpha \ge 1/2$.
-
-> **Kor. 0′.1 tidak diterapkan pada dataset ini.** Ia menuntut partisi satu-blok
-> admissible — di sini absurd secara domain: satu pasien dengan 66.416 EKG di
-> tujuh institusi. Menyebut angka $1/2$ untuk Challenge 2021 akan salah.
-
-**[AK]** *(Aturan keputusan, bukan teorema.)* Konsekuensi yang benar dilaporkan:
-$K_1$ untuk partisi pasien berhenti menjadi besaran **terhitung** dan berubah
-menjadi **asumsi tentang $\mathfrak{P}$** yang wajib dinyatakan penulis. Naskah
-karena itu tidak melaporkan satu angka $\alpha_{\min}$ untuk dataset ini.
-
-#### Prasyarat model untuk S2
-
-**[D]** S2 hanya terdefinisi di bawah **exchangeability hierarkis [A0]**, yaitu
-bila dependensi dibangkitkan struktur blok laten. Bila dependensi antar-rekaman
-dalam satu institusi bersifat kontinu — misalnya kemiripan yang meluruh terhadap
-kedekatan protokol — maka tidak ada $\mathcal{P}$ yang dapat ditulis, dan S2
-bukan sekadar tak teramati melainkan **bukan pertanyaan yang tepat**.
-
-Ketakpastian karena itu berlapis: kita tidak tahu $\mathcal{P}$, **dan** tidak
-tahu apakah model yang mengandaikan adanya $\mathcal{P}$ berlaku.
-
-#### Yang secara eksplisit TIDAK diklaim
-
-| Pernyataan | Mengapa tidak |
-|---|---|
-| "Challenge 2021 tidak dapat dipakai untuk conformal prediction" | Terlalu luas; bergantung partisi teramati **dan** kerangka jaminan |
-| "Rekaman dalam dataset ini independen" | Justru kebalikannya — tidak ada yang dapat dibuktikan |
-| "$\alpha_{\min}$ dataset ini 0,125" | Berlaku bagi partisi **sumber** saja |
-| "$\alpha \ge 1/2$ berlaku di sini" | Menuntut partisi satu-blok admissible; absurd secara domain |
-| "Tidak ada pengenal pasien di 66.416 rekaman" | Diperiksa 42; sampel, bukan sensus |
-
-#### Biaya vonis
-
-**[Obs]** Seluruh pemeriksaan di atas memerlukan **~0,5 MB** unduhan (70 berkas
-indeks + 42 header) terhadap dataset berukuran 12,6 GB. Vonis diperoleh sebelum
-preprocessing dan sebelum melatih model apa pun.
+**Cost of the verdict.** All checks above required roughly 0.5 MB of downloads
+(70 index files and 42 headers) against a 12.6 GB dataset, and were completed
+before any preprocessing or model training.
 
 ---
 
