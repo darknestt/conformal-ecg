@@ -42,17 +42,16 @@ JUDUL = "Block-Level Feasibility of Conformal Calibration on Clinical ECG Data: 
 URUTAN = [
     ("1", "Introduction", "sec1.md"),
     ("2", "Related Work", "sec2.md"),
-    ("3–4", "Preliminaries and Problem Formulation", "sec3-4.md"),
-    ("5", "Methods", "sec5.md"),
-    ("6–7", "Datasets and Experimental Setup", "sec6-7.md"),
-    ("8", "Results", "sec8.md"),
-    ("9", "Discussion", "sec9.md"),
-    ("10", "Threats to Validity", "sec10.md"),
-    ("11", "Conclusion", "abstract-conclusion.md"),
+    ("3", "Problem Formulation and HCP Feasibility", "sec3.md"),
+    ("4", "Audit Design", "sec4.md"),
+    ("5", "Results", "sec5.md"),
+    ("6", "Discussion", "sec6.md"),
+    ("7", "Conclusion", "abstract-conclusion.md"),
+    ("A–B", "Appendices", "appendix.md"),
 ]
 ABSTRAK = "abstract-conclusion.md"
 CATATAN_KERJA = re.compile(r"^## (Catatan penyusunan|Checklist|Audit adversarial)", re.M)
-BAGIAN_NASKAH = re.compile(r"^## \d+\.", re.M)
+BAGIAN_NASKAH = re.compile(r"^## (\d+|Appendix [A-Z])\.", re.M)
 KODE = re.compile(r"^[A-IP]\d+[a-z]?$")
 SITASI = re.compile(r"\[([A-IP]\d+[a-z]?(?:,\s*[^\]\[]+?)?)\]")
 BULAN = ["Jan.", "Feb.", "Mar.", "Apr.", "May", "Jun.", "Jul.", "Aug.", "Sep.", "Oct.", "Nov.", "Dec."]
@@ -104,11 +103,11 @@ def tag_persamaan(md: str) -> str:
 def nomori_tabel(md: str) -> str:
     peta: dict[str, str] = {}
     romawi = ["I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX", "X", "XI", "XII", "XIII", "XIV", "XV"]
-    for m in re.finditer(r"^\*\*Table (\d+\.\d+)\.\*\*", md, re.M):
+    for m in re.finditer(r"^\*\*Table ([0-9A-Z]+\.\d+)\.\*\*", md, re.M):
         peta.setdefault(m.group(1), romawi[len(peta)])
-    md = re.sub(r"^\*\*Table (\d+\.\d+)\.\*\*\s*(.+)$",
+    md = re.sub(r"^\*\*Table ([0-9A-Z]+\.\d+)\.\*\*\s*(.+)$",
                 lambda m: f"::TABEL:: TABLE {peta[m.group(1)]}::{m.group(2).strip()}", md, flags=re.M)
-    md = re.sub(r"Table (\d+\.\d+)", lambda m: f"Table {peta.get(m.group(1), m.group(1))}", md)
+    md = re.sub(r"Table ([0-9A-Z]+\.\d+)", lambda m: f"Table {peta.get(m.group(1), m.group(1))}", md)
     return md
 
 

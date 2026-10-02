@@ -1,4 +1,4 @@
-# Abstract & §11 Conclusion
+# Abstract & §7 Conclusion
 
 > **v3 — 2026-10-02.** Ditulis ulang dan dipadatkan (Abstract 247 → ±220 kata). Versi sebelumnya: `abstract-conclusion-draft.md` di riwayat git (commit 9098746).
 
@@ -33,7 +33,7 @@ quantification, hierarchical data, exchangeability, calibration, study design.
 
 ---
 
-## 11. Conclusion
+## 7. Conclusion
 
 On clinical ECG data, a distribution-free coverage guarantee is a property of the
 study design before it is a property of the model. Whether HCP can deliver one at
@@ -55,7 +55,7 @@ other block-level procedures share the same boundary remains open.
 
 | Hal | Sumber |
 |---|---|
-| 1,5–2,4 pp | Tabel 8.4 baris SmallECGNet (1,49 / 2,21 / 2,37) |
-| Spearman 0,80–0,85 | Tabel 8.5 baris DEff (0,84 / 0,80 / 0,85) |
-| 75–110% | Rasio mekanis lintas tiga backbone (§8.3, §8.5) |
-| "one of which fails" | ResNet1D-34, Holm 0/3 (Tabel 8.4) |
+| 1,5–2,4 pp | Tabel 5.4 baris SmallECGNet (1,49 / 2,21 / 2,37) |
+| Spearman 0,80–0,85 | Tabel 5.5 baris DEff (0,84 / 0,80 / 0,85) |
+| 75–110% | Rasio mekanis lintas tiga backbone (§5.3, §5.5) |
+| "one of which fails" | ResNet1D-34, Holm 0/3 (Tabel 5.4) |

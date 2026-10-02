@@ -1,12 +1,14 @@
 # §2 Related Work
 
+> **v4 — 2026-10-02.** Empat subbab digabung jadi dua; paragraf posisi diberi judul paragraf "Position of this study". Isi dan sitasi v3 tetap.
+>
 > **v3 — 2026-10-02.** Dipadatkan (1.084 → ±690 kata); tiap karya diposisikan sebagai *apa yang diselesaikan → asumsinya → bedanya dengan studi ini*. Versi sebelumnya: `sec2-draft.md` di riwayat git (commit 9098746).
 
 ---
 
 ## 2. Related Work
 
-### 2.1 Conformal prediction beyond exchangeability
+### 2.1 Conformal prediction under dependence and for hierarchical data
 
 Barber et al. bound the coverage gap of conformal prediction by the total-variation
 distance between the data distribution and its exchangeable counterpart [A1], a
@@ -20,9 +22,7 @@ exchangeable. Fontana et al. review the framework and its variants [A11],
 including the Mondrian construction, for which calibrated versions have since
 been developed [D2].
 
-### 2.2 Conformal prediction for hierarchical data
-
-Hierarchical exchangeability has been solved by Lee et al., who derive it for
+Hierarchical exchangeability was formalized by Lee et al., who derive it for
 groups of repeated measurements and extend both conformal prediction and the
 jackknife+ [A2] to that setting [A0]; their threshold and guarantee are restated
 in (1) and (2). Dunn et al. independently propose four constructions for two-layer
@@ -39,7 +39,7 @@ distribution-free setting* [A0]. We address its most elementary part — whether
 finite threshold exists for a given design — and then measure what happens on
 clinical data when it does.
 
-### 2.3 Multi-label and hierarchical label spaces
+### 2.2 Multi-label, clinical and ECG applications
 
 Papadopoulos reviews multi-label conformal methods [B1], which model dependence
 between labels while assuming exchangeable samples; our setting requires the
@@ -49,9 +49,7 @@ conformal guarantees is well developed [B5], [B6]. Baheri and Shahbazi calibrate
 at several resolutions of a label hierarchy and intersect the resulting sets [B2],
 and Zhang et al. represent prediction sets as nodes of a label graph [B7,
 preprint]. Both concern structure among labels; we use the label hierarchy only
-to count calibration blocks per label (§5.3).
-
-### 2.4 ECG and clinical applications
+to count calibration blocks per label (§3.4).
 
 Strodthoff et al. established the PTB-XL benchmarks [F1] on the dataset of
 [H1], [H2]; their residual architectures inform our backbones. Heartbeat-level
@@ -75,11 +73,14 @@ inflate the realized false-alarm rate, and that the unit carrying the guarantee
 must be the unit raising alarms [E6]. Outside cardiology, group-aware conformal
 calibration has been applied to patients nested in thousands of hospitals [E5].
 
-These studies ask whether a procedure meets its target on a given split. We ask
-the earlier question of whether a block-level guarantee is feasible once every
-declared dependence source — including crossed sources and label-level
-conditioning — is respected, and whether ignoring block structure costs coverage
-once the mechanical effect of the finite-block correction is controlled.
+**Position of this study.** These studies ask whether a procedure meets its
+target on a given split. We ask the earlier question of whether a block-level
+guarantee is feasible once every declared dependence source — including crossed
+sources and label-level conditioning — is respected, and whether ignoring block
+structure costs coverage once the mechanical effect of the finite-block
+correction is controlled. The contribution is an audit of design-stage
+feasibility and of the attribution of coverage loss, not a new conformal
+procedure.
 
 ---
 

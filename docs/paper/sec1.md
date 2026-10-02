@@ -1,5 +1,7 @@
 # §1 Introduction
 
+> **v4 — 2026-10-02.** Rujukan silang disesuaikan dengan struktur 7 bab; satu kalimat peta bagian ditambahkan karena struktur kini standar dan ringkas.
+>
 > **v3 — 2026-10-02.** Ditulis ulang mengikuti struktur enam paragraf (konteks → conformal → blok → HCP → celah → kontribusi). Versi sebelumnya: `sec1-draft.md` di riwayat git (commit 9098746).
 
 ---
@@ -48,7 +50,7 @@ contributing more than 1,500 beats each; and the PhysioNet/CinC Challenge 2021
 collection [H5], in which the block identifier is not documented at all. We
 introduce no new conformal procedure. Our contributions are four.
 
-- **A metadata-only feasibility audit** (§5, §8.1). Given the declared dependence
+- **A metadata-only feasibility audit** (§3, §5.1). Given the declared dependence
   sources, the HCP bound and the join of those sources yield exact feasibility
   calculations before any patient is enrolled. Declaring all four documented
   sources of PTB-XL collapses every admissible calibration grouping to a single
@@ -57,25 +59,27 @@ introduce no new conformal procedure. Our contributions are four.
   evaluation subjects of the canonical inter-patient partition evenly between
   calibration and test cannot support a subject-level guarantee at the 95% level.
 - **Attribution of under-coverage to dependence acting through repetition**
-  (§8.2–§8.4). On MIT-BIH, naive split conformal under-covers relative to a
+  (§5.2–§5.4). On MIT-BIH, naive split conformal under-covers relative to a
   matched permutation null, and a factorial design attributes the deficit to
   clustering rather than to unequal block sizes. In a controlled dose–response
   experiment within MIT-BIH the deficit rises with the design effect, and PTB-XL
   falls where the design effect predicts — near zero — despite a substantial
   within-patient correlation.
-- **A caution for evaluating hierarchical conformal methods** (§8.3, §9.3). The
+- **A caution for evaluating hierarchical conformal methods** (§5.3, §6.2). The
   apparent improvement of HCP over naive split conformal persists at 75–110% of
   its size once within-block dependence is permuted away, so it is largely
   mechanical. We recommend matched permutation nulls and joint reporting of set
   size.
-- **Pre-registered robustness checks reported in full** (§8.5, §10). The direction
+- **Pre-registered robustness checks reported in full** (§5.5, §6.4). The direction
   of every finding holds across three backbones spanning more than a hundredfold
   range of parameters and across checkpoints. Statistical strength does not, and
   the backbone that fails the pre-registered criterion is reported.
 
 All resampling is performed on blocks, the held-out PTB-XL fold was never
 examined, deviations from the protocol are logged, and code and per-result
-artifacts are released with the paper.
+artifacts are released with the paper. Section 2 positions the audit, Section 3
+states the feasibility conditions it checks, Section 4 describes its design, and
+Sections 5 and 6 report and interpret the results.
 
 ---
 
@@ -83,6 +87,6 @@ artifacts are released with the paper.
 
 | Hal | Keputusan |
 |---|---|
-| Angka | 18.869 pasien; 1,155 → 1,16 rekaman/pasien (§6.2); 44 subjek; >1.500 detak (rentang 1.517–3.361); 24/44 (Tabel 8.2); 75–110% (§8.3, §8.5) |
+| Angka | 18.869 pasien; 1,155 → 1,16 rekaman/pasien (§4.1); 44 subjek; >1.500 detak (rentang 1.517–3.361); 24/44 (Tabel 5.2); 75–110% (§5.3, §5.5) |
 | Kebaruan | Tanpa "first"/"novel". Celah dirumuskan "insufficiently characterized", sesuai tinjauan eksternal |
 | "Code ... released" | Repo masih privat — wajib dibuka/diarsip Zenodo sebelum submit (R5) |

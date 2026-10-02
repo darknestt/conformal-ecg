@@ -9,20 +9,19 @@
 
 ## Status kesiapan per bagian
 
-> **2026-10-02 — seluruh bagian berdraf; v3 (penulisan ulang + pemadatan −21% prosa) berlaku.** Penomoran naskah Word: §9 Discussion, §10 Threats, §11 Conclusion. Ablation dihapus (E5 tidak dijalankan, lihat `protocol.md` §12). Draf v2 (`*-draft.md`) ada di riwayat git, commit 9098746.
+> **2026-10-02 — v4 berlaku: restrukturisasi 11 → 7 bab + Lampiran A–B.** 56 → 32 judul bab/subbab; 20 halaman Word (teks utama s.d. hal. 17). Persamaan display 10 → 6 di teks utama (+ (A.1) di lampiran), semuanya bernomor. Tabel 11 → 9 (Tabel 6.1+6.2 digabung; Tabel 5.1 S1/S2 jadi prosa). 47/47 sitasi, semua angka hasil, Prop. 1–3, Definisi dan Asumsi (A) tetap. Ablation dihapus (E5 tidak dijalankan, lihat `protocol.md` §12). v3 di commit fa8c5f3; v2 (`*-draft.md`) di commit 9098746.
 
 | § naskah | Bagian | Draf | Catatan |
 |---|---|---|---|
-| — | Abstract + Index Terms | ✅ [`abstract-conclusion.md`](abstract-conclusion.md) | v3 ±215 kata |
-| 1 | Introduction | ✅ [`sec1.md`](sec1.md) | v3: struktur enam paragraf |
-| 2 | Related Work | ✅ [`sec2.md`](sec2.md) | v3: −35%, tiga klaim salah dibuang |
-| 3–4 | Preliminaries, Problem Formulation | ✅ [`sec3-4.md`](sec3-4.md) | |
-| 5 | Methods | ✅ [`sec5.md`](sec5.md) | v3: hasil PTB-XL dipindah ke §8/§10 |
-| 6–7 | Datasets, Experimental Setup | ✅ [`sec6-7.md`](sec6-7.md) | v3: paragraf "Cost" ganda dibuang |
-| 8 | Results | ✅ [`sec8.md`](sec8.md) | Tabel 8.1–8.6 tidak diubah |
-| 9 | Discussion | ✅ [`sec9.md`](sec9.md) | v3: §9.1 tak lagi mengulang §8 |
-| 10 | Threats to Validity | ✅ [`sec10.md`](sec10.md) | |
-| 11 | Conclusion | ✅ [`abstract-conclusion.md`](abstract-conclusion.md) | |
+| — | Abstract + Index Terms | ✅ [`abstract-conclusion.md`](abstract-conclusion.md) | ±215 kata |
+| 1 | Introduction | ✅ [`sec1.md`](sec1.md) | + satu kalimat peta bagian |
+| 2 | Related Work | ✅ [`sec2.md`](sec2.md) | 2 subbab + "Position of this study" |
+| 3 | Problem Formulation and HCP Feasibility | ✅ [`sec3.md`](sec3.md) | dari v3 §3, §4, §5.1–5.3 |
+| 4 | Audit Design | ✅ [`sec4.md`](sec4.md) | dari v3 §5.4, §6, §7 |
+| 5 | Results | ✅ [`sec5.md`](sec5.md) | v3 §8, hanya renomor |
+| 6 | Discussion (6.4 Limitations and threats) | ✅ [`sec6.md`](sec6.md) | dari v3 §9 + §10 |
+| 7 | Conclusion | ✅ [`abstract-conclusion.md`](abstract-conclusion.md) | |
+| A–B | Appendices | ✅ [`appendix.md`](appendix.md) | Remark, varians (A.1), contoh kontra bobot, Tabel B.1 |
 
 ### Daftar revisi (dikerjakan pada putaran "revisi dan rapikan")
 
@@ -34,7 +33,7 @@
 | R4 | ~~Penomoran ganda §11/§10~~ ✅ `sec10-draft.md`, builder tanpa pemetaan | builder | Selesai |
 | R5 | Klaim "Code ... released" sementara repo privat | §1 | Wajib sebelum submit |
 | R6 | [F5] disitasi hanya dari judul; I1, I2, P1 §2 belum dibaca teks penuh | §9, §5 | Wajib sebelum submit |
-| R7 | Judul "3–4" dan "6–7" digabung di builder — pertimbangkan satu §3 "Background" | struktur | Rendah |
+| R7 | ~~Judul "3–4" dan "6–7" digabung di builder~~ ✅ v4: struktur 7 bab, tanpa judul gabungan | struktur | Selesai |
 | R8 | ~~Konsistensi istilah dan ejaan~~ ✅ 2026-10-02: ejaan Amerika (gaya IEEE), kutipan Lee et al. dikembalikan ke ejaan aslinya ("characterizing"); istilah B1/B12/HCP/DEff sudah konsisten | semua | Selesai |
 
 > **Template jurnal belum ditentukan** (arahan dospem 2026-10-02: buat draf dulu). Karena itu R3 lanjutan (pangkas ke batas halaman) **ditunda** sampai jurnal dipilih — memangkas tanpa batas yang jelas berisiko membuang bukti yang justru diminta reviewer.
