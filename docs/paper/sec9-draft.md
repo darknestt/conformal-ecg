@@ -100,7 +100,7 @@ patients. Group-conditional conformal prediction has been proposed to equalize
 coverage across demographic groups [D4]; when calibration must also respect
 patient blocks, a group that contains few patients in calibration is bounded in
 exactly the way rare labels are here. Conversely,
-hierarchical healthcare settings with thousands of blocks, such as admissions
+hierarchical healthcare settings with thousands of blocks, such as patients
 nested in hospitals [E5], sit far from the boundary, which is why the boundary is
 easy to overlook.
 
@@ -130,21 +130,38 @@ under exchangeability [A12]; under block dependence the unit that must be counte
 becomes the number of blocks carrying the class, and the condition we state is
 necessary but not sufficient (§5.3).
 
+Our findings converge with those of Sim and Kim for ECG false-alarm control [E6]:
+in both settings the guarantee is carried by subjects rather than by beats, and
+too few calibration subjects break it. The present audit differs in what it
+counts and how it attributes the effect. It counts blocks under crossed
+dependence sources and per diagnostic label, and it separates dependence from
+block-size imbalance and from the mechanical effect of the finite-block
+correction, using a matched permutation null and a factorial design. Evidence
+that marginal coverage can mask per-class and per-patient failures in cardiac
+monitoring [E8] is consistent with the label-level boundary of §8.1.
+
 Risk-control extensions of conformal prediction [C1], [C2] and its time-series
 variants [C4] rest on related exchangeability or stationarity assumptions.
 Whether their block-level counterparts are subject to the same feasibility
 boundary is a natural question that we do not address.
 
-### 9.6 Limitations of scope
+### 9.6 What this study does not establish
 
-The audit concerns marginal and label-wise coverage of a single method family.
+The audit concerns marginal and label-wise coverage of a single method family,
+and several conclusions should not be drawn from it. It does not establish that
+every block-level conformal procedure shares the feasibility boundary of HCP
+(Corollary 2.2 is proved for the HCP/Dunn family only). It does not establish
+that the dependence sources declared for PTB-XL are the true ones; the collapse
+of the join is conditional on that declaration. It does not establish that the
+design effect is a sufficient statistic for coverage loss; it is used as an
+ordering axis, and the dose–response gradient is controlled within one dataset.
 It does not compare hierarchical constructions with one another [A0b], does not
-address temporal dependence within a patient across visits, and uses two
-datasets whose dependence structures differ along one axis. Post hoc explanation
-of what ECG networks learn [F6] and benchmark discrimination [F1] are orthogonal
-to the question asked here: a highly accurate model calibrated on too few blocks
-remains without a guarantee. The threats to validity of each result are
-detailed in §10.
+address temporal dependence within a patient across visits, and does not
+establish significance of the MIT-BIH deficit for every backbone. Post hoc
+explanation of what ECG networks learn [F6] and benchmark discrimination [F1]
+are orthogonal to the question asked here: a highly accurate model calibrated on
+too few blocks remains without a guarantee. The threats to validity of each
+result are detailed in §10.
 
 ---
 

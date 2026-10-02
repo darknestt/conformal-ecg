@@ -14,7 +14,11 @@ of uncertainty quantification in clinical deep learning [G1] and the FUTURE-AI
 consensus guideline [G2] both make this point. Conformal prediction is attractive
 in this setting because it converts any trained classifier into a set-valued
 predictor whose coverage holds in finite samples without distributional
-assumptions [A11], and it has been applied across clinical domains [E1]–[E3].
+assumptions [A11], and it has been applied across clinical domains [E1]–[E3],
+including recent work on ECG and related cardiac signals that examines
+class-conditional calibration under quantized deployment [E7], adaptive
+inference on wearables [E9], reliability under class imbalance and patient
+heterogeneity [E8], and false-alarm control in monitoring [E6].
 
 That guarantee rests on a single assumption: calibration and test observations
 are exchangeable. Clinical ECG data rarely satisfy it. A patient contributes
@@ -29,8 +33,10 @@ that restores a finite-sample guarantee by calibrating at the level of blocks
 rather than observations [A0]; related constructions for two-layer hierarchical
 models are given by Dunn et al. [A0b].
 
-The remedy therefore exists. What has not been examined is whether it can be
-applied to the clinical data on which it is needed. HCP assigns each calibration
+Although hierarchical conformal inference provides a formal remedy for grouped
+dependence, the feasibility of that remedy under the heterogeneous and crossed
+dependence structures of real clinical ECG resources has received comparatively
+little empirical examination. HCP assigns each calibration
 block equal mass and places a further atom at $+\infty$, so its threshold is
 finite only when the target error rate $\alpha$ is at least $1/(K_1+1)$, where
 $K_1$ is the number of calibration blocks. Large clinical datasets can have few
@@ -39,7 +45,14 @@ diagnoses. At the same time, it is not obvious when ignoring block structure
 actually costs coverage: a dataset in which most patients contribute a single
 recording may be harmless even if the few repeated recordings are strongly
 correlated. The authors of [A0] identify the trade-off between many small and
-few large groups as an open question for study design.
+few large groups as an open question for study design. In ECG monitoring, Sim
+and Kim have recently shown that the finite-sample false-alarm bound of split
+conformal prediction counts subjects rather than beats, and that calibration on
+too few subjects inflates the realized false-alarm rate [E6]. We study the
+corresponding design-stage question for block-level coverage: whether the
+intended guarantee is feasible at all once the dependence structure actually
+present in a dataset is accounted for, and when ignoring that structure costs
+coverage.
 
 This paper reports an empirical audit of block-level conformal calibration on
 three public ECG resources: PTB-XL [H1], [H2], the MIT-BIH Arrhythmia Database
@@ -51,8 +64,9 @@ provide a resource in which the block identifier is not documented at all. We
 introduce no new conformal procedure. The contributions are the following.
 
 - **A metadata-only feasibility audit** (§5, §8.1). Combining the HCP
-  feasibility bound with the join of declared dependence sources yields exact,
-  pre-enrolment verdicts. On PTB-XL, declaring all four documented sources
+  feasibility bound with the join of declared dependence sources yields exact
+  feasibility calculations, conditional on the sources declared, before any
+  patient is enrolled. On PTB-XL, declaring all four documented sources
   collapses every admissible calibration grouping to a single block, and 24 of
   44 SCP diagnostic statements cannot receive a finite per-label threshold at
   $\alpha=0.05$ under patient blocking alone. On MIT-BIH, dividing the 22
@@ -62,13 +76,14 @@ introduce no new conformal procedure. The contributions are the following.
   and that it does so through repetition** (§8.2–§8.4). Naive split conformal
   under-covers on MIT-BIH relative to a matched permutation null; a factorial
   design attributes the deficit to clustering rather than to unequal block
-  sizes; and the deficit increases with the design effect across twelve
-  configurations, with PTB-XL falling where the design effect predicts — near
-  zero — despite a substantial within-patient correlation.
+  sizes; and in a controlled dose–response experiment within MIT-BIH the deficit
+  increases with the design effect, while PTB-XL falls where the design effect
+  predicts — near zero — despite a substantial within-patient correlation.
 - **A caution for evaluating hierarchical conformal methods** (§8.3, §9.3). The
-  apparent improvement of HCP over naive split conformal is 75–110% mechanical:
-  it persists when dependence is removed. We recommend matched permutation nulls
-  and joint reporting of set size.
+  apparent improvement of HCP over naive split conformal persists at 75–110% of
+  its size when within-block dependence is removed by permutation, so it is
+  largely mechanical. We recommend matched permutation nulls and joint reporting
+  of set size.
 - **Pre-registered robustness checks reported in full** (§8.5, §10). The direction
   of every finding holds across three backbones spanning a more than hundredfold
   range of parameters and across checkpoints. Its statistical strength does not:

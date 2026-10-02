@@ -31,7 +31,6 @@ KHUSUS = {
     "A0": ("doi", "10.1145/3786352", "Distribution-free inference with hierarchical data"),
     "A0b": ("doi", "10.1080/01621459.2022.2060112", "Distribution-Free Prediction Sets for Two-Layer Hierarchical Models"),
     "B7": ("arxiv", "2410.06296", "Conformal Structured Prediction"),
-    "E5": ("arxiv", "2601.01223", "Adaptive Conformal Prediction via Bayesian Uncertainty Weighting for Hierarchical Healthcare Data"),
     "P1": ("arxiv", "2608.21262", "The Exceedance Design Effect: Effective Sample Size for Thresholds under Clustering"),
     "P2": ("arxiv", "2608.08892", "A Symmetric Layer-Union Audit of Component Collapse in Hierarchical Procedural Corpora"),
 }

@@ -86,8 +86,9 @@ $K_1=2$ records ($\alpha_{\min}=0.333$).
 
 ![**Fig. 3.** Calibration blocks carrying each label, by level of the PTB-XL hierarchy (fold 9, patient blocks; log scale). Dashed and dotted lines mark the minimum number of blocks for a finite per-label threshold at $\alpha=0.05$ and $\alpha=0.10$. Dark bars meet the $\alpha=0.05$ requirement, light bars only the $\alpha=0.10$ requirement, and orange bars neither.](figures/fig3_label_feasibility.png)
 
-None of §8.1 involves a trained model. These verdicts are exact, carry no
-sampling error, and can be computed before a single patient is enrolled.
+None of §8.1 involves a trained model. Given the declared dependence sources,
+these verdicts are exact, carry no sampling error, and can be computed before a
+single patient is enrolled.
 
 ### 8.2 Coverage under block dependence
 
@@ -141,8 +142,10 @@ adjusted one-sided $p\le 0.0075$).
 | ResNet1D-50 | 0.462 | +2.54 [1.25, 3.87] | +3.42 [1.91, 4.98] | +3.18 [1.54, 4.82] | 3/3 | 3/3 |
 
 The same control shows why the comparison of B12 with B1 is not informative.
-Under permutation, where no dependence remains, the B12−B1 gap persists at
-81–107% of its original size: HCP's finite-block correction forces it to the
+We define the mechanical share as the ratio of the B12−B1 gap in the permuted
+arm to the gap on the original data. It ranges from 81% to 107%: the gap is
+almost unchanged once dependence is removed, and at $\alpha=0.10$ it is slightly
+larger without dependence than with it. HCP's finite-block correction forces it to the
 $(1-\alpha)(K_1+1)/K_1$ quantile regardless of dependence. We therefore withdrew
 "B12 improves on B1" as a criterion (§10.4) and rely on the deficit against the
 permutation null throughout.

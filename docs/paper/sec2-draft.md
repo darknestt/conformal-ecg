@@ -119,9 +119,26 @@ landmark localization [E2] and multi-label diagnosis coding [E3]. Conformal risk
 control [C1] and conformal prediction for time series [C4] supply the loss-control
 and temporal machinery we build on.
 
-None of these works examines whether the exchangeability assumption underlying
-their conformal guarantees is satisfiable at the grouping level their data
-actually possess. That question is the subject of this paper.
+Work on conformal prediction for ECG and related cardiac signals has grown
+quickly. El Allam and Hamlich calibrate label-conditional Mondrian conformal
+prediction on patient-disjoint PTB-XL partitions and show that calibration must
+match the quantized model actually deployed [E7], and extend conformal inference
+to adaptive, edge-deployed wearables [E9]. Kinalioğlu audits PPG-based ICU
+arrhythmia classification and shows that marginal coverage can conceal per-class
+and per-patient failures, using patient-clustered resampling [E8]. Closest to the
+present study, Sim and Kim show for ECG monitoring that the finite-sample
+false-alarm bound of split conformal prediction counts exchangeable subjects
+rather than beats, that too few calibration subjects inflate the realized
+false-alarm rate, and that the unit carrying the guarantee must be the unit
+raising alarms [E6]. Outside cardiology, group-aware conformal calibration has
+been applied to patients nested in thousands of hospitals [E5].
+
+These studies evaluate whether a conformal procedure achieves its target on a
+given split. The present paper asks a prior, design-stage question that they
+leave implicit: whether a block-level coverage guarantee is feasible at all once
+every declared dependence source — including crossed sources and label-level
+conditioning — is respected, and whether ignoring block structure costs coverage
+once mechanical effects of the finite-block correction are controlled.
 
 ---
 

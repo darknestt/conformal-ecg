@@ -20,16 +20,16 @@ collapses every admissible calibration grouping to a single block, and 24 of 44
 diagnostic statements admit no finite per-label threshold at $\alpha=0.05$ under
 patient blocking. On MIT-BIH, naive split conformal under-covers relative to a
 matched permutation null by 1.5–2.4 percentage points; a factorial design
-attributes the deficit to clustering rather than to unequal block sizes, and
-across twelve configurations it increases with the design effect (Spearman
-0.80–0.85). PTB-XL shows no deficit despite a within-patient correlation of 0.35,
-because most patients contribute a single recording. We further show that the
-apparent advantage of hierarchical over naive calibration is 75–110% mechanical,
-persisting when dependence is removed. Directions hold across three backbones
-spanning a hundredfold range of capacity and across checkpoints; one backbone
-fails the pre-registered significance criterion, and we report it. Counting
-blocks, not records, should precede any claim of distribution-free coverage on
-clinical data.
+attributes the deficit to clustering rather than to unequal block sizes, and in
+a controlled dose–response experiment it increases with the design effect
+(Spearman 0.80–0.85). PTB-XL shows no deficit despite a within-patient
+correlation of 0.35, because most patients contribute a single recording. The
+apparent advantage of hierarchical over naive calibration persists at 75–110% of
+its size when dependence is removed, and is therefore largely mechanical.
+Directions hold across three backbones spanning a hundredfold range of capacity
+and across checkpoints; one backbone fails the pre-registered significance
+criterion, and we report it. Counting blocks, not records, should precede any
+claim of distribution-free coverage on clinical data.
 
 **Index Terms** — Conformal prediction, electrocardiography, uncertainty
 quantification, hierarchical data, exchangeability, calibration, study design.
@@ -51,7 +51,9 @@ Evaluations of hierarchical conformal methods should compare against a null that
 removes dependence while preserving block geometry, and should report set size
 alongside coverage. We recommend that clinical studies claiming conformal
 guarantees report the number of calibration blocks, per label where labels are
-conditioned on, together with the dependence sources they declared.
+conditioned on, together with the dependence sources they declared. These
+conclusions concern one method family and the dependence sources declared here;
+whether other block-level procedures share the same boundary remains open.
 
 ---
 

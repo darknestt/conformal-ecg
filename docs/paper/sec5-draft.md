@@ -211,7 +211,7 @@ Diagnostics computed from metadata — $K_1$, $K_1(\ell)$ and the join structure
 must be identical across backbones, and we report them per backbone as a negative
 control on the pipeline. PTB-XL fold 10 is never used.
 
-![**Fig. 1.** Audit protocol. The first four steps use metadata only and return exact verdicts before any patient is enrolled or any model trained; the last two require conformity scores from a trained model.](figures/fig1_audit_workflow.png)
+![**Fig. 1.** Audit protocol. The first four steps use metadata only and return verdicts that are exact given the declared dependence sources, before any patient is enrolled or any model trained; the last two require conformity scores from a trained model.](figures/fig1_audit_workflow.png)
 
 ---
 

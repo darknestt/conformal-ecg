@@ -785,7 +785,7 @@
     "kecocokan_judul": 1.0
   },
   "E5": {
-    "jenis": "preprint",
+    "jenis": "journal-article",
     "penulis": [
       {
         "given": "Marzieh Amiri",
@@ -800,15 +800,16 @@
         "family": "Azadeh-Fard"
       }
     ],
-    "judul": "Adaptive Conformal Prediction via Bayesian Uncertainty Weighting for Hierarchical Healthcare Data",
-    "venue": "arXiv",
-    "volume": "",
-    "nomor": "",
-    "halaman": "",
+    "judul": "A hierarchical conformal framework for uncertainty-aware length of stay prediction in multi-hospital settings",
+    "venue": "Scientific Reports",
+    "venue_singkat": "Sci Rep",
+    "volume": "16",
+    "nomor": "1",
+    "halaman": "6564",
     "tahun": 2026,
     "bulan": 1,
-    "arxiv": "2601.01223",
-    "doi": "",
+    "penerbit": "Springer Science and Business Media LLC",
+    "doi": "10.1038/s41598-026-37450-w",
     "dataset": false,
     "kecocokan_judul": 1.0
   },
@@ -1552,6 +1553,102 @@
     "bulan": 8,
     "arxiv": "2608.08892",
     "doi": "",
+    "dataset": false,
+    "kecocokan_judul": 1.0
+  },
+  "E6": {
+    "jenis": "journal-article",
+    "penulis": [
+      {
+        "given": "Sangwook",
+        "family": "Sim"
+      },
+      {
+        "given": "Changgyun",
+        "family": "Kim"
+      }
+    ],
+    "judul": "Anomaly-Selective Conformal Calibration for ECG Monitoring: Threshold Divergence and the Limits of Finite-Sample False Alarm Control",
+    "venue": "IEEE Access",
+    "venue_singkat": "IEEE Access",
+    "volume": "14",
+    "nomor": "",
+    "halaman": "144957-144979",
+    "tahun": 2026,
+    "bulan": null,
+    "penerbit": "Institute of Electrical and Electronics Engineers (IEEE)",
+    "doi": "10.1109/access.2026.3734990",
+    "dataset": false,
+    "kecocokan_judul": 1.0
+  },
+  "E7": {
+    "jenis": "journal-article",
+    "penulis": [
+      {
+        "given": "Oussama",
+        "family": "El Allam"
+      },
+      {
+        "given": "Mohamed",
+        "family": "Hamlich"
+      }
+    ],
+    "judul": "Quantization-aware Mondrian conformal prediction for embedded ECG classification",
+    "venue": "Biomedical Signal Processing and Control",
+    "venue_singkat": "Biomedical Signal Processing and Control",
+    "volume": "127",
+    "nomor": "",
+    "halaman": "111217",
+    "tahun": 2026,
+    "bulan": 11,
+    "penerbit": "Elsevier BV",
+    "doi": "10.1016/j.bspc.2026.111217",
+    "dataset": false,
+    "kecocokan_judul": 1.0
+  },
+  "E8": {
+    "jenis": "journal-article",
+    "penulis": [
+      {
+        "given": "Ismail Hakki",
+        "family": "Kinalioglu"
+      }
+    ],
+    "judul": "Conformal reliability assessment of PPG-based ICU arrhythmia classification under class imbalance and patient heterogeneity",
+    "venue": "Physiological Measurement",
+    "venue_singkat": "Physiol. Meas.",
+    "volume": "47",
+    "nomor": "8",
+    "halaman": "085029",
+    "tahun": 2026,
+    "bulan": 8,
+    "penerbit": "IOP Publishing",
+    "doi": "10.1088/1361-6579/ae92e8",
+    "dataset": false,
+    "kecocokan_judul": 1.0
+  },
+  "E9": {
+    "jenis": "journal-article",
+    "penulis": [
+      {
+        "given": "Oussama EL",
+        "family": "ALLAM"
+      },
+      {
+        "given": "Mohamed",
+        "family": "HAMLICH"
+      }
+    ],
+    "judul": "Hierarchical adaptive conformal inference for reliable uncertainty quantification in edge-deployable medical wearables",
+    "venue": "Measurement",
+    "venue_singkat": "Measurement",
+    "volume": "279",
+    "nomor": "",
+    "halaman": "121765",
+    "tahun": 2026,
+    "bulan": 6,
+    "penerbit": "Elsevier BV",
+    "doi": "10.1016/j.measurement.2026.121765",
     "dataset": false,
     "kecocokan_judul": 1.0
   }

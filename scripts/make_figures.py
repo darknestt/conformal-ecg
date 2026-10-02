@@ -68,7 +68,7 @@ def fig1_alur() -> None:
     for x in (16.2, 32.7, 49.2, 65.7, 82.2):
         ax.add_patch(FancyArrowPatch((x, 15.5), (x + 1.2, 15.5), arrowstyle="-|>", mutation_scale=7, lw=0.8))
     ax.annotate("", xy=(1, 3.2), xytext=(66, 3.2), arrowprops=dict(arrowstyle="<->", lw=0.6, color=WARNA["mit"]))
-    ax.text(33.5, 0.6, "No trained model required \u2014 exact, before enrolment", ha="center", fontsize=6.8, color=WARNA["mit"])
+    ax.text(33.5, 0.6, "No trained model required \u2014 exact given the declared sources", ha="center", fontsize=6.8, color=WARNA["mit"])
     ax.annotate("", xy=(67, 3.2), xytext=(98.5, 3.2), arrowprops=dict(arrowstyle="<->", lw=0.6, color=WARNA["ptb"]))
     ax.text(82.7, 0.6, "Requires scores from a trained model", ha="center", fontsize=6.8, color=WARNA["ptb"])
     ax.text(4.0, 26.6, "S0", fontsize=6.5, color=WARNA["abu"])
