@@ -9,20 +9,20 @@
 
 ## Status kesiapan per bagian
 
-> **2026-10-02 — seluruh bagian sudah berdraf.** Penomoran naskah Word: §9 Discussion, §10 Threats (sumber `sec11-draft.md`), §11 Conclusion. Ablation dihapus (E5 tidak dijalankan, lihat `protocol.md` §12).
+> **2026-10-02 — seluruh bagian berdraf; v3 (penulisan ulang + pemadatan −21% prosa) berlaku.** Penomoran naskah Word: §9 Discussion, §10 Threats, §11 Conclusion. Ablation dihapus (E5 tidak dijalankan, lihat `protocol.md` §12). Draf v2 (`*-draft.md`) ada di riwayat git, commit 9098746.
 
 | § naskah | Bagian | Draf | Catatan |
 |---|---|---|---|
-| — | Abstract + Index Terms | ✅ [`abstract-conclusion-draft.md`](abstract-conclusion-draft.md) | 242 kata (≤ 250) |
-| 1 | Introduction | ✅ [`sec1-draft.md`](sec1-draft.md) | Ditulis terakhir, sesudah §8–§9 |
-| 2 | Related Work | ✅ [`sec2-draft.md`](sec2-draft.md) | |
-| 3–4 | Preliminaries, Problem Formulation | ✅ [`sec3-4-draft.md`](sec3-4-draft.md) | |
-| 5 | Methods | ✅ [`sec5-draft.md`](sec5-draft.md) | |
-| 6–7 | Datasets, Experimental Setup | ✅ [`sec6-7-draft.md`](sec6-7-draft.md) | NSTDB dihapus |
-| 8 | Results | ✅ [`sec8-draft.md`](sec8-draft.md) | 6 tabel, 5 figure |
-| 9 | Discussion | ✅ [`sec9-draft.md`](sec9-draft.md) | |
-| 10 | Threats to Validity | ✅ [`sec10-draft.md`](sec10-draft.md) | v2, dipangkas ±1.100 kata; menggantikan `sec11-draft.md` |
-| 11 | Conclusion | ✅ [`abstract-conclusion-draft.md`](abstract-conclusion-draft.md) | |
+| — | Abstract + Index Terms | ✅ [`abstract-conclusion.md`](abstract-conclusion.md) | v3 ±215 kata |
+| 1 | Introduction | ✅ [`sec1.md`](sec1.md) | v3: struktur enam paragraf |
+| 2 | Related Work | ✅ [`sec2.md`](sec2.md) | v3: −35%, tiga klaim salah dibuang |
+| 3–4 | Preliminaries, Problem Formulation | ✅ [`sec3-4.md`](sec3-4.md) | |
+| 5 | Methods | ✅ [`sec5.md`](sec5.md) | v3: hasil PTB-XL dipindah ke §8/§10 |
+| 6–7 | Datasets, Experimental Setup | ✅ [`sec6-7.md`](sec6-7.md) | v3: paragraf "Cost" ganda dibuang |
+| 8 | Results | ✅ [`sec8.md`](sec8.md) | Tabel 8.1–8.6 tidak diubah |
+| 9 | Discussion | ✅ [`sec9.md`](sec9.md) | v3: §9.1 tak lagi mengulang §8 |
+| 10 | Threats to Validity | ✅ [`sec10.md`](sec10.md) | |
+| 11 | Conclusion | ✅ [`abstract-conclusion.md`](abstract-conclusion.md) | |
 
 ### Daftar revisi (dikerjakan pada putaran "revisi dan rapikan")
 

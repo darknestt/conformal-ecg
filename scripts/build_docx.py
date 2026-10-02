@@ -1,4 +1,4 @@
-"""Susun draf bagian (docs/paper/sec*-draft.md) menjadi naskah Word bergaya IEEE.
+"""Susun bagian naskah (docs/paper/sec*.md) menjadi naskah Word bergaya IEEE.
 
 Yang dikerjakan, berurutan:
   1. Ambil prosa naskah dari tiap draf (judul "## N." sampai catatan kerja).
@@ -40,17 +40,17 @@ REFS = PAPER / "references.json"
 JUDUL = "Block-Level Feasibility of Conformal Calibration on Clinical ECG Data: An Empirical Audit"
 
 URUTAN = [
-    ("1", "Introduction", "sec1-draft.md"),
-    ("2", "Related Work", "sec2-draft.md"),
-    ("3–4", "Preliminaries and Problem Formulation", "sec3-4-draft.md"),
-    ("5", "Methods", "sec5-draft.md"),
-    ("6–7", "Datasets and Experimental Setup", "sec6-7-draft.md"),
-    ("8", "Results", "sec8-draft.md"),
-    ("9", "Discussion", "sec9-draft.md"),
-    ("10", "Threats to Validity", "sec10-draft.md"),
-    ("11", "Conclusion", "abstract-conclusion-draft.md"),
+    ("1", "Introduction", "sec1.md"),
+    ("2", "Related Work", "sec2.md"),
+    ("3–4", "Preliminaries and Problem Formulation", "sec3-4.md"),
+    ("5", "Methods", "sec5.md"),
+    ("6–7", "Datasets and Experimental Setup", "sec6-7.md"),
+    ("8", "Results", "sec8.md"),
+    ("9", "Discussion", "sec9.md"),
+    ("10", "Threats to Validity", "sec10.md"),
+    ("11", "Conclusion", "abstract-conclusion.md"),
 ]
-ABSTRAK = "abstract-conclusion-draft.md"
+ABSTRAK = "abstract-conclusion.md"
 CATATAN_KERJA = re.compile(r"^## (Catatan penyusunan|Checklist|Audit adversarial)", re.M)
 BAGIAN_NASKAH = re.compile(r"^## \d+\.", re.M)
 KODE = re.compile(r"^[A-IP]\d+[a-z]?$")
