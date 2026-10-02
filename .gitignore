@@ -18,6 +18,7 @@ results/raw/*
 !results/raw/backbone_invariance/
 results/raw/backbone_invariance/*
 !results/raw/backbone_invariance/*.json
+!results/raw/jackknife_records/
 *.ckpt
 *.pth
 *.pt
