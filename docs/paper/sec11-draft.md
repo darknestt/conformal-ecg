@@ -69,8 +69,13 @@ repeated with three backbones spanning a 157-fold range in parameter count
 balanced accuracy stayed at 0.370–0.376. Across all 15 backbone×$\alpha$ cells,
 naive split conformal under-covers and HCP restores coverage. $K_1(\ell)$ is
 identical across backbones, as it must be, since it depends on the partition
-alone; this serves as a negative control on the pipeline. The PTB-XL arm of this
-experiment is reported in §8.
+alone; this serves as a negative control on the pipeline. On PTB-XL, the same
+three architectures (104,389; 7,225,733; 15,969,413 parameters) reach
+macro-AUROC 0.902, 0.897 and 0.896 — the larger models are *not* better — and in
+all 9 backbone×$\alpha$ cells naive split conformal attains nominal coverage
+(deficit $+0.05$ to $+0.19$ pp), as predicted at $\mathrm{DEff}\approx 1$. The
+contrast between datasets is therefore invariant to the backbone, while
+discrimination is not.
 
 **Checkpoint selection on a small validation set.** The MIT-BIH validation set
 comprises only 4 records, and its loss is noisy (0.13–0.56 across epochs). Under
@@ -79,9 +84,9 @@ largest backbone. A reviewer may fairly object that this model is under-trained.
 Before examining any result, we pre-registered a sensitivity analysis: repeat the
 audit with the **last-epoch** weights and require that (S-1) whether HCP improves
 on B1 and (S-2) the sign of the B1 deficit agree at every $\alpha$, and that
-(S-3) $K_1(\ell)$ be identical. Both trained backbones pass all three criteria
-in 5/5 $\alpha$ levels (epoch 8 vs 13; epoch 1 vs 6). The primary selection rule
-was not altered.
+(S-3) $K_1(\ell)$ be identical. All four trained backbone×dataset pairs pass all
+three criteria at every $\alpha$ (MIT-BIH: epoch 8 vs 13, 1 vs 6; PTB-XL: 9 vs 14,
+7 vs 12). The primary selection rule was not altered.
 
 **Subgroup definitions are researcher choices.** Sensitivity to alternative
 grouping schemes is examined explicitly.
@@ -144,6 +149,12 @@ and that the ordering of backbones by deficit magnitude changes with it. An
 apparent non-monotone relation between capacity and deficit magnitude, visible in
 the primary analysis, therefore lies within checkpoint noise. We claim only the
 direction of the effect.
+
+**Boundary cells.** Coverage is a discrete proportion, so percentile intervals
+can end exactly at zero. Three PTB-XL intervals for the B12−B1 difference do so.
+Our pre-specified rule declares an improvement only when the lower bound is
+*strictly* positive, and these cells are classified accordingly; the verdict in
+them rests on that strictness.
 
 **A criterion we pre-registered turned out to be near-vacuous.** Our initial test
 of H0b asked whether HCP improves coverage over naive split conformal. A
@@ -232,6 +243,7 @@ A complete deviation log is maintained in the accompanying protocol.
 | §11.6 | **Bagian terpenting.** Empat pembalikan dilaporkan sebagai urutan, bukan disembunyikan |
 | Kor. 3.2 | Kalimat ruang lingkup ditulis **verbatim**, sama persis dengan §5 |
 | 2026-10-01 | Ditambah: invariansi backbone MIT-BIH, sensitivitas checkpoint (pra-registrasi `protocol.md` §12), arah-vs-besaran, syarat "sumber yang dideklarasikan" + [P2]. **PTB-XL menunggu** pelatihan selesai |
+| 2026-10-02 | Arm PTB-XL dan sensitivitasnya selesai: lolos semua; sel batas CI = 0 dinyatakan |
 | Angka | Seluruhnya terverifikasi dari log sesi; tidak ada yang dibulatkan tanpa sumber |
 | Nada | Menyatakan batas tanpa merendahkan hasil; tiap ancaman disertai apa yang sudah dikerjakan |
 

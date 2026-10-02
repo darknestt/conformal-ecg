@@ -354,7 +354,16 @@ Defisit B1 (pp), terbaik-val → terakhir:
 2. **Besaran** defisit **tidak** tahan: berubah hingga 1,8 pp, dan urutan antar-backbone berubah. Klaim "besaran tidak monoton terhadap kapasitas" karena itu **tidak boleh** diangkat sebagai temuan, sebab ia ada dalam rentang derau pemilihan checkpoint. Naskah hanya mengklaim arah.
 3. Bobot epoch 6 `resnet1d50` (rugi latih 0,035 vs 0,161 di epoch 1) memberi kesimpulan yang sama, sehingga temuan tidak bergantung pada model yang "kurang terlatih".
 
-PTB-XL: dijalankan setelah pelatihan utama selesai, dengan kriteria yang sama.
+PTB-XL — 2026-10-02, kriteria yang sama:
+
+| Backbone | Epoch terbaik-val → terakhir | S-1 | S-2 | S-3 | Vonis |
+|---|---|:-:|:-:|:-:|:-:|
+| `resnet1d34` | 9 → 14 | 3/3 | 3/3 | ya | **LOLOS** |
+| `resnet1d50` | 7 → 12 | 3/3 | 3/3 | ya | **LOLOS** |
+
+Di PTB-XL, defisit B1 tetap positif (+0,05 sampai +0,19 pp) pada kedua checkpoint, artinya tidak ada kurang-cakup. HCP tidak memperbaiki karena memang tidak ada yang perlu diperbaiki.
+
+**Catatan sel batas.** Tiga CI selisih B12−B1 mempunyai ujung **tepat 0,0**: PTB-XL `small` $\alpha{=}0{,}01$ dan `resnet1d50` $\alpha{=}0{,}10$ (utama), serta `resnet1d34` $\alpha{=}0{,}05$ (terakhir). Cakupan adalah proporsi diskret, sehingga ujung CI persentil dapat jatuh tepat di nol. Aturan `B12_memperbaiki = batas_bawah > 0` (ketidaksamaan ketat, ditetapkan sebelum eksperimen) menggolongkannya sebagai **tidak memperbaiki**. Vonis pada sel ini bergantung pada ketatnya ketidaksamaan, dan dilaporkan demikian.
 
 ---
 
