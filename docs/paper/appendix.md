@@ -1,6 +1,6 @@
 # Lampiran A–B
 
-> **v4 — 2026-10-02.** Isi yang dipindah dari teks utama: Remark ketat (v3 §4.1), varians (6) dan pembahasan lantainya (v3 §5.1.2), contoh kontra bobot (v3 §5.1.3), Tabel 10.1 dan kalimat kesalahan tahap 2 (v3 §10.6). Kata per kata kecuali rujukan nomor.
+> **v5 — 2026-10-02.** Dari v4 (commit 2bbdbec). Tabel B.1 kini didahului kalimat yang menyebutnya. Isi derivasi kata per kata sama.
 
 ---
 
@@ -9,8 +9,8 @@
 ### A.1 The boundary case of Proposition 1
 
 An earlier version of this work stated (3) as a strict inequality, which is wrong
-at the boundary: at $\alpha=1/(K_1+1)$ the finite mass $K_1/(K_1+1)$
-equals $1-\alpha$, the infimum is attained at $M$, and the threshold is finite.
+at the boundary: at $\alpha=1/(K_1+1)$ the finite mass $K_1/(K_1+1)$ equals
+$1-\alpha$, the infimum is attained at $M$, and the threshold is finite.
 Simulation at $K_1=19$, $\alpha=0.05$ gives empirical coverage $0.9512\ge0.95$.
 Only the non-strict form agrees with the split-conformal case $N_k=1$.
 
@@ -40,10 +40,11 @@ coverage falls to $\mathbb{P}(s_0\le s_1)=\tfrac12<\tfrac23$.
 
 ## Appendix B. Interim Conclusions on MIT-BIH
 
-Table B.1 records how our reading of the MIT-BIH evidence changed (§6.4). The
-second stage was our own error: it compared analyses with different calibration
-sizes (about 24,800 against 16,500 beats) and attributed the difference to block
-balance.
+Our reading of the MIT-BIH evidence changed three times (§6.4). The second stage
+was our own error: it compared analyses with different calibration sizes (about
+24,800 against 16,500 beats) and attributed the difference to block balance.
+Table B.1 lists each interim conclusion together with the control that
+overturned it.
 
 **Table B.1.** Interim conclusions on MIT-BIH and the control that overturned each.
 
@@ -60,5 +61,4 @@ balance.
 
 | Hal | Keputusan |
 |---|---|
-| Penomoran | Persamaan (A.1); tabel B.1 — builder menomori tabel Romawi berurutan, jadi B.1 menjadi tabel terakhir |
-| "Corollary 1.3" di Remark lama | Diganti "the split-conformal case $N_k=1$" karena Kor. 1.3 kini kalimat di §3.2 |
+| Penomoran | Persamaan (A.1); Tabel B.1 menjadi TABLE IX |

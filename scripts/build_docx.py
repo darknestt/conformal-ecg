@@ -272,6 +272,11 @@ def beri_garis_tabel(tabel) -> None:
         garis.append(e)
     tblPr.append(garis)
     tabel.alignment = WD_TABLE_ALIGNMENT.CENTER
+    # tabel tidak terpotong lintas halaman (judul kolom terpisah dari isinya)
+    for baris in tabel.rows[:-1]:
+        for sel in baris.cells:
+            for p in sel.paragraphs:
+                p.paragraph_format.keep_with_next = True
     for baris in tabel.rows:
         for sel in baris.cells:
             for p in sel.paragraphs:
