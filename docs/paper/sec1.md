@@ -47,36 +47,43 @@ up this design-stage question with an empirical audit of three public ECG
 resources: PTB-XL [H1], [H2], where 18,869 patients contribute 1.16 records on
 average; the MIT-BIH Arrhythmia Database [H3], where each of 44 subjects
 contributes more than 1,500 beats; and the PhysioNet/CinC Challenge 2021
-collection [H5], which leaves the block identifier undocumented. We introduce no
-new conformal procedure. The audit contributes the following.
+collection [H5], which leaves the block identifier undocumented. Two questions
+guide the audit: can a block-level guarantee be enforced on these resources at
+conventional error rates (RQ1), and does ignoring block structure cost coverage,
+and through what mechanism (RQ2)? We introduce no new conformal procedure. The
+audit contributes the following.
 
-- **A metadata-only feasibility audit** (§3, §5.1). The HCP bound, combined with
-  the join of the declared dependence sources, returns exact verdicts before a
-  single patient is enrolled. With all four documented PTB-XL sources declared,
-  every admissible calibration grouping reduces to one block; with patient
-  blocking alone, 24 of 44 SCP diagnostic statements lack a finite per-label
-  threshold at $\alpha=0.05$; and dividing the 22 MIT-BIH evaluation subjects
-  evenly between calibration and test rules out a subject-level guarantee at the
-  95% level.
+- **A metadata-only feasibility audit** (RQ1; §3, §5.1). The HCP bound, combined
+  with the join of the declared dependence sources, returns exact verdicts from
+  metadata or planned enrollment counts, before any model is trained. With all
+  four documented PTB-XL sources declared, every admissible calibration grouping
+  reduces to one block; with patient blocking alone, 24 of 44 SCP diagnostic
+  statements lack a finite per-label threshold at $\alpha=0.05$; and dividing the
+  22 MIT-BIH evaluation subjects evenly between calibration and test rules out a
+  subject-level guarantee at the 95% level.
 - **Attribution of under-coverage to dependence acting through repetition**
-  (§5.2–§5.4). Naive split conformal on MIT-BIH covers less than a matched
-  permutation null, a factorial design assigns the shortfall to clustering
-  rather than to unequal block sizes, and a controlled dose–response experiment
-  shows it increasing with the design effect. PTB-XL, despite substantial
-  within-patient correlation, sits near zero, as the design effect predicts.
-- **A caution for evaluating hierarchical conformal methods** (§5.3, §6.2).
-  Between 75% and 110% of the apparent gain of HCP over naive split conformal
-  survives when within-block dependence is permuted away, so the gain is largely
-  mechanical; matched permutation nulls and joint reporting of set size are
-  therefore recommended.
-- **Pre-registered robustness checks reported in full** (§5.5, §6.4). Across
-  three backbones whose parameter counts differ by more than a hundredfold, and
-  across checkpoints, every finding keeps its direction; statistical strength
-  varies, and the backbone that misses the pre-registered criterion is reported.
+  (RQ2; §5.2–§5.4). On the 22 MIT-BIH evaluation subjects, naive split conformal
+  covers less than a matched permutation null in every backbone and level, a
+  factorial design attributes the shortfall mainly to clustering, with block-size
+  imbalance acting through it, and a controlled dose–response experiment shows it
+  increasing with the design effect. PTB-XL, despite substantial within-patient
+  correlation, sits near zero, as the design effect predicts. With only 22
+  subjects, however, the deficit is not resolved at the level of subjects, which
+  we report as a limit of the evidence that mirrors the limit on the guarantee.
+- **Two cautions for evaluating conformal methods on clustered data** (§5.3,
+  §6.2). Between 75% and 110% of the apparent gain of HCP over naive split
+  conformal survives when within-block dependence is permuted away, so the gain
+  is largely mechanical. And intervals from repeated random splits of a fixed set
+  of subjects describe the split procedure rather than the population: on
+  MIT-BIH they exclude zero where a jackknife over subjects does not. We
+  recommend matched permutation nulls, joint reporting of set size, and
+  resampling of subjects whenever a population claim is intended.
 
-Resampling is always performed over blocks, the held-out PTB-XL fold has never
-been inspected, deviations from the protocol are logged, and the code and
-per-result artifacts are released with the paper. Section 2 situates the audit in
+The direction of every finding is checked across three backbones whose parameter
+counts differ by more than a hundredfold and across two checkpoints. Resampling
+is always performed over blocks, the held-out PTB-XL fold has never been
+inspected, and the code, per-result artifacts, analysis protocol and its
+deviation log are released with the paper. Section 2 situates the audit in
 prior work, Section 3 derives the feasibility conditions, Section 4 sets out the
 design, and Sections 5 and 6 present and discuss the findings.
 

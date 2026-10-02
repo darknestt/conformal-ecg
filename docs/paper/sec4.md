@@ -129,6 +129,17 @@ For MIT-BIH, training uses DS1 minus four validation records (124, 205, 215,
 230), validation uses those four, and DS2 is divided 11/11 at the record level
 into calibration and evaluation, again with 200–400 repetitions.
 
+Coverage is computed on the held-out blocks of each split as the fraction of
+their observations covered (beats for MIT-BIH, records for PTB-XL) and then
+averaged over splits. This observation-weighted coverage is the natural target
+of split conformal, whose nominal statement concerns one exchangeable
+observation. The guarantee (2) of HCP concerns one observation from a new block
+instead, and its empirical counterpart averages coverage within each test block
+before averaging over blocks. The two coincide when blocks have equal size, as in
+the dose–response design of §5.4, and nearly so on PTB-XL, where most blocks hold
+one record; for MIT-BIH both are reported (§5.3). On PTB-XL the coverage reported
+is superset coverage (4), obtained from the maximum score over the true labels.
+
 ### 4.3 Models and conformity scores
 
 Because conformal guarantees do not depend on the model, the choice of backbone
@@ -152,7 +163,18 @@ to scalar HCP (§3.4).
 
 Resampling always acts on blocks, whether patients or records, and never on
 single records or beats, since doing so would reproduce the very error under
-study. Friedman–Nemenyi tests are deliberately avoided: they are meant for many
+study. Two kinds of uncertainty are distinguished. Intervals computed over
+repeated random splits of a fixed set of blocks describe the Monte Carlo
+variability of the split procedure on those blocks; they narrow as splits are
+added and are not confidence intervals for the patient population. For the
+central MIT-BIH comparison we therefore also treat records as the sampling unit,
+through a leave-one-record-out jackknife over the 22 DS2 records with Holm
+correction across the three $\alpha$ levels of each backbone; this was added as a
+post hoc sensitivity analysis once the distinction was noticed. The analyses
+follow an internal analysis protocol that was kept under version control from the
+start of the project; it was not publicly registered or formally frozen, and its
+deviation log, released with the code, lists every departure from the initial
+plan. Friedman–Nemenyi tests are deliberately avoided: they are meant for many
 classifiers over many datasets, conventionally five or more, and are
 uninformative with two. The procedure used for each reported quantity is listed
 in Table 4.2.
@@ -162,15 +184,16 @@ in Table 4.2.
 | Quantity | Procedure |
 |---|---|
 | Coverage and set size | Mean over 200 random block-level splits; 2.5–97.5% range across splits |
-| B1 deficit against the permutation null | Percentile bootstrap (4,000 resamples of split-level coverage), 95% CI; one-sided bootstrap $p$ |
-| Multiplicity | Holm–Bonferroni across the three $\alpha$ levels within each backbone |
-| Factorial effects | Percentile bootstrap (3,000 resamples of 400 split-level values), 95% CI |
-| Monotonicity in dependence | Spearman correlation, $p<0.05$ |
+| B1 deficit against the permutation null | Paired splits (200); Monte Carlo 95% interval from a percentile bootstrap of split-level coverage (4,000 resamples) |
+| B1 deficit, record level | Leave-one-record-out jackknife over the 22 DS2 records (500 paired splits per replicate, new permutation per replicate); $t$ interval with 21 df; one-sided $t$ test |
+| Multiplicity | Holm–Bonferroni across the three $\alpha$ levels within each backbone (record-level test) |
+| Factorial effects | Monte Carlo 95% interval: percentile bootstrap (3,000 resamples of 400 split-level values) |
+| Monotonicity in dependence | Spearman correlation across configurations (descriptive; points share the same records) |
 | Sensitivity to checkpoint | Agreement of signs between best-validation and last-epoch weights |
 
 ### 4.5 Reproducibility
 
-Experiments run on CPU (2 threads) with fixed seeds. Each reported number is
+Experiments run on CPU (2 threads) with fixed seeds (seed 0 for every analysis). Each reported number is
 stored, together with its configuration, as a JSON artifact under `results/raw/`,
 and dataset caches are written atomically so that an interrupted run cannot leave
 a partial cache behind.

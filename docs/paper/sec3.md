@@ -142,11 +142,11 @@ its own, shrink to two blocks once both sources have to be respected.
 
 **Corollary 2 (impossibility).** If $K_1(\mathcal{P}_1\vee\mathcal{P}_2)<\lceil1/\alpha\rceil-1$, no HCP calibration yields a non-trivial guarantee at level $\alpha$ while accounting for both dependence sources; the same holds for any number of sources and their joint join. This is a property of the study design, not a shortcoming of any estimator.
 
-**Scope of Corollary 2.** We prove Corollary 2 for the HCP/Dunn family. Whether
-it extends to every distribution-free method whose validity rests on
-between-block exchangeability remains open. We conjecture that it does, by
-analogy with the unavoidable $n\ge1/\alpha-1$ requirement of split conformal, but
-we do not claim it.
+**Scope of Corollary 2.** We prove Corollary 2 for HCP as defined in (1).
+Whether it extends to the constructions of Dunn et al. [A0b], or to every
+distribution-free method whose validity rests on between-block exchangeability,
+remains open. We conjecture that it does, by analogy with the unavoidable
+$n\ge1/\alpha-1$ requirement of split conformal, but we do not claim it.
 
 **Admissible groupings.** We call a calibration grouping $g$ admissible at level
 $\alpha$ when it passes two checks: **(S1) feasibility**,

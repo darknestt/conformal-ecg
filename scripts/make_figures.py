@@ -108,11 +108,11 @@ def fig_atribusi() -> None:
     ax1.set_yticks(range(len(efek)))
     ax1.set_yticklabels([n for _, n in efek])
     ax1.invert_yaxis()
-    ax1.set_xlabel("Effect on B1 coverage [pp] (95% bootstrap CI)")
+    ax1.set_xlabel("Effect on B1 coverage [pp] (Monte Carlo 95% interval)")
     ax1.set_title("(a) 2$\\times$2 factorial design")
     for a in alfa:
         ax1.plot([], [], gaya[a][0], color=WARNA["mit"], ms=3.2, label=f"$\\alpha$={float(a):g}")
-    ax1.plot([], [], "o", mfc="white", mec=WARNA["mit"], ms=3.2, label="CI includes 0")
+    ax1.plot([], [], "o", mfc="white", mec=WARNA["mit"], ms=3.2, label="interval includes 0")
     ax1.legend(loc="upper right", frameon=False, ncol=2, columnspacing=0.8, handletextpad=0.2)
 
     x = np.arange(len(alfa))
@@ -289,7 +289,7 @@ def fig5_dosis() -> None:
         ax.errorbar(d["ptbxl"]["deff"], dp["defisit"] * 100,
                     yerr=[[(dp["defisit"] - dp["ci"][0]) * 100], [(dp["ci"][1] - dp["defisit"]) * 100]],
                     fmt=m, ms=3.4, color=WARNA["ptb"], capsize=1.5, elinewidth=0.6)
-    ax.plot([], [], "o", color=WARNA["ptb"], ms=3.4, label="PTB-XL (95% CI)")
+    ax.plot([], [], "o", color=WARNA["ptb"], ms=3.4, label="PTB-XL (Monte Carlo 95%)")
     ax.axhline(0, color="black", lw=0.5)
     ax.set_xscale("log")
     ax.set_xlabel("Design effect $\\mathrm{DEff} = 1 + (H-1)\\rho$")
@@ -308,25 +308,31 @@ def fig6_backbone() -> None:
               ("ResNet1D-50", BI / "control_permutation_mitdb_resnet1d50.json")]
     fig, (ax, ax2) = plt.subplots(1, 2, figsize=(LEBAR_GANDA, 2.4), gridspec_kw={"width_ratios": [1.15, 1]})
     gaya = {"0.10": ("o", -0.18), "0.15": ("s", 0.0), "0.20": ("^", 0.18)}
+    kunci_jk = {"SmallECGNet": "small", "ResNet1D-34": "resnet1d34", "ResNet1D-50": "resnet1d50"}
     for i, (nama, p) in enumerate(sumber):
         h = json.loads(p.read_text(encoding="utf-8"))["hasil"]
+        jk = json.loads((RAW / "jackknife_records" / f"mitdb_{kunci_jk[nama]}.json")
+                        .read_text(encoding="utf-8"))["hasil"]
         for a, (m, dy) in gaya.items():
+            lo, hi = (c * 100 for c in jk[a]["ci"])
+            ax.plot([lo, hi], [i + dy, i + dy], color="#bdd7ee", lw=3.2, solid_capstyle="butt", zorder=1)
             v = h[a]["defisit_B1"]
             sig = v["ci"][0] > 0
             ax.errorbar(v["nilai"] * 100, i + dy, xerr=[[(v["nilai"] - v["ci"][0]) * 100], [(v["ci"][1] - v["nilai"]) * 100]],
                         fmt=m, ms=3.2, mfc=WARNA["mit"] if sig else "white", mec=WARNA["mit"],
-                        color=WARNA["mit"], capsize=1.5, elinewidth=0.6)
+                        color=WARNA["mit"], capsize=1.5, elinewidth=0.6, zorder=3)
     ax.axvline(0, color="black", lw=0.6)
     ax.set_yticks(range(len(sumber)))
     ax.set_yticklabels([n for n, _ in sumber])
     ax.invert_yaxis()
-    ax.set_xlabel("B1 deficit vs. permutation null [pp] (95% CI)")
+    ax.set_xlabel("B1 deficit vs. permutation null [pp]")
     for a, (m, _) in gaya.items():
         ax.plot([], [], m, color=WARNA["mit"], ms=3.2, label=f"$\\alpha$={float(a):g}")
-    ax.plot([], [], "o", mfc="white", mec=WARNA["mit"], ms=3.2, label="CI includes 0")
-    ax.legend(loc="upper right", frameon=False, ncol=2, columnspacing=0.8, handletextpad=0.2)
-    ax.set_xlim(-0.9, 6.4)
-    ax.set_title("(a) Deficit against the permutation null, MIT-BIH")
+    ax.plot([], [], "o", mfc="white", mec=WARNA["mit"], ms=3.2, label="MC interval includes 0")
+    ax.plot([], [], color="#bdd7ee", lw=3.2, label="record-level 95% CI")
+    ax.legend(loc="lower center", bbox_to_anchor=(0.5, 1.0), frameon=False, ncol=3, columnspacing=0.8,
+              handletextpad=0.3, fontsize=6.2)
+    ax.set_title("(a) Deficit against the permutation null, MIT-BIH", pad=22)
 
     penanda = {"resnet1d34": "o", "resnet1d50": "s"}
     batas = 0.0

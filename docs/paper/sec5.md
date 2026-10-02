@@ -116,18 +116,39 @@ levels below $\alpha_{\min}$.
 we compared it with a matched null obtained by permuting the assignment of beats
 to records within DS2. This permutation keeps $K_1=11$, the multiset of block
 sizes and the marginal score distribution exactly as they were, while the score
-ICC drops from 0.519 to 0.000. Table 5.4 gives the B1 deficit relative to this
-null for each backbone. For the primary backbone (first row) the deficit is
-positive at all three feasible levels and remains significant at each after Holm
-correction across levels (adjusted one-sided $p\le 0.0075$).
+ICC drops from 0.519 to 0.000. Table 5.4 reports the B1 deficit relative to this
+null at two levels of uncertainty. Over 200 paired splits of the 22 DS2 records
+the deficit is positive in all nine backbone×$\alpha$ cells, and for the primary
+backbone its Monte Carlo interval excludes zero at all three levels; these
+intervals, however, describe the split procedure on these records only (§4.4).
+Treating records as the sampling unit, the leave-one-record-out jackknife gives
+deficits of 0.60–1.83 pp with 95% intervals of half-width 3.7–5.7 pp, which
+include zero in every cell (Holm-adjusted one-sided $p\ge0.59$). On these 22
+subjects B1 thus covers less than the permutation null in every configuration,
+but 22 subjects are too few to establish the sign of the deficit for the
+population they represent.
 
-**Table 5.4.** MIT-BIH: B1 deficit against the permutation null, pp [95% CI], with the number of levels significant by 95% CI and after Holm correction.
+**Table 5.4.** MIT-BIH: B1 deficit against the permutation null, pp. Monte Carlo interval: percentile bootstrap over 200 paired splits of the 22 DS2 records, conditional on those records. Record level: leave-one-record-out jackknife (500 paired splits and a new permutation per replicate), 95% t interval with 21 df and Holm-adjusted one-sided p.
 
-| Backbone | Score ICC | $\alpha=0.10$ | $\alpha=0.15$ | $\alpha=0.20$ | CI | Holm |
-|---|---:|---|---|---|:-:|:-:|
-| SmallECGNet | 0.519 | +1.49 [0.34, 2.71] | +2.21 [0.85, 3.60] | +2.37 [0.79, 3.93] | 3/3 | 3/3 |
-| ResNet1D-34 | 0.436 | +1.15 [0.10, 2.23] | +1.02 [−0.16, 2.23] | +0.81 [−0.59, 2.17] | 1/3 | 0/3 |
-| ResNet1D-50 | 0.462 | +2.54 [1.25, 3.87] | +3.42 [1.91, 4.98] | +3.18 [1.54, 4.82] | 3/3 | 3/3 |
+| Backbone | ICC | $\alpha$ | Deficit [Monte Carlo 95%] | Record level [95% CI] | Holm $p$ |
+|------------|-----|-----|----------------------|------------------------|--------|
+| SmallECGNet | 0.519 | 0.10 | +1.49 [0.34, 2.71] | +1.26 [−2.70, +5.22] | 0.77 |
+| | | 0.15 | +2.21 [0.85, 3.60] | +1.36 [−3.21, +5.93] | 0.77 |
+| | | 0.20 | +2.37 [0.79, 3.93] | +1.02 [−4.67, +6.71] | 0.77 |
+| ResNet1D-34 | 0.436 | 0.10 | +1.15 [0.10, 2.23] | +1.55 [−2.15, +5.26] | 0.59 |
+| | | 0.15 | +1.02 [−0.16, 2.23] | +1.14 [−3.36, +5.63] | 0.60 |
+| | | 0.20 | +0.81 [−0.59, 2.17] | +0.60 [−4.44, +5.65] | 0.60 |
+| ResNet1D-50 | 0.462 | 0.10 | +2.54 [1.25, 3.87] | +1.72 [−3.70, +7.14] | 0.68 |
+| | | 0.15 | +3.42 [1.91, 4.98] | +1.83 [−3.16, +6.81] | 0.68 |
+| | | 0.20 | +3.18 [1.54, 4.82] | +1.17 [−4.07, +6.42] | 0.68 |
+
+**Weighting.** Averaging coverage within each test record before averaging over
+records, the empirical counterpart of (2), does not weaken these findings (full
+data of the same jackknife runs). Block-weighted B1 coverage lies below its
+observation-weighted value in all nine cells, and the deficit against the
+permutation null becomes 1.43–2.61 pp. Block-weighted HCP coverage stays above
+$1-\alpha$ at every level and for every backbone (0.9531–0.9548 at $\alpha=0.10$,
+0.9146–0.9178 at 0.15 and 0.8557–0.8565 at 0.20), as guarantee (2) requires.
 
 This control also shows why a B12-versus-B1 comparison says little. We define the
 mechanical share as the B12−B1 gap in the permuted arm divided by the same gap on
@@ -141,15 +162,21 @@ deficit against the permutation null is the evidence used throughout.
 **Factorial decomposition.** A 2×2 design crossed clustering (original versus
 randomized record membership) with block-size balance (balanced versus
 imbalanced) while holding the calibration size fixed. Clustering lowered
-coverage by 1.22, 1.55 and 1.49 pp at $\alpha=0.10, 0.15, 0.20$, and every interval
-excluded zero (for example $[-1.84, -0.63]$ pp at 0.10). Neither the imbalance
-effect (−0.44, −0.26, −0.27 pp) nor the interaction reached significance at any
-level, so block-size imbalance, the obvious rival explanation, does not account
-for the deficit. Fig. 6 places the two controls next to each other: panel (a)
-shows that only the clustering effect excludes zero, and panel (b) that the
-B12−B1 gap keeps nearly its full size once dependence is permuted away.
+coverage by 1.22, 1.55 and 1.49 pp at $\alpha=0.10, 0.15, 0.20$, with Monte Carlo
+intervals over 400 splits that exclude zero (for example $[-1.84, -0.63]$ pp at
+0.10). The imbalance main effect was smaller (−0.44, −0.26, −0.27 pp), and
+imbalance acted mainly through clustering: at $\alpha=0.10$ it lowered coverage by
+0.83 pp when records were clustered but by 0.04 pp when membership was
+randomized (interaction −0.79 pp; −0.54 and −0.52 pp at the other levels), as the
+pooled design effect in (6), which grows with $\sum_k N_k^2$ only when $\rho>0$,
+anticipates. Block-size imbalance therefore does not produce the deficit on its
+own; it amplifies the effect of clustering. Like those of Table 5.4, these
+intervals are conditional on the 22 DS2 records. Fig. 6 places the two controls
+next to each other: panel (a) shows the clustering effect dominating, and panel
+(b) that the B12−B1 gap keeps nearly its full size once dependence is permuted
+away.
 
-![**Fig. 6.** Attribution of the MIT-BIH deficit, primary backbone. (a) Effects of clustering, block-size imbalance and their interaction on B1 coverage in the 2×2 factorial design (95% bootstrap CI; open markers include zero). (b) B12−B1 coverage gap on the original data and after permuting beats between records (bars: mean; whiskers: 2.5–97.5% range across splits). Percentages give the mechanical share, the permuted gap as a fraction of the original.](figures/fig6_attribution.png)
+![**Fig. 6.** Attribution of the MIT-BIH deficit, primary backbone. (a) Effects of clustering, block-size imbalance and their interaction on B1 coverage in the 2×2 factorial design (Monte Carlo 95% interval over 400 splits; open markers include zero). (b) B12−B1 coverage gap on the original data and after permuting beats between records (bars: mean; whiskers: 2.5–97.5% range across splits). Percentages give the mechanical share, the permuted gap as a fraction of the original.](figures/fig6_attribution.png)
 
 ### 5.4 The deficit tracks the design effect
 
@@ -158,12 +185,16 @@ beats to randomly chosen records while fixing every block at 1,355 beats, so
 that imbalance cannot play a role (11 values of $p$, 300 splits each). Over this
 range the score ICC declines from 0.519 at $p=0$ to 0.0001 at $p=1$. Because blocks
 are uniform and calibration is subsampled, the deficits are smaller than in §5.3
-(0.65 pp at $p=0$, $\alpha=0.10$) and all per-point intervals include zero; the
-evidence therefore rests on the trend, which the pre-registered Spearman
-criterion tests. Table 5.5 reports this criterion on three dependence axes, and
+(0.65 pp at $p=0$, $\alpha=0.10$) and every per-point Monte Carlo interval includes
+zero; the
+evidence therefore lies in the trend across points, summarized by Spearman
+correlations. These replace the cross-dataset test of the initial protocol
+(§6.4) and are descriptive: all points derive from the same 22 records, so the
+accompanying $p$-values, which treat points as independent, are not population
+inference. Table 5.5 reports the correlations on three dependence axes, and
 within MIT-BIH the deficit grows with ICC at all three levels.
 
-**Table 5.5.** Spearman correlation between dependence and coverage deficit.
+**Table 5.5.** Spearman correlation between dependence and coverage deficit ($p$-values treat points as independent and are shown for completeness).
 
 | Axis | Points | $\alpha=0.10$ | $\alpha=0.15$ | $\alpha=0.20$ |
 |---|---:|---|---|---|
@@ -175,16 +206,16 @@ On the ICC axis alone PTB-XL does not fit: its patient-level ICC of 0.352 equals
 that of a MIT-BIH point whose deficit is 0.35 pp, yet PTB-XL has none. The design
 effect resolves the mismatch. With $H=1.05$, PTB-XL has a DEff of 1.02, compared
 with 704 for intact MIT-BIH, and on this axis the combined correlation remains
-positive and significant; redoing the computation with the ICC of the coverage
+positive (0.80–0.85); redoing the computation with the ICC of the coverage
 indicator at a fixed threshold, the quantity that enters the variance of §3.2,
 does not change the conclusion. DEff is used as a summary axis, not a sufficient
 statistic; an exceedance-specific design effect is given in [P1]. Fig. 7 shows
 the deficit as a function of DEff: the MIT-BIH gradient carries the combined
 correlation, while PTB-XL acts as a prediction check at the low-dependence end
 rather than as an independent trend (§6.4), with deficits of −0.05, −0.12 and
-−0.16 pp, that is, slight over-coverage with every interval spanning zero.
+−0.16 pp, that is, coverage slightly above nominal.
 
-![**Fig. 7.** B1 coverage deficit against the design effect. MIT-BIH points (blue) are obtained by randomly reassigning a growing fraction of beats to other records at a fixed block size; PTB-XL (orange) is the observed patient partition with 95% CI. The annotation gives the Spearman correlation over the 12 points at $\alpha=0.10, 0.15, 0.20$.](figures/fig7_dose_response.png)
+![**Fig. 7.** B1 coverage deficit against the design effect. MIT-BIH points (blue) are obtained by randomly reassigning a growing fraction of beats to other records at a fixed block size; PTB-XL (orange) is the observed patient partition with its Monte Carlo 95% interval. The annotation gives the Spearman correlation over the 12 points at $\alpha=0.10, 0.15, 0.20$.](figures/fig7_dose_response.png)
 
 ### 5.5 Robustness to backbone and checkpoint
 
@@ -203,29 +234,27 @@ dataset. Table 5.6 sets out the discrimination of all three backbones.
 | ResNet1D-50 | 15,964,485 / 15,969,413 | 0.926 | 0.370 | 0.896 |
 
 On PTB-XL, B1 reached nominal coverage in all 9 backbone×$\alpha$ cells, with mean
-coverage 0.05–0.19 pp above nominal. On MIT-BIH the permutation test was rerun
-for each backbone against a criterion set in advance, namely significance at
-every feasible $\alpha$ (Table 5.4). The deficit is positive in all 9 cells and
-its 95% interval excludes zero in 7. After Holm correction it is significant at
-every level for SmallECGNet and ResNet1D-50 (adjusted $p\le0.0075$ and $p=0.0007$)
-but at no level for ResNet1D-34 (adjusted $p=0.050$, $0.095$, $0.127$), so the
-criterion fails for ResNet1D-34. Across the three backbones the mechanical share
-of the B12−B1 gap ranged from 75% to 110%.
+coverage 0.05–0.19 pp above nominal. On MIT-BIH the deficit against the
+permutation null is positive in all 9 backbone×$\alpha$ cells (Table 5.4). Its
+Monte Carlo interval excludes zero in 7 of them, the exceptions being ResNet1D-34
+at $\alpha=0.15$ and $0.20$, where the deficit is smallest (0.81–1.02 pp); at the
+record level no cell excludes zero. Across the three backbones the mechanical
+share of the B12−B1 gap ranged from 75% to 110%.
 
 **Checkpoint.** With only 4 validation records on MIT-BIH, early stopping picked
-epoch 1 for ResNet1D-50. A pre-registered sensitivity analysis therefore reran
+epoch 1 for ResNet1D-50. A sensitivity analysis therefore reran
 the audit with last-epoch weights for both residual networks on both datasets
 (MIT-BIH epochs 13 vs. 8 and 6 vs. 1; PTB-XL 14 vs. 9 and 12 vs. 7). In all 16
 backbone×dataset×$\alpha$ cells the B1 deficit kept its sign and $K_1(\ell)$ was
 unchanged, but on MIT-BIH its magnitude shifted by as much as 1.8 pp, enough to
 change the ordering of the backbones, so differences in deficit size between
 backbones are not interpreted. Fig. 8 summarizes both robustness checks. Panel
-(a) gives the per-backbone deficits with their intervals and shows that the
-direction of the contrast holds for every backbone while its statistical
-strength does not; panel (b) plots each cell under the two checkpoints, and every
-point stays in the quadrant of its original sign.
+(a) sets the Monte Carlo intervals of Table 5.4 against the record-level
+intervals: the direction holds for every backbone, but only the narrower,
+conditional intervals exclude zero. Panel (b) plots each cell under the two
+checkpoints, and every point stays in the quadrant of its original sign.
 
-![**Fig. 8.** Robustness of the audit. (a) MIT-BIH B1 coverage deficit against the matched permutation null, by backbone and $\alpha$ (point estimate and 95% bootstrap CI; open markers denote intervals that include zero). (b) B1 coverage minus nominal under best-validation (horizontal) and last-epoch (vertical) weights for the two residual networks, 16 backbone×dataset×$\alpha$ cells; shaded quadrants mark agreement in sign and the dotted line marks equality.](figures/fig8_robustness.png)
+![**Fig. 8.** Robustness of the audit. (a) MIT-BIH B1 coverage deficit against the matched permutation null, by backbone and $\alpha$: point estimate with Monte Carlo 95% interval over 200 splits of the 22 DS2 records (open markers include zero), and record-level 95% CI from the leave-one-record-out jackknife (light bars). (b) B1 coverage minus nominal under best-validation (horizontal) and last-epoch (vertical) weights for the two residual networks, 16 backbone×dataset×$\alpha$ cells; shaded quadrants mark agreement in sign and the dotted line marks equality.](figures/fig8_robustness.png)
 
 ---
 

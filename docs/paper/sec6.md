@@ -11,9 +11,10 @@
 This audit keeps apart two questions that are usually conflated: can a
 block-level coverage guarantee be *enforced* on a clinical dataset, and does
 ignoring block structure *cost* coverage when it is not enforced? The first is
-combinatorial and is answered from metadata. On public ECG resources the answer
-is more restrictive than their size would suggest, because declared sources
-collapse under the join and rare labels are spread over few patients (§5.1).
+combinatorial and is answered from metadata. On the resources audited here the
+answer is more restrictive than their size would suggest, because declared
+sources collapse under the join and rare labels are spread over few patients
+(§5.1).
 Proposition 1 gives a direct illustration: dividing the 22 evaluation subjects of
 the canonical MIT-BIH partition equally between calibration and test leaves
 $K_1=11$, which rules out a subject-level guarantee at the 95% level for this
@@ -29,9 +30,14 @@ unnecessary. Both quantities should therefore be reported, and neither belongs t
 the dataset alone, since $K_1$ depends on the split design and $\rho$ on the model
 that produced the scores (§4.1). The design effect is used here purely as an
 ordering axis, a heuristic under a compound-symmetric model (§3.2); a principled
-effective sample size for thresholds under clustering is derived in [P1].
+effective sample size for thresholds under clustering is derived in [P1]. The two
+questions also meet. On MIT-BIH the deficit is consistent in sign across
+backbones, levels and splits of the 22 evaluation subjects, yet a jackknife over
+those subjects cannot resolve it (§5.3): the scarcity of blocks that bounds the
+guarantee also bounds what an audit of the same subjects can establish about
+coverage loss.
 
-### 6.2 A pitfall in evaluating hierarchical conformal methods
+### 6.2 Two pitfalls in evaluating conformal methods on clustered data
 
 The lesson that travels furthest concerns evaluation, not ECG. Applied to the
 same data, HCP seems to "restore" the coverage that naive split conformal loses,
@@ -45,6 +51,18 @@ degenerates altogether, since HCP achieves coverage by returning every label
 accordingly be tested against a null that keeps block sizes and score marginals
 but removes dependence, and coverage should always be accompanied by set size,
 abstention being the cheapest route to coverage.
+
+The second pitfall concerns uncertainty. Conformal methods are commonly
+evaluated over many random calibration–test splits of one dataset, and the
+spread or bootstrap interval of the resulting coverages is reported. When the
+data are clustered, those splits reuse the same subjects, so the interval
+describes the split procedure on those subjects and shrinks as more splits are
+drawn; it is not a confidence interval for the population. On MIT-BIH the
+distinction decides the reading: repeated-split intervals exclude zero in most
+cells of Table 5.4, whereas the jackknife over the same 22 subjects includes zero
+in all of them. Population claims about coverage on clustered data should
+therefore resample subjects, and with few subjects the honest conclusion may be
+that the sign of a coverage gap is not yet known.
 
 ### 6.3 Implications and relation to prior work
 
@@ -123,7 +141,7 @@ published PTB-XL benchmarks [F1] and poorly on MIT-BIH minority classes
 (balanced accuracy 0.37–0.38 for all three), which enlarges prediction sets
 without lowering coverage (§4.3, §5.5). Since only 4 records were available for
 validation, early stopping chose epoch 1 for ResNet1D-50 on MIT-BIH; the
-pre-registered last-epoch analysis left the sign of every deficit and every $K_1$
+last-epoch sensitivity analysis left the sign of every deficit and every $K_1$
 intact but not the magnitude, which is therefore not compared across backbones.
 
 **External validity.** PTB-XL comes from a single institution and was recorded
@@ -140,33 +158,41 @@ temporal dependence within a patient across visits is not addressed; other
 clinical signals with repeated measurements are natural candidates for the same
 analysis but were not examined.
 
-**Statistical conclusion validity.** Neither a single split nor a single
-dose–response point establishes a deficit: the split-to-split range covers
-$1-\alpha$ in every MIT-BIH cell (Table 5.3), and each per-point interval of the
-dose–response analysis includes zero. The evidence comes instead from the
-comparison with a permutation null and from the monotone trend, which are exactly
-what the pre-registered tests examine. After Holm correction the deficit against
-the permutation null is significant at every level for two of the three
-backbones and at none for ResNet1D-34 (Table 5.4); for that backbone the
-pre-registered criterion fails, and we claim only that the direction is
-invariant. Coverage on its own flatters HCP, which covers by abstaining below
+**Statistical conclusion validity.** Two sources of uncertainty must be kept
+apart. Repeated random splits of the 22 DS2 records, combined with one
+permutation of beats, yield Monte Carlo intervals: they show that on these
+records B1 covers less than the permutation null, but they narrow as splits are
+added and say nothing about other subjects. The leave-one-record-out jackknife,
+added as a post hoc sensitivity analysis once this distinction was noticed,
+treats records as the sampling unit; its intervals span several percentage
+points and include zero for every backbone and level (Table 5.4), so the MIT-BIH
+deficit is established for these records but not for the population they
+represent. Monte Carlo error adds to the jackknife variance, because each
+replicate rests on 500 splits, so those intervals are somewhat conservative. The
+factorial intervals and the Spearman $p$-values of Table 5.5 are conditional on
+the same records. Neither a single split nor a single dose–response point shows a
+deficit: the split-to-split range covers $1-\alpha$ in every MIT-BIH cell (Table
+5.3). Coverage on its own flatters HCP, which covers by abstaining below
 $\alpha_{\min}$ (§5.2), so set size is reported alongside coverage throughout. Two
-pre-registered criteria did not survive. "HCP covers better than split
+criteria from our initial protocol did not survive. "HCP covers better than split
 conformal" was withdrawn after the permutation control revealed the gap to be
 largely mechanical (§5.3). A Spearman test across datasets could not be carried
 out as specified, because with two datasets a rank correlation can only equal
-$\pm1$, and it was replaced by a test over design-effect points within MIT-BIH.
-Both changes appear in the deviation log.
+$\pm1$, and it was replaced by the correlations over design-effect points of
+§5.4. These changes, and the departures from the initial statistical plan
+(patient-level bootstrap, a paired permutation test with 10,000 permutations,
+exact binomial intervals and Cliff's delta, none of which was used), are listed
+in the protocol's deviation log.
 
 **Theoretical scope.** The variance of §3.2 and the design effects (6) depend on
 Assumption (A), a one-way random-effects model with compound symmetry, whereas
 Proposition 1, Corollary 2 and Proposition 3 hold without distributional
 assumptions. That variance involves the correlation of the coverage indicator
 rather than of the raw score; with the indicator correlation every Spearman
-coefficient stays significant (Table 5.5), and PTB-XL's correlation drops from
+coefficient stays positive (Table 5.5), and PTB-XL's correlation drops from
 0.35 to 0.19–0.20 while its design effect remains near 1. The design effect ranks
 configurations, but we do not show that it is a sufficient statistic for
-coverage loss. Corollary 2 is proved for the HCP/Dunn family only (§3.3), and the
+coverage loss. Corollary 2 is proved for HCP only (§3.3), and the
 hierarchical constructions are not compared with one another [A0b]. For PTB-XL
 the verdict is exhaustive only with respect to the declared sources {patient,
 site, nurse, device}, which the data cannot verify, and the merging of joined
@@ -183,17 +209,20 @@ blocks still carries no guarantee.
 
 **Researcher degrees of freedom.** Our interpretation of the MIT-BIH evidence
 changed three times before settling, each change prompted by an added control
-rather than by rereading existing data (Appendix B). Three analyses were
-introduced or modified after results had been seen, and every one of them made
-the evidence stricter. The permutation control overturned a criterion that had
-favored our hypothesis; the Holm correction, which the frozen analysis plan
-required but which was not applied at first, removed the last significant level
-for ResNet1D-34; and the reporting axis was chosen after ICC had failed to place
-the two datasets on one scale. The factor $1+(H-1)\rho$ already appeared in our
-theoretical notes before data collection, and $H$ follows from the variance in
-§3.2 instead of being selected, but the decision to report on this axis was taken
-with the results in view. The protocol is accompanied by a complete deviation
-log.
+rather than by rereading existing data, and its statistical strength was revised
+once more (Appendix B). Four analyses were introduced or modified after results
+had been seen, and every one of them made the evidence stricter. The permutation
+control overturned a criterion that had favored our hypothesis; the Holm
+correction, specified in our initial protocol but not applied at first, removed
+the last significant level for ResNet1D-34; the reporting axis was chosen after
+ICC had failed to place the two datasets on one scale; and the record-level
+jackknife, specified and committed before it was run, showed that the
+repeated-split significance did not extend to subjects. The factor
+$1+(H-1)\rho$ already appeared in our theoretical notes before data collection,
+and $H$ follows from the variance in §3.2 instead of being selected, but the
+decision to report on this axis was taken with the results in view. The analysis
+protocol was kept under version control but was never publicly registered or
+formally frozen; it is released with its deviation log.
 
 ---
 

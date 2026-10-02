@@ -426,7 +426,7 @@ $$\alpha_{\min}(\mathcal{P}_1\vee\mathcal{P}_2) \;\ge\; \max\big(\alpha_{\min}(\
 
 > 🟡 **Status kebaruan.** Kor. 3.2 adalah **komposisi mekanis** dua hasil yang sudah dikenal: runtuhnya join (literatur kebocoran) dan batas $1/(K_1+1)$ ([A0]). Yang tidak kami temukan tertulis — dan karena itu hanya kami nyatakan sebagai **pengamatan**, bukan teorema — adalah perbedaan sifat akibatnya: pada pemisahan latih/uji atau CV, keruntuhan join menurunkan mutu secara **bertingkat** (lebih sedikit fold, varians naik); pada kalibrasi HCP akibatnya **kategoris** — di bawah $1/(K_1+1)$ tidak ada ambang berhingga sama sekali.
 
-> 🔴 **Ruang lingkup dikunci.** Saya menduga Kor. 3.2 berlaku bagi **setiap** metode bebas-distribusi yang validitasnya bersandar pada exchangeability antar-blok, bukan hanya HCP — karena argumen leave-one-block-out memaksa massa $\ge \frac{1}{K_1+1}$ pada $+\infty$. Dugaan itu **tidak diklaim di naskah**. Naskah hanya mengklaimnya untuk keluarga HCP/Dunn, dan menyatakan sisanya sebagai pertanyaan terbuka.
+> 🔴 **Ruang lingkup dikunci.** Saya menduga Kor. 3.2 berlaku bagi **setiap** metode bebas-distribusi yang validitasnya bersandar pada exchangeability antar-blok, bukan hanya HCP — karena argumen leave-one-block-out memaksa massa $\ge \frac{1}{K_1+1}$ pada $+\infty$. Dugaan itu **tidak diklaim di naskah**. Naskah hanya mengklaimnya untuk HCP sebagaimana didefinisikan di (1) — klaim lama "keluarga HCP/Dunn" dicabut 2026-10-02 (audit P1-C: tidak ada bukti untuk konstruksi Dunn; pooling CDFs bahkan tidak punya atom di $+\infty$) — dan menyatakan sisanya sebagai pertanyaan terbuka.
 
 #### ✅ Verifikasi konstruktif pada PTB-XL — 2026-09-30
 
@@ -714,7 +714,7 @@ Kalibrasi = fold 9 · blok = `patient_id` · 44 pernyataan diagnostik SCP · 3.0
 | 1 | Teorema C6 (b–d), Prop. 2 dan 2′ memakai Asumsi (A); tidak bebas-distribusi | Pisahkan secara eksplisit di §Metode |
 | 2 | ~~Prop. 2 diturunkan untuk $N_k$ seragam~~ | ✅ Diselesaikan oleh Prop. 2′ (rata-rata harmonik) |
 | 3 | $\rho(t)$ bergantung pada $t$ dan pada model | E11b mengestimasinya; jangan klaim nilai tunggal |
-| 4 | Kor. 3.2 terbukti untuk keluarga HCP/Dunn, dan **terverifikasi konstruktif pada PTB-XL** (§4.2) | ✅ Klaim eksistensi tegak. Perumuman ke seluruh metode bebas-distribusi tetap **pertanyaan terbuka**, dinyatakan demikian di naskah |
+| 4 | Kor. 3.2 terbukti untuk **HCP** (bukan seluruh keluarga Dunn — dikoreksi 2026-10-02), dan **terverifikasi konstruktif pada PTB-XL** (§4.2) | ✅ Klaim eksistensi tegak. Perumuman ke seluruh metode bebas-distribusi tetap **pertanyaan terbuka**, dinyatakan demikian di naskah |
 | 5 | Kelayakan `site` bertumpu pada 37 site mungil yang `nurse`-nya kosong | Laporkan; kemungkinan rezim pengumpulan berbeda |
 | 6 | §5.1 (cakupan-superset) **sepele** — HCP berlaku tanpa modifikasi | Jangan jual sebagai kontribusi; jadikan bagian Metode |
 | 7 | §5.2 mengondisikan pada $\ell \in Y$ = seleksi bergantung-data | 🟡 Tulis argumen exchangeability intra-stratum secara formal |

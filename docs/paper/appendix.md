@@ -41,7 +41,8 @@ exchangeable scores the coverage drops to $\mathbb{P}(s_0\le s_1)=\tfrac12<\tfra
 
 ## Appendix B. Interim Conclusions on MIT-BIH
 
-The reading of the MIT-BIH evidence went through three revisions (§6.4). The
+The reading of the MIT-BIH evidence went through three revisions, and its
+statistical strength through a fourth (§6.4). The
 second revision was our own mistake: it set analyses with different calibration
 sizes (about 24,800 against 16,500 beats) side by side and ascribed the
 difference to block balance. Table B.1 records each interim conclusion alongside
@@ -55,6 +56,7 @@ the control that overturned it.
 | 2 | The deficit is driven by block-size imbalance | 2×2 factorial: imbalance significant at 0/3 levels, clustering at 3/3 |
 | 3 | The deficit increases monotonically with ICC | PTB-XL: ICC 0.35 yet no deficit |
 | 4 | The deficit tracks $1+(H-1)\rho$ | — stands |
+| 5 | The B1 deficit against the permutation null is significant for two of three backbones | Record-level jackknife over the 22 DS2 records: every 95% CI includes zero |
 
 ---
 
