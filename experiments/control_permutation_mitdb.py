@@ -36,6 +36,7 @@ sys.path.insert(0, str(ROOT))
 from src.conformal import hcp, intraclass_correlation, split_conformal  # noqa: E402
 from src.data.mitdb import DS2, KELAS, load_beats  # noqa: E402
 from src.models.small_ecg_net import SmallECGNet  # noqa: E402
+from src.models.resnet1d import resnet1d34, resnet1d50  # noqa: E402
 
 for _a in (sys.stdout, sys.stderr):
     if hasattr(_a, "reconfigure"):
@@ -43,6 +44,17 @@ for _a in (sys.stdout, sys.stderr):
 
 ALPHAS = [0.10, 0.15, 0.20]  # hanya yang LAYAK pada K1 = 11
 CKPT = ROOT / "results" / "raw" / "feasibility_mitdb_backbone.pt"
+DIR_BI = ROOT / "results" / "raw" / "backbone_invariance"
+BACKBONE = {
+    "small": (lambda: SmallECGNet(n_leads=1, n_classes=len(KELAS)), CKPT,
+              ROOT / "results" / "raw" / "control_permutation_mitdb.json"),
+    "resnet1d34": (lambda: resnet1d34(n_leads=1, n_classes=len(KELAS)),
+                   DIR_BI / "ckpt" / "mitdb_resnet1d34.pt",
+                   DIR_BI / "control_permutation_mitdb_resnet1d34.json"),
+    "resnet1d50": (lambda: resnet1d50(n_leads=1, n_classes=len(KELAS)),
+                   DIR_BI / "ckpt" / "mitdb_resnet1d50.pt",
+                   DIR_BI / "control_permutation_mitdb_resnet1d50.json"),
+}
 
 
 @torch.no_grad()
@@ -78,20 +90,22 @@ def main() -> int:
     p = argparse.ArgumentParser()
     p.add_argument("--repeats", type=int, default=200)
     p.add_argument("--seed", type=int, default=0)
+    p.add_argument("--backbone", choices=list(BACKBONE), default="small")
     args = p.parse_args()
+    bangun, ckpt, keluaran = BACKBONE[args.backbone]
 
-    if not CKPT.exists():
-        print(f"GALAT: checkpoint tidak ada: {CKPT}", file=sys.stderr)
-        print("Jalankan experiments/feasibility_mitdb.py lebih dulu.", file=sys.stderr)
+    if not ckpt.exists():
+        print(f"GALAT: checkpoint tidak ada: {ckpt}", file=sys.stderr)
         return 1
 
     x, y, rec = load_beats()
     ds2 = np.array([int(r) for r in DS2])
     i_eval = np.flatnonzero(np.isin(rec, ds2))
 
-    model = SmallECGNet(n_leads=1, n_classes=len(KELAS))
-    model.load_state_dict(torch.load(CKPT, weights_only=True))
+    model = bangun()
+    model.load_state_dict(torch.load(ckpt, weights_only=True))
     model.eval()
+    print(f"backbone: {args.backbone}  ({ckpt.name})")
 
     pr = prob(model, x, i_eval)
     y_ev, rec_ev = y[i_eval], rec[i_eval]
@@ -181,10 +195,10 @@ def main() -> int:
           f"{min(porsi):.1%} - {max(porsi):.1%}")
     print("  -> Kriteria (b) sebagian besar MEKANIS; bukti H0 terletak pada defisit B1.")
 
-    keluaran = ROOT / "results" / "raw" / "control_permutation_mitdb.json"
     keluaran.write_text(json.dumps(
-        {"k1": k1, "alpha_min": amin, "icc_asli": icc_asli.icc, "icc_perm": icc_perm.icc,
-         "repeats": args.repeats, "hasil": ringkas}, indent=2), encoding="utf-8")
+        {"backbone": args.backbone, "k1": k1, "alpha_min": amin, "icc_asli": icc_asli.icc,
+         "icc_perm": icc_perm.icc, "repeats": args.repeats, "hasil": ringkas},
+        indent=2), encoding="utf-8")
     print(f"\nTersimpan: {keluaran.relative_to(ROOT)}")
     return 0
 

@@ -486,6 +486,8 @@ Hanya `patient_id` $\subset$ `strat_fold` yang bersarang. Akibatnya memblok per 
 
 > Angka $K_1 = 1.942$ untuk `patient_id` tunggal **cocok persis** dengan hasil `feasibility_alpha.py` yang dihitung lewat jalur berbeda. Ini pemeriksaan silang bahwa union-find-nya benar.
 
+> ⚠️ **Dua himpunan rekaman, dua jawaban (diperiksa 2026-10-02).** Tabel di atas memakai **seluruh 2.183** rekaman fold 9; nilai kosong tidak menautkan blok. Kekisi Kor. 3.2 (§4.2) memakai **1.960** rekaman bermetadata lengkap. Selisihnya bukan kebetulan: 37 dari 40 site di fold 9 **hanya** muncul pada 223 rekaman yang `nurse`-nya kosong. Akibatnya, untuk `patient_id` + `site`, **31 dari 34 blok** berisi **hanya** 188 rekaman tanpa metadata `nurse`; pada rekaman lengkap $K_1 = 3$ ($\alpha_{\min}=0{,}25$). Kelayakan $\alpha=0{,}05$ di bawah $\{$patient, site$\}$ karena itu **bertumpu pada minoritas bermetadata tak lengkap** dan wajib dilaporkan demikian.
+
 ### 4.4 Prosedur diagnostik
 
 ```

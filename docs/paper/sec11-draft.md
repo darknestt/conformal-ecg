@@ -66,16 +66,30 @@ must not be read as evidence about coverage.
 We tested this directly rather than asserting it. On MIT-BIH the audit was
 repeated with three backbones spanning a 157-fold range in parameter count
 (101,925; 7,220,805; 15,964,485). Accuracy rose from 0.869 to 0.926, while
-balanced accuracy stayed at 0.370–0.376. Across all 15 backbone×$\alpha$ cells,
-naive split conformal under-covers and HCP restores coverage. $K_1(\ell)$ is
-identical across backbones, as it must be, since it depends on the partition
-alone; this serves as a negative control on the pipeline. On PTB-XL, the same
+balanced accuracy stayed at 0.370–0.376. $K_1(\ell)$ is identical across
+backbones, as it must be, since it depends on the partition alone; this serves as
+a negative control on the pipeline.
+
+Two readings of the MIT-BIH cells must be kept apart. The point estimate of
+naive split-conformal coverage lies below $1-\alpha$ in all 15 backbone×$\alpha$
+cells, but its interval across splits contains $1-\alpha$ in every one of them:
+with 11 test records, split-to-split variability swamps a deficit of 1–3 pp. And
+the observation that HCP "restores" coverage is not evidence at all — below
+$\alpha=1/12$ HCP returns the full label set, and above it 75–110% of the
+HCP−B1 gap reappears under a permutation that destroys dependence. The test we
+rely on is therefore the deficit of B1 against that matched permutation null,
+re-run for each backbone under a criterion fixed beforehand (significance at
+every feasible $\alpha$). The deficit is positive in 9/9 cells and significant in
+7/9: in 3/3 for the smallest and largest backbone, but only at $\alpha=0.10$ for
+`resnet1d34` (+1.02 pp [−0.16, 2.23] and +0.81 pp [−0.59, 2.17] at 0.15 and
+0.20). The pre-registered criterion thus fails for one backbone, and we do not
+claim backbone-invariant significance. On PTB-XL, the same
 three architectures (104,389; 7,225,733; 15,969,413 parameters) reach
 macro-AUROC 0.902, 0.897 and 0.896 — the larger models are *not* better — and in
 all 9 backbone×$\alpha$ cells naive split conformal attains nominal coverage
 (deficit $+0.05$ to $+0.19$ pp), as predicted at $\mathrm{DEff}\approx 1$. The
-contrast between datasets is therefore invariant to the backbone, while
-discrimination is not.
+*direction* of the contrast between datasets is invariant to the backbone; its
+statistical strength on MIT-BIH is not.
 
 **Checkpoint selection on a small validation set.** The MIT-BIH validation set
 comprises only 4 records, and its loss is noisy (0.13–0.56 across epochs). Under
@@ -86,7 +100,9 @@ audit with the **last-epoch** weights and require that (S-1) whether HCP improve
 on B1 and (S-2) the sign of the B1 deficit agree at every $\alpha$, and that
 (S-3) $K_1(\ell)$ be identical. All four trained backbone×dataset pairs pass all
 three criteria at every $\alpha$ (MIT-BIH: epoch 8 vs 13, 1 vs 6; PTB-XL: 9 vs 14,
-7 vs 12). The primary selection rule was not altered.
+7 vs 12). The primary selection rule was not altered. We note that S-1 inherits
+the mechanical character of the HCP−B1 gap described above; S-2 and S-3 carry
+the information.
 
 **Subgroup definitions are researcher choices.** Sensitivity to alternative
 grouping schemes is examined explicitly.
@@ -195,7 +211,12 @@ partitions into a giant component is not itself new [P2]. On PTB-XL, the check i
 exhaustive **only with respect to the declared sources** {patient, site, nurse,
 device}: of the fifteen joins, eight satisfy sufficiency and all eight collapse
 to a single block. That set cannot be verified from data. Restricting it to
-{patient, site} yields $K_1=34$, and $\alpha=0.05$ becomes feasible. We therefore state the
+{patient, site} yields $K_1=34$ on the full calibration fold, and $\alpha=0.05$
+becomes feasible — but 31 of those 34 blocks consist solely of 188 records (8.6%)
+that lack nurse metadata and come from 37 small sites, apparently a different
+collection regime. Among the 1,960 records with complete metadata, the same
+restriction gives $K_1=3$. Feasibility under {patient, site} therefore rests on a
+metadata-incomplete minority. We therefore state the
 result conditionally: *if patient, site, nurse, and device are all treated as
 dependence sources, no admissible calibration grouping exists at any
 conventional $\alpha$.*
@@ -244,6 +265,7 @@ A complete deviation log is maintained in the accompanying protocol.
 | Kor. 3.2 | Kalimat ruang lingkup ditulis **verbatim**, sama persis dengan §5 |
 | 2026-10-01 | Ditambah: invariansi backbone MIT-BIH, sensitivitas checkpoint (pra-registrasi `protocol.md` §12), arah-vs-besaran, syarat "sumber yang dideklarasikan" + [P2]. **PTB-XL menunggu** pelatihan selesai |
 | 2026-10-02 | Arm PTB-XL dan sensitivitasnya selesai: lolos semua; sel batas CI = 0 dinyatakan |
+| 2026-10-02 | **Koreksi:** klaim "B1 kurang-cakup di 15/15 sel, HCP memulihkan" hanya estimasi titik dan memakai kriteria (b) yang sudah dicabut. Diganti uji vs null permutasi per backbone (pra-registrasi): signifikan 7/9, **gagal** untuk `resnet1d34`. Kualifikasi `{patient, site}` $K_1=34$ (31 blok = 188 rekaman tanpa `nurse`) |
 | Angka | Seluruhnya terverifikasi dari log sesi; tidak ada yang dibulatkan tanpa sumber |
 | Nada | Menyatakan batas tanpa merendahkan hasil; tiap ancaman disertai apa yang sudah dikerjakan |
 

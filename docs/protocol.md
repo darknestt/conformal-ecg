@@ -365,6 +365,26 @@ Di PTB-XL, defisit B1 tetap positif (+0,05 sampai +0,19 pp) pada kedua checkpoin
 
 **Catatan sel batas.** Tiga CI selisih B12−B1 mempunyai ujung **tepat 0,0**: PTB-XL `small` $\alpha{=}0{,}01$ dan `resnet1d50` $\alpha{=}0{,}10$ (utama), serta `resnet1d34` $\alpha{=}0{,}05$ (terakhir). Cakupan adalah proporsi diskret, sehingga ujung CI persentil dapat jatuh tepat di nol. Aturan `B12_memperbaiki = batas_bawah > 0` (ketidaksamaan ketat, ditetapkan sebelum eksperimen) menggolongkannya sebagai **tidak memperbaiki**. Vonis pada sel ini bergantung pada ketatnya ketidaksamaan, dan dilaporkan demikian.
 
+### Pra-registrasi kontrol permutasi lintas backbone — ditulis 2026-10-02 sebelum dijalankan
+
+**Masalah yang ditemukan saat menyusun §8.** Eksperimen invariansi backbone menilai `B12_memperbaiki`, padahal kriteria itu **sudah dicabut** (kontrol permutasi: 81–107% selisih B12−B1 bersifat mekanis). Selain itu `B1_kurang_cakup` (batas atas CI antar-split < $1-\alpha$) bernilai **salah di 24/24 sel**: variabilitas antar-split pada 11 rekaman uji terlalu besar. Bukti H0 yang sah adalah **defisit B1 terhadap null permutasi tersuai**, dan itu baru diuji untuk `SmallECGNet`.
+
+**Rancangan.** `experiments/control_permutation_mitdb.py` dijalankan tanpa perubahan logika untuk `resnet1d34` dan `resnet1d50`, memakai bobot terbaik-validasi (analisis utama). Seed, 200 split, dan $\alpha \in \{0{,}10;\,0{,}15;\,0{,}20\}$ sama.
+
+**Kriteria.** Defisit B1 (lengan permutasi − lengan asli) **signifikan** (batas bawah CI 95% > 0) pada setiap $\alpha$, seperti pada `SmallECGNet` (3/3).
+
+**Pelaporan.** Dilaporkan apa pun hasilnya. Bila suatu backbone gagal pada suatu $\alpha$, naskah menyatakan bahwa defisit yang signifikan **tidak** invarian terhadap backbone pada $\alpha$ itu. Klaim invariansi di §8 dan §11 hanya boleh merujuk kriteria ini, bukan `B12_memperbaiki`.
+
+**Hasil — 2026-10-02.** Reproduksi `SmallECGNet` identik bit-demi-bit dengan berkas lama.
+
+| Backbone | ICC skor | Defisit B1 vs null permutasi, pp [CI 95%] — $\alpha$ 0,10 / 0,15 / 0,20 | Signifikan | Porsi mekanis B12−B1 |
+|---|---:|---|:-:|---|
+| `small` | 0,519 | +1,49 [0,34; 2,71] / +2,21 [0,85; 3,60] / +2,37 [0,79; 3,93] | **3/3** | 81–107% |
+| `resnet1d34` | 0,436 | +1,15 [0,10; 2,23] / +1,02 [−0,16; 2,23] / +0,81 [−0,59; 2,17] | **1/3** | 88–110% |
+| `resnet1d50` | 0,463 | +2,54 [1,25; 3,87] / +3,42 [1,91; 4,98] / +3,18 [1,54; 4,82] | **3/3** | 75–97% |
+
+**Vonis: kriteria TIDAK terpenuhi untuk `resnet1d34`** pada $\alpha \in \{0{,}15;\,0{,}20\}$. Yang boleh diklaim: **arah** defisit positif di 9/9 sel; **signifikan** di 7/9 sel. Kriteria (b) `B12_memperbaiki` tetap sebagian besar mekanis di ketiga backbone (75–110%), sehingga pencabutannya kini didukung lintas arsitektur.
+
 ---
 
 ## 12b. Hasil Studi Kelayakan (Langkah 4) — 2026-09-30
