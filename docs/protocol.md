@@ -1,8 +1,8 @@
 # Protokol Eksperimen (Pre-Registration Internal)
 
-> **Status:** 🟡 `DRAF` — belum dibekukan
+> **Status:** 🟡 `DRAF` — **tidak pernah dibekukan secara formal** (tag `protocol-v1` tidak pernah dibuat; tidak didaftarkan di registri publik). Naskah menyebutnya "internal, version-controlled analysis protocol", bukan pre-registration (§4.4 naskah, 2026-10-02).
 > **Dibuat:** 2026-09-29
-> **Dibekukan:** *(belum — isi tanggal dan hash commit saat dibekukan)*
+> **Dibekukan:** *(tidak pernah — lihat Status)*
 > **Dokumen induk:** [`../README.md`](../README.md)
 
 ---
@@ -396,6 +396,42 @@ Di PTB-XL, defisit B1 tetap positif (+0,05 sampai +0,19 pp) pada kedua checkpoin
 | `resnet1d50` | 0,0007 / 0,0007 / 0,0007 | 3/3 |
 
 Sesudah koreksi, `resnet1d34` gagal di **ketiga** level, termasuk $\alpha=0{,}10$ yang lolos menurut CI 95% saja ($p_{\text{Holm}}=0{,}0502$). Naskah melaporkan kedua kriteria.
+
+### Penyimpangan yang terlewat dicatat — 2026-10-02, **sesudah** semua hasil dilihat
+
+Audit forensik P1 (2026-10-02) membandingkan protokol awal (commit `5ba06f6`) dengan kode. Penyimpangan berikut tidak pernah dicatat dan kini dicatat apa adanya.
+
+| Direncanakan (§9/§10 awal) | Yang dijalankan | Akibat |
+|---|---|---|
+| CI: bootstrap 1.000× **level pasien** | Bootstrap persentil atas **nilai cakupan per split** (4.000/3.000/2.000×) | CI hanya mengukur galat Monte Carlo atas pembagian 22 rekaman DS2 yang tetap, bukan ketidakpastian populasi. Naskah dibingkai ulang (P1-F) dan analisis jackknife di bawah ditambahkan |
+| Uji permutasi berpasangan 10.000× level pasien | Satu permutasi level detak sebagai null tersuai (post hoc, 2026-09-30) | Variasi antar-permutasi tidak dihitung |
+| Binomial eksak + Clopper-Pearson | Tidak dipakai | Dihapus dari naskah sejak v3 |
+| Cliff's delta ("wajib") | Tidak dilaporkan | Tidak dilaporkan |
+| Keluarga Holm F-A: H0 pada α ∈ {0,01; 0,05; 0,10} | Holm per backbone pada α ∈ {0,10; 0,15; 0,20}, statistik defisit vs null permutasi | Definisi keluarga berubah sesudah hasil dilihat |
+| Seed {0,…,4} | Hanya seed 0 | — |
+| 100 pengulangan split | 200 / 300 / 400 | — |
+| α ∈ {0,01; 0,05; 0,10} | MIT-BIH: 0,10; 0,15; 0,20 (0,01 dan 0,05 tak layak pada $K_1=11$) | — |
+
+### Analisis sensitivitas post hoc: jackknife level rekaman — ditulis 2026-10-02 **sebelum** dijalankan
+
+**Status.** *Post hoc sensitivity analysis* — bukan pra-registrasi, bukan pengganti Tabel 5.4. Ditambahkan karena CI Tabel 5.4 tidak mengukur ketidakpastian antar-rekaman. Spesifikasi ini di-commit **bersama skripnya dan sebelum skrip dijalankan**; hasilnya masuk commit terpisah.
+
+| Butir | Ketetapan |
+|---|---|
+| Statistik primer | $\hat\theta$ = rerata cakupan B1 lengan permutasi − rerata cakupan B1 lengan asli (statistik Tabel 5.4), per backbone, $\alpha \in \{0{,}10; 0{,}15; 0{,}20\}$ |
+| Unit inferensi | Rekaman DS2 (22) |
+| H0 | $\theta \le 0$ |
+| Resampling | Jackknife hapus-satu-rekaman: 22 replikasi. Tiap replikasi: permutasi label rekaman **baru** atas detak yang tersisa, $R$ split $\lfloor n/2\rfloor/\lceil n/2\rceil$ (10/11), kedua lengan memakai split yang sama |
+| $R$ | 500 per replikasi dan untuk estimasi data penuh; tidak diubah sesudah hasil |
+| Kecukupan Monte Carlo | Dilaporkan: SE Monte Carlo (berpasangan) dari $\hat\theta$ penuh dibanding $0{,}1\times SE_{\text{jack}}$. Bila tidak terpenuhi, dilaporkan apa adanya |
+| CI | $\hat\theta_{\text{penuh}} \pm t_{21;\,0{,}975}\, SE_{\text{jack}}$ |
+| $p$ | Uji $t$ satu arah, df = 21 |
+| Multiplisitas | Holm atas 3 level $\alpha$ per backbone |
+| Seed | Master seed 0; replikasi $r$ memakai `default_rng([0, r])` |
+| Backbone | SmallECGNet, ResNet1D-34, ResNet1D-50 (checkpoint terbaik-validasi yang sama dengan Tabel 5.4) |
+| Sekunder (estimand, P1-B) | Pada data penuh: cakupan B1 dan B12 **berbobot blok** (rerata cakupan per rekaman uji) di samping berbobot observasi; $\hat\theta$ berbobot blok |
+| Pelaporan | Apa pun hasilnya, untuk ketiga backbone. Bila batas bawah CI jackknife ≤ 0 (atau $p_{\text{Holm}} \ge 0{,}05$), naskah menyatakan bahwa tanda defisit **tidak terselesaikan pada level rekaman** untuk sel itu |
+| Yang tidak dilakukan | Tidak menambah $R$, tidak mengganti skema resampling, tidak menambah backbone sesudah melihat hasil |
 
 ---
 
