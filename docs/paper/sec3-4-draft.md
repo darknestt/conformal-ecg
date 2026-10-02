@@ -36,7 +36,7 @@ for a test point drawn from a previously unseen block.
 
 ### 3.3 Label hierarchy
 
-PTB-XL organises diagnoses as a three-level tree: 5 diagnostic **superclasses**, 23 **subclasses**, and 44 diagnostic **SCP statements**. A recording may carry several labels simultaneously, so the target is a *set* $Y\subseteq\mathcal{L}$ rather than a single class. We write $\mathrm{parent}(\ell)$ for the parent of label $\ell$ and call a set $\mathcal{C}$ **upward closed** if $\ell\in\mathcal{C}\Rightarrow\mathrm{parent}(\ell)\in\mathcal{C}$.
+PTB-XL organizes diagnoses as a three-level tree: 5 diagnostic **superclasses**, 23 **subclasses**, and 44 diagnostic **SCP statements**. A recording may carry several labels simultaneously, so the target is a *set* $Y\subseteq\mathcal{L}$ rather than a single class. We write $\mathrm{parent}(\ell)$ for the parent of label $\ell$ and call a set $\mathcal{C}$ **upward closed** if $\ell\in\mathcal{C}\Rightarrow\mathrm{parent}(\ell)\in\mathcal{C}$.
 
 ---
 

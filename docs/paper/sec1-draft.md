@@ -77,9 +77,9 @@ introduce no new conformal procedure. The contributions are the following.
 
 All analyses use block-level resampling, a held-out PTB-XL fold that was never
 examined, and a protocol whose deviations are logged. Code and per-result
-artefacts are released with the paper.
+artifacts are released with the paper.
 
-The paper is organised as follows. Section 2 reviews related work. Sections 3
+The paper is organized as follows. Section 2 reviews related work. Sections 3
 and 4 fix notation and state the feasibility problem. Section 5 describes the
 audit diagnostics, Sections 6 and 7 the data and setup, and Section 8 the
 results. Section 9 discusses their implications, Section 10 the threats to their

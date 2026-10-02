@@ -12,7 +12,7 @@
 **Label provenance.** Only 64–68% of PTB-XL records in folds 1–8 were validated
 by a cardiologist, against 100% in folds 9 and 10. An early version of the study
 calibrated on fold 8 and evaluated on fold 9 and found an apparent 1.43
-percentage-point deficit at $\alpha=0.05$; it was an artefact of label-quality
+percentage-point deficit at $\alpha=0.05$; it was an artifact of label-quality
 shift between folds, not of block dependence. All confirmatory analyses therefore
 use fold 9, and fold 10 has not been examined.
 
@@ -48,7 +48,7 @@ but not its magnitude, which we therefore do not interpret across backbones.
 **Single institution.** PTB-XL was recorded at one institution between 1989 and
 1996. Its device, nurse and site metadata are what make the block analysis
 possible, but its estimates of $\rho$ and $H$ need not transfer to contemporary
-multi-centre cohorts.
+multi-center cohorts.
 
 **One gradient, one external point.** Eleven of the twelve points in the
 dose–response analysis are synthetic configurations of MIT-BIH obtained by
@@ -117,7 +117,7 @@ any conventional $\alpha$.*
 
 ### 10.6 Researcher degrees of freedom
 
-Our reading of the MIT-BIH evidence changed three times before stabilising
+Our reading of the MIT-BIH evidence changed three times before stabilizing
 (Table 10.1). Each change followed the addition of a control, not a
 reinterpretation of existing data. The second stage was our own error: it
 compared analyses with different calibration sizes (about 24,800 against 16,500
@@ -134,7 +134,7 @@ beats) and attributed the difference to block balance.
 
 Three analyses were added or changed after results were seen, and each tightened
 rather than relaxed the evidence: the permutation control, which invalidated a
-criterion that had favoured our hypothesis; the Holm correction, which the frozen
+criterion that had favored our hypothesis; the Holm correction, which the frozen
 analysis plan required but which had not been applied, and which removed the one
 remaining significant level for ResNet1D-34; and the choice of reporting axis,
 adopted after ICC failed to unify the two datasets. For the last, the factor

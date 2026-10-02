@@ -28,14 +28,16 @@
 
 | # | Masalah | Lokasi | Bobot |
 |---|---|---|---|
-| R1 | **Proposition 1 tertulis dua kali** (§4.1 dan §5.1.1) | sec3-4, sec5 | Tinggi — reviewer melihatnya sebagai penyusunan ceroboh |
-| R2 | Rujukan ke **"Proposition 2" dan "Proposition 2′"** yang tidak ada di naskah (hanya di `theory.md`) | sec8 §8.4, sec11 §11.5 | Tinggi — rujukan silang patah |
-| R3 | Panjang **±13.400 kata / 27 halaman satu kolom**; JBHI/CIBM ≈ 10–12 halaman dua kolom. Kandidat pangkas: §6.4 Challenge 2021, §10.6, Tabel 6.2, Kor. 1.x | semua | Tinggi |
-| R4 | Penomoran ganda bagian sumber (§11 di draf = §10 di naskah) | builder | Sedang — sumber sebaiknya diganti nama |
+| R1 | ~~Proposition 1 tertulis dua kali~~ ✅ 2026-10-02: §5 merujuk §4; Prop. 1–3 berurutan | sec3-4, sec5 | Selesai |
+| R2 | ~~Rujukan ke Proposition 2/2′ yang tidak ada~~ ✅ diganti (6)/(7) | sec8, sec10 | Selesai |
+| R3 | Panjang: 13.400 → **12.056 kata / 25 hal.** (Threats v2, §6.4 dipadatkan). Target JBHI ±10 hal. dua kolom masih perlu ±2.000 kata lagi — kandidat: §5.1.3, §6.1–6.3, Kor. 1.x | semua | Sebagian |
+| R4 | ~~Penomoran ganda §11/§10~~ ✅ `sec10-draft.md`, builder tanpa pemetaan | builder | Selesai |
 | R5 | Klaim "Code ... released" sementara repo privat | §1 | Wajib sebelum submit |
 | R6 | [F5] disitasi hanya dari judul; I1, I2, P1 §2 belum dibaca teks penuh | §9, §5 | Wajib sebelum submit |
 | R7 | Judul "3–4" dan "6–7" digabung di builder — pertimbangkan satu §3 "Background" | struktur | Rendah |
-| R8 | Konsistensi istilah: "naive split conformal" vs "split conformal (B1)"; "beats/records/blocks" | semua | Sedang |
+| R8 | ~~Konsistensi istilah dan ejaan~~ ✅ 2026-10-02: ejaan Amerika (gaya IEEE), kutipan Lee et al. dikembalikan ke ejaan aslinya ("characterizing"); istilah B1/B12/HCP/DEff sudah konsisten | semua | Selesai |
+
+> **Template jurnal belum ditentukan** (arahan dospem 2026-10-02: buat draf dulu). Karena itu R3 lanjutan (pangkas ke batas halaman) **ditunda** sampai jurnal dipilih — memangkas tanpa batas yang jelas berisiko membuang bukti yang justru diminta reviewer.
 
 <details><summary>Tabel status lama (sebelum 2026-10-02)</summary>
 

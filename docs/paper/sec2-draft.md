@@ -41,7 +41,7 @@ construction of which we use a calibrated variant [D2] as a baseline.
 ### 2.2 Conformal prediction for hierarchical data
 
 **The hierarchical exchangeability problem is solved, and not by us.** Lee, Barber
-and Willett [A0] derive a hierarchical form of exchangeability for data organised
+and Willett [A0] derive a hierarchical form of exchangeability for data organized
 into groups of repeated measurements, and extend both conformal prediction and
 jackknife+ [A2] to that setting. Their Theorem 1 gives the hierarchical conformal
 prediction (HCP) threshold
@@ -70,7 +70,7 @@ $\alpha < \tfrac{1}{K_1+1}$.
 
 The authors of [A0] state the open question themselves in their discussion,
 observing that an analyst may choose between many independent groups with few
-measurements each or few groups with many repeats, and that *characterising the
+measurements each or few groups with many repeats, and that *characterizing the
 pros and cons of this tradeoff is an important question to determine how study
 design affects inference in this distribution-free setting.* Section 5 addresses
 the most elementary part of that question — whether a finite threshold exists at
@@ -79,7 +79,7 @@ real clinical data when it does.
 
 ### 2.3 Conformal prediction for multi-label and hierarchical label spaces
 
-Papadopoulos [B1] reviews conformal methods for multi-label learning and organises
+Papadopoulos [B1] reviews conformal methods for multi-label learning and organizes
 them by output type, guarantee, and where label dependence enters. The review is
 explicit that the surveyed literature rests on the exchangeability assumption
 throughout — that is, it treats dependence **between labels** while assuming
@@ -115,7 +115,7 @@ FUTURE-AI consensus guideline [G2] both identify calibrated uncertainty as a
 prerequisite for deployment, making the requirement a matter of published
 consensus rather than authorial preference. Conformal prediction specifically in
 clinical medicine is surveyed in [E1], with recent applications to anatomical
-landmark localisation [E2] and multi-label diagnosis coding [E3]. Conformal risk
+landmark localization [E2] and multi-label diagnosis coding [E3]. Conformal risk
 control [C1] and conformal prediction for time series [C4] supply the loss-control
 and temporal machinery we build on.
 

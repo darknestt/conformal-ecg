@@ -213,9 +213,9 @@ therefore outside the scope of the comparison.
 
 ### 7.5 Statistical analysis
 
-The procedures are summarised in Table 7.1. Every resampling step operates on
+The procedures are summarized in Table 7.1. Every resampling step operates on
 blocks — patients or records — never on individual records or beats, since doing
-otherwise would reproduce the error this paper analyses.
+otherwise would reproduce the error this paper analyzes.
 
 **Table 7.1.** Statistical procedures.
 
@@ -235,7 +235,7 @@ with two datasets it is uninformative.
 ### 7.6 Reproducibility
 
 All experiments run on CPU (2 threads). Every reported figure is written to a
-JSON artefact under `results/raw/` recording the configuration that produced it.
+JSON artifact under `results/raw/` recording the configuration that produced it.
 Random seeds are fixed and stated. Dataset caches are written atomically — to a
 temporary file followed by an atomic rename — so that an interrupted run cannot
 leave a partially written cache that a later run would silently treat as valid.

@@ -148,7 +148,7 @@ $(1-\alpha)(K_1+1)/K_1$ quantile regardless of dependence. We therefore withdrew
 permutation null throughout.
 
 **Factorial decomposition.** A 2×2 design crossed clustering (original vs.
-randomised record membership) with block-size balance (balanced vs. imbalanced),
+randomized record membership) with block-size balance (balanced vs. imbalanced),
 at fixed calibration size. Clustering reduced coverage by 1.22, 1.55 and 1.49 pp at
 $\alpha=0.10, 0.15, 0.20$, with intervals excluding zero at every level
 (e.g. $[-1.84, -0.63]$ pp at 0.10). The imbalance effect (−0.44, −0.26, −0.27 pp)

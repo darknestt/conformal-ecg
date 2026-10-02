@@ -80,11 +80,11 @@ $$
 
 The second expression is the standard clustering design effect for unequal cluster
 sizes, and comparing design effects under equal versus size weighting of cluster
-means is established practice in cluster-randomised trials [I1, A13]. We use both
+means is established practice in cluster-randomized trials [I1, A13]. We use both
 formulas as given.
 
 What differs in the conformal setting is not the formula but the freedom to choose.
-In a cluster-randomised trial, equal weighting is an analyst's choice and is known
+In a cluster-randomized trial, equal weighting is an analyst's choice and is known
 to be inefficient under unequal cluster sizes; the standard remedy is
 minimum-variance weighting [I1, A13]. In HCP the
 equal weighting follows from the structure of the threshold itself, and departing
@@ -102,7 +102,7 @@ On PTB-XL the two design effects differ by a factor of **15.7** at the recording
 site level. On `strat_fold`, whose blocks are nearly uniform by construction, the
 ratio is **1.000** — an internal check of the computation.
 
-#### 5.1.4 The axis used to organise results
+#### 5.1.4 The axis used to organize results
 
 The audit in §8 needs an axis on which datasets with very different block geometry
 can be compared. We use the factor $\mathrm{DEff}=1+(H-1)\rho$ of (6). Because $H$
@@ -200,12 +200,12 @@ $K_1(\ell) \ge \lceil m/\alpha\rceil - 1$ for every $\ell$.
 
 ### 5.4 Audit protocol
 
-Fig. 1 summarises the protocol. All three diagnostics are computed from metadata
+Fig. 1 summarizes the protocol. All three diagnostics are computed from metadata
 alone, before training. The
 empirical audit in §8 then measures coverage and prediction-set size of naive split
 conformal (B1) and HCP (B12) on held-out blocks, over 200 random block-level
-splits per configuration. To rule out the objection that calibration behaviour is
-an artefact of a weak model, every audit is repeated on three backbones spanning a
+splits per configuration. To rule out the objection that calibration behavior is
+an artifact of a weak model, every audit is repeated on three backbones spanning a
 more than hundredfold range of capacity (0.10 M, 7.2 M and 16.0 M parameters).
 Diagnostics computed from metadata — $K_1$, $K_1(\ell)$ and the join structure —
 must be identical across backbones, and we report them per backbone as a negative

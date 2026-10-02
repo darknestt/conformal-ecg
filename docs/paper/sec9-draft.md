@@ -96,7 +96,7 @@ data are collected or split:
    whether block-level calibration is needed for marginal coverage.
 
 The same counting applies wherever conditional coverage is sought over groups of
-patients. Group-conditional conformal prediction has been proposed to equalise
+patients. Group-conditional conformal prediction has been proposed to equalize
 coverage across demographic groups [D4]; when calibration must also respect
 patient blocks, a group that contains few patients in calibration is bounded in
 exactly the way rare labels are here. Conversely,
