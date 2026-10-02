@@ -12,12 +12,14 @@
 
 Throughout this section we distinguish statements about *what is documented* for
 a dataset from statements about *what is observed* in the data. The distinction
-matters most where the two diverge (§6.5).
+matters most where the two diverge (§6.4).
 
 ### 6.1 Selection rationale
 
-The three datasets serve **logically distinct roles**; they are not replications
-intended to corroborate one another.
+The three datasets serve logically distinct roles (Table 6.1); they are not
+replications intended to corroborate one another.
+
+**Table 6.1.** Roles of the three datasets.
 
 | Dataset | Role | Block identifier |
 |---|---|---|
@@ -28,7 +30,9 @@ intended to corroborate one another.
 The first two datasets occupy opposite corners of the space of block geometries.
 A single dataset, however large, cannot separate a theory that depends on the
 number of blocks from one that depends on the number of measurements per block,
-because the two quantities are fixed within it.
+because the two quantities are fixed within it (Table 6.2).
+
+**Table 6.2.** Block geometry of the two primary datasets.
 
 | | PTB-XL | MIT-BIH |
 |---|---:|---:|
@@ -52,7 +56,7 @@ demonstrated that it discriminates.
 
 ### 6.2 PTB-XL
 
-PTB-XL comprises **21,799 twelve-lead records from 18,869 patients**, released
+PTB-XL [H1], [H2] comprises 21,799 twelve-lead records from 18,869 patients, released
 under a permissive licence with full metadata. We use the 100 Hz variant,
 yielding 1,000 samples per 10-second record, band-pass filtered at 0.5–40 Hz.
 
@@ -89,7 +93,7 @@ age would corrupt any age-stratified analysis.
 
 ### 6.3 MIT-BIH Arrhythmia Database
 
-MIT-BIH contains 48 half-hour two-channel recordings at 360 Hz with
+The MIT-BIH Arrhythmia Database [H3] contains 48 half-hour two-channel recordings at 360 Hz with
 beat-by-beat cardiologist annotations. Following standard practice we **exclude
 the four paced records** (102, 104, 107, 217), leaving 44.
 
@@ -118,16 +122,10 @@ MIT-BIH at the high-dose end of the axis.
 > the standard partition for comparability with prior work and state the leak
 > explicitly.
 
-### 6.4 Noise Stress Test Database
+### 6.4 Challenge 2021 — an observability-limited case
 
-The NSTDB supplies records 118 and 119 corrupted at six signal-to-noise ratios
-(−6, 0, 6, 12, 18, 24 dB) together with the three source noise recordings
-(baseline wander, electrode motion, muscle artefact). It is used solely for the
-coverage-robustness analysis under input degradation, not for calibration.
-
-### 6.5 Challenge 2021 — an observability-limited case
-
-**Structure.** Seven non-duplicate source folders contain 66,416 records:
+**Structure.** The PhysioNet/CinC Challenge 2021 collection [H5] spans seven
+non-duplicate source folders containing 66,416 records:
 `ningbo` 34,905; `georgia` 10,344; `chapman_shaoxing` 10,247; `cpsc_2018` 6,877;
 `cpsc_2018_extra` 3,453; `ptb` 516; `st_petersburg_incart` 74. The `ptb-xl`
 folder (21,837 records) is excluded as a duplicate of §6.2; the two totals sum to
@@ -210,18 +208,21 @@ before any preprocessing or model training.
 
 ### 7.1 Backbone
 
-Conformal guarantees are model-agnostic; the backbone affects the **size** of
-prediction sets, not their validity. We therefore use a deliberately compact
-1-D convolutional network — **104,389 parameters** for the 12-lead configuration
-and **101,925** for single-lead — rather than a state-of-the-art architecture.
-This keeps the experiments reproducible on commodity hardware (CPU-only, 2
-threads) and makes clear that the reported coverage behaviour is a property of
-the calibration procedure rather than of a particular model.
+Conformal guarantees are model-agnostic; the backbone affects the size of
+prediction sets, not their validity. The primary backbone is therefore a
+deliberately compact 1-D convolutional network (SmallECGNet) with 104,389
+parameters for the 12-lead configuration and 101,925 for single-lead. To test
+whether any finding depends on this choice, every audit is repeated with two 1-D
+residual networks following the PTB-XL benchmark family [F1]: ResNet1D-34
+(7,225,733 / 7,220,805 parameters) and ResNet1D-50 (15,969,413 / 15,964,485).
+The residual networks are trained with Adam (learning rate $10^{-3}$), early
+stopping on validation loss with patience 5, and a maximum of 25 (PTB-XL) or 30
+(MIT-BIH) epochs; SmallECGNet weights are reused from the primary study without
+retraining.
 
-Reported discriminative performance is macro-AUROC **0.9016** on PTB-XL and
-accuracy **0.8690** (balanced accuracy 0.3748, macro-F1 0.3144) on MIT-BIH. The
-MIT-BIH figures are weak on minority classes, and we state plainly that this
-affects set size and not coverage.
+The primary backbone reaches macro-AUROC 0.9016 on PTB-XL and accuracy 0.8690
+(balanced accuracy 0.3748, macro-F1 0.3144) on MIT-BIH. The MIT-BIH figures are
+weak on minority classes; this affects set size and not coverage.
 
 ### 7.2 Splits
 
@@ -235,9 +236,6 @@ evaluation.
 training; those four for validation; **DS2 split 11/11 at the record level** for
 calibration and evaluation, repeated 200–400 times.
 
-> All resampling is performed **at the block level**. Resampling individual
-> records or beats would reproduce exactly the error this paper analyses.
-
 ### 7.3 Conformity scores
 
 For multi-class MIT-BIH we use $s(x,y) = 1-\hat p_y(x)$. For multi-label PTB-XL
@@ -245,28 +243,35 @@ the per-label score is $1-\hat\sigma_\ell(x)$, and the record-level score for
 superset coverage is the maximum over true labels — the construction that, as
 noted in §5.3.1, reduces exactly to scalar HCP.
 
-### 7.4 Baselines
+### 7.4 Methods compared
 
-Split conformal (B1) and hierarchical conformal prediction (B12) are the primary
-comparison. The four constructions of Dunn et al. are implemented as secondary
-baselines: pooling CDFs (B13), subsampling once (B14), double conformal (B15),
-and repeated subsampling. Mondrian (B2), APS (B4), RAPS (B5) and jackknife+ (B6)
-provide non-hierarchical reference points.
+The audit compares two procedures: split conformal prediction calibrated as if
+records or beats were exchangeable (B1), and HCP calibrated at the block level
+(B12) [A0]. The question is whether a guarantee can be enforced at all, not which
+hierarchical construction is most efficient; the alternatives of Dunn et al.
+[A0b] and non-hierarchical variants such as Mondrian conformal prediction are
+therefore outside the scope of the comparison.
 
 ### 7.5 Statistical analysis
 
+The procedures are summarised in Table 7.1. Every resampling step operates on
+blocks — patients or records — never on individual records or beats, since doing
+otherwise would reproduce the error this paper analyses.
+
+**Table 7.1.** Statistical procedures.
+
 | Quantity | Procedure |
 |---|---|
-| Coverage against nominal | Exact binomial, Clopper–Pearson interval |
-| Difference between methods | Paired permutation test, block-level |
-| All confidence intervals | Bootstrap, **resampled at block level** |
-| Monotonicity across design effects | Spearman correlation |
-| Multiplicity | Holm–Bonferroni within each hypothesis family |
+| Coverage and set size | Mean over 200 random block-level splits; 2.5–97.5% range across splits |
+| B1 deficit against the permutation null | Percentile bootstrap (4,000 resamples of split-level coverage), 95% CI; one-sided bootstrap $p$ |
+| Multiplicity | Holm–Bonferroni across the three $\alpha$ levels within each backbone |
+| Factorial effects | Percentile bootstrap (3,000 resamples of 400 split-level values), 95% CI |
+| Monotonicity in dependence | Spearman correlation, $p<0.05$ |
+| Sensitivity to checkpoint | Agreement of signs between best-validation and last-epoch weights |
 
-**Friedman and Nemenyi tests are not used.** The Demšar procedure is designed for
-comparing many classifiers across many datasets — conventionally at least five.
-With two datasets it is uninformative, and reporting a critical-difference
-diagram would be misleading.
+Friedman and Nemenyi tests are not used. The procedure of Demšar is designed for
+comparing many classifiers across many datasets, conventionally at least five;
+with two datasets it is uninformative.
 
 ### 7.6 Reproducibility
 

@@ -29,11 +29,10 @@ in [A8]. Bhattacharyya and Barber [A3] consider observations belonging to a fini
 number of groups where *group membership determines the covariate shift* between
 training and test distributions — for instance under stratified sampling.
 
-> **Distinction that must be stated explicitly.** In [A3] the data remain
-> exchangeable *within* each group; what shifts is the mixture over groups. The
-> setting we study is the opposite: the group proportions are stable, but
-> observations within a block are **not** exchangeable with one another. The
-> vocabulary collides; the problems do not.
+In [A3] the data remain exchangeable *within* each group; what shifts is the
+mixture over groups. The setting we study is the opposite: the group proportions
+are stable, but observations within a block are not exchangeable with one
+another. The vocabulary collides; the problems do not.
 
 Fontana et al. [A11] provide the standard unified treatment of the conformal
 framework and its variants, including the Mondrian (class-conditional)
@@ -54,26 +53,29 @@ $$
 
 with coverage at least $1-\alpha$ and, when scores are almost surely distinct, at
 most $1-\alpha+\tfrac{2}{K_1+1}$. Dunn et al. [A0b] independently study two-layer
-hierarchical models and introduce the four constructions we adopt as baselines:
-pooling CDFs, double conformal, subsampling once, and repeated subsampling.
+hierarchical models and introduce four constructions — pooling CDFs, double
+conformal, subsampling once, and repeated subsampling — that address the same
+setting.
 
 Everything in the present paper takes this threshold as given. We do not
 rederive it, and we claim no credit for it.
 
-> **Where the gap lies.** Both [A0] and [A0b] are developed as *theory*, and their
-> empirical sections are regression problems — [A0] evaluates on simulated data
-> and a Lorenz-96 system. Neither asks a question that is prior to applying the
-> method at all: **given a real clinical dataset and a target error rate, at which
-> grouping — if any — can the guarantee be enforced?** The $\tfrac{1}{K_1+1}$ atom
-> at $+\infty$ makes this a non-trivial question, because it renders the threshold
-> infinite whenever $\alpha < \tfrac{1}{K_1+1}$.
+Both [A0] and [A0b] are developed as theory, and their empirical sections are
+regression problems; [A0] evaluates on simulated data and a Lorenz-96 system.
+Neither asks a question that is prior to applying the method at all: *given a
+real clinical dataset and a target error rate, at which grouping — if any — can
+the guarantee be enforced?* The $\tfrac{1}{K_1+1}$ atom at $+\infty$ makes this a
+non-trivial question, because it renders the threshold infinite whenever
+$\alpha < \tfrac{1}{K_1+1}$.
 
 The authors of [A0] state the open question themselves in their discussion,
 observing that an analyst may choose between many independent groups with few
 measurements each or few groups with many repeats, and that *characterising the
 pros and cons of this tradeoff is an important question to determine how study
-design affects inference in this distribution-free setting.* Section 5 answers a
-precise form of that question.
+design affects inference in this distribution-free setting.* Section 5 addresses
+the most elementary part of that question — whether a finite threshold exists at
+all for a given design — and the remainder of the paper measures what happens on
+real clinical data when it does.
 
 ### 2.3 Conformal prediction for multi-label and hierarchical label spaces
 
@@ -100,14 +102,10 @@ directed acyclic graph, using coarse labels to *implicitly represent* their
 descendants — a downward compression, again opposite in direction to upward
 closure.
 
-> [B7] and [E5] are arXiv preprints and are cited as such. Neither is indexed as a
-> Scopus serial source; both are tracked because a journal appearance would
-> materially change the novelty landscape.
-
 ### 2.4 Uncertainty quantification for ECG and the inter-patient protocol
 
-Strodthoff et al. [F1] established the benchmark suite for PTB-XL [H1] and supply
-the backbone architecture used here. Evaluation on heartbeat-level arrhythmia data
+Strodthoff et al. [F1] established the benchmark suite for PTB-XL [H1, H2], whose
+residual architectures inform the backbones used here. Evaluation on heartbeat-level arrhythmia data
 follows the inter-patient protocol, in which no subject contributes to both
 training and evaluation [F2, F10]; violating this separation inflates reported
 performance and is the single most common methodological error in the area [F3].

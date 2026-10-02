@@ -385,6 +385,16 @@ Di PTB-XL, defisit B1 tetap positif (+0,05 sampai +0,19 pp) pada kedua checkpoin
 
 **Vonis: kriteria TIDAK terpenuhi untuk `resnet1d34`** pada $\alpha \in \{0{,}15;\,0{,}20\}$. Yang boleh diklaim: **arah** defisit positif di 9/9 sel; **signifikan** di 7/9 sel. Kriteria (b) `B12_memperbaiki` tetap sebagian besar mekanis di ketiga backbone (75–110%), sehingga pencabutannya kini didukung lintas arsitektur.
 
+**Koreksi Holm diterapkan 2026-10-02** (keluarga F-A, §9: tiga level $\alpha$ per backbone; $p$ bootstrap satu arah dari sampel bootstrap yang sama, angka lain identik bit-demi-bit). Celah ini ditemukan saat menyelaraskan §7.5 naskah dengan analisis yang benar-benar dijalankan: rencana yang dibekukan menuntut Holm, tetapi belum diterapkan.
+
+| Backbone | $p_{\text{Holm}}$ — $\alpha$ 0,10 / 0,15 / 0,20 | Signifikan (Holm) |
+|---|---|:-:|
+| `small` | 0,0075 / 0,0022 / 0,0025 | 3/3 |
+| `resnet1d34` | 0,0502 / 0,0945 / 0,1265 | **0/3** |
+| `resnet1d50` | 0,0007 / 0,0007 / 0,0007 | 3/3 |
+
+Sesudah koreksi, `resnet1d34` gagal di **ketiga** level, termasuk $\alpha=0{,}10$ yang lolos menurut CI 95% saja ($p_{\text{Holm}}=0{,}0502$). Naskah melaporkan kedua kriteria.
+
 ---
 
 ## 12b. Hasil Studi Kelayakan (Langkah 4) — 2026-09-30

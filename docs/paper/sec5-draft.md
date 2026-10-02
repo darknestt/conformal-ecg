@@ -124,7 +124,10 @@ quantity.
 
 ### 5.2 Which calibration groupings are admissible
 
-A practitioner choosing a calibration grouping $g$ faces two requirements.
+A practitioner choosing a calibration grouping $g$ faces two requirements
+(Table 5.1).
+
+**Table 5.1.** Admissibility conditions for a calibration grouping $g$.
 
 | | Condition | Character |
 |---|---|---|
@@ -158,9 +161,11 @@ declared sources.*
 
 The bound depends on which sources are declared, and that choice cannot be
 verified from data. We therefore report it as a function of the declared set and
-never as a property of a dataset. On PTB-XL, declaring `patient_id` and `site`
-retains $K_1=34$ and remains feasible at $\alpha=0.05$; adding `device` collapses
-the join to $K_1=5$; declaring all four available sources yields a single block.
+never as a property of a dataset. On PTB-XL fold 9, declaring `patient_id` and
+`site` retains $K_1=34$ and remains feasible at $\alpha=0.05$, although 31 of those
+34 blocks consist solely of records lacking nurse metadata (§8.1); adding `device`
+collapses the join to $K_1=5$; declaring all four available sources yields a single
+block.
 Enumerating all $2^4-1$ joins on fold 9 shows that every grouping satisfying S2
 for all four sources has $K_1=1$, so under that declaration no grouping satisfies
 S1 and S2 together at any $\alpha\in\{0.01,0.05,0.10,0.20\}$.
@@ -203,7 +208,8 @@ $K_1(\ell) \ge \lceil m/\alpha\rceil - 1$ for every $\ell$.
 
 ### 5.4 Audit protocol
 
-All three diagnostics are computed from metadata alone, before training. The
+Fig. 1 summarises the protocol. All three diagnostics are computed from metadata
+alone, before training. The
 empirical audit in §8 then measures coverage and prediction-set size of naive split
 conformal (B1) and HCP (B12) on held-out blocks, over 200 random block-level
 splits per configuration. To rule out the objection that calibration behaviour is
@@ -212,6 +218,8 @@ more than hundredfold range of capacity (0.10 M, 7.2 M and 16.0 M parameters).
 Diagnostics computed from metadata — $K_1$, $K_1(\ell)$ and the join structure —
 must be identical across backbones, and we report them per backbone as a negative
 control on the pipeline. PTB-XL fold 10 is never used.
+
+![**Fig. 1.** Audit protocol. The first four steps use metadata only and return exact verdicts before any patient is enrolled or any model trained; the last two require conformity scores from a trained model.](figures/fig1_audit_workflow.png)
 
 ---
 

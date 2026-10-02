@@ -377,9 +377,11 @@ Mendukung **§1 Introduction**, **§10 Discussion**
 | # | DOI | Judul | Jurnal | Thn | Sitasi | FWCI | Register | Scopus |
 |---|---|---|---|---|---:|---:|---|---|
 | G1 | `10.1016/j.artmed.2024.102830` | Trustworthy clinical AI solutions: A unified review of uncertainty quantification in Deep Learning models for medical image analysis | Artificial Intelligence in Medicine | 2024 | **248** | **18,91** | J2 N2 | ⬜ |
-| G2 | `10.1136/bmj.r340` | FUTURE-AI: international consensus guideline for trustworthy and deployable artificial intelligence in healthcare | BMJ | 2025 | **83** | **20,62** | J2 N2 | ⬜ |
+| G2 | `10.1136/bmj-2024-081554` | FUTURE-AI: international consensus guideline for trustworthy and deployable artificial intelligence in healthcare | BMJ 388:e081554 | 2025 | **83** | **20,62** | J2 N2 | ⬜ |
 
 - **G2** — Konsensus internasional di **BMJ**. Ini kartu truf untuk paragraf pembuka: bukan opini Anda bahwa AI klinis butuh jaminan ketidakpastian, melainkan pedoman konsensus.
+
+> 🔧 **DOI G2 dikoreksi 2026-10-02.** DOI lama `10.1136/bmj.r340` ternyata **ralat** (Crossref: `update-to` → `10.1136/bmj-2024-081554`, tipe *Correction*), bukan artikelnya. Artikel asli: Lekadir K. *et al.* (49 penulis), *BMJ* **388**, e081554, 2025. Jurnal sama, sehingga status Scopus tidak berubah. Tertangkap saat menyusun daftar pustaka IEEE: Crossref tidak mencatat penulis untuk DOI ralat.
 
 ---
 

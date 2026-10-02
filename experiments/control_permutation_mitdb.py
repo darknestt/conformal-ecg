@@ -167,7 +167,8 @@ def main() -> int:
               f"[{ci_b1[0]:+.4f},{ci_b1[1]:+.4f}]   {tanda}")
         baris["defisit_B1"] = {"nilai": float(defisit),
                                "ci": [float(ci_b1[0]), float(ci_b1[1])],
-                               "signifikan": bool(ci_b1[0] > 0)}
+                               "signifikan": bool(ci_b1[0] > 0),
+                               "p_satu_arah": float((np.sum(boot_b1 <= 0) + 1) / (len(boot_b1) + 1))}
 
         # selisih-dari-selisih: berapa banyak d yang TERSISA setelah dependensi dibuang?
         d_a = np.array(a_asli[kk]["d"])
@@ -185,6 +186,17 @@ def main() -> int:
         ringkas[kk] = baris
 
     print("\n== Putusan ==")
+    # Holm-Bonferroni atas 3 level alpha: keluarga F-A di protocol.md §9.
+    urut = sorted(ringkas, key=lambda kk: ringkas[kk]["defisit_B1"]["p_satu_arah"])
+    maks = 0.0
+    for i, kk in enumerate(urut):
+        maks = max(maks, min(1.0, (len(urut) - i) * ringkas[kk]["defisit_B1"]["p_satu_arah"]))
+        ringkas[kk]["defisit_B1"]["p_holm"] = maks
+        ringkas[kk]["defisit_B1"]["signifikan_holm"] = bool(maks < 0.05)
+    for kk in ringkas:
+        db = ringkas[kk]["defisit_B1"]
+        print(f"  alpha={kk}: p satu-arah = {db['p_satu_arah']:.4f}   p Holm = {db['p_holm']:.4f}"
+              f"   {'SIGNIFIKAN' if db['signifikan_holm'] else 'tidak signifikan'} (Holm)")
     sig = [ringkas[f"{a:.2f}"]["defisit_B1"]["signifikan"] for a in ALPHAS]
     print(f"  H0(a) vs null tersuai: defisit B1 signifikan pada {sum(sig)}/{len(ALPHAS)} alpha")
     mekanis = [ringkas[f"{a:.2f}"]["dd"]["ci"][0] <= 0 <= ringkas[f"{a:.2f}"]["dd"]["ci"][1]

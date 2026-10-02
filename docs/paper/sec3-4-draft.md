@@ -12,11 +12,11 @@
 
 ### 3.1 Hierarchical data and blocked exchangeability
 
-Sections 3.1–3.2 restate the framework of Lee, Barber and Willett (2026) [A0] for completeness of notation; none of it is claimed as ours.
+Sections 3.1–3.2 restate the framework of Lee et al. [A0] for completeness of notation; none of it is claimed as ours.
 
 Let the calibration data consist of $K$ blocks (groups), where block $k$ contains $N_k$ observations $Z_{k,1},\dots,Z_{k,N_k}$. Write $n=\sum_{k} N_k$ for the total number of observations. In our clinical setting a block is a patient and an observation is a single 10-second ECG recording, but the framework is agnostic to what defines a block.
 
-Standard conformal prediction assumes the calibration and test points are exchangeable. Lee et al. (2026) show that this fails whenever observations are nested within groups, and introduce **hierarchical exchangeability**: blocks are exchangeable with one another, and observations are exchangeable *within* each block, but observations are not exchangeable *across* the full pooled sample.
+Standard conformal prediction assumes the calibration and test points are exchangeable. Lee et al. [A0] show that this fails whenever observations are nested within groups, and introduce **hierarchical exchangeability**: blocks are exchangeable with one another, and observations are exchangeable *within* each block, but observations are not exchangeable *across* the full pooled sample.
 
 Let $s(\cdot)$ denote a nonconformity score, fixed independently of the calibration data, and write $s_{k,i}=s(Z_{k,i})$. Let
 $$Q_\beta(F)=\inf\{t:F(t)\ge\beta\}$$
@@ -30,7 +30,7 @@ $$\hat T \;=\; Q_{1-\alpha}\!\left(\sum_{k=1}^{K_1}\sum_{i=1}^{N_k}\frac{1}{(K_1
 
 Two features of (1) drive everything that follows. First, **each block contributes the same total mass** $\frac{1}{K_1+1}$ regardless of how many observations it contains; within a block that mass is divided evenly across its $N_k$ members. Second, a mass of $\frac{1}{K_1+1}$ is placed at $+\infty$, which is the price of not knowing the test block in advance.
 
-Lee et al. (2026, Thm. 1) prove the two-sided guarantee
+Lee et al. [A0, Thm. 1] prove the two-sided guarantee
 $$1-\alpha\;\le\;\mathbb{P}\{Y_{\text{test}}\in\hat C(X_{\text{test}})\}\;\le\;1-\alpha+\frac{2}{K_1+1}\tag{2}$$
 for a test point drawn from a previously unseen block.
 
@@ -85,7 +85,7 @@ $$\alpha_{\min}(\mathcal{P}_1\vee\mathcal{P}_2)\;\ge\;\max\{\alpha_{\min}(\mathc
 For multi-label outputs the notion of coverage must be chosen, not inherited. We use **superset coverage**
 $$\mathbb{P}\big(Y_{\text{test}}\subseteq\hat C(X_{\text{test}})\big)\;\ge\;1-\alpha.\tag{4}$$
 
-(4) is not a new result. Theorem 1 never touches the structure of the label space; it only requires a fixed scalar score. Setting $s(x,Y)=\max_{\ell\in Y}s_\ell(x)$ makes $\{Y\subseteq\hat C\}\iff s(x,Y)\le\hat T$, so HCP applies unchanged. We present this as method, not contribution.
+Superset coverage (4) is not a new result. Theorem 1 never touches the structure of the label space; it only requires a fixed scalar score. Setting $s(x,Y)=\max_{\ell\in Y}s_\ell(x)$ makes $\{Y\subseteq\hat C\}\iff s(x,Y)\le\hat T$, so HCP applies unchanged. We present this as method, not contribution.
 
 The substantive question is the **label-conditional** target
 $$\mathbb{P}\big(\ell\in\hat C(X)\,\big|\,\ell\in Y\big)\;\ge\;1-\alpha,\tag{5}$$

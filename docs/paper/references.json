@@ -1,0 +1,1558 @@
+{
+  "A0": {
+    "jenis": "journal-article",
+    "penulis": [
+      {
+        "given": "Yonghoon",
+        "family": "Lee"
+      },
+      {
+        "given": "Rina",
+        "family": "Barber"
+      },
+      {
+        "given": "Rebecca",
+        "family": "Willett"
+      }
+    ],
+    "judul": "Distribution-free inference with hierarchical data",
+    "venue": "ACM Journal of Data Science",
+    "venue_singkat": "ACM J. Data Sci.",
+    "volume": "",
+    "nomor": "",
+    "halaman": "3786352",
+    "tahun": 2026,
+    "bulan": 3,
+    "penerbit": "Association for Computing Machinery (ACM)",
+    "doi": "10.1145/3786352",
+    "dataset": false,
+    "kecocokan_judul": 1.0
+  },
+  "A0b": {
+    "jenis": "journal-article",
+    "penulis": [
+      {
+        "given": "Robin",
+        "family": "Dunn"
+      },
+      {
+        "given": "Larry",
+        "family": "Wasserman"
+      },
+      {
+        "given": "Aaditya",
+        "family": "Ramdas"
+      }
+    ],
+    "judul": "Distribution-Free Prediction Sets for Two-Layer Hierarchical Models",
+    "venue": "Journal of the American Statistical Association",
+    "venue_singkat": "Journal of the American Statistical Association",
+    "volume": "118",
+    "nomor": "544",
+    "halaman": "2491-2502",
+    "tahun": 2023,
+    "bulan": 10,
+    "penerbit": "Informa UK Limited",
+    "doi": "10.1080/01621459.2022.2060112",
+    "dataset": false,
+    "kecocokan_judul": 1.0
+  },
+  "A1": {
+    "jenis": "journal-article",
+    "penulis": [
+      {
+        "given": "Rina Foygel",
+        "family": "Barber"
+      },
+      {
+        "given": "Emmanuel J.",
+        "family": "Candès"
+      },
+      {
+        "given": "Aaditya",
+        "family": "Ramdas"
+      },
+      {
+        "given": "Ryan J.",
+        "family": "Tibshirani"
+      }
+    ],
+    "judul": "Conformal prediction beyond exchangeability",
+    "venue": "The Annals of Statistics",
+    "venue_singkat": "Ann. Statist.",
+    "volume": "51",
+    "nomor": "2",
+    "halaman": "",
+    "tahun": 2023,
+    "bulan": 4,
+    "penerbit": "Institute of Mathematical Statistics",
+    "doi": "10.1214/23-aos2276",
+    "dataset": false,
+    "kecocokan_judul": 1.0
+  },
+  "A11": {
+    "jenis": "journal-article",
+    "penulis": [
+      {
+        "given": "Matteo",
+        "family": "Fontana"
+      },
+      {
+        "given": "Gianluca",
+        "family": "Zeni"
+      },
+      {
+        "given": "Simone",
+        "family": "Vantini"
+      }
+    ],
+    "judul": "Conformal prediction: A unified review of theory and new challenges",
+    "venue": "Bernoulli",
+    "venue_singkat": "Bernoulli",
+    "volume": "29",
+    "nomor": "1",
+    "halaman": "",
+    "tahun": 2023,
+    "bulan": 2,
+    "penerbit": "Bernoulli Society for Mathematical Statistics and Probability",
+    "doi": "10.3150/21-bej1447",
+    "dataset": false,
+    "kecocokan_judul": 1.0
+  },
+  "A12": {
+    "jenis": "proceedings-article",
+    "penulis": [
+      {
+        "given": "Tiffany",
+        "family": "Ding"
+      },
+      {
+        "given": "Anastasios",
+        "family": "Angelopoulos"
+      },
+      {
+        "given": "Stephen",
+        "family": "Bates"
+      },
+      {
+        "given": "Michael",
+        "family": "Jordan"
+      },
+      {
+        "given": "Ryan",
+        "family": "Tibshirani"
+      }
+    ],
+    "judul": "Class-Conditional Conformal Prediction with Many Classes",
+    "venue": "Advances in Neural Information Processing Systems 36",
+    "venue_singkat": "",
+    "volume": "",
+    "nomor": "",
+    "halaman": "64555-64576",
+    "tahun": 2023,
+    "bulan": null,
+    "penerbit": "Neural Information Processing Systems Foundation, Inc. (NeurIPS)",
+    "doi": "10.52202/075280-2817",
+    "dataset": false,
+    "kecocokan_judul": 1.0
+  },
+  "A13": {
+    "jenis": "journal-article",
+    "penulis": [
+      {
+        "given": "Denghuang",
+        "family": "Zhan"
+      },
+      {
+        "given": "Liang",
+        "family": "Xu"
+      },
+      {
+        "given": "Yongdong",
+        "family": "Ouyang"
+      },
+      {
+        "given": "Richard",
+        "family": "Sawatzky"
+      },
+      {
+        "given": "Hubert",
+        "family": "Wong"
+      }
+    ],
+    "judul": "Methods for dealing with unequal cluster sizes in cluster randomized trials: A scoping review",
+    "venue": "PLOS ONE",
+    "venue_singkat": "PLoS ONE",
+    "volume": "16",
+    "nomor": "7",
+    "halaman": "e0255389",
+    "tahun": 2021,
+    "bulan": 7,
+    "penerbit": "Public Library of Science (PLoS)",
+    "doi": "10.1371/journal.pone.0255389",
+    "dataset": false,
+    "kecocokan_judul": 1.0
+  },
+  "A2": {
+    "jenis": "journal-article",
+    "penulis": [
+      {
+        "given": "Rina Foygel",
+        "family": "Barber"
+      },
+      {
+        "given": "Emmanuel J.",
+        "family": "Candès"
+      },
+      {
+        "given": "Aaditya",
+        "family": "Ramdas"
+      },
+      {
+        "given": "Ryan J.",
+        "family": "Tibshirani"
+      }
+    ],
+    "judul": "Predictive inference with the jackknife+",
+    "venue": "The Annals of Statistics",
+    "venue_singkat": "Ann. Statist.",
+    "volume": "49",
+    "nomor": "1",
+    "halaman": "",
+    "tahun": 2021,
+    "bulan": 2,
+    "penerbit": "Institute of Mathematical Statistics",
+    "doi": "10.1214/20-aos1965",
+    "dataset": false,
+    "kecocokan_judul": 1.0
+  },
+  "A3": {
+    "jenis": "journal-article",
+    "penulis": [
+      {
+        "given": "Aabesh",
+        "family": "Bhattacharyya"
+      },
+      {
+        "given": "Rina Foygel",
+        "family": "Barber"
+      }
+    ],
+    "judul": "Group-weighted conformal prediction",
+    "venue": "Electronic Journal of Statistics",
+    "venue_singkat": "Electron. J. Statist.",
+    "volume": "20",
+    "nomor": "1",
+    "halaman": "",
+    "tahun": 2026,
+    "bulan": 1,
+    "penerbit": "Institute of Mathematical Statistics",
+    "doi": "10.1214/26-ejs2506",
+    "dataset": false,
+    "kecocokan_judul": 1.0
+  },
+  "A4": {
+    "jenis": "journal-article",
+    "penulis": [
+      {
+        "given": "Lihua",
+        "family": "Lei"
+      },
+      {
+        "given": "Emmanuel J.",
+        "family": "Candès"
+      }
+    ],
+    "judul": "Conformal Inference of Counterfactuals and Individual Treatment Effects",
+    "venue": "Journal of the Royal Statistical Society Series B: Statistical Methodology",
+    "venue_singkat": "",
+    "volume": "83",
+    "nomor": "5",
+    "halaman": "911-938",
+    "tahun": 2021,
+    "bulan": 11,
+    "penerbit": "Oxford University Press (OUP)",
+    "doi": "10.1111/rssb.12445",
+    "dataset": false,
+    "kecocokan_judul": 1.0
+  },
+  "A7": {
+    "jenis": "journal-article",
+    "penulis": [
+      {
+        "given": "Huiying",
+        "family": "Mao"
+      },
+      {
+        "given": "Ryan",
+        "family": "Martin"
+      },
+      {
+        "given": "Brian J.",
+        "family": "Reich"
+      }
+    ],
+    "judul": "Valid Model-Free Spatial Prediction",
+    "venue": "Journal of the American Statistical Association",
+    "venue_singkat": "Journal of the American Statistical Association",
+    "volume": "119",
+    "nomor": "546",
+    "halaman": "904-914",
+    "tahun": 2024,
+    "bulan": 4,
+    "penerbit": "Informa UK Limited",
+    "doi": "10.1080/01621459.2022.2147531",
+    "dataset": false,
+    "kecocokan_judul": 1.0
+  },
+  "A8": {
+    "jenis": "journal-article",
+    "penulis": [
+      {
+        "given": "Robert",
+        "family": "Lunde"
+      },
+      {
+        "given": "Elizaveta",
+        "family": "Levina"
+      },
+      {
+        "given": "Ji",
+        "family": "Zhu"
+      }
+    ],
+    "judul": "Conformal Prediction for Network-Assisted Regression",
+    "venue": "Journal of the American Statistical Association",
+    "venue_singkat": "Journal of the American Statistical Association",
+    "volume": "120",
+    "nomor": "551",
+    "halaman": "1633-1644",
+    "tahun": 2025,
+    "bulan": 7,
+    "penerbit": "Informa UK Limited",
+    "doi": "10.1080/01621459.2025.2506198",
+    "dataset": false,
+    "kecocokan_judul": 1.0
+  },
+  "A9": {
+    "jenis": "journal-article",
+    "penulis": [
+      {
+        "given": "Paulo C.",
+        "family": "Marques F."
+      }
+    ],
+    "judul": "Universal distribution of the empirical coverage in split conformal prediction",
+    "venue": "Statistics &amp; Probability Letters",
+    "venue_singkat": "Statistics &amp; Probability Letters",
+    "volume": "219",
+    "nomor": "",
+    "halaman": "110350",
+    "tahun": 2025,
+    "bulan": 4,
+    "penerbit": "Elsevier BV",
+    "doi": "10.1016/j.spl.2024.110350",
+    "dataset": false,
+    "kecocokan_judul": 1.0
+  },
+  "B1": {
+    "jenis": "journal-article",
+    "penulis": [
+      {
+        "given": "Harris",
+        "family": "Papadopoulos"
+      }
+    ],
+    "judul": "Conformal prediction for multi-label learning: a review of methods and guarantees",
+    "venue": "Philosophical Transactions of the Royal Society A: Mathematical, Physical and Engineering Sciences",
+    "venue_singkat": "",
+    "volume": "384",
+    "nomor": "2327",
+    "halaman": "20250071",
+    "tahun": 2026,
+    "bulan": 8,
+    "penerbit": "The Royal Society",
+    "doi": "10.1098/rsta.2025.0071",
+    "dataset": false,
+    "kecocokan_judul": 1.0
+  },
+  "B2": {
+    "jenis": "journal-article",
+    "penulis": [
+      {
+        "given": "Ali",
+        "family": "Baheri"
+      },
+      {
+        "given": "Marzieh Amiri",
+        "family": "Shahbazi"
+      }
+    ],
+    "judul": "Conformal prediction across scales: Finite-sample coverage with hierarchical efficiency",
+    "venue": "Results in Applied Mathematics",
+    "venue_singkat": "Results in Applied Mathematics",
+    "volume": "26",
+    "nomor": "",
+    "halaman": "100589",
+    "tahun": 2025,
+    "bulan": 5,
+    "penerbit": "Elsevier BV",
+    "doi": "10.1016/j.rinam.2025.100589",
+    "dataset": false,
+    "kecocokan_judul": 1.0
+  },
+  "B3": {
+    "jenis": "journal-article",
+    "penulis": [
+      {
+        "given": "Lysimachos",
+        "family": "Maltoudoglou"
+      },
+      {
+        "given": "Andreas",
+        "family": "Paisios"
+      },
+      {
+        "given": "Ladislav",
+        "family": "Lenc"
+      },
+      {
+        "given": "Jiří",
+        "family": "Martínek"
+      },
+      {
+        "given": "Pavel",
+        "family": "Král"
+      },
+      {
+        "given": "Harris",
+        "family": "Papadopoulos"
+      }
+    ],
+    "judul": "Well-calibrated confidence measures for multi-label text classification with a large number of labels",
+    "venue": "Pattern Recognition",
+    "venue_singkat": "Pattern Recognition",
+    "volume": "122",
+    "nomor": "",
+    "halaman": "108271",
+    "tahun": 2022,
+    "bulan": 2,
+    "penerbit": "Elsevier BV",
+    "doi": "10.1016/j.patcog.2021.108271",
+    "dataset": false,
+    "kecocokan_judul": 1.0
+  },
+  "B5": {
+    "jenis": "journal-article",
+    "penulis": [
+      {
+        "given": "Wei",
+        "family": "Huang"
+      },
+      {
+        "given": "Enhong",
+        "family": "Chen"
+      },
+      {
+        "given": "Qi",
+        "family": "Liu"
+      },
+      {
+        "given": "Hui",
+        "family": "Xiong"
+      },
+      {
+        "given": "Zhenya",
+        "family": "Huang"
+      },
+      {
+        "given": "Shiwei",
+        "family": "Tong"
+      },
+      {
+        "given": "Dan",
+        "family": "Zhang"
+      }
+    ],
+    "judul": "HmcNet: A General Approach for Hierarchical Multi-Label Classification",
+    "venue": "IEEE Transactions on Knowledge and Data Engineering",
+    "venue_singkat": "IEEE Trans. Knowl. Data Eng.",
+    "volume": "35",
+    "nomor": "9",
+    "halaman": "8713-8728",
+    "tahun": 2023,
+    "bulan": 9,
+    "penerbit": "Institute of Electrical and Electronics Engineers (IEEE)",
+    "doi": "10.1109/tkde.2022.3207511",
+    "dataset": false,
+    "kecocokan_judul": 1.0
+  },
+  "B6": {
+    "jenis": "journal-article",
+    "penulis": [
+      {
+        "given": "Mengxuan",
+        "family": "Sun"
+      },
+      {
+        "given": "Jinghao",
+        "family": "Niu"
+      },
+      {
+        "given": "Xuebing",
+        "family": "Yang"
+      },
+      {
+        "given": "Yifan",
+        "family": "Gu"
+      },
+      {
+        "given": "Wensheng",
+        "family": "Zhang"
+      }
+    ],
+    "judul": "CEHMR: Curriculum learning enhanced hierarchical multi-label classification for medication recommendation",
+    "venue": "Artificial Intelligence in Medicine",
+    "venue_singkat": "Artificial Intelligence in Medicine",
+    "volume": "143",
+    "nomor": "",
+    "halaman": "102613",
+    "tahun": 2023,
+    "bulan": 9,
+    "penerbit": "Elsevier BV",
+    "doi": "10.1016/j.artmed.2023.102613",
+    "dataset": false,
+    "kecocokan_judul": 1.0
+  },
+  "B7": {
+    "jenis": "preprint",
+    "penulis": [
+      {
+        "given": "Botong",
+        "family": "Zhang"
+      },
+      {
+        "given": "Shuo",
+        "family": "Li"
+      },
+      {
+        "given": "Osbert",
+        "family": "Bastani"
+      }
+    ],
+    "judul": "Conformal Structured Prediction",
+    "venue": "arXiv",
+    "volume": "",
+    "nomor": "",
+    "halaman": "",
+    "tahun": 2024,
+    "bulan": 10,
+    "arxiv": "2410.06296",
+    "doi": "",
+    "dataset": false,
+    "kecocokan_judul": 1.0
+  },
+  "C1": {
+    "jenis": "journal-article",
+    "penulis": [
+      {
+        "given": "Anastasios N.",
+        "family": "Angelopoulos"
+      }
+    ],
+    "judul": "Conformal risk control for non-monotonic losses",
+    "venue": "Philosophical Transactions of the Royal Society A: Mathematical, Physical and Engineering Sciences",
+    "venue_singkat": "",
+    "volume": "384",
+    "nomor": "2327",
+    "halaman": "20250068",
+    "tahun": 2026,
+    "bulan": 8,
+    "penerbit": "The Royal Society",
+    "doi": "10.1098/rsta.2025.0068",
+    "dataset": false,
+    "kecocokan_judul": 1.0
+  },
+  "C2": {
+    "jenis": "journal-article",
+    "penulis": [
+      {
+        "given": "Di",
+        "family": "Wang"
+      },
+      {
+        "given": "Ping",
+        "family": "Wang"
+      },
+      {
+        "given": "Zhong",
+        "family": "Ji"
+      },
+      {
+        "given": "Xiaojun",
+        "family": "Yang"
+      },
+      {
+        "given": "Hongyue",
+        "family": "Li"
+      }
+    ],
+    "judul": "Conformal Loss-Controlling Prediction",
+    "venue": "IEEE Transactions on Neural Networks and Learning Systems",
+    "venue_singkat": "IEEE Trans. Neural Netw. Learning Syst.",
+    "volume": "36",
+    "nomor": "2",
+    "halaman": "2973-2983",
+    "tahun": 2025,
+    "bulan": 2,
+    "penerbit": "Institute of Electrical and Electronics Engineers (IEEE)",
+    "doi": "10.1109/tnnls.2024.3356512",
+    "dataset": false,
+    "kecocokan_judul": 1.0
+  },
+  "C4": {
+    "jenis": "journal-article",
+    "penulis": [
+      {
+        "given": "Chen",
+        "family": "Xu"
+      },
+      {
+        "given": "Yao",
+        "family": "Xie"
+      }
+    ],
+    "judul": "Conformal Prediction for Time Series",
+    "venue": "IEEE Transactions on Pattern Analysis and Machine Intelligence",
+    "venue_singkat": "IEEE Trans. Pattern Anal. Mach. Intell.",
+    "volume": "45",
+    "nomor": "10",
+    "halaman": "11575-11587",
+    "tahun": 2023,
+    "bulan": 10,
+    "penerbit": "Institute of Electrical and Electronics Engineers (IEEE)",
+    "doi": "10.1109/tpami.2023.3272339",
+    "dataset": false,
+    "kecocokan_judul": 1.0
+  },
+  "D2": {
+    "jenis": "journal-article",
+    "penulis": [
+      {
+        "given": "Jung-In",
+        "family": "Seo"
+      },
+      {
+        "given": "Young Eun",
+        "family": "Jeon"
+      },
+      {
+        "given": "Yongku",
+        "family": "Kim"
+      }
+    ],
+    "judul": "Calibrated Mondrian conformal prediction for uncertainty quantification in spatial modeling",
+    "venue": "Pattern Recognition",
+    "venue_singkat": "Pattern Recognition",
+    "volume": "180",
+    "nomor": "",
+    "halaman": "114113",
+    "tahun": 2026,
+    "bulan": 12,
+    "penerbit": "Elsevier BV",
+    "doi": "10.1016/j.patcog.2026.114113",
+    "dataset": false,
+    "kecocokan_judul": 1.0
+  },
+  "D4": {
+    "jenis": "journal-article",
+    "penulis": [
+      {
+        "given": "Yonghong",
+        "family": "Li"
+      },
+      {
+        "given": "Zheng",
+        "family": "Zhang"
+      },
+      {
+        "given": "Xiuzhuang",
+        "family": "Zhou"
+      }
+    ],
+    "judul": "Fair Uncertainty Quantification for Depression Prediction",
+    "venue": "IEEE Transactions on Affective Computing",
+    "venue_singkat": "IEEE Trans. Affective Comput.",
+    "volume": "17",
+    "nomor": "3",
+    "halaman": "3271-3282",
+    "tahun": 2026,
+    "bulan": 7,
+    "penerbit": "Institute of Electrical and Electronics Engineers (IEEE)",
+    "doi": "10.1109/taffc.2026.3702998",
+    "dataset": false,
+    "kecocokan_judul": 1.0
+  },
+  "E1": {
+    "jenis": "journal-article",
+    "penulis": [
+      {
+        "given": "Janette",
+        "family": "Vazquez"
+      },
+      {
+        "given": "Julio C.",
+        "family": "Facelli"
+      }
+    ],
+    "judul": "Conformal Prediction in Clinical Medical Sciences",
+    "venue": "Journal of Healthcare Informatics Research",
+    "venue_singkat": "J Healthc Inform Res",
+    "volume": "6",
+    "nomor": "3",
+    "halaman": "241-252",
+    "tahun": 2022,
+    "bulan": 9,
+    "penerbit": "Springer Science and Business Media LLC",
+    "doi": "10.1007/s41666-021-00113-8",
+    "dataset": false,
+    "kecocokan_judul": 1.0
+  },
+  "E2": {
+    "jenis": "journal-article",
+    "penulis": [
+      {
+        "given": "Jef",
+        "family": "Jonkers"
+      },
+      {
+        "given": "Frank",
+        "family": "Coopman"
+      },
+      {
+        "given": "Luc",
+        "family": "Duchateau"
+      },
+      {
+        "given": "Glenn",
+        "family": "Van Wallendael"
+      },
+      {
+        "given": "Sofie",
+        "family": "Van Hoecke"
+      }
+    ],
+    "judul": "Reliable uncertainty quantification for 2D/3D anatomical landmark localization using multi-output conformal prediction",
+    "venue": "Medical Image Analysis",
+    "venue_singkat": "Medical Image Analysis",
+    "volume": "110",
+    "nomor": "",
+    "halaman": "103953",
+    "tahun": 2026,
+    "bulan": 5,
+    "penerbit": "Elsevier BV",
+    "doi": "10.1016/j.media.2026.103953",
+    "dataset": false,
+    "kecocokan_judul": 1.0
+  },
+  "E3": {
+    "jenis": "journal-article",
+    "penulis": [
+      {
+        "given": "Kamonrat",
+        "family": "Tangudomkit"
+      },
+      {
+        "given": "Sawrawit",
+        "family": "Chairat"
+      },
+      {
+        "given": "Sitthichok",
+        "family": "Chaichulee"
+      }
+    ],
+    "judul": "Set Prediction for Outpatient Diagnosis Coding with Sparse Mahalanobis Conformal Scoring",
+    "venue": "Big Data and Cognitive Computing",
+    "venue_singkat": "BDCC",
+    "volume": "10",
+    "nomor": "7",
+    "halaman": "232",
+    "tahun": 2026,
+    "bulan": 7,
+    "penerbit": "MDPI AG",
+    "doi": "10.3390/bdcc10070232",
+    "dataset": false,
+    "kecocokan_judul": 1.0
+  },
+  "E5": {
+    "jenis": "preprint",
+    "penulis": [
+      {
+        "given": "Marzieh Amiri",
+        "family": "Shahbazi"
+      },
+      {
+        "given": "Ali",
+        "family": "Baheri"
+      },
+      {
+        "given": "Nasibeh",
+        "family": "Azadeh-Fard"
+      }
+    ],
+    "judul": "Adaptive Conformal Prediction via Bayesian Uncertainty Weighting for Hierarchical Healthcare Data",
+    "venue": "arXiv",
+    "volume": "",
+    "nomor": "",
+    "halaman": "",
+    "tahun": 2026,
+    "bulan": 1,
+    "arxiv": "2601.01223",
+    "doi": "",
+    "dataset": false,
+    "kecocokan_judul": 1.0
+  },
+  "F1": {
+    "jenis": "journal-article",
+    "penulis": [
+      {
+        "given": "Nils",
+        "family": "Strodthoff"
+      },
+      {
+        "given": "Patrick",
+        "family": "Wagner"
+      },
+      {
+        "given": "Tobias",
+        "family": "Schaeffter"
+      },
+      {
+        "given": "Wojciech",
+        "family": "Samek"
+      }
+    ],
+    "judul": "Deep Learning for ECG Analysis: Benchmarks and Insights from PTB-XL",
+    "venue": "IEEE Journal of Biomedical and Health Informatics",
+    "venue_singkat": "IEEE J. Biomed. Health Inform.",
+    "volume": "25",
+    "nomor": "5",
+    "halaman": "1519-1528",
+    "tahun": 2021,
+    "bulan": 5,
+    "penerbit": "Institute of Electrical and Electronics Engineers (IEEE)",
+    "doi": "10.1109/jbhi.2020.3022989",
+    "dataset": false,
+    "kecocokan_judul": 1.0
+  },
+  "F10": {
+    "jenis": "journal-article",
+    "penulis": [
+      {
+        "given": "Yuanlu",
+        "family": "Li"
+      },
+      {
+        "given": "Renfei",
+        "family": "Qian"
+      },
+      {
+        "given": "Kun",
+        "family": "Li"
+      }
+    ],
+    "judul": "Inter-patient arrhythmia classification with improved deep residual convolutional neural network",
+    "venue": "Computer Methods and Programs in Biomedicine",
+    "venue_singkat": "Computer Methods and Programs in Biomedicine",
+    "volume": "214",
+    "nomor": "",
+    "halaman": "106582",
+    "tahun": 2022,
+    "bulan": 2,
+    "penerbit": "Elsevier BV",
+    "doi": "10.1016/j.cmpb.2021.106582",
+    "dataset": false,
+    "kecocokan_judul": 1.0
+  },
+  "F2": {
+    "jenis": "journal-article",
+    "penulis": [
+      {
+        "given": "Felipe Meneguitti",
+        "family": "Dias"
+      },
+      {
+        "given": "Henrique L.M.",
+        "family": "Monteiro"
+      },
+      {
+        "given": "Thales Wulfert",
+        "family": "Cabral"
+      },
+      {
+        "given": "Rayen",
+        "family": "Naji"
+      },
+      {
+        "given": "Michael",
+        "family": "Kuehni"
+      },
+      {
+        "given": "Eduardo José da S.",
+        "family": "Luz"
+      }
+    ],
+    "judul": "Arrhythmia classification from single-lead ECG signals using the inter-patient paradigm",
+    "venue": "Computer Methods and Programs in Biomedicine",
+    "venue_singkat": "Computer Methods and Programs in Biomedicine",
+    "volume": "202",
+    "nomor": "",
+    "halaman": "105948",
+    "tahun": 2021,
+    "bulan": 4,
+    "penerbit": "Elsevier BV",
+    "doi": "10.1016/j.cmpb.2021.105948",
+    "dataset": false,
+    "kecocokan_judul": 1.0
+  },
+  "F3": {
+    "jenis": "journal-article",
+    "penulis": [
+      {
+        "given": "Guijin",
+        "family": "Wang"
+      },
+      {
+        "given": "Ming",
+        "family": "Chen"
+      },
+      {
+        "given": "Zijian",
+        "family": "Ding"
+      },
+      {
+        "given": "Jiawei",
+        "family": "Li"
+      },
+      {
+        "given": "Huazhong",
+        "family": "Yang"
+      },
+      {
+        "given": "Ping",
+        "family": "Zhang"
+      }
+    ],
+    "judul": "Inter-patient ECG arrhythmia heartbeat classification based on unsupervised domain adaptation",
+    "venue": "Neurocomputing",
+    "venue_singkat": "Neurocomputing",
+    "volume": "454",
+    "nomor": "",
+    "halaman": "339-349",
+    "tahun": 2021,
+    "bulan": 9,
+    "penerbit": "Elsevier BV",
+    "doi": "10.1016/j.neucom.2021.04.104",
+    "dataset": false,
+    "kecocokan_judul": 1.0
+  },
+  "F5": {
+    "jenis": "journal-article",
+    "penulis": [
+      {
+        "given": "Reza",
+        "family": "Bahrami"
+      },
+      {
+        "given": "Ali Mohammad",
+        "family": "Fotouhi"
+      }
+    ],
+    "judul": "Investigation of Inter-Patient, Intra-Patient, and Patient-Specific Based Training in Deep Learning for Classification of Heartbeat Arrhythmia",
+    "venue": "Cardiovascular Engineering and Technology",
+    "venue_singkat": "Cardiovasc Eng Tech",
+    "volume": "16",
+    "nomor": "3",
+    "halaman": "333-342",
+    "tahun": 2025,
+    "bulan": 6,
+    "penerbit": "Springer Science and Business Media LLC",
+    "doi": "10.1007/s13239-025-00777-y",
+    "dataset": false,
+    "kecocokan_judul": 1.0
+  },
+  "F6": {
+    "jenis": "journal-article",
+    "penulis": [
+      {
+        "given": "Theresa",
+        "family": "Bender"
+      },
+      {
+        "given": "Jacqueline M.",
+        "family": "Beinecke"
+      },
+      {
+        "given": "Dagmar",
+        "family": "Krefting"
+      },
+      {
+        "given": "Carolin",
+        "family": "Müller"
+      },
+      {
+        "given": "Henning",
+        "family": "Dathe"
+      },
+      {
+        "given": "Tim",
+        "family": "Seidler"
+      },
+      {
+        "given": "Nicolai",
+        "family": "Spicher"
+      },
+      {
+        "given": "Anne-Christin",
+        "family": "Hauschild"
+      }
+    ],
+    "judul": "Analysis of a Deep Learning Model for 12-Lead ECG Classification Reveals Learned Features Similar to Diagnostic Criteria",
+    "venue": "IEEE Journal of Biomedical and Health Informatics",
+    "venue_singkat": "IEEE J. Biomed. Health Inform.",
+    "volume": "28",
+    "nomor": "4",
+    "halaman": "1848-1859",
+    "tahun": 2024,
+    "bulan": 4,
+    "penerbit": "Institute of Electrical and Electronics Engineers (IEEE)",
+    "doi": "10.1109/jbhi.2023.3271858",
+    "dataset": false,
+    "kecocokan_judul": 1.0
+  },
+  "G1": {
+    "jenis": "journal-article",
+    "penulis": [
+      {
+        "given": "Benjamin",
+        "family": "Lambert"
+      },
+      {
+        "given": "Florence",
+        "family": "Forbes"
+      },
+      {
+        "given": "Senan",
+        "family": "Doyle"
+      },
+      {
+        "given": "Harmonie",
+        "family": "Dehaene"
+      },
+      {
+        "given": "Michel",
+        "family": "Dojat"
+      }
+    ],
+    "judul": "Trustworthy clinical AI solutions: A unified review of uncertainty quantification in Deep Learning models for medical image analysis",
+    "venue": "Artificial Intelligence in Medicine",
+    "venue_singkat": "Artificial Intelligence in Medicine",
+    "volume": "150",
+    "nomor": "",
+    "halaman": "102830",
+    "tahun": 2024,
+    "bulan": 4,
+    "penerbit": "Elsevier BV",
+    "doi": "10.1016/j.artmed.2024.102830",
+    "dataset": false,
+    "kecocokan_judul": 1.0
+  },
+  "G2": {
+    "jenis": "journal-article",
+    "penulis": [
+      {
+        "given": "Karim",
+        "family": "Lekadir"
+      },
+      {
+        "given": "Alejandro F",
+        "family": "Frangi"
+      },
+      {
+        "given": "Antonio R",
+        "family": "Porras"
+      },
+      {
+        "given": "Ben",
+        "family": "Glocker"
+      },
+      {
+        "given": "Celia",
+        "family": "Cintas"
+      },
+      {
+        "given": "Curtis P",
+        "family": "Langlotz"
+      },
+      {
+        "given": "Eva",
+        "family": "Weicken"
+      },
+      {
+        "given": "Folkert W",
+        "family": "Asselbergs"
+      },
+      {
+        "given": "Fred",
+        "family": "Prior"
+      },
+      {
+        "given": "Gary S",
+        "family": "Collins"
+      },
+      {
+        "given": "Georgios",
+        "family": "Kaissis"
+      },
+      {
+        "given": "Gianna",
+        "family": "Tsakou"
+      },
+      {
+        "given": "Irène",
+        "family": "Buvat"
+      },
+      {
+        "given": "Jayashree",
+        "family": "Kalpathy-Cramer"
+      },
+      {
+        "given": "John",
+        "family": "Mongan"
+      },
+      {
+        "given": "Julia A",
+        "family": "Schnabel"
+      },
+      {
+        "given": "Kaisar",
+        "family": "Kushibar"
+      },
+      {
+        "given": "Katrine",
+        "family": "Riklund"
+      },
+      {
+        "given": "Kostas",
+        "family": "Marias"
+      },
+      {
+        "given": "Lameck M",
+        "family": "Amugongo"
+      },
+      {
+        "given": "Lauren A",
+        "family": "Fromont"
+      },
+      {
+        "given": "Lena",
+        "family": "Maier-Hein"
+      },
+      {
+        "given": "Leonor",
+        "family": "Cerdá-Alberich"
+      },
+      {
+        "given": "Luis",
+        "family": "Martí-Bonmatí"
+      },
+      {
+        "given": "M Jorge",
+        "family": "Cardoso"
+      },
+      {
+        "given": "Maciej",
+        "family": "Bobowicz"
+      },
+      {
+        "given": "Mahsa",
+        "family": "Shabani"
+      },
+      {
+        "given": "Manolis",
+        "family": "Tsiknakis"
+      },
+      {
+        "given": "Maria A",
+        "family": "Zuluaga"
+      },
+      {
+        "given": "Marie-Christine",
+        "family": "Fritzsche"
+      },
+      {
+        "given": "Marina",
+        "family": "Camacho"
+      },
+      {
+        "given": "Marius George",
+        "family": "Linguraru"
+      },
+      {
+        "given": "Markus",
+        "family": "Wenzel"
+      },
+      {
+        "given": "Marleen",
+        "family": "De Bruijne"
+      },
+      {
+        "given": "Martin G",
+        "family": "Tolsgaard"
+      },
+      {
+        "given": "Melanie",
+        "family": "Goisauf"
+      },
+      {
+        "given": "Mónica",
+        "family": "Cano Abadía"
+      },
+      {
+        "given": "Nikolaos",
+        "family": "Papanikolaou"
+      },
+      {
+        "given": "Noussair",
+        "family": "Lazrak"
+      },
+      {
+        "given": "Oriol",
+        "family": "Pujol"
+      },
+      {
+        "given": "Richard",
+        "family": "Osuala"
+      },
+      {
+        "given": "Sandy",
+        "family": "Napel"
+      },
+      {
+        "given": "Sara",
+        "family": "Colantonio"
+      },
+      {
+        "given": "Smriti",
+        "family": "Joshi"
+      },
+      {
+        "given": "Stefan",
+        "family": "Klein"
+      },
+      {
+        "given": "Susanna",
+        "family": "Aussó"
+      },
+      {
+        "given": "Wendy A",
+        "family": "Rogers"
+      },
+      {
+        "given": "Zohaib",
+        "family": "Salahuddin"
+      },
+      {
+        "given": "Martijn P A",
+        "family": "Starmans"
+      }
+    ],
+    "judul": "FUTURE-AI: international consensus guideline for trustworthy and deployable artificial intelligence in healthcare",
+    "venue": "BMJ",
+    "venue_singkat": "BMJ",
+    "volume": "388",
+    "nomor": "",
+    "halaman": "e081554",
+    "tahun": 2025,
+    "bulan": 2,
+    "penerbit": "BMJ",
+    "doi": "10.1136/bmj-2024-081554",
+    "dataset": false,
+    "kecocokan_judul": 1.0
+  },
+  "H1": {
+    "jenis": "journal-article",
+    "penulis": [
+      {
+        "given": "Patrick",
+        "family": "Wagner"
+      },
+      {
+        "given": "Nils",
+        "family": "Strodthoff"
+      },
+      {
+        "given": "Ralf-Dieter",
+        "family": "Bousseljot"
+      },
+      {
+        "given": "Dieter",
+        "family": "Kreiseler"
+      },
+      {
+        "given": "Fatima I.",
+        "family": "Lunze"
+      },
+      {
+        "given": "Wojciech",
+        "family": "Samek"
+      },
+      {
+        "given": "Tobias",
+        "family": "Schaeffter"
+      }
+    ],
+    "judul": "PTB-XL, a large publicly available electrocardiography dataset",
+    "venue": "Scientific Data",
+    "venue_singkat": "Sci Data",
+    "volume": "7",
+    "nomor": "1",
+    "halaman": "154",
+    "tahun": 2020,
+    "bulan": 5,
+    "penerbit": "Springer Science and Business Media LLC",
+    "doi": "10.1038/s41597-020-0495-6",
+    "dataset": false,
+    "kecocokan_judul": 0.769
+  },
+  "H2": {
+    "jenis": "dataset",
+    "penulis": [
+      {
+        "given": "Patrick",
+        "family": "Wagner"
+      },
+      {
+        "given": "Nils",
+        "family": "Strodthoff"
+      },
+      {
+        "given": "Ralf-Dieter",
+        "family": "Bousseljot"
+      },
+      {
+        "given": "Wojciech",
+        "family": "Samek"
+      },
+      {
+        "given": "Tobias",
+        "family": "Schaeffter"
+      }
+    ],
+    "judul": "PTB-XL, a large publicly available electrocardiography dataset",
+    "venue": "PhysioNet",
+    "volume": "",
+    "nomor": "",
+    "halaman": "",
+    "versi": "1.0.3",
+    "tahun": 2022,
+    "bulan": null,
+    "doi": "10.13026/kfzx-aw45",
+    "dataset": true,
+    "kecocokan_judul": 0.26
+  },
+  "H3": {
+    "jenis": "dataset",
+    "penulis": [
+      {
+        "given": "George B",
+        "family": "Moody"
+      },
+      {
+        "given": "Roger G",
+        "family": "Mark"
+      }
+    ],
+    "judul": "MIT-BIH Arrhythmia Database",
+    "venue": "physionet.org",
+    "volume": "",
+    "nomor": "",
+    "halaman": "",
+    "versi": null,
+    "tahun": 1992,
+    "bulan": null,
+    "doi": "10.13026/C2F305",
+    "dataset": true,
+    "kecocokan_judul": 0.619
+  },
+  "H4": {
+    "jenis": "dataset",
+    "penulis": [
+      {
+        "given": "George B",
+        "family": "Moody"
+      },
+      {
+        "given": "WE",
+        "family": "Muldrow"
+      },
+      {
+        "given": "Roger G",
+        "family": "Mark"
+      }
+    ],
+    "judul": "The MIT-BIH Noise Stress Test Database",
+    "venue": "physionet.org",
+    "volume": "",
+    "nomor": "",
+    "halaman": "",
+    "versi": null,
+    "tahun": 1992,
+    "bulan": null,
+    "doi": "10.13026/C2HS3T",
+    "dataset": true,
+    "kecocokan_judul": 0.667
+  },
+  "H5": {
+    "jenis": "dataset",
+    "penulis": [
+      {
+        "given": "Matthew",
+        "family": "Reyna"
+      },
+      {
+        "given": "Nadi",
+        "family": "Sadr"
+      },
+      {
+        "given": "Annie",
+        "family": "Gu"
+      },
+      {
+        "given": "Erick Andres",
+        "family": "Perez Alday"
+      },
+      {
+        "given": "Chengyu",
+        "family": "Liu"
+      },
+      {
+        "given": "Salman",
+        "family": "Seyedi"
+      },
+      {
+        "given": "Amit",
+        "family": "Shah"
+      },
+      {
+        "given": "Gari",
+        "family": "Clifford"
+      }
+    ],
+    "judul": "Will Two Do? Varying Dimensions in Electrocardiography: The PhysioNet/Computing in Cardiology Challenge 2021",
+    "venue": "PhysioNet",
+    "volume": "",
+    "nomor": "",
+    "halaman": "",
+    "versi": "1.0.3",
+    "tahun": 2022,
+    "bulan": null,
+    "doi": "10.13026/34va-7q14",
+    "dataset": true,
+    "kecocokan_judul": 0.371
+  },
+  "I1": {
+    "jenis": "journal-article",
+    "penulis": [
+      {
+        "given": "Sally M.",
+        "family": "Kerry"
+      },
+      {
+        "given": "J.",
+        "family": "Martin Bland"
+      }
+    ],
+    "judul": "Unequal cluster sizes for trials in English and Welsh general practice: implications for sample size calculations",
+    "venue": "Statistics in Medicine",
+    "venue_singkat": "Statist. Med.",
+    "volume": "20",
+    "nomor": "3",
+    "halaman": "377-390",
+    "tahun": 2001,
+    "bulan": 2,
+    "penerbit": "Wiley",
+    "doi": "10.1002/1097-0258(20010215)20:3<377::aid-sim799>3.0.co;2-n",
+    "dataset": false,
+    "kecocokan_judul": 1.0
+  },
+  "I2": {
+    "jenis": "journal-article",
+    "penulis": [
+      {
+        "given": "Ian R",
+        "family": "White"
+      },
+      {
+        "given": "James",
+        "family": "Thomas"
+      }
+    ],
+    "judul": "Standardized mean differences in individually-randomized and cluster-randomized trials, with applications to meta-analysis",
+    "venue": "Clinical Trials",
+    "venue_singkat": "Clinical Trials",
+    "volume": "2",
+    "nomor": "2",
+    "halaman": "141-151",
+    "tahun": 2005,
+    "bulan": 4,
+    "penerbit": "SAGE Publications",
+    "doi": "10.1191/1740774505cn081oa",
+    "dataset": false,
+    "kecocokan_judul": 1.0
+  },
+  "P1": {
+    "jenis": "preprint",
+    "penulis": [
+      {
+        "given": "Adam",
+        "family": "Noonan"
+      }
+    ],
+    "judul": "The Exceedance Design Effect: Effective Sample Size for Thresholds under Clustering",
+    "venue": "arXiv",
+    "volume": "",
+    "nomor": "",
+    "halaman": "",
+    "tahun": 2026,
+    "bulan": 8,
+    "arxiv": "2608.21262",
+    "doi": "",
+    "dataset": false,
+    "kecocokan_judul": 1.0
+  },
+  "P2": {
+    "jenis": "preprint",
+    "penulis": [
+      {
+        "given": "Jiuyi",
+        "family": "Zheng"
+      },
+      {
+        "given": "Gan",
+        "family": "Xu"
+      }
+    ],
+    "judul": "A Symmetric Layer-Union Audit of Component Collapse in Hierarchical Procedural Corpora",
+    "venue": "arXiv",
+    "volume": "",
+    "nomor": "",
+    "halaman": "",
+    "tahun": 2026,
+    "bulan": 8,
+    "arxiv": "2608.08892",
+    "doi": "",
+    "dataset": false,
+    "kecocokan_judul": 1.0
+  }
+}

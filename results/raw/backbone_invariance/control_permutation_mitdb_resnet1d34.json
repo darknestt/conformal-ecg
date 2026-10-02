@@ -31,7 +31,10 @@
           0.001025179896269346,
           0.022334128098674817
         ],
-        "signifikan": true
+        "signifikan": true,
+        "p_satu_arah": 0.016745813546613347,
+        "p_holm": 0.050237440639840036,
+        "signifikan_holm": false
       },
       "dd": {
         "nilai": -0.007305182974205113,
@@ -67,7 +70,10 @@
           -0.0015971790306674029,
           0.022320024268992728
         ],
-        "signifikan": false
+        "signifikan": false,
+        "p_satu_arah": 0.047238190452386905,
+        "p_holm": 0.09447638090477381,
+        "signifikan_holm": false
       },
       "dd": {
         "nilai": 0.010942815836470832,
@@ -103,7 +109,10 @@
           -0.005908023287609207,
           0.021694917167700657
         ],
-        "signifikan": false
+        "signifikan": false,
+        "p_satu_arah": 0.12646838290427392,
+        "p_holm": 0.12646838290427392,
+        "signifikan_holm": false
       },
       "dd": {
         "nilai": 0.006966049212459066,

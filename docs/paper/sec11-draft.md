@@ -79,10 +79,11 @@ $\alpha=1/12$ HCP returns the full label set, and above it 75–110% of the
 HCP−B1 gap reappears under a permutation that destroys dependence. The test we
 rely on is therefore the deficit of B1 against that matched permutation null,
 re-run for each backbone under a criterion fixed beforehand (significance at
-every feasible $\alpha$). The deficit is positive in 9/9 cells and significant in
-7/9: in 3/3 for the smallest and largest backbone, but only at $\alpha=0.10$ for
-`resnet1d34` (+1.02 pp [−0.16, 2.23] and +0.81 pp [−0.59, 2.17] at 0.15 and
-0.20). The pre-registered criterion thus fails for one backbone, and we do not
+every feasible $\alpha$, with Holm correction across levels). The deficit is
+positive in 9/9 cells and significant in 7/9 by 95% interval. After Holm
+correction it remains significant at every level for the smallest and largest
+backbone but at none for ResNet1D-34 (adjusted $p=0.050$, $0.095$, $0.127$).
+The pre-registered criterion thus fails for one backbone, and we do not
 claim backbone-invariant significance. On PTB-XL, the same
 three architectures (104,389; 7,225,733; 15,969,413 parameters) reach
 macro-AUROC 0.902, 0.897 and 0.896 — the larger models are *not* better — and in
@@ -228,7 +229,9 @@ reviewed by a statistician before submission.
 
 Our interpretation of the MIT-BIH evidence reversed three times before
 stabilising. We report the sequence because the alternative — presenting only the
-final position — would conceal how the conclusion was reached.
+final position — would conceal how the conclusion was reached (Table 11.1).
+
+**Table 11.1.** Sequence of interim conclusions on MIT-BIH and the control that overturned each.
 
 | Stage | Interim conclusion | Overturned by |
 |---|---|---|
