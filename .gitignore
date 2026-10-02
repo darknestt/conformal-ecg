@@ -51,3 +51,6 @@ _commitmsg.txt
 
 # Skrip probe sekali-pakai di akar repo -- kode permanen selalu di scripts/ atau experiments/
 /*.py
+
+# Berkas kunci sementara Microsoft Office
+~$*
