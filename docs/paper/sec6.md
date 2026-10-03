@@ -10,51 +10,47 @@
 
 The audit separates two questions that are usually merged: can a block-level
 coverage guarantee be *enforced* on a clinical dataset, and does ignoring block
-structure *cost* coverage when it is not? The first is combinatorial and is
-settled by metadata. On the resources audited here the answer is stricter than
-their size suggests, because declared sources collapse under the join and rare
-labels are spread over few patients (§5.1). Proposition 1 makes the point
-directly: splitting the 22 evaluation subjects of the canonical MIT-BIH partition
-evenly between calibration and test leaves $K_1=11$, which rules out a
-subject-level guarantee at the 95% level for this design, whatever the model and
-however many beats each record holds.
+structure *cost* coverage when it is not? The first is combinatorial and settled
+by metadata, and on the resources audited the answer is stricter than their size
+suggests: declared sources collapse under the join, rare labels are spread over
+few patients (§5.1), and an even split of the 22 MIT-BIH evaluation subjects
+leaves $K_1=11$, too few for a subject-level guarantee at the 95% level whatever
+the model and however many beats each record holds.
 
 The second question is statistical, and on the two resources audited its answer
-depended on how many repeats blocks contain more than on how strongly their
-observations correlate (§5.3–§5.4). PTB-XL shows this most clearly. Its within-patient correlation seems
-to call for block-level calibration, yet with $H=1.05$ the factor $1+(H-1)\rho$
-stays near 1 for any $\rho$, and counting repeats correctly predicts that such
-calibration is unnecessary for marginal coverage at these levels. Both quantities
-should be reported, and neither belongs to the dataset alone: $K_1$ depends on
-the split design and $\rho$ on the model (§4.1). The two questions also meet. On
-MIT-BIH the deficit has the same sign across backbones, levels and splits of the
-22 evaluation subjects, yet a jackknife over those subjects cannot resolve it
-(§5.3): the scarcity of blocks that bounds the guarantee also bounds what an
-audit of the same subjects can establish.
+depended more on how many repeats blocks contain than on how strongly their
+observations correlate (§5.3–§5.4). PTB-XL shows this most clearly: its
+within-patient correlation seems to call for block-level calibration, yet with
+$H=1.05$ the factor $1+(H-1)\rho$ stays near 1 for any $\rho$, correctly
+predicting that such calibration is unnecessary for marginal coverage at these
+levels. Neither quantity belongs to the dataset alone, since $K_1$ depends on the
+split design and $\rho$ on the model (§4.1). The two questions also meet. On
+MIT-BIH the deficit keeps its sign across backbones, levels and splits, yet a
+jackknife over the 22 subjects cannot resolve it (§5.3): the scarcity of blocks
+that bounds the guarantee also bounds what an audit of the same subjects can
+establish.
 
 ### 6.2 Two pitfalls in evaluating conformal methods on clustered data
 
-The lesson that travels furthest concerns evaluation rather than ECG. On the same
-data HCP seems to "restore" the coverage that naive split conformal loses, but
-75–110% of the difference persists once within-block dependence is permuted away
-(§5.3, §5.5). The mass $1/(K_1+1)$ at $+\infty$ lifts HCP to a higher empirical
-quantile regardless of dependence, and when $K_1$ is small, exactly where
-block-level calibration matters, this mechanical inflation dominates. Below
-$\alpha_{\min}$ the comparison degenerates, since HCP covers by returning every
-label (Fig. 6). A claim that a hierarchical method improves coverage should
-therefore be tested against a null that keeps block sizes and score marginals but
-removes dependence, and coverage should always be reported with set size,
-abstention being the cheapest route to coverage.
+The lesson that travels furthest concerns evaluation rather than ECG. HCP seems
+to "restore" the coverage that naive split conformal loses, but 75–110% of the
+difference persists once within-block dependence is permuted away (§5.3, §5.5).
+The mass $1/(K_1+1)$ at $+\infty$ lifts HCP to a higher empirical quantile
+regardless of dependence, and when $K_1$ is small, exactly where block-level
+calibration matters, this mechanical inflation dominates; below $\alpha_{\min}$
+HCP simply returns every label (Fig. 6). Claims that a hierarchical method
+improves coverage should be tested against a null that keeps block sizes and
+score marginals but removes dependence, and coverage should always come with set
+size, abstention being the cheapest route to coverage.
 
 The second pitfall concerns uncertainty. Conformal methods are often evaluated
-over many random calibration–test splits of one dataset. With clustered data
-those splits reuse the same subjects, so the spread or bootstrap interval of the
-coverages describes the split procedure on those subjects and shrinks as splits
-are added; it is not a confidence interval for the population. On MIT-BIH this
-decides the reading: repeated-split intervals exclude zero in most cells of
-Table 5.4, while the jackknife over the same 22 subjects includes zero in all of
-them. Population claims should resample subjects, and with few subjects the
-honest conclusion may be that the sign of a coverage gap is not yet known.
+over many random calibration–test splits of one dataset, but with clustered data
+those splits reuse the same subjects, so the resulting interval describes the
+split procedure on those subjects and shrinks as splits are added. On MIT-BIH
+this decides the reading: repeated-split intervals exclude zero in most cells of
+Table 5.4, while the jackknife over the same 22 subjects includes zero in all.
+Population claims should resample subjects, and with few subjects the honest
+conclusion may be that the sign of a coverage gap is not yet known.
 
 ### 6.3 Implications and relation to prior work
 
@@ -122,67 +118,60 @@ last-epoch analysis preserved the sign of every deficit and every $K_1$ but not
 the magnitude, which is therefore not compared across backbones.
 
 **External validity.** PTB-XL comes from one institution and was recorded in
-1989–1996; its device, nurse and site metadata make the block analysis possible,
-but its $\rho$ and $H$ may not carry over to present-day multi-center cohorts.
-Eleven of the twelve dose–response points are synthetic MIT-BIH configurations,
-so the combined correlation reflects an intervention within one dataset, and
-PTB-XL, which differs in modality, task and block type, serves only as a
-prediction check (§5.4). All results concern ECG; temporal dependence within a
-patient across visits is not addressed, and other clinical signals with repeated
-measurements were not examined.
+1989–1996; its metadata make the block analysis possible, but its $\rho$ and $H$
+may not carry over to present-day multi-center cohorts. Eleven of the twelve
+dose–response points are synthetic MIT-BIH configurations, and PTB-XL, which
+differs in modality, task and block type, serves only as a prediction check
+(§5.4). All results concern ECG; temporal dependence within a patient across
+visits and other clinical signals with repeated measurements were not examined.
 
 **Statistical conclusion validity.** The repeated-split intervals of Table 5.4
-and Fig. 7 and the Spearman $p$-values of Table 5.5 are conditional on the 22 DS2
+and Fig. 8 and the Spearman $p$-values of Table 5.5 are conditional on the 22 DS2
 records and one permutation (§4.4, §6.2). Only the post hoc leave-one-record-out
-jackknife treats records as the sampling unit, and its intervals include zero in
-every cell; since each replicate rests on 500 splits, Monte Carlo error inflates
-its variance somewhat, so those intervals are conservative. No single split or
-dose–response point shows a deficit: the split-to-split range covers $1-\alpha$
-in every MIT-BIH cell (Table 5.3). Two criteria of the initial protocol were
-dropped, "HCP covers better than split conformal" once the permutation control
-showed the gap to be largely mechanical (§5.3), and a Spearman test across two
-datasets, whose rank correlation can only be $\pm1$; these and the unused parts of
-the initial statistical plan (patient-level bootstrap, a paired permutation test
-with 10,000 permutations, exact binomial intervals, Cliff's delta) are listed in
-the protocol's deviation log.
+jackknife treats records as the sampling unit; its intervals include zero in
+every cell and, because each replicate rests on 500 splits, are slightly
+conservative. The split-to-split range covers $1-\alpha$ in every MIT-BIH cell
+(Table 5.3). Two criteria of the initial protocol were dropped, "HCP covers
+better than split conformal" once the permutation control showed the gap to be
+largely mechanical (§5.3), and a Spearman test across two datasets, whose rank
+correlation can only be $\pm1$; these and the unused parts of the initial plan
+(patient-level bootstrap, a paired permutation test with 10,000 permutations,
+exact binomial intervals, Cliff's delta) are listed in the deviation log.
 
 **Theoretical scope.** The variance of §3.2 and the design effects (4) rest on
 Assumption (A), a one-way random-effects model with compound symmetry, whereas
 Proposition 1, Corollary 2 and Proposition 3 need no distributional assumption.
-The variance involves the correlation of the coverage indicator, not of the raw
-score; with the indicator correlation every Spearman coefficient stays positive
-(Table 5.5), and PTB-XL's correlation drops from 0.35 to 0.19–0.20 while its
-design effect stays near 1. The design effect ranks configurations, but we do not
-show that it is sufficient for coverage loss. Corollary 2 is proved for HCP only
-(§3.3), and the hierarchical constructions are not compared with one another
-[A0b]. For PTB-XL the verdict is exhaustive only for the declared sources
-{patient, site, nurse, device}, which the data cannot verify, and the merging of
-joins into a giant component is known [P2]. Declaring only {patient, site} gives
-$K_1=34$ on the full calibration fold and makes $\alpha=0.05$ feasible, yet 31 of
-these blocks consist entirely of 188 records without nurse metadata, and on the
-1,960 fully annotated records the same declaration gives $K_1=3$. The result is
-therefore conditional: *if patient, site, nurse, and device are all treated as
+With the indicator correlation that enters the variance, every Spearman
+coefficient stays positive (Table 5.5) and PTB-XL's correlation drops from 0.35
+to 0.19–0.20 while its design effect stays near 1; we do not show that the design
+effect is sufficient for coverage loss. Corollary 2 is proved for HCP only (§3.3),
+and the hierarchical constructions are not compared with one another [A0b]. For
+PTB-XL the verdict is exhaustive only for the declared sources {patient, site,
+nurse, device}, which the data cannot verify [P2]. Declaring only {patient, site}
+gives $K_1=34$ on the full calibration fold and makes $\alpha=0.05$ feasible, yet
+31 of these blocks consist entirely of 188 records without nurse metadata, and on
+the 1,960 fully annotated records the same declaration gives $K_1=3$. The result
+is therefore conditional: *if patient, site, nurse, and device are all treated as
 dependence sources, no admissible calibration grouping exists at any conventional
-$\alpha$.* Finally, how well ECG networks discriminate on benchmarks [F1] is
-orthogonal to this question: an accurate model calibrated on too few blocks still
-carries no guarantee.
+$\alpha$.* How well ECG networks discriminate on benchmarks [F1] is orthogonal to
+this question: an accurate model calibrated on too few blocks still carries no
+guarantee.
 
 **Researcher degrees of freedom.** Because the study audits inferential
 robustness, its analysis history is part of the evidence. Our reading of the
-MIT-BIH evidence changed
-three times, each time prompted by an added control rather than by rereading
-data, and its statistical strength was revised once more (Appendix B). Every
-analysis introduced or modified after results were seen made the evidence
-stricter: the permutation control overturned a criterion that favored our
-hypothesis; the Holm correction, specified in the initial protocol but applied
-late, removed the last significant level for ResNet1D-34; the reporting axis was
-chosen after ICC failed to place the two datasets on one scale; and the
-record-level jackknife, specified and committed before it was run, showed that
+MIT-BIH evidence changed three times, each time after an added control rather
+than a rereading of data, and its statistical strength was revised once more
+(Appendix B). Every analysis introduced or modified after results were seen made
+the evidence stricter: the permutation control overturned a criterion that
+favored our hypothesis; the Holm correction, specified in the initial protocol
+but applied late, removed the last significant level for ResNet1D-34; the
+reporting axis was chosen after ICC failed to place the two datasets on one
+scale; and the record-level jackknife, committed before it was run, showed that
 repeated-split significance did not extend to subjects. The factor $1+(H-1)\rho$
-appeared in our theoretical notes before data collection, but the decision to
-report on this axis was taken with the results in view. The analysis protocol was
-kept under version control but not publicly registered or formally frozen; it is
-released with its deviation log.
+appeared in our notes before data collection, but the decision to report on this
+axis was taken with results in view. The protocol was kept under version control
+but not publicly registered or formally frozen; it is released with its deviation
+log.
 
 ---
 

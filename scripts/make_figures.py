@@ -136,7 +136,7 @@ def fig_atribusi() -> None:
     ax2.set_title("(b) HCP advantage with and without dependence")
     ax2.legend(loc="upper center", ncol=2, frameon=False)
     fig.tight_layout(w_pad=1.5)
-    simpan(fig, "fig7_attribution.png")
+    simpan(fig, "fig8_attribution.png")
 
 
 def fig1_alur() -> None:
@@ -450,7 +450,7 @@ def fig6_dosis() -> None:
     ax.text(0.03, 0.97, "Spearman (12 points): " + ", ".join(f"{v['spearman']:.2f}" for v in sp.values()),
             transform=ax.transAxes, fontsize=6, va="top")
     ax.legend(loc="center left", frameon=False, bbox_to_anchor=(0.0, 0.62))
-    simpan(fig, "fig8_dose_response.png")
+    simpan(fig, "fig9_dose_response.png")
 
 
 def fig7_backbone() -> None:
@@ -514,13 +514,86 @@ def fig7_backbone() -> None:
     ax2.plot([], [], "s", mfc="white", mec="black", mew=0.4, ms=3.4, ls="none", label="ResNet1D-50")
     ax2.legend(loc="upper left", frameon=False, handletextpad=0.2, fontsize=6.3)
     fig.tight_layout(w_pad=1.5)
-    simpan(fig, "fig9_robustness.png")
+    simpan(fig, "fig10_robustness.png")
+
+
+def fig_kontrol() -> None:
+    """Skema tiga kontrol MIT-BIH: null permutasi, faktorial 2x2, dose-response (rekaman ilustratif)."""
+    warna = ["#8fb0cf", "#e0a982", "#93bf93", "#c9a6d6"]
+    panjang = [12, 8, 14, 6]
+    rng = np.random.default_rng(3)
+    asli = [[i] * n for i, n in enumerate(panjang)]
+    semua = np.concatenate([np.array(r) for r in asli])
+    acak = rng.permutation(semua)
+    potong = np.cumsum([0] + panjang)
+    diacak = [acak[potong[i]:potong[i + 1]].tolist() for i in range(len(panjang))]
+
+    fig, ax = plt.subplots(figsize=(LEBAR_GANDA, 1.7))
+    ax.set_xlim(0, 100)
+    ax.set_ylim(4.6, 30)
+    ax.axis("off")
+    for x in (31.0, 66.5):
+        ax.plot([x, x], [5.0, 29.5], color="#cccccc", lw=0.6)
+    sel, tinggi = 0.62, 1.15
+
+    def blok(x0, y0, baris, n_maks=None):
+        for j, r in enumerate(baris):
+            for k, c in enumerate(r[:n_maks] if n_maks else r):
+                ax.add_patch(plt.Rectangle((x0 + k * sel, y0 - j * 1.55), sel * 0.92, tinggi, fc=warna[c],
+                                           ec="white", lw=0.3))
+
+    def judul(x, y, t):
+        ax.text(x, y, t, fontsize=7.8, fontweight="bold", ha="left", va="center")
+
+    def label(x, y, t, **kw):
+        ax.text(x, y, t, fontsize=6.8, ha="center", va="center", **kw)
+
+    # (a) null permutasi
+    judul(0.5, 28.6, "(a) Permutation null")
+    label(4.2, 25.6, "original")
+    blok(0.5, 23.0, asli)
+    label(19.5, 25.6, "beats permuted")
+    blok(15.0, 23.0, diacak)
+    ax.add_patch(FancyArrowPatch((10.0, 20.6), (14.2, 20.6), arrowstyle="-|>", mutation_scale=7, lw=0.7))
+    label(12.2, 13.3, "block sizes and score marginals kept;\nwithin-record correlation removed", style="italic")
+
+    # (b) faktorial 2x2
+    judul(32.0, 28.6, "(b) 2$\\times$2 factorial design")
+    seimbang = [int(round(0.6 * np.mean(panjang)))] * len(panjang)
+    timpang = [int(round(0.6 * n)) for n in panjang]
+    sel_x = {"balanced": 41.0, "imbalanced": 53.5}
+    sel_y = {"clustered": 23.0, "randomized": 14.0}
+    for nama, x in sel_x.items():
+        label(x + 3.6, 25.6, nama)
+    for nama, y in sel_y.items():
+        ax.text(39.8, y - 2.3, nama, fontsize=6.8, ha="right", va="center")
+        sumber = asli if nama == "clustered" else diacak
+        for kol, x in sel_x.items():
+            n_tiap = seimbang if kol == "balanced" else timpang
+            blok(x, y, [r[:m] for r, m in zip(sumber, n_tiap)])
+    label(48.5, 6.6, "calibration records subsampled to 1,355 beats (balanced)\nor to 60% of their own length (imbalanced)",
+          style="italic")
+
+    # (c) dose-response
+    judul(68.0, 28.6, "(c) Dose\u2013response")
+    sama = 7
+    for i, (p, x) in enumerate(((0.0, 68.5), (0.5, 78.0), (1.0, 87.5))):
+        baris = []
+        for r in asli:
+            r = list(r[:sama])
+            ganti = rng.random(sama) < p
+            baris.append([int(rng.integers(len(panjang))) if g else c for c, g in zip(r, ganti)])
+        label(x + 2.2, 25.6, f"$p={p:g}$")
+        blok(x, 23.0, baris)
+    label(83.5, 13.3, "a fraction $p$ of beats reassigned\nto random records; equal\ncalibration size at every $p$",
+          style="italic")
+    simpan(fig, "fig7_control_design.png")
 
 
 def main() -> int:
     KELUAR.mkdir(parents=True, exist_ok=True)
-    for f in (fig1_alur, fig_join, fig_geometri, fig2_kelayakan, fig4_label, fig5_cakupan, fig_atribusi, fig6_dosis,
-              fig7_backbone):
+    for f in (fig1_alur, fig_join, fig_geometri, fig2_kelayakan, fig4_label, fig5_cakupan, fig_kontrol, fig_atribusi,
+              fig6_dosis, fig7_backbone):
         f()
     return 0
 

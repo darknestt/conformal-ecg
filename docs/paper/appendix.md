@@ -61,7 +61,7 @@ interim conclusion with the control that overturned it.
 **Table B.1.** Interim conclusions on MIT-BIH and the control that overturned each.
 
 | Stage | Interim conclusion | Overturned by |
-|---|---|---|
+|--|------------------------|------------------------|
 | 1 | HCP improves on naive split conformal | Permutation control: 81–107% of the gap is mechanical |
 | 2 | The deficit is driven by block-size imbalance | 2×2 factorial: imbalance significant at 0/3 levels, clustering at 3/3 |
 | 3 | The deficit increases monotonically with ICC | PTB-XL: ICC 0.35 yet no deficit |

@@ -17,7 +17,7 @@
 | Bahasa komunikasi dengan pengguna | Indonesia |
 | Repo | `github.com/darknestt/conformal-ecg` (**privat**), branch `main` |
 | Berkas naskah Word | `docs/paper/manuscript-draft.docx` (dihasilkan otomatis, jangan diedit manual) |
-| Status terakhir | 19 halaman, 9 gambar, 9 tabel, 35 rujukan, abstrak 246 kata, ±10.845 kata (hitungan Word) |
+| Status terakhir | 19 halaman, 10 gambar, 9 tabel, 35 rujukan, abstrak 246 kata, ±10.850 kata (hitungan Word) |
 
 ### Pertanyaan riset
 - **RQ1**: Dapatkah jaminan coverage tingkat blok (hierarchical conformal prediction, HCP) ditegakkan pada sumber data EKG klinis pada tingkat galat lazim?
@@ -110,20 +110,21 @@ Semua sumber ada di `docs/paper/`. **Edit file `.md`, lalu bangun ulang docx.** 
 
 ## 5. Isi Naskah Saat Ini
 
-### Gambar (9)
+### Gambar (10)
 | No. | File | Isi | Bagian |
 |---|---|---|---|
 | Fig. 1 | `fig1_audit_workflow.png` | Alur audit dua tahap (gaya panel, warna lembut; meniru gambar referensi ResearchGate) | §1 |
 | Fig. 2 | `fig2_join_schematic.png` | Skema Proposition 2: 8 rekaman hipotetis, join pasien × perangkat | §3.3 |
-| Fig. 3 | `fig3_block_geometry.png` | **Baru**: ukuran blok terurut (log–log) PTB-XL patient/site/nurse/device dan MIT-BIH record; garis K_min(0,05)=19 | §4.1 |
+| Fig. 3 | `fig3_block_geometry.png` | Ukuran blok terurut (log–log) PTB-XL patient/site/nurse/device dan MIT-BIH record; garis K_min(0,05)=19 | §4.1 |
 | Fig. 4 | `fig4_feasibility_frontier.png` | Batas kelayakan α_min = 1/(K₁+1) | §5.1 |
 | Fig. 5 | `fig5_label_feasibility.png` | Blok kalibrasi per label hierarki PTB-XL | §5.1 |
 | Fig. 6 | `fig6_coverage.png` | Coverage − nominal, B1 vs B12 | §5.2 |
-| Fig. 7 | `fig7_attribution.png` | (a) efek faktorial 2×2; (b) selisih B12−B1 asli vs permutasi | §5.3 |
-| Fig. 8 | `fig8_dose_response.png` | Defisit B1 vs design effect | §5.4 |
-| Fig. 9 | `fig9_robustness.png` | (a) defisit per backbone + CI jackknife; (b) sensitivitas checkpoint | §5.5 |
+| Fig. 7 | `fig7_control_design.png` | **Baru (diagram)**: skema tiga kontrol MIT-BIH — (a) null permutasi, (b) faktorial 2×2, (c) dose–response; empat rekaman ilustratif | §5.3 |
+| Fig. 8 | `fig8_attribution.png` | (a) efek faktorial 2×2; (b) selisih B12−B1 asli vs permutasi | §5.3 |
+| Fig. 9 | `fig9_dose_response.png` | Defisit B1 vs design effect | §5.4 |
+| Fig. 10 | `fig10_robustness.png` | (a) defisit per backbone + CI jackknife; (b) sensitivitas checkpoint | §5.5 |
 
-Fungsi di `make_figures.py` (urutan loop): `fig1_alur, fig_join, fig_geometri, fig2_kelayakan, fig4_label, fig5_cakupan, fig_atribusi, fig6_dosis, fig7_backbone` (nama fungsi tidak sama dengan nomor gambar; lihat nama file yang disimpan).
+Fungsi di `make_figures.py` (urutan loop): `fig1_alur, fig_join, fig_geometri, fig2_kelayakan, fig4_label, fig5_cakupan, fig_kontrol, fig_atribusi, fig6_dosis, fig7_backbone` (nama fungsi tidak sama dengan nomor gambar; lihat nama file yang disimpan). Diagram/skema non-data: Fig. 1, 2, 7.
 
 ### Tabel (9)
 | Docx | Sumber | Isi |
