@@ -1,6 +1,17 @@
 # Abstract & §7 Conclusion
 
 > **v7 — 2026-10-02.** Diparafrasekan penuh dari v6 (commit 3edc1f0). Semua angka dan klaim tetap.
+> **2026-10-03 — target: Artificial Intelligence in Medicine (Elsevier).** Ditambah Highlights (5 butir, ≤85 karakter), Keywords (7), dan bagian deklarasi (CRediT, competing interest, funding, AI generatif) sebagai placeholder untuk penulis. Persyaratan Guide for Authors AIIM BELUM TERVERIFIKASI (situs memblokir akses otomatis) — cocokkan sebelum submit.
+
+---
+
+## Highlights
+
+- Metadata alone decide whether block-level conformal coverage can be guaranteed
+- All four declared PTB-XL dependence sources leave one admissible calibration block
+- Under patient blocks, 24 of 44 PTB-XL statements lack a finite threshold at 5% error
+- Most of the apparent coverage gain of HCP over split conformal is mechanical
+- Repeated splits of fixed subjects yield split-level, not population-level, intervals
 
 ---
 
@@ -31,7 +42,7 @@ is removed. Blocks, not records, should be counted, and subjects, not splits,
 resampled, before claims about distribution-free coverage are made on clinical
 data.
 
-**Index Terms** — Conformal prediction, electrocardiography, uncertainty
+**Keywords** — Conformal prediction, electrocardiography, uncertainty
 quantification, hierarchical data, exchangeability, calibration, study design.
 
 ---
@@ -71,6 +82,25 @@ This study is a secondary analysis of publicly available, de-identified
 recordings; no new data were collected and no participant was contacted.
 [Institutional statement on the need for ethics review to be added by the
 authors.]
+
+## CRediT Authorship Contribution Statement
+
+[To be completed by the authors using the CRediT taxonomy.]
+
+## Declaration of Competing Interest
+
+[To be completed by the authors.]
+
+## Funding
+
+[To be completed by the authors.]
+
+## Declaration of Generative AI and AI-Assisted Technologies in the Writing Process
+
+During the preparation of this work the author(s) used [name of tool or
+service] in order to [purpose]. After using this tool or service, the author(s)
+reviewed and edited the content as needed and take(s) full responsibility for
+the content of the publication.
 
 ---
 

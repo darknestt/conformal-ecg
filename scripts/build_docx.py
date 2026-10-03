@@ -1,21 +1,24 @@
-"""Susun bagian naskah (docs/paper/sec*.md) menjadi naskah Word bergaya IEEE.
+"""Susun bagian naskah (docs/paper/sec*.md) menjadi naskah Word untuk submisi Elsevier (AIIM).
 
 Yang dikerjakan, berurutan:
-  1. Ambil prosa naskah dari tiap draf (judul "## N." sampai catatan kerja).
-  2. Sitasi kode ([A0], [I1, A13], [A0, Thm. 1]) -> nomor IEEE menurut urutan
+  1. Ambil prosa naskah dari tiap draf (judul "## N." sampai catatan kerja), didahului
+     Highlights, Abstract dan Keywords dari abstract-conclusion.md.
+  2. Sitasi kode ([A0], [I1, A13], [A0, Thm. 1]) -> nomor [n] menurut urutan
      kemunculan pertama; daftar pustaka disusun dari docs/paper/references.json
      (metadata Crossref/arXiv/DataCite, bukan ketikan tangan).
-  3. Tabel "**Table 8.1.** ..." -> "TABLE I" (Romawi, berurutan) dan rujukan di
+  3. Tabel "**Table 8.1.** ..." -> "Table 1" (berurutan) dan rujukan di
      teks ikut diganti. Figure memakai keterangan "Fig. n." di bawah gambar.
   4. \\tag{n} -> nomor persamaan (n) di kanan.
   5. Blockquote jadi paragraf biasa; huruf tebal hanya untuk judul paragraf.
-  6. Gaya dokumen: Times New Roman hitam, judul bernomor, teks rata kiri-kanan.
+  6. Gaya dokumen: Times New Roman hitam, judul bernomor, teks rata kiri-kanan,
+     nomor baris berkelanjutan untuk reviewer.
 
     python scripts/build_docx.py            -> docs/paper/manuscript-draft.docx
 """
 
 from __future__ import annotations
 
+import copy
 import datetime
 import html
 import json
@@ -68,11 +71,17 @@ def ambil_prosa(teks: str) -> str:
 
 
 def ambil_abstrak(teks: str) -> str:
+    sorot = teks.split("## Highlights", 1)[-1].split("\n---", 1)[0].strip() if "## Highlights" in teks else ""
     isi = teks.split("## Abstract", 1)[1].split("\n---", 1)[0].strip()
-    badan, _, istilah = isi.partition("**Index Terms**")
+    badan, _, istilah = isi.partition("**Keywords**")
+    if not istilah:
+        badan, _, istilah = isi.partition("**Index Terms**")
     badan = " ".join(badan.split())
-    istilah = " ".join(istilah.split()).lstrip("—- ").strip()
-    return f"**Abstract—**{badan}\n\n**Index Terms—**{istilah}\n"
+    istilah = " ".join(istilah.split()).lstrip("—- ").strip().rstrip(".")
+    istilah = "; ".join(k.strip() for k in istilah.split(","))
+    sorot = f"## Highlights\n\n{sorot}\n\n" if sorot else ""
+    return (f"{sorot}## Abstract\n\n{badan}\n\n"
+            f"**Keywords:** {istilah}\n")
 
 
 def rapikan_baris(md: str) -> str:
@@ -102,11 +111,10 @@ def tag_persamaan(md: str) -> str:
 
 def nomori_tabel(md: str) -> str:
     peta: dict[str, str] = {}
-    romawi = ["I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX", "X", "XI", "XII", "XIII", "XIV", "XV"]
     for m in re.finditer(r"^\*\*Table ([0-9A-Z]+\.\d+)\.\*\*", md, re.M):
-        peta.setdefault(m.group(1), romawi[len(peta)])
+        peta.setdefault(m.group(1), str(len(peta) + 1))
     md = re.sub(r"^\*\*Table ([0-9A-Z]+\.\d+)\.\*\*\s*(.+)$",
-                lambda m: f"::TABEL:: TABLE {peta[m.group(1)]}::{m.group(2).strip()}", md, flags=re.M)
+                lambda m: f"::TABEL:: Table {peta[m.group(1)]}::{m.group(2).strip()}", md, flags=re.M)
     md = re.sub(r"Table ([0-9A-Z]+\.\d+)", lambda m: f"Table {peta.get(m.group(1), m.group(1))}", md)
     return md
 
@@ -301,12 +309,12 @@ def rapikan_docx(path: pathlib.Path) -> None:
             _, _, label, cap = teks.split("::", 3)
             for r in p.runs:
                 r.text = ""
-            r1 = p.add_run(label.strip())
+            r1 = p.add_run(label.strip() + ". ")
             r1.font.size = Pt(9)
-            p.add_run("\n")
-            r2 = p.add_run(cap.strip().upper())
-            r2.font.size = Pt(8)
-            p.alignment = WD_ALIGN_PARAGRAPH.CENTER
+            r1.font.bold = True
+            r2 = p.add_run(cap.strip())
+            r2.font.size = Pt(9)
+            p.alignment = WD_ALIGN_PARAGRAPH.LEFT
             p.paragraph_format.keep_with_next = True
             p.paragraph_format.space_before = Pt(8)
         elif teks.startswith("::REF::"):
@@ -324,11 +332,8 @@ def rapikan_docx(path: pathlib.Path) -> None:
             pf.space_after = Pt(2)
             pf.tab_stops.add_tab_stop(Pt(22))
             p.alignment = WD_ALIGN_PARAGRAPH.JUSTIFY
-        elif teks.startswith(("Abstract—", "Index Terms—")):
-            for r in p.runs:
-                r.font.bold = True
-                r.font.size = Pt(9.5)
-            p.alignment = WD_ALIGN_PARAGRAPH.JUSTIFY
+        elif teks.startswith("Keywords:"):
+            p.alignment = WD_ALIGN_PARAGRAPH.LEFT
         elif p.style.name in ("Body Text", "First Paragraph", "Normal") and len(teks) > 80:
             p.alignment = WD_ALIGN_PARAGRAPH.JUSTIFY
         elif p.style.name == "Title":
@@ -337,6 +342,21 @@ def rapikan_docx(path: pathlib.Path) -> None:
             p.alignment = WD_ALIGN_PARAGRAPH.JUSTIFY
     for t in doc.tables:
         beri_garis_tabel(t)
+    nomor_baris = OxmlElement("w:lnNumType")
+    nomor_baris.set(qn("w:countBy"), "1")
+    nomor_baris.set(qn("w:restart"), "continuous")
+    nomor_baris.set(qn("w:distance"), "283")
+    for s in doc.sections:
+        sectPr = s._sectPr
+        # lnNumType wajib mendahului pgNumType/cols/docGrid dalam urutan skema sectPr
+        sesudah = next((sectPr.find(qn(f"w:{n}")) for n in ("pgNumType", "cols", "formProt", "vAlign",
+                        "noEndnote", "titlePg", "textDirection", "bidi", "rtlGutter", "docGrid")
+                        if sectPr.find(qn(f"w:{n}")) is not None), None)
+        salinan = copy.deepcopy(nomor_baris)
+        if sesudah is not None:
+            sesudah.addprevious(salinan)
+        else:
+            sectPr.append(salinan)
     doc.save(path)
 
 
