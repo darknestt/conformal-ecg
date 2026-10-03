@@ -48,30 +48,28 @@ backbones, with the section that reports each step.
 
 ![**Fig. 1.** Audit workflow. Stage 1 (blue header) uses metadata only and gives verdicts exact given the declared sources $D$ (RQ1); Stage 2 (orange headers) uses conformity scores from three backbones at feasible levels only (RQ2). Section numbers mark where each step is reported.](figures/fig1_audit_workflow.png)
 
-We propose no new conformal procedure. The contributions are three.
+We propose no new conformal procedure; the contributions are three. First, we
+give a metadata-only feasibility audit (RQ1; §3, §5.1). Combined with the join
+of the declared dependence sources, the HCP bound yields exact verdicts before
+any model is trained: all four documented PTB-XL sources together leave one
+admissible calibration block, 24 of 44 SCP statements have no finite per-label
+threshold at $\alpha=0.05$ under patient blocking, and an even split of the 22
+MIT-BIH evaluation subjects rules out a subject-level guarantee at the 95% level.
 
-- **A metadata-only feasibility audit** (RQ1; §3, §5.1). The HCP bound,
-  combined with the join of the declared dependence sources, gives exact verdicts
-  before any model is trained: all four documented PTB-XL sources together leave
-  one admissible calibration block, 24 of 44 SCP statements have no finite
-  per-label threshold at $\alpha=0.05$ under patient blocking, and an even split
-  of the 22 MIT-BIH evaluation subjects rules out a subject-level guarantee at
-  the 95% level.
-- **Attribution of under-coverage to dependence acting through repetition**
-  (RQ2; §5.2–§5.4). On the 22 MIT-BIH evaluation subjects, naive split conformal
-  covers less than a matched permutation null for every backbone and level; a
-  factorial design attributes the shortfall mainly to clustering, amplified by
-  block-size imbalance, and a dose–response experiment shows it growing with the
-  design effect. PTB-XL stays near zero despite substantial within-patient
-  correlation, as the design effect predicts. With 22 subjects the deficit is not
-  resolved at the subject level, a limit on the evidence that mirrors the limit
-  on the guarantee.
-- **Two cautions for evaluating conformal methods on clustered data** (§5.3,
-  §6.2). Between 75% and 110% of the apparent gain of HCP over naive split
-  conformal survives when dependence is permuted away, so the gain is largely
-  mechanical; and repeated splits of a fixed set of subjects give intervals for
-  the split procedure, not the population, which on MIT-BIH exclude zero where a
-  jackknife over subjects does not.
+Second, we attribute under-coverage to dependence acting through repetition
+(RQ2; §5.2–§5.4). On the 22 MIT-BIH evaluation subjects, naive split conformal
+covers less than a matched permutation null for every backbone and level; a
+factorial design traces the shortfall mainly to clustering, amplified by
+block-size imbalance, and a dose–response experiment shows it growing with the
+design effect. PTB-XL stays near zero despite substantial within-patient
+correlation, as the design effect predicts. With 22 subjects the deficit is not
+resolved at the subject level, a limit on the evidence that mirrors the limit on
+the guarantee. Third, we draw two cautions for evaluating conformal methods on
+clustered data (§5.3, §6.2). Between 75% and 110% of the apparent gain of HCP
+over naive split conformal survives when dependence is permuted away, so the
+gain is largely mechanical; and repeated splits of a fixed set of subjects give
+intervals for the split procedure rather than the population, which on MIT-BIH
+exclude zero where a jackknife over subjects does not.
 
 Every finding is checked across three backbones whose sizes differ more than a
 hundredfold and across two checkpoints; resampling is always over blocks, and the
