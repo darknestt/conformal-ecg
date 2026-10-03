@@ -1,0 +1,633 @@
+TY  - JOUR
+AU  - Strodthoff, Nils
+AU  - Wagner, Patrick
+AU  - Schaeffter, Tobias
+AU  - Samek, Wojciech
+TI  - Deep Learning for ECG Analysis: Benchmarks and Insights from PTB-XL
+JO  - IEEE Journal of Biomedical and Health Informatics
+J2  - IEEE J. Biomed. Health Inform.
+PY  - 2021
+DA  - 2021/05
+VL  - 25
+IS  - 5
+SP  - 1519
+EP  - 1528
+PB  - Institute of Electrical and Electronics Engineers (IEEE)
+DO  - 10.1109/jbhi.2020.3022989
+UR  - https://doi.org/10.1109/jbhi.2020.3022989
+N1  - Cited as [1] in the manuscript (source code F1)
+ER  - 
+
+TY  - JOUR
+AU  - Wagner, Patrick
+AU  - Strodthoff, Nils
+AU  - Bousseljot, Ralf-Dieter
+AU  - Kreiseler, Dieter
+AU  - Lunze, Fatima I.
+AU  - Samek, Wojciech
+AU  - Schaeffter, Tobias
+TI  - PTB-XL, a large publicly available electrocardiography dataset
+JO  - Scientific Data
+J2  - Sci Data
+PY  - 2020
+DA  - 2020/05
+VL  - 7
+IS  - 1
+SP  - 154
+PB  - Springer Science and Business Media LLC
+DO  - 10.1038/s41597-020-0495-6
+UR  - https://doi.org/10.1038/s41597-020-0495-6
+N1  - Cited as [2] in the manuscript (source code H1)
+ER  - 
+
+TY  - JOUR
+AU  - Lambert, Benjamin
+AU  - Forbes, Florence
+AU  - Doyle, Senan
+AU  - Dehaene, Harmonie
+AU  - Dojat, Michel
+TI  - Trustworthy clinical AI solutions: A unified review of uncertainty quantification in Deep Learning models for medical image analysis
+JO  - Artificial Intelligence in Medicine
+J2  - Artificial Intelligence in Medicine
+PY  - 2024
+DA  - 2024/04
+VL  - 150
+PB  - Elsevier BV
+DO  - 10.1016/j.artmed.2024.102830
+UR  - https://doi.org/10.1016/j.artmed.2024.102830
+N1  - Cited as [3] in the manuscript (source code G1)
+ER  - 
+
+TY  - JOUR
+AU  - Lekadir, Karim
+AU  - Frangi, Alejandro F
+AU  - Porras, Antonio R
+AU  - Glocker, Ben
+AU  - Cintas, Celia
+AU  - Langlotz, Curtis P
+AU  - Weicken, Eva
+AU  - Asselbergs, Folkert W
+AU  - Prior, Fred
+AU  - Collins, Gary S
+AU  - Kaissis, Georgios
+AU  - Tsakou, Gianna
+AU  - Buvat, Irène
+AU  - Kalpathy-Cramer, Jayashree
+AU  - Mongan, John
+AU  - Schnabel, Julia A
+AU  - Kushibar, Kaisar
+AU  - Riklund, Katrine
+AU  - Marias, Kostas
+AU  - Amugongo, Lameck M
+AU  - Fromont, Lauren A
+AU  - Maier-Hein, Lena
+AU  - Cerdá-Alberich, Leonor
+AU  - Martí-Bonmatí, Luis
+AU  - Cardoso, M Jorge
+AU  - Bobowicz, Maciej
+AU  - Shabani, Mahsa
+AU  - Tsiknakis, Manolis
+AU  - Zuluaga, Maria A
+AU  - Fritzsche, Marie-Christine
+AU  - Camacho, Marina
+AU  - Linguraru, Marius George
+AU  - Wenzel, Markus
+AU  - De Bruijne, Marleen
+AU  - Tolsgaard, Martin G
+AU  - Goisauf, Melanie
+AU  - Cano Abadía, Mónica
+AU  - Papanikolaou, Nikolaos
+AU  - Lazrak, Noussair
+AU  - Pujol, Oriol
+AU  - Osuala, Richard
+AU  - Napel, Sandy
+AU  - Colantonio, Sara
+AU  - Joshi, Smriti
+AU  - Klein, Stefan
+AU  - Aussó, Susanna
+AU  - Rogers, Wendy A
+AU  - Salahuddin, Zohaib
+AU  - Starmans, Martijn P A
+TI  - FUTURE-AI: international consensus guideline for trustworthy and deployable artificial intelligence in healthcare
+JO  - BMJ
+J2  - BMJ
+PY  - 2025
+DA  - 2025/02
+VL  - 388
+SP  - e081554
+PB  - BMJ
+DO  - 10.1136/bmj-2024-081554
+UR  - https://doi.org/10.1136/bmj-2024-081554
+N1  - Cited as [4] in the manuscript (source code G2)
+ER  - 
+
+TY  - JOUR
+AU  - Fontana, Matteo
+AU  - Zeni, Gianluca
+AU  - Vantini, Simone
+TI  - Conformal prediction: A unified review of theory and new challenges
+JO  - Bernoulli
+J2  - Bernoulli
+PY  - 2023
+DA  - 2023/02
+VL  - 29
+IS  - 1
+PB  - Bernoulli Society for Mathematical Statistics and Probability
+DO  - 10.3150/21-bej1447
+UR  - https://doi.org/10.3150/21-bej1447
+N1  - Cited as [5] in the manuscript (source code A11)
+ER  - 
+
+TY  - JOUR
+AU  - Vazquez, Janette
+AU  - Facelli, Julio C.
+TI  - Conformal Prediction in Clinical Medical Sciences
+JO  - Journal of Healthcare Informatics Research
+J2  - J Healthc Inform Res
+PY  - 2022
+DA  - 2022/09
+VL  - 6
+IS  - 3
+SP  - 241
+EP  - 252
+PB  - Springer Science and Business Media LLC
+DO  - 10.1007/s41666-021-00113-8
+UR  - https://doi.org/10.1007/s41666-021-00113-8
+N1  - Cited as [6] in the manuscript (source code E1)
+ER  - 
+
+TY  - JOUR
+AU  - El Allam, Oussama
+AU  - Hamlich, Mohamed
+TI  - Quantization-aware Mondrian conformal prediction for embedded ECG classification
+JO  - Biomedical Signal Processing and Control
+J2  - Biomedical Signal Processing and Control
+PY  - 2026
+DA  - 2026/11
+VL  - 127
+PB  - Elsevier BV
+DO  - 10.1016/j.bspc.2026.111217
+UR  - https://doi.org/10.1016/j.bspc.2026.111217
+N1  - Cited as [7] in the manuscript (source code E7)
+ER  - 
+
+TY  - JOUR
+AU  - El Allam, Oussama
+AU  - Hamlich, Mohamed
+TI  - Hierarchical adaptive conformal inference for reliable uncertainty quantification in edge-deployable medical wearables
+JO  - Measurement
+J2  - Measurement
+PY  - 2026
+DA  - 2026/06
+VL  - 279
+PB  - Elsevier BV
+DO  - 10.1016/j.measurement.2026.121765
+UR  - https://doi.org/10.1016/j.measurement.2026.121765
+N1  - Cited as [8] in the manuscript (source code E9)
+ER  - 
+
+TY  - JOUR
+AU  - Kinalioglu, Ismail Hakki
+TI  - Conformal reliability assessment of PPG-based ICU arrhythmia classification under class imbalance and patient heterogeneity
+JO  - Physiological Measurement
+J2  - Physiol. Meas.
+PY  - 2026
+DA  - 2026/08
+VL  - 47
+IS  - 8
+SP  - 085029
+PB  - IOP Publishing
+DO  - 10.1088/1361-6579/ae92e8
+UR  - https://doi.org/10.1088/1361-6579/ae92e8
+N1  - Cited as [9] in the manuscript (source code E8)
+ER  - 
+
+TY  - JOUR
+AU  - Sim, Sangwook
+AU  - Kim, Changgyun
+TI  - Anomaly-Selective Conformal Calibration for ECG Monitoring: Threshold Divergence and the Limits of Finite-Sample False Alarm Control
+JO  - IEEE Access
+J2  - IEEE Access
+PY  - 2026
+VL  - 14
+SP  - 144957
+EP  - 144979
+PB  - Institute of Electrical and Electronics Engineers (IEEE)
+DO  - 10.1109/access.2026.3734990
+UR  - https://doi.org/10.1109/access.2026.3734990
+N1  - Cited as [10] in the manuscript (source code E6)
+ER  - 
+
+TY  - JOUR
+AU  - Barber, Rina Foygel
+AU  - Candès, Emmanuel J.
+AU  - Ramdas, Aaditya
+AU  - Tibshirani, Ryan J.
+TI  - Conformal prediction beyond exchangeability
+JO  - The Annals of Statistics
+J2  - Ann. Statist.
+PY  - 2023
+DA  - 2023/04
+VL  - 51
+IS  - 2
+PB  - Institute of Mathematical Statistics
+DO  - 10.1214/23-aos2276
+UR  - https://doi.org/10.1214/23-aos2276
+N1  - Cited as [11] in the manuscript (source code A1)
+ER  - 
+
+TY  - JOUR
+AU  - Lee, Yonghoon
+AU  - Barber, Rina
+AU  - Willett, Rebecca
+TI  - Distribution-free inference with hierarchical data
+JO  - ACM Journal of Data Science
+J2  - ACM J. Data Sci.
+PY  - 2026
+DA  - 2026/03
+PB  - Association for Computing Machinery (ACM)
+DO  - 10.1145/3786352
+UR  - https://doi.org/10.1145/3786352
+N1  - Cited as [12] in the manuscript (source code A0)
+ER  - 
+
+TY  - JOUR
+AU  - Dunn, Robin
+AU  - Wasserman, Larry
+AU  - Ramdas, Aaditya
+TI  - Distribution-Free Prediction Sets for Two-Layer Hierarchical Models
+JO  - Journal of the American Statistical Association
+J2  - Journal of the American Statistical Association
+PY  - 2023
+DA  - 2023/10
+VL  - 118
+IS  - 544
+SP  - 2491
+EP  - 2502
+PB  - Informa UK Limited
+DO  - 10.1080/01621459.2022.2060112
+UR  - https://doi.org/10.1080/01621459.2022.2060112
+N1  - Cited as [13] in the manuscript (source code A0b)
+ER  - 
+
+TY  - DATA
+AU  - Wagner, Patrick
+AU  - Strodthoff, Nils
+AU  - Bousseljot, Ralf-Dieter
+AU  - Samek, Wojciech
+AU  - Schaeffter, Tobias
+TI  - PTB-XL, a large publicly available electrocardiography dataset
+PB  - PhysioNet
+PY  - 2022
+ET  - Version 1.0.3
+DO  - 10.13026/kfzx-aw45
+UR  - https://doi.org/10.13026/kfzx-aw45
+N1  - Cited as [14] in the manuscript (source code H2)
+ER  - 
+
+TY  - DATA
+AU  - Moody, George B
+AU  - Mark, Roger G
+TI  - MIT-BIH Arrhythmia Database
+PB  - PhysioNet
+PY  - 1992
+DO  - 10.13026/C2F305
+UR  - https://doi.org/10.13026/C2F305
+N1  - Cited as [15] in the manuscript (source code H3)
+ER  - 
+
+TY  - DATA
+AU  - Reyna, Matthew
+AU  - Sadr, Nadi
+AU  - Gu, Annie
+AU  - Perez Alday, Erick Andres
+AU  - Liu, Chengyu
+AU  - Seyedi, Salman
+AU  - Shah, Amit
+AU  - Clifford, Gari
+TI  - Will Two Do? Varying Dimensions in Electrocardiography: The PhysioNet/Computing in Cardiology Challenge 2021
+PB  - PhysioNet
+PY  - 2022
+ET  - Version 1.0.3
+DO  - 10.13026/34va-7q14
+UR  - https://doi.org/10.13026/34va-7q14
+N1  - Cited as [16] in the manuscript (source code H5)
+ER  - 
+
+TY  - JOUR
+AU  - Lei, Lihua
+AU  - Candès, Emmanuel J.
+TI  - Conformal Inference of Counterfactuals and Individual Treatment Effects
+JO  - Journal of the Royal Statistical Society Series B: Statistical Methodology
+PY  - 2021
+DA  - 2021/11
+VL  - 83
+IS  - 5
+SP  - 911
+EP  - 938
+PB  - Oxford University Press (OUP)
+DO  - 10.1111/rssb.12445
+UR  - https://doi.org/10.1111/rssb.12445
+N1  - Cited as [17] in the manuscript (source code A4)
+ER  - 
+
+TY  - JOUR
+AU  - Mao, Huiying
+AU  - Martin, Ryan
+AU  - Reich, Brian J.
+TI  - Valid Model-Free Spatial Prediction
+JO  - Journal of the American Statistical Association
+J2  - Journal of the American Statistical Association
+PY  - 2024
+DA  - 2024/04
+VL  - 119
+IS  - 546
+SP  - 904
+EP  - 914
+PB  - Informa UK Limited
+DO  - 10.1080/01621459.2022.2147531
+UR  - https://doi.org/10.1080/01621459.2022.2147531
+N1  - Cited as [18] in the manuscript (source code A7)
+ER  - 
+
+TY  - JOUR
+AU  - Lunde, Robert
+AU  - Levina, Elizaveta
+AU  - Zhu, Ji
+TI  - Conformal Prediction for Network-Assisted Regression
+JO  - Journal of the American Statistical Association
+J2  - Journal of the American Statistical Association
+PY  - 2025
+DA  - 2025/07
+VL  - 120
+IS  - 551
+SP  - 1633
+EP  - 1644
+PB  - Informa UK Limited
+DO  - 10.1080/01621459.2025.2506198
+UR  - https://doi.org/10.1080/01621459.2025.2506198
+N1  - Cited as [19] in the manuscript (source code A8)
+ER  - 
+
+TY  - JOUR
+AU  - Bhattacharyya, Aabesh
+AU  - Barber, Rina Foygel
+TI  - Group-weighted conformal prediction
+JO  - Electronic Journal of Statistics
+J2  - Electron. J. Statist.
+PY  - 2026
+DA  - 2026/01
+VL  - 20
+IS  - 1
+PB  - Institute of Mathematical Statistics
+DO  - 10.1214/26-ejs2506
+UR  - https://doi.org/10.1214/26-ejs2506
+N1  - Cited as [20] in the manuscript (source code A3)
+ER  - 
+
+TY  - JOUR
+AU  - Papadopoulos, Harris
+TI  - Conformal prediction for multi-label learning: a review of methods and guarantees
+JO  - Philosophical Transactions of the Royal Society A: Mathematical, Physical and Engineering Sciences
+PY  - 2026
+DA  - 2026/08
+VL  - 384
+IS  - 2327
+SP  - 20250071
+PB  - The Royal Society
+DO  - 10.1098/rsta.2025.0071
+UR  - https://doi.org/10.1098/rsta.2025.0071
+N1  - Cited as [21] in the manuscript (source code B1)
+ER  - 
+
+TY  - JOUR
+AU  - Baheri, Ali
+AU  - Shahbazi, Marzieh Amiri
+TI  - Conformal prediction across scales: Finite-sample coverage with hierarchical efficiency
+JO  - Results in Applied Mathematics
+J2  - Results in Applied Mathematics
+PY  - 2025
+DA  - 2025/05
+VL  - 26
+PB  - Elsevier BV
+DO  - 10.1016/j.rinam.2025.100589
+UR  - https://doi.org/10.1016/j.rinam.2025.100589
+N1  - Cited as [22] in the manuscript (source code B2)
+ER  - 
+
+TY  - JOUR
+AU  - Dias, Felipe Meneguitti
+AU  - Monteiro, Henrique L.M.
+AU  - Cabral, Thales Wulfert
+AU  - Naji, Rayen
+AU  - Kuehni, Michael
+AU  - Luz, Eduardo José da S.
+TI  - Arrhythmia classification from single-lead ECG signals using the inter-patient paradigm
+JO  - Computer Methods and Programs in Biomedicine
+J2  - Computer Methods and Programs in Biomedicine
+PY  - 2021
+DA  - 2021/04
+VL  - 202
+PB  - Elsevier BV
+DO  - 10.1016/j.cmpb.2021.105948
+UR  - https://doi.org/10.1016/j.cmpb.2021.105948
+N1  - Cited as [23] in the manuscript (source code F2)
+ER  - 
+
+TY  - JOUR
+AU  - Li, Yuanlu
+AU  - Qian, Renfei
+AU  - Li, Kun
+TI  - Inter-patient arrhythmia classification with improved deep residual convolutional neural network
+JO  - Computer Methods and Programs in Biomedicine
+J2  - Computer Methods and Programs in Biomedicine
+PY  - 2022
+DA  - 2022/02
+VL  - 214
+PB  - Elsevier BV
+DO  - 10.1016/j.cmpb.2021.106582
+UR  - https://doi.org/10.1016/j.cmpb.2021.106582
+N1  - Cited as [24] in the manuscript (source code F10)
+ER  - 
+
+TY  - JOUR
+AU  - Wang, Guijin
+AU  - Chen, Ming
+AU  - Ding, Zijian
+AU  - Li, Jiawei
+AU  - Yang, Huazhong
+AU  - Zhang, Ping
+TI  - Inter-patient ECG arrhythmia heartbeat classification based on unsupervised domain adaptation
+JO  - Neurocomputing
+J2  - Neurocomputing
+PY  - 2021
+DA  - 2021/09
+VL  - 454
+SP  - 339
+EP  - 349
+PB  - Elsevier BV
+DO  - 10.1016/j.neucom.2021.04.104
+UR  - https://doi.org/10.1016/j.neucom.2021.04.104
+N1  - Cited as [25] in the manuscript (source code F3)
+ER  - 
+
+TY  - JOUR
+AU  - Angelopoulos, Anastasios N.
+TI  - Conformal risk control for non-monotonic losses
+JO  - Philosophical Transactions of the Royal Society A: Mathematical, Physical and Engineering Sciences
+PY  - 2026
+DA  - 2026/08
+VL  - 384
+IS  - 2327
+SP  - 20250068
+PB  - The Royal Society
+DO  - 10.1098/rsta.2025.0068
+UR  - https://doi.org/10.1098/rsta.2025.0068
+N1  - Cited as [26] in the manuscript (source code C1)
+ER  - 
+
+TY  - JOUR
+AU  - Xu, Chen
+AU  - Xie, Yao
+TI  - Conformal Prediction for Time Series
+JO  - IEEE Transactions on Pattern Analysis and Machine Intelligence
+J2  - IEEE Trans. Pattern Anal. Mach. Intell.
+PY  - 2023
+DA  - 2023/10
+VL  - 45
+IS  - 10
+SP  - 11575
+EP  - 11587
+PB  - Institute of Electrical and Electronics Engineers (IEEE)
+DO  - 10.1109/tpami.2023.3272339
+UR  - https://doi.org/10.1109/tpami.2023.3272339
+N1  - Cited as [27] in the manuscript (source code C4)
+ER  - 
+
+TY  - JOUR
+AU  - Shahbazi, Marzieh Amiri
+AU  - Baheri, Ali
+AU  - Azadeh-Fard, Nasibeh
+TI  - A hierarchical conformal framework for uncertainty-aware length of stay prediction in multi-hospital settings
+JO  - Scientific Reports
+J2  - Sci Rep
+PY  - 2026
+DA  - 2026/01
+VL  - 16
+IS  - 1
+SP  - 6564
+PB  - Springer Science and Business Media LLC
+DO  - 10.1038/s41598-026-37450-w
+UR  - https://doi.org/10.1038/s41598-026-37450-w
+N1  - Cited as [28] in the manuscript (source code E5)
+ER  - 
+
+TY  - JOUR
+AU  - White, Ian R
+AU  - Thomas, James
+TI  - Standardized mean differences in individually-randomized and cluster-randomized trials, with applications to meta-analysis
+JO  - Clinical Trials
+J2  - Clinical Trials
+PY  - 2005
+DA  - 2005/04
+VL  - 2
+IS  - 2
+SP  - 141
+EP  - 151
+PB  - SAGE Publications
+DO  - 10.1191/1740774505cn081oa
+UR  - https://doi.org/10.1191/1740774505cn081oa
+N1  - Cited as [29] in the manuscript (source code I2)
+ER  - 
+
+TY  - JOUR
+AU  - Kerry, Sally M.
+AU  - Martin Bland, J.
+TI  - Unequal cluster sizes for trials in English and Welsh general practice: implications for sample size calculations
+JO  - Statistics in Medicine
+J2  - Statist. Med.
+PY  - 2001
+DA  - 2001/02
+VL  - 20
+IS  - 3
+SP  - 377
+EP  - 390
+PB  - Wiley
+DO  - 10.1002/1097-0258(20010215)20:3<377::aid-sim799>3.0.co;2-n
+UR  - https://doi.org/10.1002/1097-0258(20010215)20:3%3C377::aid-sim799%3E3.0.co;2-n
+N1  - Cited as [30] in the manuscript (source code I1)
+ER  - 
+
+TY  - JOUR
+AU  - Zhan, Denghuang
+AU  - Xu, Liang
+AU  - Ouyang, Yongdong
+AU  - Sawatzky, Richard
+AU  - Wong, Hubert
+TI  - Methods for dealing with unequal cluster sizes in cluster randomized trials: A scoping review
+JO  - PLOS ONE
+J2  - PLoS ONE
+PY  - 2021
+DA  - 2021/07
+VL  - 16
+IS  - 7
+SP  - e0255389
+PB  - Public Library of Science (PLoS)
+DO  - 10.1371/journal.pone.0255389
+UR  - https://doi.org/10.1371/journal.pone.0255389
+N1  - Cited as [31] in the manuscript (source code A13)
+ER  - 
+
+TY  - JOUR
+AU  - Noonan, Adam
+TI  - The Exceedance Design Effect: Effective Sample Size for Thresholds under Clustering
+JO  - arXiv
+PY  - 2026
+DA  - 2026/08
+UR  - https://arxiv.org/abs/2608.21262
+M1  - arXiv:2608.21262
+N1  - Cited as [32] in the manuscript (source code P1)
+ER  - 
+
+TY  - JOUR
+AU  - Zheng, Jiuyi
+AU  - Xu, Gan
+TI  - A Symmetric Layer-Union Audit of Component Collapse in Hierarchical Procedural Corpora
+JO  - arXiv
+PY  - 2026
+DA  - 2026/08
+UR  - https://arxiv.org/abs/2608.08892
+M1  - arXiv:2608.08892
+N1  - Cited as [33] in the manuscript (source code P2)
+ER  - 
+
+TY  - CONF
+AU  - Ding, Tiffany
+AU  - Angelopoulos, Anastasios
+AU  - Bates, Stephen
+AU  - Jordan, Michael
+AU  - Tibshirani, Ryan
+TI  - Class-Conditional Conformal Prediction with Many Classes
+T2  - Advances in Neural Information Processing Systems 36
+PY  - 2023
+SP  - 64555
+EP  - 64576
+PB  - Neural Information Processing Systems Foundation, Inc. (NeurIPS)
+DO  - 10.52202/075280-2817
+UR  - https://doi.org/10.52202/075280-2817
+N1  - Cited as [34] in the manuscript (source code A12)
+ER  - 
+
+TY  - JOUR
+AU  - Marques F., Paulo C.
+TI  - Universal distribution of the empirical coverage in split conformal prediction
+JO  - Statistics & Probability Letters
+J2  - Statistics & Probability Letters
+PY  - 2025
+DA  - 2025/04
+VL  - 219
+PB  - Elsevier BV
+DO  - 10.1016/j.spl.2024.110350
+UR  - https://doi.org/10.1016/j.spl.2024.110350
+N1  - Cited as [35] in the manuscript (source code A9)
+ER  - 

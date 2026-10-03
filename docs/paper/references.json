@@ -1631,12 +1631,12 @@
     "jenis": "journal-article",
     "penulis": [
       {
-        "given": "Oussama EL",
-        "family": "ALLAM"
+        "given": "Oussama",
+        "family": "El Allam"
       },
       {
         "given": "Mohamed",
-        "family": "HAMLICH"
+        "family": "Hamlich"
       }
     ],
     "judul": "Hierarchical adaptive conformal inference for reliable uncertainty quantification in edge-deployable medical wearables",
