@@ -123,11 +123,11 @@ Consequently $K(\mathcal{P}_1\vee\mathcal{P}_2)\le\min\{K(\mathcal{P}_1),K(\math
 and $\alpha_{\min}(\mathcal{P}_1\vee\mathcal{P}_2)\ge\max\{\alpha_{\min}(\mathcal{P}_1),\alpha_{\min}(\mathcal{P}_2)\}$.
 
 The result is standard for partition lattices; what concerns us is its
-implication for calibration. Fig. 1 illustrates it with eight hypothetical
+implication for calibration. Fig. 2 illustrates it with eight hypothetical
 records, where five patient blocks and three device blocks, each acceptable on
 its own, shrink to two blocks once both sources have to be respected.
 
-![**Fig. 1.** Schematic of Proposition 2 on eight hypothetical records (circles). Solid arcs link records of the same patient and dashed arcs records of the same device. A grouping sufficient for both sources must keep every linked pair in one block, so the finest such grouping is the join, the connected components (shaded). On PTB-XL the same mechanism collapses four declared sources to a single block (§5.1).](figures/fig1_join_schematic.png)
+![**Fig. 2.** Schematic of Proposition 2 on eight hypothetical records (circles). Solid arcs link records of the same patient and dashed arcs records of the same device. A grouping sufficient for both sources must keep every linked pair in one block, so the finest such grouping is the join, the connected components (shaded). On PTB-XL the same mechanism collapses four declared sources to a single block (§5.1).](figures/fig2_join_schematic.png)
 
 **Corollary 2 (impossibility).** If $K_1(\mathcal{P}_1\vee\mathcal{P}_2)<\lceil1/\alpha\rceil-1$, no HCP calibration yields a non-trivial guarantee at level $\alpha$ while accounting for both dependence sources; the same holds for any number of sources and their joint join. This is a property of the study design, not a shortcoming of any estimator.
 
@@ -195,5 +195,5 @@ $K_1(\ell)\ge\lceil m/\alpha\rceil-1$ for each $\ell$.
 
 | Hal | Keputusan |
 |---|---|
-| Kata per kata | Prop. 1 + bukti, Corollary 1, Definisi, Prop. 2, Corollary 2, "Scope of Corollary 2", Prop. 3, persamaan (1)–(6), keterangan Fig. 1 |
+| Kata per kata | Prop. 1 + bukti, Corollary 1, Definisi, Prop. 2, Corollary 2, "Scope of Corollary 2", Prop. 3, persamaan (1)–(6), keterangan Fig. 2 (skema join; Fig. 1 sejak 2026-10-03 adalah alur audit di §1) |
 | Diparafrasekan | Seluruh prosa penghubung, Asumsi (A) (isi sama), paragraf bobot sama, sumbu DEff, "Admissible groupings", §3.4 |

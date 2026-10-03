@@ -82,7 +82,7 @@ def fig_join() -> None:
     label.append("join (2 blocks)")
     ax.legend(tangan, label, loc="lower center", bbox_to_anchor=(0.5, -0.1), ncol=3, frameon=False,
               handlelength=1.6, columnspacing=1.0, fontsize=6.3)
-    simpan(fig, "fig1_join_schematic.png")
+    simpan(fig, "fig2_join_schematic.png")
 
 
 def fig_atribusi() -> None:
@@ -140,33 +140,67 @@ def fig_atribusi() -> None:
 
 
 def fig1_alur() -> None:
-    """Alur audit: keputusan kombinatorial lebih dulu, model belakangan."""
-    fig, ax = plt.subplots(figsize=(LEBAR_GANDA, 1.85))
+    """Alur audit dua tahap: tahap 1 metadata saja (RQ1), tahap 2 skor model (RQ2)."""
+    fig, ax = plt.subplots(figsize=(LEBAR_GANDA, 2.75))
     ax.set_xlim(0, 100)
-    ax.set_ylim(0, 30)
+    ax.set_ylim(0, 44)
     ax.axis("off")
-    kotak = [
-        (1, "Declare dependence\nsources $D$", "metadata"),
-        (17.5, "Observability\nis the partition\ndocumented?", "S0"),
-        (34, "Sufficiency\njoin of $D$\n(connected components)", "S2"),
-        (50.5, "Feasibility\n$\\alpha \\geq 1/(K_1+1)$\nper grouping and label", "S1"),
-        (67, "Coverage audit\nB1 vs. permutation null", "model"),
-        (83.5, "Dose\u2013response\ndeficit vs. DEff", "model"),
+    biru, oranye = WARNA["mit"], WARNA["ptb"]
+    isi = {biru: "#eef3f8", oranye: "#fbeee6", "abu": "#f2f2f2"}
+
+    def kotak(x, y, w, h, teks, warna, tebal=False, fs=6.3):
+        ax.add_patch(FancyBboxPatch((x, y), w, h, boxstyle="round,pad=0.25,rounding_size=1.0",
+                                    fc=isi.get(warna, isi["abu"]), ec=warna, lw=1.0 if tebal else 0.7))
+        ax.text(x + w / 2, y + h / 2, teks, ha="center", va="center", fontsize=fs, linespacing=1.25)
+
+    def panah(x1, y1, x2, y2, warna="black", gaya="-|>", ls="-"):
+        ax.add_patch(FancyArrowPatch((x1, y1), (x2, y2), arrowstyle=gaya, mutation_scale=7, lw=0.7,
+                                     color=warna, linestyle=ls, shrinkA=0, shrinkB=0))
+
+    # masukan bersama
+    kotak(0.6, 3.0, 14.0, 34.5,
+          "Inputs\n\nPTB-XL: 18,869\npatients\n\nMIT-BIH: 22\nevaluation subjects\n\nChallenge 2021:\nblock identifier\nundocumented\n\n"
+          "Declared sources $D$:\npatient, site,\nnurse, device", "#7f7f7f", fs=5.9)
+
+    # tahap 1: metadata saja
+    y1, h1 = 25.0, 11.0
+    ax.text(18.0, 39.6, "Stage 1 \u2014 metadata only (RQ1): exact given $D$, before any model is trained",
+            fontsize=6.8, color=biru, fontweight="bold", va="center")
+    tahap1 = [
+        (18.0, "Observability\nis each source\ndocumented?"),
+        (33.4, "Sufficiency\njoin of $D$ =\nconnected\ncomponents"),
+        (48.8, "Feasibility\n$\\alpha \\geq 1/(K_1+1)$\nper grouping"),
+        (64.2, "Label level\n$K_1(\\ell)$ per\ndiagnosis\n(necessary only)"),
     ]
-    for x, teks, jenis in kotak:
-        tanpa_model = jenis != "model"
-        ax.add_patch(FancyBboxPatch((x, 7), 15, 17, boxstyle="round,pad=0.3,rounding_size=1.2",
-                                    fc="#eef3f8" if tanpa_model else "#fbeee6",
-                                    ec=WARNA["mit"] if tanpa_model else WARNA["ptb"], lw=0.8))
-        ax.text(x + 7.5, 15.5, teks, ha="center", va="center", fontsize=7)
-    for x in (16.2, 32.7, 49.2, 65.7, 82.2):
-        ax.add_patch(FancyArrowPatch((x, 15.5), (x + 1.2, 15.5), arrowstyle="-|>", mutation_scale=7, lw=0.8))
-    ax.annotate("", xy=(1, 3.2), xytext=(66, 3.2), arrowprops=dict(arrowstyle="<->", lw=0.6, color=WARNA["mit"]))
-    ax.text(33.5, 0.6, "No trained model required \u2014 exact given the declared sources", ha="center", fontsize=6.8, color=WARNA["mit"])
-    ax.annotate("", xy=(67, 3.2), xytext=(98.5, 3.2), arrowprops=dict(arrowstyle="<->", lw=0.6, color=WARNA["ptb"]))
-    ax.text(82.7, 0.6, "Requires scores from a trained model", ha="center", fontsize=6.8, color=WARNA["ptb"])
-    ax.text(4.0, 26.6, "S0", fontsize=6.5, color=WARNA["abu"])
-    simpan(fig, "fig2_audit_workflow.png")
+    for x, t in tahap1:
+        kotak(x, y1, 12.8, h1, t, biru)
+    kotak(79.6, y1, 19.6, h1, "Verdicts (\u00a75.1)\n$\\alpha_{\\min}$, admissible\ngroupings, failing\nlabels", biru, tebal=True)
+    for x in (30.8, 46.2, 61.6, 77.0):
+        panah(x + 0.1, y1 + h1 / 2, x + 2.5, y1 + h1 / 2)
+
+    # tahap 2: skor dari tiga backbone
+    y2, h2 = 4.0, 12.0
+    ax.text(18.0, 19.4, "Stage 2 \u2014 conformity scores from three backbones (RQ2): coverage and set size",
+            fontsize=6.8, color=oranye, fontweight="bold", va="center")
+    tahap2 = [
+        (18.0, "Calibrate\nB1 (split) vs.\nB12 (HCP),\nsplits by block"),
+        (30.6, "Attribute\npermutation\nnull + 2$\\times$2\nfactorial"),
+        (43.2, "Dose\u2013response\ndeficit vs.\n$1+(H-1)\\rho$"),
+        (55.8, "Uncertainty\nsplits (Monte\nCarlo) vs.\nsubjects\n(jackknife)"),
+        (68.4, "Robustness\n3 backbones\n\u00d7 2\ncheckpoints"),
+    ]
+    for x, t in tahap2:
+        kotak(x, y2, 10.6, h2, t, oranye)
+    kotak(81.0, y2, 18.2, h2, "Findings (\u00a75.2\u2013\u00a75.5)\ncoverage deficit,\nmechanical share,\nset size", oranye, tebal=True)
+    for x in (28.6, 41.2, 53.8, 66.4, 79.0):
+        panah(x + 0.1, y2 + h2 / 2, x + 1.9, y2 + h2 / 2)
+
+    # masukan ke kedua tahap, dan hanya alpha yang layak diteruskan
+    panah(14.9, y1 + h1 / 2, 17.9, y1 + h1 / 2)
+    panah(14.9, y2 + h2 / 2, 17.9, y2 + h2 / 2)
+    panah(55.2, y1 - 0.3, 55.2, 21.0, warna=biru, ls="--")
+    ax.text(56.3, 22.6, "feasible $\\alpha$ only", fontsize=6.0, color=biru, va="center")
+    simpan(fig, "fig1_audit_workflow.png")
 
 
 def fig2_kelayakan() -> None:
@@ -367,7 +401,7 @@ def fig6_backbone() -> None:
 
 def main() -> int:
     KELUAR.mkdir(parents=True, exist_ok=True)
-    for f in (fig_join, fig1_alur, fig2_kelayakan, fig3_label, fig4_cakupan, fig_atribusi, fig5_dosis,
+    for f in (fig1_alur, fig_join, fig2_kelayakan, fig3_label, fig4_cakupan, fig_atribusi, fig5_dosis,
               fig6_backbone):
         f()
     return 0

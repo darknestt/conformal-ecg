@@ -83,9 +83,14 @@ The direction of every finding is checked across three backbones whose parameter
 counts differ by more than a hundredfold and across two checkpoints. Resampling
 is always performed over blocks, the held-out PTB-XL fold has never been
 inspected, and the code, per-result artifacts, analysis protocol and its
-deviation log are released with the paper. Section 2 situates the audit in
-prior work, Section 3 derives the feasibility conditions, Section 4 sets out the
-design, and Sections 5 and 6 present and discuss the findings.
+deviation log are released with the paper. Fig. 1 summarizes the audit: a first
+stage that answers RQ1 from metadata alone, and a second stage that answers RQ2
+from the conformity scores of three backbones, together with the sections that
+report each step. Section 2 situates the audit in prior work, Section 3 derives
+the feasibility conditions, Section 4 sets out the design, and Sections 5 and 6
+present and discuss the findings.
+
+![**Fig. 1.** Audit workflow. Stage 1 (blue) uses metadata only and returns verdicts that are exact given the declared dependence sources $D$, before any model is trained (RQ1; §3, §5.1). Stage 2 (orange) uses conformity scores from three backbones, at feasible levels only, to compare naive split conformal (B1) with HCP (B12), attribute the B1 deficit to dependence, relate it to the design effect, separate split-level from subject-level uncertainty and check robustness (RQ2; §5.2–§5.5).](figures/fig1_audit_workflow.png)
 
 ---
 

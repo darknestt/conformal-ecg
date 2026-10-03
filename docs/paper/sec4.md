@@ -1,6 +1,6 @@
 # §4 Audit Design
 
-> **v7 — 2026-10-02.** Diparafrasekan penuh dari v6 (commit 3edc1f0). Semua angka dataset, split dan hiperparameter, Tabel 4.1–4.2 dan keterangan Fig. 2 tetap.
+> **v7 — 2026-10-02.** Diparafrasekan penuh dari v6 (commit 3edc1f0). Semua angka dataset, split dan hiperparameter, Tabel 4.1–4.2 dan keterangan gambar alur tetap. **2026-10-03:** gambar alur audit didesain ulang dan dipindah ke §1 sebagai Fig. 1.
 
 ---
 
@@ -14,10 +14,9 @@ backbones with 0.10 M, 7.2 M and 16.0 M parameters. The metadata diagnostics —
 $K_1$, $K_1(\ell)$ and the join structure — involve no model and must come out
 identical for every backbone, which provides a negative control on the pipeline.
 PTB-XL fold 10 is not used anywhere, and throughout we keep apart what a dataset
-*documents* and what can be *observed* in it. Fig. 2 outlines the protocol and
-marks which four steps need only metadata and which two need conformity scores.
-
-![**Fig. 2.** Audit protocol. The first four steps use metadata only and return verdicts that are exact given the declared dependence sources, before any patient is enrolled or any model trained; the last two require conformity scores from a trained model.](figures/fig2_audit_workflow.png)
+*documents* and what can be *observed* in it. Fig. 1 (§1) shows how the two
+stages connect: only levels found feasible in the first are audited in the
+second.
 
 ### 4.1 Datasets and dependence structures
 
@@ -219,5 +218,5 @@ a partial cache behind.
 
 | Hal | Keputusan |
 |---|---|
-| Narasi sebelum float | Fig. 2, Tabel 4.1, Tabel 4.2 didahului kalimat yang menyebut dan menjelaskan isinya |
+| Narasi sebelum float | Tabel 4.1, Tabel 4.2 didahului kalimat yang menyebut dan menjelaskan isinya; Fig. 1 kini di §1 |
 | Kutipan langsung | INCART: tetap dalam tanda kutip |
