@@ -141,65 +141,157 @@ def fig_atribusi() -> None:
 
 def fig1_alur() -> None:
     """Alur audit dua tahap: tahap 1 metadata saja (RQ1), tahap 2 skor model (RQ2)."""
-    fig, ax = plt.subplots(figsize=(LEBAR_GANDA, 2.75))
+    fig, ax = plt.subplots(figsize=(LEBAR_GANDA, 5.0))
     ax.set_xlim(0, 100)
-    ax.set_ylim(0, 44)
+    ax.set_ylim(0, 70)
+    ax.set_aspect("equal")
     ax.axis("off")
-    biru, oranye = WARNA["mit"], WARNA["ptb"]
-    isi = {biru: "#eef3f8", oranye: "#fbeee6", "abu": "#f2f2f2"}
+    tinta, garis = "#2b2b2b", "#555555"
+    # palet lembut: (isi, tepi)
+    data, biru, oranye = ("#dcecdc", "#93bf93"), ("#d6e4f0", "#8fb0cf"), ("#fbe1cc", "#e0a982")
+    krem, mawar, mint, emas = ("#fff6d6", "#d8c37a"), ("#f7dada", "#d9a0a0"), ("#d8eedd", "#86b991"), ("#fde9b8", "#d1ad57")
 
-    def kotak(x, y, w, h, teks, warna, tebal=False, fs=6.3):
-        ax.add_patch(FancyBboxPatch((x, y), w, h, boxstyle="round,pad=0.25,rounding_size=1.0",
-                                    fc=isi.get(warna, isi["abu"]), ec=warna, lw=1.0 if tebal else 0.7))
-        ax.text(x + w / 2, y + h / 2, teks, ha="center", va="center", fontsize=fs, linespacing=1.25)
+    def panel(x, y, w, h):
+        ax.add_patch(FancyBboxPatch((x, y), w, h, boxstyle="square,pad=0", fc="white", ec=garis, lw=1.1))
 
-    def panah(x1, y1, x2, y2, warna="black", gaya="-|>", ls="-"):
-        ax.add_patch(FancyArrowPatch((x1, y1), (x2, y2), arrowstyle=gaya, mutation_scale=7, lw=0.7,
-                                     color=warna, linestyle=ls, shrinkA=0, shrinkB=0))
+    def judul(xc, yc, w, teks, warna):
+        ax.add_patch(FancyBboxPatch((xc - w / 2, yc - 1.35), w, 2.7, boxstyle="round,pad=0,rounding_size=1.35",
+                                    fc=warna[0], ec=warna[1], lw=0.8))
+        ax.text(xc, yc, teks, ha="center", va="center", fontsize=6.6, fontweight="bold", color=tinta)
 
-    # masukan bersama
-    kotak(0.6, 3.0, 14.0, 34.5,
-          "Inputs\n\nPTB-XL: 18,869\npatients\n\nMIT-BIH: 22\nevaluation subjects\n\nChallenge 2021:\nblock identifier\nundocumented\n\n"
-          "Declared sources $D$:\npatient, site,\nnurse, device", "#7f7f7f", fs=5.9)
+    def kotak(x, y, w, h, teks, warna=krem, fs=5.9, bulat=0.0, tebal=False):
+        gaya = f"round,pad=0,rounding_size={bulat}" if bulat else "square,pad=0"
+        ax.add_patch(FancyBboxPatch((x, y), w, h, boxstyle=gaya, fc=warna[0], ec=warna[1], lw=0.7))
+        ax.text(x + w / 2, y + h / 2, teks, ha="center", va="center", fontsize=fs, linespacing=1.2,
+                color=tinta, fontweight="bold" if tebal else "normal")
 
-    # tahap 1: metadata saja
-    y1, h1 = 25.0, 11.0
-    ax.text(18.0, 39.6, "Stage 1 \u2014 metadata only (RQ1): exact given $D$, before any model is trained",
-            fontsize=6.8, color=biru, fontweight="bold", va="center")
-    tahap1 = [
-        (18.0, "Observability\nis each source\ndocumented?"),
-        (33.4, "Sufficiency\njoin of $D$ =\nconnected\ncomponents"),
-        (48.8, "Feasibility\n$\\alpha \\geq 1/(K_1+1)$\nper grouping"),
-        (64.2, "Label level\n$K_1(\\ell)$ per\ndiagnosis\n(necessary only)"),
-    ]
-    for x, t in tahap1:
-        kotak(x, y1, 12.8, h1, t, biru)
-    kotak(79.6, y1, 19.6, h1, "Verdicts (\u00a75.1)\n$\\alpha_{\\min}$, admissible\ngroupings, failing\nlabels", biru, tebal=True)
-    for x in (30.8, 46.2, 61.6, 77.0):
-        panah(x + 0.1, y1 + h1 / 2, x + 2.5, y1 + h1 / 2)
+    def panah(titik, ls="-", teks=None, xyteks=None, rot=0):
+        xs, ys = zip(*titik)
+        if len(titik) > 2:
+            ax.plot(xs[:-1], ys[:-1], color=garis, lw=0.9, ls=ls, solid_capstyle="butt")
+        ax.add_patch(FancyArrowPatch(titik[-2], titik[-1], arrowstyle="-|>", mutation_scale=8, lw=0.9,
+                                     color=garis, linestyle=ls, shrinkA=0, shrinkB=0))
+        if teks:
+            ax.text(*xyteks, teks, fontsize=5.9, color=tinta, ha="center", va="center", rotation=rot,
+                    style="italic")
 
-    # tahap 2: skor dari tiga backbone
-    y2, h2 = 4.0, 12.0
-    ax.text(18.0, 19.4, "Stage 2 \u2014 conformity scores from three backbones (RQ2): coverage and set size",
-            fontsize=6.8, color=oranye, fontweight="bold", va="center")
-    tahap2 = [
-        (18.0, "Calibrate\nB1 (split) vs.\nB12 (HCP),\nsplits by block"),
-        (30.6, "Attribute\npermutation\nnull + 2$\\times$2\nfactorial"),
-        (43.2, "Dose\u2013response\ndeficit vs.\n$1+(H-1)\\rho$"),
-        (55.8, "Uncertainty\nsplits (Monte\nCarlo) vs.\nsubjects\n(jackknife)"),
-        (68.4, "Robustness\n3 backbones\n\u00d7 2\ncheckpoints"),
-    ]
-    for x, t in tahap2:
-        kotak(x, y2, 10.6, h2, t, oranye)
-    kotak(81.0, y2, 18.2, h2, "Findings (\u00a75.2\u2013\u00a75.5)\ncoverage deficit,\nmechanical share,\nset size", oranye, tebal=True)
-    for x in (28.6, 41.2, 53.8, 66.4, 79.0):
-        panah(x + 0.1, y2 + h2 / 2, x + 1.9, y2 + h2 / 2)
+    def lingkaran(xc, yc, r, teks, warna, fs=6.2):
+        ax.add_patch(plt.Circle((xc, yc), r, fc=warna[0], ec=warna[1], lw=0.9))
+        ax.text(xc, yc, teks, ha="center", va="center", fontsize=fs, fontweight="bold", color=tinta,
+                linespacing=1.15)
 
-    # masukan ke kedua tahap, dan hanya alpha yang layak diteruskan
-    panah(14.9, y1 + h1 / 2, 17.9, y1 + h1 / 2)
-    panah(14.9, y2 + h2 / 2, 17.9, y2 + h2 / 2)
-    panah(55.2, y1 - 0.3, 55.2, 21.0, warna=biru, ls="--")
-    ax.text(56.3, 22.6, "feasible $\\alpha$ only", fontsize=6.0, color=biru, va="center")
+    def langkah(nomor, x, y, w, h, kepala, isi):
+        ax.add_patch(plt.Circle((x - 2.1, y + h / 2), 1.45, fc=emas[0], ec=emas[1], lw=0.8))
+        ax.text(x - 2.1, y + h / 2, str(nomor), ha="center", va="center", fontsize=6.4, fontweight="bold")
+        ujung = 1.6
+        ax.add_patch(plt.Polygon([(x, y), (x + w - ujung, y), (x + w, y + h / 2), (x + w - ujung, y + h), (x, y + h)],
+                                 closed=True, fc=krem[0], ec=krem[1], lw=0.7))
+        ax.text(x + 0.9, y + h * 0.69, kepala, ha="left", va="center", fontsize=6.0, fontweight="bold", color=tinta)
+        ax.text(x + 0.9, y + h * 0.30, isi, ha="left", va="center", fontsize=5.9, color=tinta)
+
+    # A1: sumber data
+    panel(1, 41.5, 30, 27.5)
+    judul(16, 66.6, 17, "DATA SOURCES", data)
+    for x0, nama, butir in ((2.5, "PTB-XL", ("12-lead, multi-label", "5 superclasses", "18,869 patients",
+                                             "4 declared sources")),
+                            (16.5, "MIT-BIH", ("MLII lead, beats", "5 AAMI classes", "22 DS2 records",
+                                               "source: record"))):
+        kotak(x0, 61.6, 13, 2.6, nama, data, fs=6.2, tebal=True)
+        for i, b in enumerate(butir):
+            kotak(x0, 59.2 - i * 2.45, 13, 2.2, b)
+    kotak(2.5, 47.0, 27, 4.1, "Challenge 2021: 7 sources,\npatient identifier undocumented", fs=5.8)
+    kotak(2.5, 42.3, 27, 4.1, "Declared dependence sources $D$: patient, site,\nnurse, device (PTB-XL); record (MIT-BIH)",
+          mawar, fs=5.8)
+
+    # A2: tahap 1, metadata saja
+    panah([(16, 41.5), (16, 37.5)], teks="metadata only", xyteks=(22.0, 39.5))
+    panel(1, 1, 30, 36.5)
+    judul(16, 34.6, 26, "STAGE 1 \u00b7 FEASIBILITY (RQ1)", biru)
+    ax.text(16, 31.3, "exact given $D$, before any model is trained", ha="center", va="center",
+            fontsize=5.9, style="italic", color=tinta)
+    for i, (kepala, isi) in enumerate((
+            ("Observability", "is each source documented?"),
+            ("Sufficiency (\u00a73.3)", "join of $D$ = connected components"),
+            ("Feasibility (\u00a73.2)", "$\\alpha \\geq 1/(K_1+1)$ for each grouping"),
+            ("Label level (\u00a73.4)", "$K_1(\\ell)$ per diagnosis (necessary only)"))):
+        langkah(i + 1, 5.6, 24.6 - i * 5.7, 24.2, 4.7, kepala, isi)
+    kotak(2.5, 2.2, 27, 4.4, "Verdicts (\u00a75.1): $\\alpha_{\\min}$, admissible\ngroupings, failing labels",
+          mawar, fs=6.0, tebal=True)
+
+    # B1: tahap 2, kalibrasi pada alpha yang layak
+    panah([(31, 58), (35, 58)])
+    ax.text(33, 59.3, "scores", fontsize=5.3, color=tinta, ha="center", va="center", style="italic")
+    panah([(31, 19), (33, 19), (33, 47), (35, 47)], ls="--", teks="feasible $\\alpha$ only",
+          xyteks=(32.0, 33), rot=90)
+    panel(35, 38, 30, 31)
+    judul(50, 66.6, 27, "STAGE 2 \u00b7 CALIBRATION (RQ2)", oranye)
+    hx, hy, hr = 41.6, 51.5, 5.6
+    lingkaran(hx, hy, hr, "CONFORMAL\nCALIBRATION", mint, fs=5.4)
+    satelit = ("3 backbones,\n2 checkpoints", "B1: split\nconformal", "B12: HCP,\nblock level",
+               "splits by block,\n200\u2013400 repeats", "coverage: obs.-\n& block-weighted")
+    for i, t in enumerate(satelit):
+        yc = 61.2 - i * 4.85
+        sudut = np.arctan2(yc - hy, 9)
+        ax.plot([hx + hr * np.cos(sudut), 49.6], [hy + hr * np.sin(sudut), yc], color=garis, lw=0.6)
+        ax.add_patch(plt.Circle((49.6, yc), 0.55, fc=emas[0], ec=emas[1], lw=0.6, zorder=3))
+        kotak(50.5, yc - 2.0, 10.6, 4.0, t, krem, fs=5.5, bulat=0.8)
+    kotak(61.8, 39.6, 2.5, 24.2, "", mawar)
+    ax.text(63.05, 51.7, "Output: coverage and set size (\u00a75.2)", rotation=270, ha="center", va="center",
+            fontsize=5.9, fontweight="bold", color=tinta)
+
+    # B2: atribusi defisit B1
+    panah([(50, 38), (50, 34)], teks="B1 deficit", xyteks=(54.6, 36.0))
+    panel(35, 1, 30, 33)
+    judul(50, 31.1, 25, "ATTRIBUTION (\u00a75.3\u2013\u00a75.4)", oranye)
+    cx, cy, cr = 50, 16.0, 5.0
+    lingkaran(cx, cy, cr, "ATTRIBUTE\nDEFICIT", mint, fs=5.6)
+    for (x0, y0, t) in ((35.9, 18.6, "Permutation\nnull"), (35.9, 9.4, "Mechanical\nshare of HCP\nadvantage"),
+                        (55.2, 18.6, "2$\\times$2 factorial:\nclustering $\\times$\nimbalance"),
+                        (55.2, 9.4, "Dose\u2013response\nof deficit vs.\n$1+(H-1)\\rho$")):
+        kotak(x0, y0, 8.9, 5.4, t, krem, fs=5.5)
+        tx, ty = x0 + (8.9 if x0 < cx else 0), y0 + 2.7
+        sudut = np.arctan2(ty - cy, tx - cx)
+        panah([(cx + cr * np.cos(sudut), cy + cr * np.sin(sudut)), (tx, ty)])
+    kotak(39.5, 25.3, 21, 2.4, "Input: B1 coverage deficit per $\\alpha$", krem, fs=5.6)
+    panah([(50, 25.3), (50, cy + cr)])
+    kotak(37.5, 2.2, 25, 4.4, "Output: share of the deficit\nattributable to dependence", mawar, fs=6.0, tebal=True)
+
+    # C2: ketidakpastian dan robustness
+    panah([(65, 13), (69, 13)])
+    panel(69, 1, 30, 25)
+    judul(84, 23.1, 27, "UNCERTAINTY & ROBUSTNESS", oranye)
+    for i, t in enumerate(("Monte Carlo splits,\nconditional on 22 records",
+                           "leave-one-record-out\njackknife, $t$ with 21 df",
+                           "3 backbones $\\times$\n2 checkpoints (\u00a75.5)")):
+        yc = 17.6 - i * 5.1
+        ax.add_patch(plt.Circle((72.0, yc), 1.3, fc=emas[0], ec=emas[1], lw=0.7))
+        ax.text(72.0, yc, str(i + 1), ha="center", va="center", fontsize=6.0, fontweight="bold")
+        kotak(73.8, yc - 2.0, 15.6, 4.0, t, krem, fs=5.6, bulat=1.2)
+    sx, sy, sr = 94.3, 12.5, 4.0
+    for a, b in (((sx + sr, sy + 0.4), (sx - sr, sy + 0.4)), ((sx - sr, sy - 0.4), (sx + sr, sy - 0.4))):
+        ax.add_patch(FancyArrowPatch(a, b, connectionstyle="arc3,rad=0.95", arrowstyle="-|>", mutation_scale=7,
+                                     lw=1.3, color="#9aa7b4", shrinkA=0, shrinkB=0))
+    ax.text(sx, sy, "repeat\nper\nbackbone\nand $\\alpha$", ha="center", va="center", fontsize=5.0, color=tinta,
+            linespacing=1.05)
+    kotak(70.5, 2.2, 27, 2.6, "split-level and subject-level intervals", mawar, fs=5.9, tebal=True)
+
+    # C1: temuan
+    panah([(84, 26), (84, 30)])
+    panel(69, 30, 30, 39)
+    judul(84, 66.6, 27, "FINDINGS (RQ2)", oranye)
+    temuan = ("Coverage of B1 vs. B12 (\u00a75.2)", "Deficit vs. permutation null (\u00a75.3)",
+              "Clustering vs. imbalance (\u00a75.3)", "Deficit vs. design effect (\u00a75.4)",
+              "Backbone and checkpoint (\u00a75.5)")
+    for i, t in enumerate(temuan):
+        yc = 61.8 - i * 4.6
+        kotak(71.5, yc - 1.25, 25, 2.5, t, krem, fs=5.8, bulat=1.25)
+        if i:
+            panah([(84, yc + 3.35), (84, yc + 1.25)])
+    for xc, t in ((75.2, "SmallECGNet"), (84, "ResNet1D-34"), (92.8, "ResNet1D-50")):
+        panah([(84, 42.15), (xc, 39.6)])
+        kotak(xc - 4.2, 37.3, 8.4, 2.3, t, krem, fs=5.2, bulat=1.15)
+    kotak(70.5, 31.4, 27, 4.4, "Reported with split- and subject-level\nuncertainty (\u00a76.2)", mawar, fs=5.9,
+          tebal=True)
     simpan(fig, "fig1_audit_workflow.png")
 
 
