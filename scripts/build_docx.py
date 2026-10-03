@@ -1,8 +1,8 @@
-"""Susun bagian naskah (docs/paper/sec*.md) menjadi naskah Word untuk submisi Elsevier (AIIM).
+"""Susun bagian naskah (docs/paper/sec*.md) menjadi draf Word netral jurnal.
 
 Yang dikerjakan, berurutan:
   1. Ambil prosa naskah dari tiap draf (judul "## N." sampai catatan kerja), didahului
-     Highlights, Abstract dan Keywords dari abstract-conclusion.md.
+     Abstract dan Keywords (serta Highlights bila ada) dari abstract-conclusion.md.
   2. Sitasi kode ([A0], [I1, A13], [A0, Thm. 1]) -> nomor [n] menurut urutan
      kemunculan pertama; daftar pustaka disusun dari docs/paper/references.json
      (metadata Crossref/arXiv/DataCite, bukan ketikan tangan).

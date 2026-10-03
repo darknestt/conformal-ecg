@@ -1,17 +1,7 @@
 # Abstract & §7 Conclusion
 
 > **v7 — 2026-10-02.** Diparafrasekan penuh dari v6 (commit 3edc1f0). Semua angka dan klaim tetap.
-> **2026-10-03 — target: Artificial Intelligence in Medicine (Elsevier).** Ditambah Highlights (5 butir, ≤85 karakter), Keywords (7), dan bagian deklarasi (CRediT, competing interest, funding, AI generatif) sebagai placeholder untuk penulis. Persyaratan Guide for Authors AIIM BELUM TERVERIFIKASI (situs memblokir akses otomatis) — cocokkan sebelum submit.
-
----
-
-## Highlights
-
-- Metadata alone decide whether block-level conformal coverage can be guaranteed
-- All four declared PTB-XL dependence sources leave one admissible calibration block
-- Under patient blocks, 24 of 44 PTB-XL statements lack a finite threshold at 5% error
-- Most of the apparent coverage gain of HCP over split conformal is mechanical
-- Repeated splits of fixed subjects yield split-level, not population-level, intervals
+> **2026-10-03 — draf netral jurnal (arahan dosen pembimbing).** Jurnal tujuan dan template belum ditentukan. Bagian khusus jurnal/administratif (Highlights, Ethics Statement, CRediT, Competing Interest, Funding, deklarasi AI generatif, DOI arsip kode) TIDAK dimasukkan ke draf; diisi dosen saat submisi. Keywords dipertahankan (lazim di semua jurnal).
 
 ---
 
@@ -71,36 +61,11 @@ face the same boundary is an open question.
 
 PTB-XL (version 1.0.3) [H2], the MIT-BIH Arrhythmia Database [H3] and the
 PhysioNet/CinC Challenge 2021 collection (version 1.0.3) [H5] are publicly
-available from PhysioNet under their respective licences. The code, the analysis
-protocol with its deviation log, and the JSON artifact behind every reported
-number will be archived under a persistent identifier before publication
-[identifier to be inserted].
-
-## Ethics Statement
-
-This study is a secondary analysis of publicly available, de-identified
-recordings; no new data were collected and no participant was contacted.
-[Institutional statement on the need for ethics review to be added by the
-authors.]
-
-## CRediT Authorship Contribution Statement
-
-[To be completed by the authors using the CRediT taxonomy.]
-
-## Declaration of Competing Interest
-
-[To be completed by the authors.]
-
-## Funding
-
-[To be completed by the authors.]
-
-## Declaration of Generative AI and AI-Assisted Technologies in the Writing Process
-
-During the preparation of this work the author(s) used [name of tool or
-service] in order to [purpose]. After using this tool or service, the author(s)
-reviewed and edited the content as needed and take(s) full responsibility for
-the content of the publication.
+available from PhysioNet under their respective licences; all recordings are
+de-identified, and no new data were collected for this study. The code, the
+analysis protocol with its deviation log, and the JSON artifact behind every
+reported number will be archived under a persistent identifier before
+publication.
 
 ---
 
@@ -112,3 +77,5 @@ the content of the publication.
 | Spearman 0,80–0,85 | Tabel 5.5 baris DEff (0,84 / 0,80 / 0,85) |
 | 75–110% | Porsi mekanis lintas tiga backbone (§5.3, §5.5) |
 | "one of which fails" | ResNet1D-34, Holm 0/3 (Tabel 5.4) |
+
+**Untuk diisi dosen saat submisi (tidak ada di draf):** DOI/identitas arsip kode; pernyataan etika institusi (draf hanya menyebut data publik ter-de-identifikasi, tanpa data baru); CRediT; competing interest; funding; deklarasi penggunaan AI generatif bila jurnal mewajibkan; Highlights/graphical abstract bila jurnal memintanya.
