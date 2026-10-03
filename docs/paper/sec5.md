@@ -168,7 +168,7 @@ intervals over 400 splits that exclude zero (for example $[-1.84, -0.63]$ pp at
 imbalance acted mainly through clustering: at $\alpha=0.10$ it lowered coverage by
 0.83 pp when records were clustered but by 0.04 pp when membership was
 randomized (interaction −0.79 pp; −0.54 and −0.52 pp at the other levels), as the
-pooled design effect in (6), which grows with $\sum_k N_k^2$ only when $\rho>0$,
+pooled design effect in (4), which grows with $\sum_k N_k^2$ only when $\rho>0$,
 anticipates. Block-size imbalance therefore does not produce the deficit on its
 own; it amplifies the effect of clustering. Like those of Table 5.4, these
 intervals are conditional on the 22 DS2 records. Fig. 6 places the two controls

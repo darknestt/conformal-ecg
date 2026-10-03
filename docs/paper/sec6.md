@@ -173,7 +173,7 @@ bootstrap, a paired permutation test with 10,000 permutations, exact binomial
 intervals and Cliff's delta, none of which was used) are listed in the
 protocol's deviation log.
 
-**Theoretical scope.** The variance of §3.2 and the design effects (6) depend on
+**Theoretical scope.** The variance of §3.2 and the design effects (4) depend on
 Assumption (A), a one-way random-effects model with compound symmetry, whereas
 Proposition 1, Corollary 2 and Proposition 3 hold without distributional
 assumptions. That variance involves the correlation of the coverage indicator

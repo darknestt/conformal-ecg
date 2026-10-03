@@ -55,7 +55,7 @@ when any diagnostic SCP statement of that class appears in the record's
 annotation, irrespective of its likelihood value: NORM (9,514), MI (5,469),
 STTC (5,235), CD (4,898) and HYP (2,649). These amount to 27,765 labels, and 5,144
 records carry more than one superclass. The 411 records (1.9%) without any
-diagnostic superclass would be covered trivially under (4), so instead of
+diagnostic superclass would be covered trivially under (5), so instead of
 assigning them a default class we exclude them from calibration and evaluation.
 Every record has an age (median 62; the 293 records of patients older than 89
 carry the sentinel value 300), and sex is recorded as 11,354 male and 10,445
@@ -127,7 +127,7 @@ instead, and its empirical counterpart averages coverage within each test block
 before averaging over blocks. The two coincide when test blocks have equal size
 and nearly so on PTB-XL, where most blocks hold one record; MIT-BIH records
 differ in length by a factor of up to 2.2, so for MIT-BIH both are reported
-(§5.3). On PTB-XL the coverage reported is superset coverage (4), obtained from
+(§5.3). On PTB-XL the coverage reported is superset coverage (5), obtained from
 the maximum score over the true labels.
 
 ### 4.3 Models and conformity scores
@@ -147,8 +147,11 @@ classes for MIT-BIH, without class weighting. Batches hold 128 records (PTB-XL)
 or 256 beats (MIT-BIH); for the residual networks they are accumulated from
 micro-batches of 32 or 64, so batch-normalization statistics are computed per
 micro-batch. The primary backbone attains a macro-AUROC of 0.9016 on PTB-XL and, on
-MIT-BIH, an accuracy of 0.8690 with balanced accuracy 0.3748 and macro-F1 0.3144;
-its weakness on minority classes enlarges sets but leaves coverage intact.
+MIT-BIH, an accuracy of 0.8690 with balanced accuracy 0.3748 and macro-F1 0.3144.
+The backbones were not tuned for discrimination, by design: conformal validity
+holds for any score function fixed before calibration, so a weak minority-class
+score enlarges prediction sets without affecting the coverage being audited, and
+the three backbones serve to show that no conclusion hinges on one score.
 Scores are $s(x,y)=1-\hat p_y(x)$ for multi-class MIT-BIH and
 $1-\hat\sigma_\ell(x)$ per label for multi-label PTB-XL, where the record-level
 score for superset coverage is the maximum over the true labels and thus reduces
@@ -186,7 +189,7 @@ $p\in\{0, 0.1,\dots,1\}$ of beats, again preserving block sizes, and subsamples
 calibration records to 1,355 beats. Intraclass correlations use the one-way
 ANOVA estimator for unbalanced designs,
 $(\mathrm{MSB}-\mathrm{MSW})/\{\mathrm{MSB}+(N_0-1)\mathrm{MSW}\}$, on conformity
-scores (on PTB-XL, the superset score of (4)); the indicator version uses the
+scores (on PTB-XL, the superset score of (5)); the indicator version uses the
 threshold $t$ equal to the $(1-\alpha)$ quantile of all evaluation scores. The
 procedure used for each reported quantity is listed in Table 4.2.
 

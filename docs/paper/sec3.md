@@ -1,6 +1,6 @@
 # §3 Problem Formulation and HCP Feasibility
 
-> **v7 — 2026-10-02.** Prosa penghubung diparafrasekan penuh dari v6 (commit 3edc1f0). Pernyataan formal (Proposisi 1–3 + bukti, Corollary 1–2, Definisi, "Scope of Corollary 2") dan persamaan (1)–(6) kata per kata sama.
+> **v7 — 2026-10-02.** Prosa penghubung diparafrasekan penuh dari v6 (commit 3edc1f0). Pernyataan formal (Proposisi 1–3 + bukti, Corollary 1–2, Definisi, "Scope of Corollary 2") dan persamaan (1)–(6) kata per kata sama. **2026-10-03:** persamaan dinomori ulang menurut urutan kemunculan — DEff (6)→(4), superset (4)→(5), label-conditional (5)→(6); rujukan silang di §4–§6 dan Lampiran A ikut diubah.
 
 ---
 
@@ -81,7 +81,7 @@ $$
 \mathrm{DEff}_{\text{block}}(\rho)=\frac{n[1+(H-1)\rho]}{K_1H},
 \qquad
 \mathrm{DEff}_{\text{pooled}}(\rho)=1+\Big(\frac{\sum_k N_k^2}{n}-1\Big)\rho .
-\tag{6}
+\tag{4}
 $$
 
 The second expression is the usual design effect for clusters of unequal size.
@@ -160,12 +160,12 @@ The PTB-XL diagnoses form a three-level tree with 5 superclasses, 23 subclasses
 and 44 diagnostic SCP statements. Since one recording may carry several labels,
 the target is a set $Y\subseteq\mathcal{L}$ and a notion of coverage has to be
 selected. **Superset coverage**,
-$$\mathbb{P}\big(Y_{\text{test}}\subseteq\hat C(X_{\text{test}})\big)\;\ge\;1-\alpha,\tag{4}$$
+$$\mathbb{P}\big(Y_{\text{test}}\subseteq\hat C(X_{\text{test}})\big)\;\ge\;1-\alpha,\tag{5}$$
 involves nothing new: Theorem 1 of [A0] needs only a fixed scalar score, and with
 $s(x,Y)=\max_{\ell\in Y}s_\ell(x)$ one has $\{Y\subseteq\hat C\}\iff s(x,Y)\le\hat T$,
 so HCP carries over unchanged. The substance lies in the **label-conditional**
 target
-$$\mathbb{P}\big(\ell\in\hat C(X)\,\big|\,\ell\in Y\big)\;\ge\;1-\alpha,\tag{5}$$
+$$\mathbb{P}\big(\ell\in\hat C(X)\,\big|\,\ell\in Y\big)\;\ge\;1-\alpha,\tag{6}$$
 which admits no such reduction. For exchangeable data it is well known that rare
 classes starve class-conditional calibration [A12]; under hierarchical
 dependence the quantity to count is the number of blocks.

@@ -39,7 +39,7 @@ vary [I1, A13]. In HCP it cannot be replaced: the practitioner is tied to the
 estimator that cluster-sampling theory regards as most sensitive to block
 imbalance, without access to the standard remedy. We state this as an
 observation and do not prove that equal weights are the only valid choice. On
-PTB-XL the two design effects of (6) differ by a factor of 15.7 at the site
+PTB-XL the two design effects of (4) differ by a factor of 15.7 at the site
 level, while on `strat_fold`, whose blocks are almost uniform by construction,
 their ratio is 1.000, which serves as an internal check of the computation.
 
