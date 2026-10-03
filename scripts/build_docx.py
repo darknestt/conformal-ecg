@@ -115,7 +115,7 @@ def gambar(md: str) -> str:
     def ganti(m: re.Match) -> str:
         cap = m.group(1).replace("**", "")
         tunggal = ("join_schematic", "feasibility_frontier", "dose_response")
-        lebar = "3.4in" if any(k in m.group(2) for k in tunggal) else "6.6in"
+        lebar = "3.4in" if any(k in m.group(2) for k in tunggal) else "6.2in"
         return f"![{cap}]({m.group(2)}){{width={lebar}}}"
     return re.sub(r"^!\[(.+?)\]\((.+?)\)[ \t]*$", ganti, md, flags=re.M)
 
@@ -273,8 +273,12 @@ def beri_garis_tabel(tabel) -> None:
         garis.append(e)
     tblPr.append(garis)
     tabel.alignment = WD_TABLE_ALIGNMENT.CENTER
-    # tabel tidak terpotong lintas halaman (judul kolom terpisah dari isinya)
-    for baris in tabel.rows[:-1]:
+    for baris in tabel.rows:
+        trPr = baris._tr.get_or_add_trPr()
+        if trPr.find(qn("w:cantSplit")) is None:
+            trPr.append(OxmlElement("w:cantSplit"))
+    # tabel pendek tidak dipotong; tabel panjang boleh berlanjut asal judul kolom ikut baris pertama
+    for baris in tabel.rows[:-1] if len(tabel.rows) <= 7 else tabel.rows[:1]:
         for sel in baris.cells:
             for p in sel.paragraphs:
                 p.paragraph_format.keep_with_next = True

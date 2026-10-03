@@ -13,10 +13,10 @@ recovers the guarantee by calibrating over blocks, yet its threshold exists only
 for target error rates of at least $1/(K_1+1)$, with $K_1$ the number of
 calibration blocks. We audit three public electrocardiogram resources to ask
 whether this guarantee can be enforced and whether ignoring blocks costs
-coverage. Using metadata alone, the feasibility analysis finds that declaring the
-four documented dependence sources of PTB-XL leaves a single admissible
-calibration block, and that under patient blocking 24 of 44 diagnostic
-statements have no finite per-label threshold at $\alpha=0.05$. Across repeated
+coverage. From metadata alone, declaring the four documented dependence sources
+of PTB-XL leaves a single admissible calibration block, and under patient
+blocking 24 of 44 diagnostic statements have no finite per-label threshold at
+$\alpha=0.05$. Across repeated
 splits of the 22 MIT-BIH evaluation subjects, naive split conformal covers
 1.5–2.4 percentage points less than a matched permutation null; a factorial
 design attributes the shortfall mainly to clustering, and a controlled

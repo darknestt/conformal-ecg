@@ -1,4 +1,4 @@
-# Lampiran A–B
+﻿# Lampiran A–C
 
 > **v7 — 2026-10-02.** Diparafrasekan dari v6 (commit 3edc1f0). Persamaan (A.1), angka 0,9512 dan contoh kontra tetap.
 
@@ -31,9 +31,20 @@ decays with distance, as is plausible for consecutive beats in a long Holter
 record, the average pairwise correlation may shrink as $N_k$ grows and the floor
 vanishes. We make no claim outside (A).
 
-### A.3 Departing from equal weights can break the guarantee
+### A.3 Equal weighting in HCP
 
-Take $K_1=2$ singleton blocks and $\alpha=1/3$. HCP assigns mass $\tfrac13$ to each
+Cluster-randomized trials compare equal and size-proportional weighting of
+cluster means, and equal weighting is known to lose efficiency when cluster sizes
+vary [I1, A13]. In HCP it cannot be replaced: the practitioner is tied to the
+estimator that cluster-sampling theory regards as most sensitive to block
+imbalance, without access to the standard remedy. We state this as an
+observation and do not prove that equal weights are the only valid choice. On
+PTB-XL the two design effects of (6) differ by a factor of 15.7 at the site
+level, while on `strat_fold`, whose blocks are almost uniform by construction,
+their ratio is 1.000, which serves as an internal check of the computation.
+
+Departing from equal weights can break the guarantee, not merely cost
+efficiency. Take $K_1=2$ singleton blocks and $\alpha=1/3$. HCP assigns mass $\tfrac13$ to each
 calibration score and to $+\infty$, so the threshold is $\max(s_1,s_2)$ and the
 coverage is exactly $\tfrac23$. Shifting the calibration mass to $(\tfrac23,0)$
 while leaving $\tfrac13$ at $+\infty$ makes the threshold $s_1$, and for continuous
@@ -57,6 +68,26 @@ the control that overturned it.
 | 3 | The deficit increases monotonically with ICC | PTB-XL: ICC 0.35 yet no deficit |
 | 4 | The deficit tracks $1+(H-1)\rho$ | — stands |
 | 5 | The B1 deficit against the permutation null is significant for two of three backbones | Record-level jackknife over the 22 DS2 records: every 95% CI includes zero |
+
+## Appendix C. Observability of Blocks in Challenge 2021
+
+The seven non-duplicate source folders of the PhysioNet/CinC Challenge 2021
+collection [H5] hold 66,416 records, ranging from `ningbo` (34,905) to
+`st_petersburg_incart` (74); its `ptb-xl` folder (21,837 records) repeats PTB-XL,
+and the two totals give the official 88,253. In a sample of 42 headers drawn from
+all seven sources, none of the fields (`#Age`, `#Sex`, `#Dx`, `#Rx`, `#Hx`, plus
+`#Sx` in five sources) is documented as identifying the patient; because this is
+a sample and the header schema differs between sources, we claim nothing beyond
+it. Repetition, on the other hand, is documented: the INCART source is described
+as *"74 annotated ECGs ... extracted from 32 Holter monitor recordings,"* and the
+`ptb-xl` folder contains 21,837 records from 18,869 patients. The bound
+$\alpha_{\min}\ge 1/8$ of §4.1 refers to the source partition, not to the
+dataset, and no single $\alpha_{\min}$ is reported for the patient partition.
+Sufficiency, moreover, presumes a latent block structure [A0]; should similarity
+within an institution fade gradually, for instance with how close acquisition
+protocols are, the condition would be ill-posed rather than just unobservable.
+All of these checks needed roughly 0.5 MB of downloads (70 index files and 42
+headers) out of a 12.6 GB dataset, before any preprocessing or training.
 
 ---
 

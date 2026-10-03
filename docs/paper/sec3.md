@@ -85,33 +85,22 @@ $$
 $$
 
 The second expression is the usual design effect for clusters of unequal size.
-Cluster-randomized trials routinely compare equal and size-proportional
-weighting of cluster means, and there equal weighting is known to lose
-efficiency when cluster sizes vary, which is why minimum-variance weights are
-usually preferred [I1, A13]. HCP offers no such option: equal weighting is built
-into its threshold, and abandoning it can invalidate the guarantee instead of
-merely reducing efficiency (Appendix A.3). The practitioner is therefore tied to
-the estimator that cluster-sampling theory regards as most sensitive to block
-imbalance, without access to the standard remedy. We state this as an
-observation and do not prove that equal weights are the only valid choice. On
-PTB-XL the two design effects differ by a factor of 15.7 at the site level, while
-on `strat_fold`, whose blocks are almost uniform by construction, their ratio is
-1.000, which serves as an internal check of the computation.
+In a cluster-randomized trial, equal weighting of cluster means is an inefficient
+option that is usually replaced by minimum-variance weights [I1, A13]; in HCP it
+is built into the threshold, and abandoning it can invalidate the guarantee
+(Appendix A.3).
 
 **The axis used to organize results.** Datasets with very different block
 geometry are compared through the variance-inflation factor
-$\mathrm{DEff}=1+(H-1)\rho$. Because $H$ enters only through the product
-$(H-1)\rho$, the factor predicts no harm from dependence whenever blocks are close
-to singletons, however strong the within-block correlation — contrary to what raw
-$\rho$ would suggest. In the primary analysis $\rho$ is estimated from conformity
-scores, and the analysis is repeated with the indicator correlation $\rho(t)$
-(§5.4); §6.4 records when the axis was adopted. The axis serves only to rank
-configurations and should not be read as a calibrated effective sample size. For
-that quantity we defer to Noonan, who derives a closed-form effective sample size
-for thresholds under clustering and shows that the correction now used in the
-conformal literature targets the wrong quantity [P1]. Our axis shares its key
-ingredient, the correlation of threshold indicators, but remains a heuristic
-under (A).
+$\mathrm{DEff}=1+(H-1)\rho$. Because $H$ enters only through $(H-1)\rho$, the factor
+predicts no harm from dependence whenever blocks are close to singletons, however
+strong the within-block correlation. In the primary analysis $\rho$ is estimated
+from conformity scores, and the analysis is repeated with the indicator
+correlation $\rho(t)$ (§5.4); §6.4 records when the axis was adopted. The axis is
+a heuristic under (A) that ranks configurations, not a calibrated effective
+sample size; for that quantity we defer to Noonan, who derives a closed-form
+effective sample size for thresholds under clustering and shows that the
+correction now used in the conformal literature targets the wrong quantity [P1].
 
 ### 3.3 Crossed dependence sources
 

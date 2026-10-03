@@ -195,7 +195,7 @@ accompanying $p$-values, which treat points as independent, are not population
 inference. Table 5.5 reports the correlations on three dependence axes, and
 within MIT-BIH the deficit grows with ICC at all three levels.
 
-**Table 5.5.** Spearman correlation between dependence and coverage deficit ($p$-values treat points as independent and are shown for completeness).
+**Table 5.5.** Spearman correlation between dependence and coverage deficit (p-values treat points as independent and are shown for completeness).
 
 | Axis | Points | $\alpha=0.10$ | $\alpha=0.15$ | $\alpha=0.20$ |
 |---|---:|---|---|---|

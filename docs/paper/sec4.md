@@ -93,29 +93,14 @@ and 202 belong to one subject yet land on opposite sides of the partition; we
 retain the standard split for comparability and disclose the leak.
 
 **Challenge 2021.** The PhysioNet/CinC Challenge 2021 collection (version 1.0.3)
-[H5] has seven
-non-duplicate source folders totalling 66,416 records, ranging from `ningbo`
-(34,905) to `st_petersburg_incart` (74). Its `ptb-xl` folder (21,837 records)
-repeats PTB-XL and is left out; together the two totals give the official
-88,253. In a sample of 42 headers drawn from all seven sources, none of the
-fields (`#Age`, `#Sex`, `#Dx`, `#Rx`, `#Hx`, plus `#Sx` in five sources) is
-documented as identifying the patient; because this is a sample and the header
-schema differs between sources, we claim nothing beyond it. Repetition, on the
-other hand, is documented: the INCART source is described as *"74 annotated ECGs
-... extracted from 32 Holter monitor recordings,"* and the excluded `ptb-xl`
-folder contains 21,837 records from 18,869 patients. Independent units are
-therefore fewer than records, and the fact that the partition cannot be observed
-is no evidence that records are independent. The source partition, with $K=7$,
-is the only grouping the documentation supports, so by Proposition 1 any
-calibration on it has $\alpha_{\min}\ge 1/8$, or $1/7$ when one source is held
-out; this bound refers to the source partition and not to the dataset. For the
-patient partition $K_1$ turns into an assumption that authors must state, and we
-do not report a single $\alpha_{\min}$. Sufficiency, moreover, presumes a latent
-block structure [A0]; should similarity within an institution fade gradually,
-for instance with how close acquisition protocols are, the condition would be
-ill-posed rather than just unobservable. All of these checks needed roughly
-0.5 MB of downloads (70 index files and 42 headers) out of a 12.6 GB dataset,
-before any preprocessing or training.
+[H5] holds 66,416 records in seven non-duplicate source folders (its `ptb-xl`
+folder repeats PTB-XL and is left out). No header field in a sample drawn from
+all seven sources is documented as a patient identifier, whereas repetition is
+documented, so independent units are fewer than records and the unobservable
+partition is no evidence of independence (Appendix C). The only documented
+grouping is the source partition, with $K=7$, so by Proposition 1 any calibration
+on it has $\alpha_{\min}\ge 1/8$, or $1/7$ when one source is held out; for the
+patient partition $K_1$ becomes an assumption that authors must state.
 
 ### 4.2 Calibration and evaluation protocol
 

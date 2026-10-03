@@ -82,40 +82,37 @@ distribution-free guarantees to an ECG classifier can run four checks:
 4. **Estimate the repetition** through the harmonic mean block size before
    deciding whether marginal coverage requires block-level calibration.
 
-The same arithmetic applies whenever coverage is conditioned on patient groups.
-Group-conditional calibration has been proposed to equalize coverage across
-demographic groups [D4]; once it must also respect patient blocks, a group
-represented by few patients in calibration faces the same bound as a rare label.
-Settings with thousands of blocks, such as patients nested in hospitals [E5],
-are far from this boundary, which explains why it is easily missed. The
-inter-patient protocol protects against subject-level leakage between training
-and evaluation [F2], [F3], [F10], and training regimes that differ in this
-respect have been compared directly [F5]; the audit extends the same concern to
-the boundary between calibration and test, where a split that is inter-patient
-for training may still leave calibration with too few subjects.
+The same arithmetic applies whenever coverage is conditioned on patient groups:
+once group-conditional calibration, proposed to equalize coverage across
+demographic groups [D4], must also respect patient blocks, a group with few
+patients in calibration faces the same bound as a rare label. Settings with
+thousands of blocks, such as patients nested in hospitals [E5], sit far from this
+boundary, which is why it is easily missed. The inter-patient protocol guards
+against subject-level leakage between training and evaluation [F2], [F3],
+[F10], and training regimes that differ in this respect have been compared
+directly [F5]; a split that is inter-patient for training can still leave too
+few subjects in calibration.
 
-Regarding the study-design trade-off left open by Lee et al. [A0], our results
-settle its most elementary part: whether a finite threshold exists depends only
-on the number of groups (Proposition 1). The bound plays, with blocks in place of
-points, the part that the universal coverage distribution of split conformal
-prediction plays for exchangeable data, where it fixes a minimum calibration
-size [A9]. Similarly, rare classes are known to starve class-conditional
-calibration under exchangeability [A12], but under block dependence what must be
-counted is the number of blocks carrying the class, and the condition is
-necessary but not sufficient (§3.4).
+For the study-design trade-off left open by Lee et al. [A0], our results settle
+its most elementary part: whether a finite threshold exists depends only on the
+number of groups (Proposition 1). The bound plays, with blocks in place of
+points, the role of the minimum calibration size implied for exchangeable data by
+the universal coverage distribution of split conformal prediction [A9], and, as
+for rare classes under exchangeability [A12], the count that matters per label is
+that of blocks carrying it, under a condition that is necessary but not
+sufficient (§3.4).
 
-These findings are in line with those of Sim and Kim on false-alarm control in
-ECG [E6]: in both settings subjects rather than beats carry the guarantee, and too
-few calibration subjects undermine it. The two studies differ in what is counted
-and in how the effect is attributed. The audit counts blocks under crossed
-dependence sources and for each diagnostic label, and it uses a matched
-permutation null and a factorial design to separate dependence from block-size
-imbalance and from the mechanical effect of the finite-block correction. That
-marginal coverage can mask per-class and per-patient failures in cardiac
-monitoring [E8] agrees with the label-level boundary of §5.1. Risk-control
-extensions of conformal prediction [C1], [C2] and its time-series variants [C4]
-depend on related exchangeability or stationarity assumptions, and whether their
-block-level versions meet the same boundary is left open.
+These findings agree with those of Sim and Kim on false-alarm control in ECG
+[E6]: subjects rather than beats carry the guarantee, and too few calibration
+subjects undermine it. The audit differs in counting blocks under crossed sources
+and per diagnostic label, and in separating dependence from block-size imbalance
+and from the mechanical effect of the finite-block correction with a matched
+permutation null and a factorial design. Evidence that marginal coverage can
+mask per-class and per-patient failures in cardiac monitoring [E8] agrees with
+the label-level boundary of §5.1. Risk-control extensions [C1], [C2] and
+time-series variants [C4] of conformal prediction rest on related
+exchangeability or stationarity assumptions; whether their block-level versions
+meet the same boundary is left open.
 
 ### 6.4 Limitations and threats to validity
 
@@ -152,38 +149,29 @@ present-day multi-center cohorts. Of the twelve dose–response points, eleven a
 synthetic MIT-BIH configurations and only PTB-XL is observed, so the combined
 correlation reflects an intervention inside one dataset rather than naturally
 differing cohorts, and PTB-XL — which differs in modality, task and block type —
-serves only as a prediction check (§5.4). Every MIT-BIH interval is derived from
-repeated splits of the same 22 DS2 records and thus captures variability across
-splits, not across the patient population. All results concern ECG, and
+serves only as a prediction check (§5.4). All results concern ECG, and
 temporal dependence within a patient across visits is not addressed; other
 clinical signals with repeated measurements are natural candidates for the same
 analysis but were not examined.
 
-**Statistical conclusion validity.** Two sources of uncertainty must be kept
-apart. Repeated random splits of the 22 DS2 records, combined with one
-permutation of beats, yield Monte Carlo intervals: they show that on these
-records B1 covers less than the permutation null, but they narrow as splits are
-added and say nothing about other subjects. The leave-one-record-out jackknife,
-added as a post hoc sensitivity analysis once this distinction was noticed,
-treats records as the sampling unit; its intervals span several percentage
-points and include zero for every backbone and level (Table 5.4), so the MIT-BIH
-deficit is established for these records but not for the population they
-represent. Monte Carlo error adds to the jackknife variance, because each
-replicate rests on 500 splits, so those intervals are somewhat conservative. The
-factorial intervals and the Spearman $p$-values of Table 5.5 are conditional on
-the same records. Neither a single split nor a single dose–response point shows a
-deficit: the split-to-split range covers $1-\alpha$ in every MIT-BIH cell (Table
-5.3). Coverage on its own flatters HCP, which covers by abstaining below
-$\alpha_{\min}$ (§5.2), so set size is reported alongside coverage throughout. Two
-criteria from our initial protocol did not survive. "HCP covers better than split
-conformal" was withdrawn after the permutation control revealed the gap to be
-largely mechanical (§5.3). A Spearman test across datasets could not be carried
-out as specified, because with two datasets a rank correlation can only equal
-$\pm1$, and it was replaced by the correlations over design-effect points of
-§5.4. These changes, and the departures from the initial statistical plan
-(patient-level bootstrap, a paired permutation test with 10,000 permutations,
-exact binomial intervals and Cliff's delta, none of which was used), are listed
-in the protocol's deviation log.
+**Statistical conclusion validity.** The repeated-split intervals of Table 5.4
+and Fig. 6 and the Spearman $p$-values of Table 5.5 are conditional on the 22 DS2
+records and one permutation (§4.4, §6.2). Only the leave-one-record-out
+jackknife, added as a post hoc sensitivity analysis, treats records as the
+sampling unit, and its intervals include zero in every cell; because each
+replicate rests on 500 splits, Monte Carlo error inflates its variance somewhat,
+so those intervals are conservative. Neither a single split nor a single
+dose–response point shows a deficit: the split-to-split range covers $1-\alpha$ in
+every MIT-BIH cell (Table 5.3). Coverage on its own flatters HCP, which covers by
+abstaining below $\alpha_{\min}$ (§5.2), so set size is reported throughout. Two
+criteria from our initial protocol did not survive: "HCP covers better than split
+conformal" was withdrawn once the permutation control showed the gap to be
+largely mechanical (§5.3), and a Spearman test across two datasets, whose rank
+correlation can only be $\pm1$, was replaced by the correlations of §5.4. These
+changes and the departures from the initial statistical plan (patient-level
+bootstrap, a paired permutation test with 10,000 permutations, exact binomial
+intervals and Cliff's delta, none of which was used) are listed in the
+protocol's deviation log.
 
 **Theoretical scope.** The variance of §3.2 and the design effects (6) depend on
 Assumption (A), a one-way random-effects model with compound symmetry, whereas
