@@ -45,6 +45,8 @@
 11. **Corollary 2 hanya dibuktikan untuk HCP**; perluasan ke konstruksi Dunn et al. dinyatakan sebagai pertanyaan terbuka.
 12. Ulasan dari AI lain: **verifikasi dulu** setiap klaimnya ke docx/sumber. Contoh: klaim "rujukan [39]–[47] hilang" dan "gambar masih placeholder" ternyata **salah** (AI lain membaca teks PDF yang terpotong).
 13. Rujukan baru: verifikasi metadata via Crossref/OpenAlex lebih dulu, lalu jalankan `python .\scripts\verify_scopus.py`.
+14. **Tiga tingkat bukti** (§1) harus konsisten di seluruh naskah: yang *terbukti* (Prop. 1–3, Cor. 1–2), yang *teramati* pada rekaman yang diaudit (§5), dan yang *tidak diklaim* (tanda defisit MIT-BIH di tingkat populasi; peran kausal design effect). Jangan menulis "ignoring blocks causes under-coverage" sebagai klaim umum.
+15. Istilah *mechanical* = bagian selisih B12−B1 yang bertahan di bawah null yang mempertahankan geometri blok; berasal dari koreksi blok-hingga, **bukan** berarti HCP tidak valid.
 
 ---
 
@@ -213,6 +215,7 @@ Fungsi di `make_figures.py` (urutan loop): `fig1_alur, fig_join, fig_geometri, f
 | `17f8901` | **Dibatalkan** ke draf netral jurnal (arahan dosen): Highlights & bagian administratif dihapus |
 | `8ce38ae` | Pemadatan ke 20 halaman: nomor baris dihapus, spasi paragraf diperbaiki, huruf 10 pt, prosa dipadatkan & diparafrasekan (kemiripan 12%), **Fig. 3 baru** (`experiments/block_geometry.py`), gambar lama 3–8 → 4–9 |
 | `37d11bd` | Rujukan 47 → 35; caption 694 → 434 kata; 19 halaman |
+| (sesudah `f624660`) | Tanggapan review AI lain (7 titik serangan reviewer): §1 memisahkan tiga tingkat bukti (terbukti / teramati / tidak diklaim); §2 "Position" menyebut tambahan relatif terhadap Lee et al.; §5.3 judul jadi "Attributing the deficit to dependence" dan istilah *mechanical* didefinisikan; §5.4 dose–response ditegaskan mekanistik, bukan validasi eksternal/kausal; §6.1 klaim repetisi dibatasi pada dua sumber yang diaudit; §6.4 riwayat analisis dibingkai sebagai jejak audit |
 
 ### Keputusan penting yang sudah final
 - **Jurnal target belum dipilih.** AIIM (Elsevier) sempat menjadi kandidat (terverifikasi aktif di daftar Scopus Agustus 2026), tetapi dibatalkan karena dosen meminta draf netral. Kuartil SJR kandidat **BELUM TERVERIFIKASI** (situs SCImago/ScienceDirect memblokir akses otomatis).

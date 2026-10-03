@@ -19,9 +19,9 @@ evenly between calibration and test leaves $K_1=11$, which rules out a
 subject-level guarantee at the 95% level for this design, whatever the model and
 however many beats each record holds.
 
-The second question is statistical, and its answer depends on how many repeats
-blocks contain more than on how strongly their observations correlate
-(§5.3–§5.4). PTB-XL shows this most clearly. Its within-patient correlation seems
+The second question is statistical, and on the two resources audited its answer
+depended on how many repeats blocks contain more than on how strongly their
+observations correlate (§5.3–§5.4). PTB-XL shows this most clearly. Its within-patient correlation seems
 to call for block-level calibration, yet with $H=1.05$ the factor $1+(H-1)\rho$
 stays near 1 for any $\rho$, and counting repeats correctly predicts that such
 calibration is unnecessary for marginal coverage at these levels. Both quantities
@@ -167,7 +167,9 @@ $\alpha$.* Finally, how well ECG networks discriminate on benchmarks [F1] is
 orthogonal to this question: an accurate model calibrated on too few blocks still
 carries no guarantee.
 
-**Researcher degrees of freedom.** Our reading of the MIT-BIH evidence changed
+**Researcher degrees of freedom.** Because the study audits inferential
+robustness, its analysis history is part of the evidence. Our reading of the
+MIT-BIH evidence changed
 three times, each time prompted by an added control rather than by rereading
 data, and its statistical strength was revised once more (Appendix B). Every
 analysis introduced or modified after results were seen made the evidence

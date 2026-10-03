@@ -104,7 +104,7 @@ $\alpha_{\min}$.
 
 ![**Fig. 6.** Coverage minus nominal $1-\alpha$, primary backbone: B1 (mean and 2.5–97.5% range over 200 block-level splits) and B12 (mean). Shading marks MIT-BIH levels below $\alpha_{\min}=1/12$; vertical scales differ.](figures/fig6_coverage.png)
 
-### 5.3 The deficit is attributable to dependence
+### 5.3 Attributing the deficit to dependence
 
 **Permutation null.** To test whether dependence causes B1 to under-cover, we
 compared it with a matched null that permutes the assignment of beats to records
@@ -143,9 +143,11 @@ Block-weighted HCP coverage stays above $1-\alpha$ for every level and backbone
 (0.9531–0.9548 at $\alpha=0.10$, 0.9146–0.9178 at 0.15 and 0.8557–0.8565 at
 0.20), as guarantee (2) requires.
 
-The same control explains why a B12-against-B1 comparison is uninformative. Define the
-mechanical share as the B12−B1 gap in the permuted arm divided by the gap on the
-original data. It lies between 81% and 107%: removing dependence barely changes
+The same control explains why a B12-against-B1 comparison is uninformative. We
+call *mechanical* the part of the B12−B1 gap that survives a null preserving block
+geometry: it stems from the finite-block correction rather than from correcting
+dependence, and implies no loss of validity for HCP. The mechanical share is the
+gap in the permuted arm divided by the gap on the original data. It lies between 81% and 107%: removing dependence barely changes
 the gap, and at $\alpha=0.10$ the gap is slightly wider without dependence,
 because the finite-block correction pushes HCP to the $(1-\alpha)(K_1+1)/K_1$
 quantile regardless. "B12 improves on B1" was therefore withdrawn as a criterion
@@ -181,6 +183,9 @@ includes zero, so the evidence lies in the trend, summarized by Spearman
 correlations. These replace the cross-dataset test of the initial protocol
 (§6.4) and are descriptive: all points come from the same 22 records, so their
 $p$-values, which treat points as independent, are not population inference.
+The experiment is a mechanistic intervention within one dataset, not an external
+validation, and its correlations order configurations without showing that the
+design effect causes the deficit.
 Table 5.5 reports the correlations on three dependence axes; within MIT-BIH the
 deficit grows with ICC at all three levels.
 

@@ -64,7 +64,11 @@ patients nested in thousands of hospitals [E5].
 target on a given split. We ask two prior questions, whether a block-level
 guarantee is feasible once every declared dependence source is respected, and
 whether ignoring block structure costs coverage once the mechanical effect of the
-finite-block correction is removed.
+finite-block correction is removed. Relative to Lee et al. [A0], whose threshold
+and guarantee we take as given, the additions are the join of crossed sources as
+the finest admissible grouping, the per-label block count, their evaluation from
+metadata alone, and an empirical decomposition of the coverage gap with a
+matched permutation null and a factorial design.
 
 ---
 

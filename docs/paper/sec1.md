@@ -75,7 +75,11 @@ We propose no new conformal procedure. The contributions are three.
 
 Every finding is checked across three backbones whose sizes differ more than a
 hundredfold and across two checkpoints; resampling is always over blocks, and the
-held-out PTB-XL fold remains unexamined. Code, per-result artifacts, the analysis
+held-out PTB-XL fold remains unexamined. We keep three levels of evidence apart:
+what is proved (Propositions 1–3 and Corollaries 1–2, exact given the declared
+sources), what is observed on the audited records (§5.2–§5.5), and what is not
+claimed, namely the population-level sign of the MIT-BIH deficit and a causal
+role for the design effect. Code, per-result artifacts, the analysis
 protocol and its deviation log are released with the paper. Section 2 reviews
 related work, Section 3 derives the feasibility conditions, Section 4 describes
 the design, and Sections 5 and 6 report and discuss the results.
