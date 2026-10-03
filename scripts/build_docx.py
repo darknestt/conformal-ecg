@@ -10,15 +10,13 @@ Yang dikerjakan, berurutan:
      teks ikut diganti. Figure memakai keterangan "Fig. n." di bawah gambar.
   4. \\tag{n} -> nomor persamaan (n) di kanan.
   5. Blockquote jadi paragraf biasa; huruf tebal hanya untuk judul paragraf.
-  6. Gaya dokumen: Times New Roman hitam, judul bernomor, teks rata kiri-kanan,
-     nomor baris berkelanjutan untuk reviewer.
+  6. Gaya dokumen: Times New Roman hitam, judul bernomor, teks rata kiri-kanan.
 
     python scripts/build_docx.py            -> docs/paper/manuscript-draft.docx
 """
 
 from __future__ import annotations
 
-import copy
 import datetime
 import html
 import json
@@ -35,6 +33,7 @@ from docx.enum.text import WD_ALIGN_PARAGRAPH
 from docx.oxml import OxmlElement
 from docx.oxml.ns import qn
 from docx.shared import Pt, RGBColor
+from docx.text.paragraph import Paragraph
 
 ROOT = pathlib.Path(__file__).resolve().parents[1]
 PAPER = ROOT / "docs" / "paper"
@@ -122,8 +121,8 @@ def nomori_tabel(md: str) -> str:
 def gambar(md: str) -> str:
     def ganti(m: re.Match) -> str:
         cap = m.group(1).replace("**", "")
-        tunggal = ("join_schematic", "feasibility_frontier", "dose_response")
-        lebar = "3.4in" if any(k in m.group(2) for k in tunggal) else "6.2in"
+        tunggal = ("join_schematic", "block_geometry", "feasibility_frontier", "dose_response")
+        lebar = "3.4in" if any(k in m.group(2) for k in tunggal) else "5.8in"
         return f"![{cap}]({m.group(2)}){{width={lebar}}}"
     return re.sub(r"^!\[(.+?)\]\((.+?)\)[ \t]*$", ganti, md, flags=re.M)
 
@@ -264,9 +263,13 @@ def siapkan_reference_docx(path: pathlib.Path) -> None:
         if nama in [s.name for s in doc.styles]:
             g = doc.styles[nama]
             g.font.name = "Times New Roman"
-            g.font.size = Pt(9 if "Caption" in nama else 10.5)
+            g.font.size = Pt(9 if "Caption" in nama else 10)
             g.font.color.rgb = hitam
             g.element.get_or_add_rPr().get_or_add_rFonts().set(qn("w:eastAsia"), "Times New Roman")
+    # bawaan pandoc 9 pt sebelum dan sesudah tiap paragraf menghabiskan hampir tiga halaman
+    if "Body Text" in [s.name for s in doc.styles]:
+        doc.styles["Body Text"].paragraph_format.space_before = Pt(0)
+        doc.styles["Body Text"].paragraph_format.space_after = Pt(4)
     doc.save(path)
 
 
@@ -342,21 +345,9 @@ def rapikan_docx(path: pathlib.Path) -> None:
             p.alignment = WD_ALIGN_PARAGRAPH.JUSTIFY
     for t in doc.tables:
         beri_garis_tabel(t)
-    nomor_baris = OxmlElement("w:lnNumType")
-    nomor_baris.set(qn("w:countBy"), "1")
-    nomor_baris.set(qn("w:restart"), "continuous")
-    nomor_baris.set(qn("w:distance"), "283")
-    for s in doc.sections:
-        sectPr = s._sectPr
-        # lnNumType wajib mendahului pgNumType/cols/docGrid dalam urutan skema sectPr
-        sesudah = next((sectPr.find(qn(f"w:{n}")) for n in ("pgNumType", "cols", "formProt", "vAlign",
-                        "noEndnote", "titlePg", "textDirection", "bidi", "rtlGutter", "docGrid")
-                        if sectPr.find(qn(f"w:{n}")) is not None), None)
-        salinan = copy.deepcopy(nomor_baris)
-        if sesudah is not None:
-            sesudah.addprevious(salinan)
-        else:
-            sectPr.append(salinan)
+        sesudah = t._tbl.getnext()
+        if sesudah is not None and sesudah.tag == qn("w:p"):
+            Paragraph(sesudah, t._parent).paragraph_format.space_before = Pt(6)
     doc.save(path)
 
 

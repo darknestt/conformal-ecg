@@ -136,7 +136,7 @@ def fig_atribusi() -> None:
     ax2.set_title("(b) HCP advantage with and without dependence")
     ax2.legend(loc="upper center", ncol=2, frameon=False)
     fig.tight_layout(w_pad=1.5)
-    simpan(fig, "fig6_attribution.png")
+    simpan(fig, "fig7_attribution.png")
 
 
 def fig1_alur() -> None:
@@ -295,6 +295,32 @@ def fig1_alur() -> None:
     simpan(fig, "fig1_audit_workflow.png")
 
 
+def fig_geometri() -> None:
+    """Ukuran blok menurut peringkat: lebar kurva = K (kelayakan), tinggi = ukuran blok (DEff)."""
+    g = muat("block_geometry.json")
+    fig, ax = plt.subplots(figsize=(LEBAR_TUNGGAL, 2.3))
+    seri = [("ptbxl_patient_id", "PTB-XL patient", WARNA["ptb"], "-"),
+            ("ptbxl_site", "PTB-XL site", WARNA["ptb"], "--"),
+            ("ptbxl_nurse", "PTB-XL nurse", WARNA["ptb"], ":"),
+            ("ptbxl_device", "PTB-XL device", WARNA["ptb"], "-."),
+            ("mitdb_record", "MIT-BIH record", WARNA["mit"], "-")]
+    for kunci, nama, warna, gaya in seri:
+        u = np.asarray(g[kunci]["ukuran"])
+        h = g[kunci]["H"]
+        ax.step(np.arange(1, u.size + 1), u, where="post", color=warna, ls=gaya, lw=1.1,
+                label=f"{nama} ($K$={u.size:,}, $H$={h:.2f})" if h < 10 else f"{nama} ($K$={u.size:,}, $H$={h:,.0f})")
+    ax.axvline(19, color=WARNA["abu"], lw=0.6, ls=":")
+    ax.text(21, 1.25, "$K_{\\min}(0.05)=19$", fontsize=6, color=WARNA["abu"])
+    ax.set_xscale("log")
+    ax.set_yscale("log")
+    ax.set_xlim(0.8, 3e4)
+    ax.set_ylim(0.7, 3e4)
+    ax.set_xlabel("Block rank (largest first); curve length = number of blocks $K$")
+    ax.set_ylabel("Block size $N_k$")
+    ax.legend(loc="upper right", frameon=False, fontsize=5.6, handlelength=2.2)
+    simpan(fig, "fig3_block_geometry.png")
+
+
 def fig2_kelayakan() -> None:
     """Batas kelayakan alpha_min = 1/(K1+1) dan posisi tiap pengelompokan nyata."""
     fa = {g["grouping"]: g for g in muat("feasibility_alpha.json")}
@@ -335,10 +361,10 @@ def fig2_kelayakan() -> None:
     ax.plot([], [], "s", mfc=WARNA["ptb"], mec="black", mew=0.4, ms=3.6, label="PTB-XL join of sources")
     ax.plot([], [], "D", mfc=WARNA["mit"], mec="black", mew=0.4, ms=3.6, label="MIT-BIH (DS2, 11/11)")
     ax.legend(loc="upper right", frameon=False, handletextpad=0.2)
-    simpan(fig, "fig3_feasibility_frontier.png")
+    simpan(fig, "fig4_feasibility_frontier.png")
 
 
-def fig3_label() -> None:
+def fig4_label() -> None:
     """K1 per label pada tiga tingkat hierarki PTB-XL."""
     lf = muat("label_feasibility.json")
     fig, axs = plt.subplots(1, 3, figsize=(LEBAR_GANDA, 2.3), sharey=True,
@@ -363,10 +389,10 @@ def fig3_label() -> None:
     axs[2].text(len(lf["scp_code"]["label"]) - 0.5, 21, "$K_{\\min}(0.05)=19$", fontsize=5.8, ha="right", va="bottom")
     axs[2].text(len(lf["scp_code"]["label"]) - 0.5, 7.6, "$K_{\\min}(0.10)=9$", fontsize=5.8, ha="right", va="top")
     fig.tight_layout(w_pad=0.4)
-    simpan(fig, "fig4_label_feasibility.png")
+    simpan(fig, "fig5_label_feasibility.png")
 
 
-def fig4_cakupan() -> None:
+def fig5_cakupan() -> None:
     """Cakupan B1 dan B12 terhadap nominal; selang = 2,5-97,5% antar-split."""
     fig, axs = plt.subplots(1, 2, figsize=(LEBAR_GANDA, 2.4))
     for ax, ds, judul in ((axs[0], "mitdb", "MIT-BIH (DEff $\\approx$ 704)"),
@@ -397,10 +423,10 @@ def fig4_cakupan() -> None:
     axs[0].set_ylabel("Coverage $-$ $(1-\\alpha)$ [pp]")
     axs[0].legend(loc="lower left", frameon=False)
     fig.tight_layout(w_pad=1.0)
-    simpan(fig, "fig5_coverage.png")
+    simpan(fig, "fig6_coverage.png")
 
 
-def fig5_dosis() -> None:
+def fig6_dosis() -> None:
     """Defisit cakupan B1 terhadap design effect, tiga level alpha."""
     d = muat("dose_response.json")
     H = d["mitdb_H"]
@@ -424,10 +450,10 @@ def fig5_dosis() -> None:
     ax.text(0.03, 0.97, "Spearman (12 points): " + ", ".join(f"{v['spearman']:.2f}" for v in sp.values()),
             transform=ax.transAxes, fontsize=6, va="top")
     ax.legend(loc="center left", frameon=False, bbox_to_anchor=(0.0, 0.62))
-    simpan(fig, "fig7_dose_response.png")
+    simpan(fig, "fig8_dose_response.png")
 
 
-def fig6_backbone() -> None:
+def fig7_backbone() -> None:
     """(a) Defisit B1 terhadap null permutasi per backbone; (b) bobot terbaik vs. epoch terakhir."""
     sumber = [("SmallECGNet", RAW / "control_permutation_mitdb.json"),
               ("ResNet1D-34", BI / "control_permutation_mitdb_resnet1d34.json"),
@@ -488,13 +514,13 @@ def fig6_backbone() -> None:
     ax2.plot([], [], "s", mfc="white", mec="black", mew=0.4, ms=3.4, ls="none", label="ResNet1D-50")
     ax2.legend(loc="upper left", frameon=False, handletextpad=0.2, fontsize=6.3)
     fig.tight_layout(w_pad=1.5)
-    simpan(fig, "fig8_robustness.png")
+    simpan(fig, "fig9_robustness.png")
 
 
 def main() -> int:
     KELUAR.mkdir(parents=True, exist_ok=True)
-    for f in (fig1_alur, fig_join, fig2_kelayakan, fig3_label, fig4_cakupan, fig_atribusi, fig5_dosis,
-              fig6_backbone):
+    for f in (fig1_alur, fig_join, fig_geometri, fig2_kelayakan, fig4_label, fig5_cakupan, fig_atribusi, fig6_dosis,
+              fig7_backbone):
         f()
     return 0
 

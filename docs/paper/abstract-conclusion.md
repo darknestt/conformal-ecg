@@ -42,20 +42,19 @@ quantification, hierarchical data, exchangeability, calibration, study design.
 For clinical ECG data, whether a distribution-free coverage guarantee exists is
 settled by the study design before the model plays any part. HCP can deliver one
 at a given error rate only if enough calibration blocks remain once the declared
-dependence sources are respected — a count that metadata provide before
+dependence sources are respected, a count that metadata provide before
 enrollment and that tends to be smallest for the rare diagnoses where calibrated
 uncertainty matters most. Whether ignoring blocks costs coverage depended on
-repetition as well as on correlation: with near-singleton blocks even substantial
-correlation left coverage intact, while with thousands of beats per subject a
-deficit appeared on the audited subjects that 22 of them were too few to
-establish for the population. Evaluations of conformal methods on clustered data
-should therefore use a null that removes dependence but keeps block geometry,
-report set size next to coverage, and resample subjects rather than splits when
-a population claim is made; clinical studies that claim conformal guarantees
-should report the dependence sources they declared and the number of
-calibration blocks, per label where relevant. These conclusions are limited to
-HCP and to the sources declared here, and whether other block-level procedures
-face the same boundary is an open question.
+repetition as well as correlation: near-singleton blocks left coverage intact
+despite substantial correlation, while thousands of beats per subject produced a
+deficit on the audited subjects that 22 of them were too few to establish for the
+population. Evaluations of conformal methods on clustered data should use a null
+that removes dependence but keeps block geometry, report set size with coverage,
+and resample subjects rather than splits for population claims; clinical studies
+claiming conformal guarantees should report the dependence sources they declared
+and the number of calibration blocks, per label where relevant. These
+conclusions are limited to HCP and the sources declared here; whether other
+block-level procedures face the same boundary is open.
 
 ## Data and Code Availability
 

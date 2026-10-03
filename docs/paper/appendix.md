@@ -34,14 +34,14 @@ vanishes. We make no claim outside (A).
 ### A.3 Equal weighting in HCP
 
 Cluster-randomized trials compare equal and size-proportional weighting of
-cluster means, and equal weighting is known to lose efficiency when cluster sizes
-vary [I1, A13]. In HCP it cannot be replaced: the practitioner is tied to the
+cluster means, and equal weighting loses efficiency when cluster sizes vary
+[I1, A13]. In HCP it cannot be replaced, so the practitioner is tied to the
 estimator that cluster-sampling theory regards as most sensitive to block
-imbalance, without access to the standard remedy. We state this as an
-observation and do not prove that equal weights are the only valid choice. On
-PTB-XL the two design effects of (4) differ by a factor of 15.7 at the site
-level, while on `strat_fold`, whose blocks are almost uniform by construction,
-their ratio is 1.000, which serves as an internal check of the computation.
+imbalance, without the standard remedy. We state this as an observation and do
+not prove that equal weights are the only valid choice. On PTB-XL the two design
+effects of (4) differ by a factor of 15.7 at the site level, while on
+`strat_fold`, whose blocks are almost uniform by construction, their ratio is
+1.000, an internal check of the computation.
 
 Departing from equal weights can break the guarantee, not merely cost
 efficiency. Take $K_1=2$ singleton blocks and $\alpha=1/3$. HCP assigns mass $\tfrac13$ to each
@@ -52,12 +52,11 @@ exchangeable scores the coverage drops to $\mathbb{P}(s_0\le s_1)=\tfrac12<\tfra
 
 ## Appendix B. Interim Conclusions on MIT-BIH
 
-The reading of the MIT-BIH evidence went through three revisions, and its
-statistical strength through a fourth (§6.4). The
-second revision was our own mistake: it set analyses with different calibration
-sizes (about 24,800 against 16,500 beats) side by side and ascribed the
-difference to block balance. Table B.1 records each interim conclusion alongside
-the control that overturned it.
+The reading of the MIT-BIH evidence was revised three times, and its statistical
+strength a fourth time (§6.4). The second revision was our own mistake: it
+compared analyses with different calibration sizes (about 24,800 against 16,500
+beats) and attributed the difference to block balance. Table B.1 lists each
+interim conclusion with the control that overturned it.
 
 **Table B.1.** Interim conclusions on MIT-BIH and the control that overturned each.
 
@@ -72,22 +71,22 @@ the control that overturned it.
 ## Appendix C. Observability of Blocks in Challenge 2021
 
 The seven non-duplicate source folders of the PhysioNet/CinC Challenge 2021
-collection [H5] hold 66,416 records, ranging from `ningbo` (34,905) to
+collection [H5] hold 66,416 records, from `ningbo` (34,905) to
 `st_petersburg_incart` (74); its `ptb-xl` folder (21,837 records) repeats PTB-XL,
-and the two totals give the official 88,253. In a sample of 42 headers drawn from
-all seven sources, none of the fields (`#Age`, `#Sex`, `#Dx`, `#Rx`, `#Hx`, plus
-`#Sx` in five sources) is documented as identifying the patient; because this is
-a sample and the header schema differs between sources, we claim nothing beyond
-it. Repetition, on the other hand, is documented: the INCART source is described
-as *"74 annotated ECGs ... extracted from 32 Holter monitor recordings,"* and the
-`ptb-xl` folder contains 21,837 records from 18,869 patients. The bound
+and the two totals give the official 88,253. In a sample of 42 headers from all
+seven sources, none of the fields (`#Age`, `#Sex`, `#Dx`, `#Rx`, `#Hx`, plus
+`#Sx` in five sources) is documented as a patient identifier; since this is a
+sample and header schemas differ between sources, we claim nothing beyond it.
+Repetition, by contrast, is documented: the INCART source is described as
+*"74 annotated ECGs ... extracted from 32 Holter monitor recordings,"* and the
+`ptb-xl` folder holds 21,837 records from 18,869 patients. The bound
 $\alpha_{\min}\ge 1/8$ of §4.1 refers to the source partition, not to the
-dataset, and no single $\alpha_{\min}$ is reported for the patient partition.
-Sufficiency, moreover, presumes a latent block structure [A0]; should similarity
-within an institution fade gradually, for instance with how close acquisition
-protocols are, the condition would be ill-posed rather than just unobservable.
-All of these checks needed roughly 0.5 MB of downloads (70 index files and 42
-headers) out of a 12.6 GB dataset, before any preprocessing or training.
+dataset, and no $\alpha_{\min}$ is reported for the patient partition.
+Sufficiency also presumes a latent block structure [A0]; if similarity within an
+institution faded gradually, for instance with the closeness of acquisition
+protocols, the condition would be ill-posed rather than merely unobservable.
+These checks needed about 0.5 MB of downloads (70 index files and 42 headers) out
+of a 12.6 GB dataset, before any preprocessing or training.
 
 ---
 
