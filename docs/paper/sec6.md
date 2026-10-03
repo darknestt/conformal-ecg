@@ -73,13 +73,12 @@ can run four checks before collecting or splitting data:
    whether marginal coverage needs block-level calibration.
 
 The same arithmetic applies whenever coverage is conditioned on patient groups:
-once group-conditional calibration for demographic fairness [D4] must also
-respect patient blocks, a group with few calibration patients faces the same
+once group-conditional calibration, for instance across demographic groups, must
+also respect patient blocks, a group with few calibration patients faces the same
 bound as a rare label. Settings with thousands of blocks, such as patients nested
 in hospitals [E5], lie far from this boundary, which is why it is easy to miss.
-The inter-patient protocol prevents subject-level leakage [F2], [F3], [F10], and
-training regimes that differ in this respect have been compared [F5], but a split
-that is inter-patient for training can still leave too few subjects in
+The inter-patient protocol prevents subject-level leakage [F2], [F3], [F10], but
+a split that is inter-patient for training can still leave too few subjects in
 calibration.
 
 For the design trade-off left open by Lee et al. [A0], our results settle the
@@ -95,7 +94,7 @@ differs in counting blocks under crossed sources and per label, and in separatin
 dependence from block-size imbalance and from the mechanical effect of the
 finite-block correction. Evidence that marginal coverage can mask per-class and
 per-patient failures in cardiac monitoring [E8] matches the label-level boundary
-of §5.1. Risk-control extensions [C1], [C2] and time-series variants [C4] rest on
+of §5.1. Risk-control extensions [C1] and time-series variants [C4] rest on
 related exchangeability or stationarity assumptions; whether their block-level
 versions meet the same boundary is open.
 
@@ -164,9 +163,9 @@ these blocks consist entirely of 188 records without nurse metadata, and on the
 1,960 fully annotated records the same declaration gives $K_1=3$. The result is
 therefore conditional: *if patient, site, nurse, and device are all treated as
 dependence sources, no admissible calibration grouping exists at any conventional
-$\alpha$.* Finally, what ECG networks learn [F6] and how well they discriminate
-[F1] are orthogonal to this question: an accurate model calibrated on too few
-blocks still carries no guarantee.
+$\alpha$.* Finally, how well ECG networks discriminate on benchmarks [F1] is
+orthogonal to this question: an accurate model calibrated on too few blocks still
+carries no guarantee.
 
 **Researcher degrees of freedom.** Our reading of the MIT-BIH evidence changed
 three times, each time prompted by an added control rather than by rereading

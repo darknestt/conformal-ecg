@@ -16,11 +16,10 @@ ratios [A4], spatial data [A7] and network dependence [A8]. Bhattacharyya and Ba
 groups whose membership drives the shift [A3], so exchangeability still holds
 within each group; our setting is the reverse, with stable group proportions but
 non-exchangeable observations within a block. Fontana et al. review the framework
-and its variants, Mondrian conformal prediction included [A11], and calibrated
-Mondrian versions have followed [D2].
+and its variants, Mondrian conformal prediction included [A11].
 
 For repeated measurements, Lee et al. formalized hierarchical exchangeability and
-extended conformal prediction and the jackknife+ [A2] to it [A0]; (1) and (2)
+extended conformal prediction to it [A0]; (1) and (2)
 restate their threshold and guarantee, and four two-layer hierarchical
 constructions were developed independently by Dunn et al. [A0b]. We take these results as
 given. Both lines of work are theoretical and evaluated on regression, [A0] on
@@ -37,24 +36,18 @@ clinical data when it does.
 ### 2.2 Multi-label, clinical and ECG applications
 
 Multi-label conformal methods, surveyed by Papadopoulos [B1], model dependence
-among labels but assume exchangeable samples, the converse of our need. Pruning
-makes Label Powerset conformal prediction cheaper [B3], and hierarchical
-multi-label classification without conformal guarantees is well developed [B5],
-[B6]. Baheri and Shahbazi calibrate at several
-levels of a label hierarchy and intersect the sets [B2], and Zhang et al. encode
-prediction sets as nodes of a label graph [B7, preprint]. Both exploit structure
-among labels; here the hierarchy only serves to count calibration blocks per
-label (§3.4).
+among labels but assume exchangeable samples, the converse of our need. Baheri
+and Shahbazi calibrate at several levels of a label hierarchy and intersect the
+sets [B2], exploiting structure among labels; here the hierarchy only serves to
+count calibration blocks per label (§3.4).
 
 Strodthoff et al. set the PTB-XL benchmarks [F1] for the dataset of [H1], [H2],
 and their residual networks guide our choice of backbones. Beat-level evaluation
 follows the inter-patient protocol, under which no subject appears in both
 training and evaluation [F2], [F10], since mixing them inflates reported
-performance [F3]. For clinical medicine, a survey of conformal prediction is
-available [E1], alongside applications to anatomical landmarks [E2] and
-multi-label diagnosis coding [E3]; conformal risk control [C1] and time-series
-conformal prediction [C4] extend the framework to arbitrary losses and temporal
-data.
+performance [F3]. Clinical uses of conformal prediction are surveyed in [E1], and
+conformal risk control [C1] and time-series conformal prediction [C4] extend the
+framework to arbitrary losses and temporal data.
 
 Several cardiac studies come closer to our question. On patient-disjoint PTB-XL
 partitions, El Allam and Hamlich apply label-conditional Mondrian calibration

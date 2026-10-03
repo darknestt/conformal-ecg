@@ -11,7 +11,7 @@ electrocardiogram (ECG) routine, and both reviews of clinical deep learning [G1]
 and the FUTURE-AI guideline [G2] treat calibrated uncertainty as a prerequisite
 for deployment. Conformal prediction provides it by turning a trained classifier
 into a set predictor with finite-sample coverage [A11]. It has been applied
-across clinical domains [E1]–[E3] and, for cardiac signals, to calibrate
+across clinical domains [E1] and, for cardiac signals, to calibrate
 quantized models [E7], adapt inference on wearables [E9], expose class- and
 patient-level failures [E8] and bound false alarms in monitoring [E6]. All of
 these uses assume that calibration and test observations are exchangeable;
@@ -46,7 +46,7 @@ coverage, and through what mechanism (RQ2)? Fig. 1 shows the two stages that
 answer them, RQ1 from metadata alone and RQ2 from the conformity scores of three
 backbones, with the section that reports each step.
 
-![**Fig. 1.** Audit workflow. Stage 1 (blue header) uses metadata only and returns verdicts that are exact given the declared dependence sources $D$, before any model is trained (RQ1; §3, §5.1). Stage 2 (orange headers) uses conformity scores from three backbones, at feasible levels only, to compare naive split conformal (B1) with HCP (B12), attribute the B1 deficit to dependence, relate it to the design effect, separate split-level from subject-level uncertainty and check robustness (RQ2; §5.2–§5.5).](figures/fig1_audit_workflow.png)
+![**Fig. 1.** Audit workflow. Stage 1 (blue header) uses metadata only and gives verdicts exact given the declared sources $D$ (RQ1); Stage 2 (orange headers) uses conformity scores from three backbones at feasible levels only (RQ2). Section numbers mark where each step is reported.](figures/fig1_audit_workflow.png)
 
 We propose no new conformal procedure. The contributions are three.
 

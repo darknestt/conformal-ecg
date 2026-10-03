@@ -17,7 +17,7 @@ blocking is feasible at every conventional $\alpha$, and each coarser source
 narrows the admissible range. Table 5.1 gives, per grouping, the calibration
 blocks, $\alpha_{\min}$ and the conventional levels that remain attainable.
 
-**Table 5.1.** Feasibility of HCP on PTB-XL fold 9 by grouping.
+**Table 5.1.** HCP feasibility on PTB-XL fold 9 by grouping.
 
 | Grouping | Blocks (all folds) | $K_1$ | Mean block size | $\alpha_{\min}$ | 0.01 | 0.05 | 0.10 | 0.20 |
 |---|---:|---:|---:|---:|:-:|:-:|:-:|:-:|
@@ -49,7 +49,7 @@ cannot verify (§6.4); the tendency of joins to merge into a giant component is
 known [P2]. Fig. 4 places the single sources, their joins and the MIT-BIH record
 partition on the feasibility frontier.
 
-![**Fig. 4.** Feasibility frontier $\alpha_{\min}=1/(K_1+1)$. Each marker is a calibration grouping on PTB-XL fold 9 (circles: single dependence source; squares: join of sources) or the MIT-BIH record partition (diamond). Values in parentheses are $K_1$. A grouping supports a guarantee at level $\alpha$ only if its marker lies below the corresponding dotted line.](figures/fig4_feasibility_frontier.png)
+![**Fig. 4.** Feasibility frontier $\alpha_{\min}=1/(K_1+1)$ for groupings on PTB-XL fold 9 (circles: single source; squares: joins) and the MIT-BIH records (diamond), with $K_1$ in parentheses. A level $\alpha$ is attainable only below its dotted line.](figures/fig4_feasibility_frontier.png)
 
 **Labels.** Applied label by label, Proposition 3 shrinks the feasible region as
 the hierarchy becomes finer. All superclasses pass, but 24 of the 44 SCP codes
@@ -57,7 +57,7 @@ fail at $\alpha=0.05$, `2AVB` occupies a single calibration block, and a
 Bonferroni correction across labels makes 43 of 44 codes infeasible at a
 family-wise $\alpha=0.05$. Table 5.2 counts the failing labels per level.
 
-**Table 5.2.** Labels failing the necessary condition of Proposition 3, PTB-XL fold 9, patient blocks.
+**Table 5.2.** PTB-XL labels failing Proposition 3 (fold 9, patient blocks).
 
 | Level | Labels $m$ | $K_1(\ell)$ range | Fail at 0.01 | Fail at 0.05 | Fail at 0.10 | Fail at 0.05 / $m$ |
 |---|---:|---:|---:|---:|---:|---:|
@@ -69,7 +69,7 @@ The hierarchy was monotone in all 23 parent–child pairs, and MIT-BIH class Q i
 confined to $K_1=2$ records ($\alpha_{\min}=0.333$). Fig. 5 resolves Table 5.2
 label by label against the block counts required at $\alpha=0.05$ and $0.10$.
 
-![**Fig. 5.** Calibration blocks carrying each label, by level of the PTB-XL hierarchy (fold 9, patient blocks; log scale). Dashed and dotted lines mark the minimum number of blocks for a finite per-label threshold at $\alpha=0.05$ and $\alpha=0.10$. Dark bars meet the $\alpha=0.05$ requirement, light bars only the $\alpha=0.10$ requirement, and orange bars neither.](figures/fig5_label_feasibility.png)
+![**Fig. 5.** Calibration blocks carrying each PTB-XL label by hierarchy level (fold 9, patient blocks; log scale). Dashed and dotted lines: blocks required at $\alpha=0.05$ and $0.10$. Dark bars meet the $0.05$ requirement, light bars only the $0.10$ one, orange bars neither.](figures/fig5_label_feasibility.png)
 
 ### 5.2 Coverage under block dependence
 
@@ -78,7 +78,7 @@ percentage points below $1-\alpha$ at every level, while on PTB-XL it reaches or
 exceeds nominal. Table 5.3 lists coverage and set size for both methods with the
 primary backbones.
 
-**Table 5.3.** Coverage (mean over splits, with 2.5–97.5% range across splits) and mean set size.
+**Table 5.3.** Coverage (mean, 2.5–97.5% range across splits) and mean set size.
 
 | Dataset | $\alpha$ | B1 coverage | B12 coverage | $\lvert C\rvert$ B1 | $\lvert C\rvert$ B12 |
 |---|---:|---|---:|---:|---:|
@@ -102,7 +102,7 @@ abstention. Fig. 6 shows both points,
 plotting each method's gap to nominal and shading the levels below
 $\alpha_{\min}$.
 
-![**Fig. 6.** Coverage minus nominal $1-\alpha$ for split conformal (B1, mean with 2.5–97.5% range across 200 block-level splits) and HCP (B12, mean), primary backbone. Shaded MIT-BIH levels lie below $\alpha_{\min}=1/12$, where HCP returns every label. Note the different vertical scales.](figures/fig6_coverage.png)
+![**Fig. 6.** Coverage minus nominal $1-\alpha$, primary backbone: B1 (mean and 2.5–97.5% range over 200 block-level splits) and B12 (mean). Shading marks MIT-BIH levels below $\alpha_{\min}=1/12$; vertical scales differ.](figures/fig6_coverage.png)
 
 ### 5.3 The deficit is attributable to dependence
 
@@ -121,7 +121,7 @@ $p\ge0.59$). On these 22 subjects B1 covers less than the null in every
 configuration, but 22 subjects are too few to establish the sign of the deficit
 for the population they represent.
 
-**Table 5.4.** MIT-BIH: B1 deficit against the permutation null, pp. Monte Carlo interval: percentile bootstrap over 200 paired splits of the 22 DS2 records, conditional on those records. Record level: leave-one-record-out jackknife (500 paired splits and a new permutation per replicate), 95% t interval with 21 df and Holm-adjusted one-sided p.
+**Table 5.4.** MIT-BIH B1 deficit against the permutation null (pp): Monte Carlo interval over 200 paired splits of the 22 DS2 records, and record-level jackknife 95% CI with Holm-adjusted one-sided p (Table 4.2).
 
 | Backbone | ICC | $\alpha$ | Deficit [Monte Carlo 95%] | Record level [95% CI] | Holm $p$ |
 |------------|-----|-----|----------------------|------------------------|--------|
@@ -167,7 +167,7 @@ Table 5.4, these intervals are conditional on the 22 DS2 records. Fig. 7 sets th
 two controls side by side: clustering dominates in panel (a), and in panel (b) the
 B12−B1 gap keeps nearly its full size once dependence is permuted away.
 
-![**Fig. 7.** Attribution of the MIT-BIH deficit, primary backbone. (a) Effects of clustering, block-size imbalance and their interaction on B1 coverage in the 2×2 factorial design (Monte Carlo 95% interval over 400 splits; open markers include zero). (b) B12−B1 coverage gap on the original data and after permuting beats between records (bars: mean; whiskers: 2.5–97.5% range across splits). Percentages give the mechanical share, the permuted gap as a fraction of the original.](figures/fig7_attribution.png)
+![**Fig. 7.** Attribution of the MIT-BIH deficit, primary backbone. (a) Factorial effects on B1 coverage (Monte Carlo 95% intervals, 400 splits; open markers include zero). (b) B12−B1 gap on original and permuted data (whiskers: 2.5–97.5% range); percentages give the mechanical share.](figures/fig7_attribution.png)
 
 ### 5.4 The deficit tracks the design effect
 
@@ -184,7 +184,7 @@ $p$-values, which treat points as independent, are not population inference.
 Table 5.5 reports the correlations on three dependence axes; within MIT-BIH the
 deficit grows with ICC at all three levels.
 
-**Table 5.5.** Spearman correlation between dependence and coverage deficit (p-values treat points as independent and are shown for completeness).
+**Table 5.5.** Spearman correlation between dependence and coverage deficit (p-values treat points as independent).
 
 | Axis | Points | $\alpha=0.10$ | $\alpha=0.15$ | $\alpha=0.20$ |
 |---|---:|---|---|---|
@@ -204,7 +204,7 @@ correlation, and PTB-XL serves as a prediction check at the low-dependence end
 rather than an independent trend (§6.4), with deficits of −0.05, −0.12 and
 −0.16 pp, i.e. coverage slightly above nominal.
 
-![**Fig. 8.** B1 coverage deficit against the design effect. MIT-BIH points (blue) are obtained by randomly reassigning a growing fraction of beats to other records, with calibration records subsampled to a common size; PTB-XL (orange) is the observed patient partition with its Monte Carlo 95% interval. The annotation gives the Spearman correlation over the 12 points at $\alpha=0.10, 0.15, 0.20$.](figures/fig8_dose_response.png)
+![**Fig. 8.** B1 coverage deficit against the design effect. MIT-BIH (blue): beats progressively reassigned between records; PTB-XL (orange): observed patient partition with Monte Carlo 95% interval. Spearman correlations over the 12 points are annotated.](figures/fig8_dose_response.png)
 
 ### 5.5 Robustness to backbone and checkpoint
 
@@ -241,7 +241,7 @@ the direction holds for every backbone, but only the narrower, conditional
 intervals exclude zero. Panel (b) shows every cell staying in the quadrant of its
 original sign under both checkpoints.
 
-![**Fig. 9.** Robustness of the audit. (a) MIT-BIH B1 coverage deficit against the matched permutation null, by backbone and $\alpha$: point estimate with Monte Carlo 95% interval over 200 splits of the 22 DS2 records (open markers include zero), and record-level 95% CI from the leave-one-record-out jackknife (light bars). (b) B1 coverage minus nominal under best-validation (horizontal) and last-epoch (vertical) weights for the two residual networks, 16 backbone×dataset×$\alpha$ cells; shaded quadrants mark agreement in sign and the dotted line marks equality.](figures/fig9_robustness.png)
+![**Fig. 9.** Robustness. (a) MIT-BIH B1 deficit against the permutation null by backbone and $\alpha$: Monte Carlo 95% interval (200 splits; open markers include zero) and record-level jackknife 95% CI (light bars). (b) B1 coverage minus nominal under best-validation versus last-epoch weights, 16 cells; shaded quadrants mark sign agreement.](figures/fig9_robustness.png)
 
 ---
 

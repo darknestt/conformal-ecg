@@ -116,7 +116,7 @@ is what matters here. Fig. 2 illustrates it on eight hypothetical records: five
 patient blocks and three device blocks, each acceptable alone, shrink to two once
 both sources must be respected.
 
-![**Fig. 2.** Schematic of Proposition 2 on eight hypothetical records (circles). Solid arcs link records of the same patient and dashed arcs records of the same device. A grouping sufficient for both sources must keep every linked pair in one block, so the finest such grouping is the join, the connected components (shaded). On PTB-XL the same mechanism collapses four declared sources to a single block (§5.1).](figures/fig2_join_schematic.png)
+![**Fig. 2.** Proposition 2 on eight hypothetical records. Solid arcs: same patient; dashed arcs: same device; shaded: their join (connected components), the finest grouping sufficient for both sources.](figures/fig2_join_schematic.png)
 
 **Corollary 2 (impossibility).** If $K_1(\mathcal{P}_1\vee\mathcal{P}_2)<\lceil1/\alpha\rceil-1$, no HCP calibration yields a non-trivial guarantee at level $\alpha$ while accounting for both dependence sources; the same holds for any number of sources and their joint join. This is a property of the study design, not a shortcoming of any estimator.
 

@@ -60,7 +60,7 @@ situation of Corollary 2. Fig. 3 contrasts these groupings with the MIT-BIH
 records: the length of each curve is the number of blocks, which governs
 feasibility, and its height is the block size, which drives the design effect.
 
-![**Fig. 3.** Block geometry of the two primary datasets: block sizes sorted in decreasing order (log–log). The length of each curve is the number of blocks $K$ and its height the block size; $H$ is the harmonic mean block size over the whole dataset. Groupings that end left of the dotted line cannot support a guarantee at $\alpha=0.05$ even if every block were used for calibration (Corollary 1).](figures/fig3_block_geometry.png)
+![**Fig. 3.** Block sizes in decreasing order (log–log). Curve length is the number of blocks $K$; $H$ is the harmonic mean block size over the whole dataset. Curves ending left of the dotted line cannot support $\alpha=0.05$ (Corollary 1).](figures/fig3_block_geometry.png)
 
 PTB-XL patient blocks are many and nearly singletons; the other three PTB-XL
 sources and the MIT-BIH records offer few blocks of hundreds to thousands of
