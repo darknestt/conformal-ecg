@@ -56,6 +56,22 @@ calibration blocks, per label where relevant. These conclusions are limited to
 HCP and to the sources declared here, and whether other block-level procedures
 face the same boundary is an open question.
 
+## Data and Code Availability
+
+PTB-XL (version 1.0.3) [H2], the MIT-BIH Arrhythmia Database [H3] and the
+PhysioNet/CinC Challenge 2021 collection (version 1.0.3) [H5] are publicly
+available from PhysioNet under their respective licences. The code, the analysis
+protocol with its deviation log, and the JSON artifact behind every reported
+number will be archived under a persistent identifier before publication
+[identifier to be inserted].
+
+## Ethics Statement
+
+This study is a secondary analysis of publicly available, de-identified
+recordings; no new data were collected and no participant was contacted.
+[Institutional statement on the need for ethics review to be added by the
+authors.]
+
 ---
 
 ## Catatan penyusunan

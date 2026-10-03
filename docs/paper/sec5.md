@@ -161,7 +161,7 @@ deficit against the permutation null is the evidence used throughout.
 
 **Factorial decomposition.** A 2×2 design crossed clustering (original versus
 randomized record membership) with block-size balance (balanced versus
-imbalanced) while holding the calibration size fixed. Clustering lowered
+imbalanced) with calibration size matched in expectation (§4.4). Clustering lowered
 coverage by 1.22, 1.55 and 1.49 pp at $\alpha=0.10, 0.15, 0.20$, with Monte Carlo
 intervals over 400 splits that exclude zero (for example $[-1.84, -0.63]$ pp at
 0.10). The imbalance main effect was smaller (−0.44, −0.26, −0.27 pp), and
@@ -181,10 +181,11 @@ away.
 ### 5.4 The deficit tracks the design effect
 
 To vary dependence inside a single dataset, we moved a fraction $p$ of MIT-BIH
-beats to randomly chosen records while fixing every block at 1,355 beats, so
-that imbalance cannot play a role (11 values of $p$, 300 splits each). Over this
-range the score ICC declines from 0.519 at $p=0$ to 0.0001 at $p=1$. Because blocks
-are uniform and calibration is subsampled, the deficits are smaller than in §5.3
+beats to randomly chosen records while subsampling every calibration record to
+1,355 beats, so that calibration-block imbalance plays no part (11 values of $p$,
+300 splits each; test records are used in full). Over this
+range the score ICC declines from 0.519 at $p=0$ to 0.0001 at $p=1$. Because
+calibration records are subsampled to a common size, the deficits are smaller than in §5.3
 (0.65 pp at $p=0$, $\alpha=0.10$) and every per-point Monte Carlo interval includes
 zero; the
 evidence therefore lies in the trend across points, summarized by Spearman
@@ -215,7 +216,7 @@ correlation, while PTB-XL acts as a prediction check at the low-dependence end
 rather than as an independent trend (§6.4), with deficits of −0.05, −0.12 and
 −0.16 pp, that is, coverage slightly above nominal.
 
-![**Fig. 7.** B1 coverage deficit against the design effect. MIT-BIH points (blue) are obtained by randomly reassigning a growing fraction of beats to other records at a fixed block size; PTB-XL (orange) is the observed patient partition with its Monte Carlo 95% interval. The annotation gives the Spearman correlation over the 12 points at $\alpha=0.10, 0.15, 0.20$.](figures/fig7_dose_response.png)
+![**Fig. 7.** B1 coverage deficit against the design effect. MIT-BIH points (blue) are obtained by randomly reassigning a growing fraction of beats to other records, with calibration records subsampled to a common size; PTB-XL (orange) is the observed patient partition with its Monte Carlo 95% interval. The annotation gives the Spearman correlation over the 12 points at $\alpha=0.10, 0.15, 0.20$.](figures/fig7_dose_response.png)
 
 ### 5.5 Robustness to backbone and checkpoint
 

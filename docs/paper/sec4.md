@@ -46,11 +46,14 @@ meant to support any claim of generality; it is included because a diagnostic
 that never returns anything but "admissible" has not shown that it can
 discriminate.
 
-**PTB-XL.** This dataset [H1], [H2] comprises 21,799 twelve-lead records from
-18,869 patients and is distributed with full metadata under a permissive
-licence. We work with the 100 Hz version, i.e. 1,000 samples per 10-second
-record, after band-pass filtering at 0.5–40 Hz. Its diagnostic statements fall
-into five superclasses that are not mutually exclusive: NORM (9,514), MI (5,469),
+**PTB-XL.** This dataset (version 1.0.3) [H1], [H2] comprises 21,799 twelve-lead
+records from 18,869 patients and is distributed with full metadata under a
+permissive licence. We work with the 100 Hz version, i.e. 1,000 samples per
+10-second record, filtered with a zero-phase third-order Butterworth band-pass
+at 0.5–40 Hz and z-normalized per lead and record. Its diagnostic statements fall
+into five superclasses that are not mutually exclusive; a superclass is assigned
+when any diagnostic SCP statement of that class appears in the record's
+annotation, irrespective of its likelihood value: NORM (9,514), MI (5,469),
 STTC (5,235), CD (4,898) and HYP (2,649). These amount to 27,765 labels, and 5,144
 records carry more than one superclass. The 411 records (1.9%) without any
 diagnostic superclass would be covered trivially under (4), so instead of
@@ -71,13 +74,14 @@ uneven across folds: on average 67.0% of records in folds 1–8 (range 64–68%)
 every record in folds 9 and 10. Confirmatory analysis is therefore restricted to
 folds 9–10, with fold 10 held in reserve and still unexamined.
 
-**MIT-BIH.** The MIT-BIH Arrhythmia Database [H3] consists of 48 two-channel
-recordings of half an hour each, sampled at 360 Hz and annotated beat by beat by
-cardiologists. As is customary, the four paced records (102, 104, 107, 217) are
-removed, leaving 44. Mapping the annotations to the five AAMI classes gives
-100,733 beats. Of these, 40 sit within 128 samples of a record boundary, too close
-to fit a full 256-sample (711 ms) window; we drop them instead of zero-padding,
-which leaves 100,693. Per class the counts are N 90,087, S 2,781, V 7,008, F 802
+**MIT-BIH.** The MIT-BIH Arrhythmia Database (version 1.0.0) [H3] consists of 48
+two-channel recordings of half an hour each, sampled at 360 Hz and annotated beat
+by beat by cardiologists. As is customary, the four paced records (102, 104, 107,
+217) are removed, leaving 44. Mapping the annotations to the five AAMI classes
+gives 100,733 beats, each represented by a window centered on its annotated R
+peak, filtered as for PTB-XL and z-normalized per beat. Of these, 40 sit within
+128 samples of a record boundary, too close to fit a full 256-sample (711 ms)
+window; we drop them instead of zero-padding, which leaves 100,693. Per class the counts are N 90,087, S 2,781, V 7,008, F 802
 and Q 15, and class Q is kept and reported as degenerate rather than merged into
 another class. The MLII lead is chosen by name, because record 114 stores its
 channels in the order `[V5, MLII]` and choosing by index would quietly
@@ -88,7 +92,8 @@ boundary beats are removed. Record length ranges from 1,517 to 3,361 beats
 and 202 belong to one subject yet land on opposite sides of the partition; we
 retain the standard split for comparability and disclose the leak.
 
-**Challenge 2021.** The PhysioNet/CinC Challenge 2021 collection [H5] has seven
+**Challenge 2021.** The PhysioNet/CinC Challenge 2021 collection (version 1.0.3)
+[H5] has seven
 non-duplicate source folders totalling 66,416 records, ranging from `ningbo`
 (34,905) to `st_petersburg_incart` (74). Its `ptb-xl` folder (21,837 records)
 repeats PTB-XL and is left out; together the two totals give the official
@@ -135,10 +140,11 @@ averaged over splits. This observation-weighted coverage is the natural target
 of split conformal, whose nominal statement concerns one exchangeable
 observation. The guarantee (2) of HCP concerns one observation from a new block
 instead, and its empirical counterpart averages coverage within each test block
-before averaging over blocks. The two coincide when blocks have equal size, as in
-the dose–response design of §5.4, and nearly so on PTB-XL, where most blocks hold
-one record; for MIT-BIH both are reported (§5.3). On PTB-XL the coverage reported
-is superset coverage (4), obtained from the maximum score over the true labels.
+before averaging over blocks. The two coincide when test blocks have equal size
+and nearly so on PTB-XL, where most blocks hold one record; MIT-BIH records
+differ in length by a factor of up to 2.2, so for MIT-BIH both are reported
+(§5.3). On PTB-XL the coverage reported is superset coverage (4), obtained from
+the maximum score over the true labels.
 
 ### 4.3 Models and conformity scores
 
@@ -150,8 +156,13 @@ with two 1-D residual networks of the PTB-XL benchmark family [F1], ResNet1D-34
 (7,225,733 / 7,220,805 parameters) and ResNet1D-50 (15,969,413 / 15,964,485).
 These are trained with Adam at a learning rate of $10^{-3}$, with early stopping
 on validation loss (patience 5) and a cap of 25 epochs on PTB-XL and 30 on
-MIT-BIH; the SmallECGNet weights come from the primary study and are not
-retrained. The primary backbone attains a macro-AUROC of 0.9016 on PTB-XL and, on
+MIT-BIH; the SmallECGNet weights come from the primary study, which used the same
+optimizer and stopping rule, and are not retrained. Losses are binary cross-entropy
+over the five superclasses for PTB-XL and cross-entropy over the five AAMI
+classes for MIT-BIH, without class weighting. Batches hold 128 records (PTB-XL)
+or 256 beats (MIT-BIH); for the residual networks they are accumulated from
+micro-batches of 32 or 64, so batch-normalization statistics are computed per
+micro-batch. The primary backbone attains a macro-AUROC of 0.9016 on PTB-XL and, on
 MIT-BIH, an accuracy of 0.8690 with balanced accuracy 0.3748 and macro-F1 0.3144;
 its weakness on minority classes enlarges sets but leaves coverage intact.
 Scores are $s(x,y)=1-\hat p_y(x)$ for multi-class MIT-BIH and
@@ -176,8 +187,24 @@ start of the project; it was not publicly registered or formally frozen, and its
 deviation log, released with the code, lists every departure from the initial
 plan. Friedman–Nemenyi tests are deliberately avoided: they are meant for many
 classifiers over many datasets, conventionally five or more, and are
-uninformative with two. The procedure used for each reported quantity is listed
-in Table 4.2.
+uninformative with two.
+
+The controls are constructed as follows. The permutation null reassigns beats to
+DS2 records by one random permutation of their record labels, which preserves
+every block size; the observed and permuted arms are evaluated on the same
+sequence of splits. In the factorial design, the clustered arm uses the original
+records and the randomized arm the permuted ones; in the balanced arm every
+calibration record is subsampled to 1,355 beats (60% of the mean record length)
+and in the imbalanced arm to 60% of its own length, so that calibration sizes
+match in expectation, while test records are used in full. The dose–response
+experiment permutes the record labels of a random fraction
+$p\in\{0, 0.1,\dots,1\}$ of beats, again preserving block sizes, and subsamples
+calibration records to 1,355 beats. Intraclass correlations use the one-way
+ANOVA estimator for unbalanced designs,
+$(\mathrm{MSB}-\mathrm{MSW})/\{\mathrm{MSB}+(N_0-1)\mathrm{MSW}\}$, on conformity
+scores (on PTB-XL, the superset score of (4)); the indicator version uses the
+threshold $t$ equal to the $(1-\alpha)$ quantile of all evaluation scores. The
+procedure used for each reported quantity is listed in Table 4.2.
 
 **Table 4.2.** Statistical procedures.
 
@@ -187,13 +214,16 @@ in Table 4.2.
 | B1 deficit against the permutation null | Paired splits (200); Monte Carlo 95% interval from a percentile bootstrap of split-level coverage (4,000 resamples) |
 | B1 deficit, record level | Leave-one-record-out jackknife over the 22 DS2 records (500 paired splits per replicate, new permutation per replicate); $t$ interval with 21 df; one-sided $t$ test |
 | Multiplicity | Holm–Bonferroni across the three $\alpha$ levels within each backbone (record-level test) |
-| Factorial effects | Monte Carlo 95% interval: percentile bootstrap (3,000 resamples of 400 split-level values) |
+| Factorial effects | 400 splits; Monte Carlo 95% interval: percentile bootstrap (3,000 resamples) |
+| Dose–response points | 300 splits per point; Monte Carlo 95% interval: percentile bootstrap (3,000 resamples) |
 | Monotonicity in dependence | Spearman correlation across configurations (descriptive; points share the same records) |
 | Sensitivity to checkpoint | Agreement of signs between best-validation and last-epoch weights |
 
 ### 4.5 Reproducibility
 
-Experiments run on CPU (2 threads) with fixed seeds (seed 0 for every analysis). Each reported number is
+Experiments run on CPU (Intel Core i5-7200U, 2 threads) with Python 3.14.6,
+PyTorch 2.14.0, NumPy 2.5.2, SciPy 1.18.1, scikit-learn 1.9.1, pandas 3.0.6 and
+wfdb 4.3.1, using seed 0 for every analysis. Each reported number is
 stored, together with its configuration, as a JSON artifact under `results/raw/`,
 and dataset caches are written atomically so that an interrupted run cannot leave
 a partial cache behind.

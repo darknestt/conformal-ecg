@@ -130,8 +130,9 @@ change in label quality between folds rather than block dependence, which is why
 confirmatory analyses use fold 9 and fold 10 remains unexamined. Each
 data-handling choice in §4.1 protects against a failure that would raise no
 error (unlabelled records, the channel order of record 114, boundary beats, and
-the subject shared by records 201 and 202), and every preprocessing step is
-fitted on training data alone.
+the subject shared by records 201 and 202), and no preprocessing step uses a
+quantity estimated from evaluation data: the filter is fixed and normalization is
+per record or per beat.
 
 **Construct validity.** MIT-BIH class Q comprises 15 beats in total, 7 of which
 fall in two evaluation records, so per-class statistics for Q cannot be
