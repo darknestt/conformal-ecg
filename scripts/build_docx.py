@@ -95,8 +95,11 @@ def rapikan_baris(md: str) -> str:
             keluar.append(b.replace("**", "").replace("`", ""))
             continue
         lead = re.match(r"^(\*\*[^*]+?[.:)—]\*\*)(.*)$", b)
+        butir = re.match(r"^(\d+\.\s+\*\*[^*]+\*\*)(.*)$", b)
         if lead:
             keluar.append(lead.group(1) + lead.group(2).replace("**", ""))
+        elif butir:
+            keluar.append(butir.group(1) + butir.group(2).replace("**", ""))
         else:
             keluar.append(b.replace("**", ""))
     return "\n".join(keluar)

@@ -243,6 +243,7 @@ Fungsi di `make_figures.py` (urutan loop): `fig1_alur, fig_join, fig_geometri, f
 - PTB-XL **fold 10 belum pernah disentuh** (cadangan evaluasi konfirmatori). Jangan dipakai tanpa keputusan eksplisit.
 - Scheduled task Windows `Sqopus-BackboneInvariance` pernah dibuat untuk melanjutkan pelatihan setelah restart; pelatihan sudah selesai, cek dan hapus bila masih ada.
 - Ada ruang kosong kecil di bawah beberapa halaman (gambar pindah halaman). Wajar untuk draf Word.
+- **Jangan menyimpan (Ctrl+S) docx dari Word.** Word mengubah semua rumus linear menjadi bentuk bertumpuk (mis. ⌈1/α⌉ jadi pecahan kecil) dan perubahan itu tertimpa saat docx dibangun ulang. Suntingan harus dilakukan di file `.md`.
 
 ---
 

@@ -65,10 +65,10 @@ can run four checks before collecting or splitting data:
    episode) and check that each is documented; if one is not, as with patient
    identity in Challenge 2021, the block count is an assumption.
 2. **Count blocks, not records**, under the grouping that respects all declared
-   sources, and compare the count with $\lceil 1/\alpha\rceil-1$.
-3. **Repeat the count per label** for label-conditional claims, using
-   $\lceil m/\alpha\rceil-1$ for simultaneous claims over $m$ labels; rare
-   diagnoses usually fail first.
+   sources, and compare the count with $K_{\min}(\alpha)$ of Corollary 1.
+3. **Repeat the count per label** for label-conditional claims, with $\alpha$
+   divided by the number $m$ of labels claimed simultaneously; rare diagnoses
+   usually fail first.
 4. **Estimate repetition** through the harmonic mean block size before deciding
    whether marginal coverage needs block-level calibration.
 
