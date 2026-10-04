@@ -10,7 +10,7 @@
 
 | Hal | Isi |
 |---|---|
-| Judul | *Block-Level Feasibility of Conformal Calibration on Clinical ECG Data: An Empirical Audit* |
+| Judul | *Block-Level Feasibility of Hierarchical Conformal Prediction on Clinical ECG Data: A Design-Stage Audit* (dipilih 2026-10-04; judul sebelumnya: *… of Conformal Calibration …: An Empirical Audit*) |
 | Jenis | Audit empiris + teori kelayakan. **Tidak** mengusulkan metode conformal baru. |
 | Target | Jurnal internasional bereputasi (Scopus Q1). **Jurnal dan template belum ditentukan** (arahan dosen pembimbing). |
 | Bahasa naskah | Inggris (ejaan Amerika) |

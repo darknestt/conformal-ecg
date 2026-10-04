@@ -1,8 +1,10 @@
-# How Study Design Determines Distribution-Free Guarantees in Clinical Multi-Label Prediction
+# Block-Level Feasibility of Hierarchical Conformal Prediction on Clinical ECG Data: A Design-Stage Audit
 
-> ⚠️ **JUDUL SEDANG DIREVISI.** Judul lama — *Hierarchy-Aware Conformal Risk Control for Multi-Label Clinical Time Series under Patient-Level Dependence* — menjanjikan kontribusi teoretis (C1) yang **ternyata sudah diterbitkan orang lain**. Lihat §4.0.
+> ✅ **JUDUL FINAL (2026-10-04).** Dipakai di `docs/paper/manuscript-draft.docx` (sumber: `scripts/build_docx.py`). Bagian di bawah ini adalah riwayat perencanaan dan tidak berlaku lagi.
 >
-> **Kandidat judul baru:**
+> Judul lama — *Hierarchy-Aware Conformal Risk Control for Multi-Label Clinical Time Series under Patient-Level Dependence* — menjanjikan kontribusi teoretis (C1) yang **ternyata sudah diterbitkan orang lain**. Lihat §4.0.
+>
+> **Kandidat judul tahap perencanaan (riwayat):**
 >
 > 1. *How Study Design Determines Distribution-Free Guarantees in Clinical Multi-Label Prediction* — menekankan C6, menjawab langsung pertanyaan terbuka Lee-Barber-Willett
 > 2. *Group Count or Group Size? Feasibility Limits of Hierarchical Conformal Prediction on Clinical ECG* — lebih spesifik, memuat temuan dua-batas
@@ -10,7 +12,7 @@
 >
 > **Pilih setelah C6 berhasil diformalkan di F1.** Jangan mengunci judul sebelum kontribusi final.
 
-> **Judul (ID):** Bagaimana Desain Studi Menentukan Jaminan Bebas-Distribusi pada Prediksi Klinis Multi-Label
+> **Judul (ID):** Kelayakan Tingkat Blok Prediksi Konformal Hierarkis pada Data EKG Klinis: Audit Tahap Desain
 >
 > **Running title:** Feasibility Limits of Hierarchical Conformal Prediction
 >

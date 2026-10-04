@@ -39,7 +39,7 @@ ROOT = pathlib.Path(__file__).resolve().parents[1]
 PAPER = ROOT / "docs" / "paper"
 KELUAR = PAPER / "manuscript-draft.docx"
 REFS = PAPER / "references.json"
-JUDUL = "Block-Level Feasibility of Conformal Calibration on Clinical ECG Data: An Empirical Audit"
+JUDUL = "Block-Level Feasibility of Hierarchical Conformal Prediction on Clinical ECG Data: A Design-Stage Audit"
 
 URUTAN = [
     ("1", "Introduction", "sec1.md"),
