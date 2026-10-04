@@ -151,7 +151,8 @@ effect is sufficient for coverage loss. Corollary 2 is proved for HCP only (§3.
 and the hierarchical constructions are not compared with one another [A0b]. For
 PTB-XL the verdict is exhaustive only for the declared sources {patient, site,
 nurse, device}, which the data cannot verify. Declaring only {patient, site}
-gives $K_1=34$ on the full fold-9 pool and makes $\alpha=0.05$ feasible, yet
+merges the 1,942 fold-9 patients into 34 calibration blocks (their join, §3.3),
+so $\alpha=0.05$ becomes feasible, yet
 31 of these blocks consist entirely of 188 records without nurse metadata, and on
 the 1,960 fully annotated records the same declaration gives $K_1=3$. The result
 is therefore conditional: *if patient, site, nurse, and device are all treated as

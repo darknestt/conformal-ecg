@@ -25,6 +25,10 @@ $$
 \tag{A.1}
 $$
 
+Each block mean $\bar F_k(t)$ has variance $\sigma^2(t)[\rho(t)+\{1-\rho(t)\}/N_k]$,
+and averaging $K_1$ independent blocks with equal weights gives
+$\sigma^2(t)[\rho(t)+\{1-\rho(t)\}/H]/K_1$, which equals (A.1) because
+$H=K_1/\sum_k N_k^{-1}$.
 As $N_k\to\infty$ this tends to $\sigma^2\rho/K_1$. The floor is a feature of
 compound symmetry rather than of clustered data in general: when correlation
 decays with distance, as is plausible for consecutive beats in a long Holter
@@ -33,11 +37,11 @@ vanishes. We make no claim outside (A).
 
 ### A.3 Equal weighting in HCP
 
-Cluster-randomized trials compare equal and size-proportional weighting of
-cluster means, and equal weighting loses efficiency when cluster sizes vary
-[I1, A13]. In HCP it cannot be replaced, so the practitioner is tied to the
-estimator that cluster-sampling theory regards as most sensitive to block
-imbalance, without the standard remedy. We state this as an observation and do
+Methodological work on cluster-randomized trials compares uniform,
+size-proportional and minimum-variance weighting of cluster means and finds
+minimum-variance weights more efficient than uniform ones when cluster sizes vary
+[I1, A13]. In HCP uniform weighting cannot be replaced, so the practitioner is
+tied to the less efficient of these two choices without the remedy used there. We state this as an observation and do
 not prove that equal weights are the only valid choice. On PTB-XL the two design
 effects of (4) differ by a factor of 15.7 at the site level, while on
 `strat_fold`, whose blocks are almost uniform by construction, their ratio is

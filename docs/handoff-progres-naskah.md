@@ -240,7 +240,7 @@ Fungsi di `make_figures.py` (urutan loop): `fig1_alur, fig_join, fig_geometri, f
 
 ### Tindakan pengguna
 - **R5**: jadikan repo publik atau arsipkan di Zenodo (perlu persetujuan pengguna; naskah menyatakan kode dirilis).
-- **R6**: I1, I2 belum dibaca teks lengkapnya. P1 (Noonan), A0, A0b, E6, P2 sudah diverifikasi (PASS 1B). Sumber primer giant component (Guvenilir & Doğan 2023) baru boleh dikutip setelah verifikasi Crossref.
+- **R6 (selesai, Gate 2A.2)**: I1 (Kerry & Bland 2001) dicek lewat abstrak Europe PMC, A13 lewat teks lengkap OA; klaim §3.2/A.3 diselaraskan (minimum-variance lebih efisien daripada uniform). I2 (White & Thomas 2005) teks lengkap tertutup → **dilepas**; rumus varians kini diturunkan langsung di A.2. Rujukan 35 → 34. Sumber primer giant component terverifikasi (Atas Guvenilir & Doğan, J Cheminform 15:16, 2023, doi 10.1186/s13321-023-00689-w; teks menyebut "giant connected component") tetapi **belum ditambahkan** (menunggu keputusan pengguna).
 - **PASS 2B** (penulisan ulang bahasa) menunggu; naskah kini 21 halaman.
 - Pilih jurnal target → sesuaikan ke template (gaya rujukan, batas kata, struktur abstrak) → penghalusan bahasa (P6).
 - Masukan dosen atas draf 19 halaman.

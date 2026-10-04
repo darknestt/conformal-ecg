@@ -74,8 +74,8 @@ and any two indicators $\mathbb{1}\{s\le t\}$ within a block share a correlation
 $\rho(t)$ that does not vary with $N_k$ (compound symmetry), so $\rho(t)$ is the
 intraclass correlation of the indicator, not of the raw score. The HCP threshold
 is a functional of $\hat G(t)=\frac{1}{K_1}\sum_k \bar F_k(t)$, the unweighted
-average of block-level empirical CDFs, whose variance under (A) is the textbook
-expression for an unweighted mean of cluster means [I2],
+average of block-level empirical CDFs, whose variance under (A) follows from
+averaging $K_1$ independent block means with equal weights,
 $\sigma^2(t)[1+(H-1)\rho(t)]/(K_1H)$ with $\sigma^2(t)=F(t)\{1-F(t)\}$
 (Appendix A.2). This block-weighted design effect and the observation-weighted
 one behind the Kish effective sample size agree only for equal block sizes:
@@ -89,9 +89,9 @@ $$
 
 The second is the usual design effect for unequal clusters; for the coverage of a
 pooled threshold it takes the same form with the indicator correlation in place of
-$\rho$ [P1]. Cluster-randomized
-trials usually replace equal weighting of cluster means with minimum-variance
-weights [I1, A13]; in HCP equal weighting is built into the threshold, and
+$\rho$ [P1]. In cluster-randomized trials, minimum-variance weighting of cluster
+means is more efficient than equal weighting when cluster sizes vary [I1, A13];
+in HCP equal weighting is built into the threshold, and
 dropping it can invalidate the guarantee (Appendix A.3).
 
 **The axis used to organize results.** Datasets with very different block
