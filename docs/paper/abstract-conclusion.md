@@ -8,30 +8,29 @@
 ## Abstract
 
 Conformal prediction guarantees finite-sample coverage only when calibration and
-test data are exchangeable, a condition that repeated recordings, segments and
-beats from the same patient violate. Hierarchical conformal prediction (HCP)
+test data are exchangeable, which repeated recordings, segments and beats from
+one patient violate. Hierarchical conformal prediction (HCP)
 recovers the guarantee by calibrating over blocks, yet its threshold exists only
 for target error rates of at least $1/(K_1+1)$, with $K_1$ the number of
-calibration blocks. We audit three public electrocardiogram resources to ask
-whether this guarantee can be enforced when several dependence sources are
-declared and coverage is required per diagnosis, and whether ignoring blocks
-costs coverage. From metadata alone, declaring the four documented dependence
+calibration blocks. We audit three public electrocardiogram resources: can this
+guarantee be enforced when several dependence sources are declared and coverage
+is required per diagnosis, and does ignoring blocks cost coverage? From metadata alone, declaring the four documented dependence
 sources of PTB-XL leaves a single admissible calibration block, and under patient
 blocking 24 of 44 diagnostic SCP statements have no finite per-label threshold at
 $\alpha=0.05$. Across repeated
 splits of the 22 MIT-BIH evaluation subjects, naive split conformal covers
-1.5–2.4 percentage points less than a matched permutation null; a factorial
+1.5–2.4 percentage points less than a matched permutation null (primary
+backbone); a factorial
 design attributes the shortfall mainly to clustering, and a controlled
 dose–response experiment shows it growing with the design effect (rank
 correlation 0.80–0.85 over 12 configurations, 11 of them synthetic). A jackknife
-over subjects, however, cannot resolve the sign of this deficit: the scarcity of
-blocks that limits the guarantee also limits the evidence. PTB-XL shows no
-deficit despite a within-patient correlation of 0.35, consistent with most of its
-patients contributing one recording. Most of the coverage gap between HCP and
+over subjects cannot resolve the sign of this deficit: the scarcity of
+blocks that limits the guarantee also limits the evidence. PTB-XL, where most
+patients contribute one recording, shows no deficit despite a within-patient
+correlation of 0.35. Most of the coverage gap between HCP and
 naive calibration is mechanical: 75–110% of it persists when dependence is
-permuted away and block sizes are kept. Blocks, not records, should be counted, and subjects, not splits,
-resampled, before claims about distribution-free coverage are made on clinical
-data.
+permuted away and block sizes are kept. Clinical coverage claims should count
+blocks, not records, and resample subjects, not splits.
 
 **Keywords** — Conformal prediction, electrocardiography, uncertainty
 quantification, hierarchical data, exchangeability, calibration, study design.

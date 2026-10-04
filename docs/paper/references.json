@@ -1556,6 +1556,31 @@
     "dataset": false,
     "kecocokan_judul": 1.0
   },
+  "P3": {
+    "jenis": "journal-article",
+    "penulis": [
+      {
+        "given": "Heval",
+        "family": "Atas Guvenilir"
+      },
+      {
+        "given": "Tunca",
+        "family": "Doğan"
+      }
+    ],
+    "judul": "How to approach machine learning-based prediction of drug/compound–target interactions",
+    "venue": "Journal of Cheminformatics",
+    "venue_singkat": "J. Cheminform.",
+    "volume": "15",
+    "nomor": "1",
+    "halaman": "16",
+    "tahun": 2023,
+    "bulan": 2,
+    "penerbit": "Springer Science and Business Media LLC",
+    "doi": "10.1186/s13321-023-00689-w",
+    "dataset": false,
+    "kecocokan_judul": 1.0
+  },
   "E6": {
     "jenis": "journal-article",
     "penulis": [

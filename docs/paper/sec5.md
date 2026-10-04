@@ -48,7 +48,7 @@ all 8 have $K_1=1$. *If patient, site, nurse, and device are all treated as
 dependence sources, no admissible calibration grouping exists at any conventional
 $\alpha$.* The statement is conditional on that declaration, which the data
 cannot verify (§6.4); the tendency of joins to merge into a giant component is
-known [P2]. Fig. 4 places the single sources, their joins and the MIT-BIH record
+known [P3], [P2]. Fig. 4 places the single sources, their joins and the MIT-BIH record
 partition on the feasibility frontier.
 
 ![**Fig. 4.** Feasibility frontier $\alpha_{\min}=1/(K_1+1)$ for groupings on PTB-XL (circles: single source; squares: joins; all of fold 9 as the calibration pool) and for the 11 calibration records of the MIT-BIH 11/11 split (diamond), with $K_1$ in parentheses. A level $\alpha$ is attainable only below its dotted line.](figures/fig4_feasibility_frontier.png)
@@ -206,7 +206,7 @@ deficit grows with ICC at all three levels.
 **Table 5.5.** Spearman correlation between dependence and coverage deficit (p-values treat points as independent).
 
 | Axis | Points | $\alpha=0.10$ | $\alpha=0.15$ | $\alpha=0.20$ |
-|------------------------------|----:|-----------------|-----------------|-----------------|
+|------------------------------|-------:|-----------------|-----------------|-----------------|
 | Score ICC, MIT-BIH only | 11 | 0.88 ($p=0.0003$) | 0.78 ($p=0.0045$) | 0.80 ($p=0.0031$) |
 | DEff, MIT-BIH + PTB-XL | 12 | 0.84 ($p=0.0006$) | 0.80 ($p=0.0016$) | 0.85 ($p=0.0005$) |
 | Indicator DEff, MIT-BIH + PTB-XL | 12 | 0.90 ($p<0.0001$) | 0.80 ($p=0.0016$) | 0.71 ($p=0.010$) |

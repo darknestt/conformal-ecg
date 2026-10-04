@@ -29,25 +29,26 @@ $1/(K_1+1)$, with $K_1$ the number of calibration blocks. A large dataset can
 thus be left with few blocks once every dependence source is respected, and a
 rare diagnosis with fewer still. Conversely, ignoring blocks may cost nothing
 when almost every patient contributes one recording. Lee et al. leave the choice
-between many small and few large groups open as a design question [A0]. Dunn et
-al. state how many groups their hierarchical constructions need for non-trivial
-prediction sets [A0b], and Sim and Kim showed for ECG monitoring that the
-false-alarm guarantee of split conformal prediction counts subjects, not beats,
-and needs at least 19 calibration subjects at $\alpha=0.05$ [E6].
+between many small and few large groups open as a design question [A0]; Dunn et
+al. state how many groups their constructions need for non-trivial prediction
+sets [A0b]; and Sim and Kim showed for ECG monitoring that the false-alarm
+guarantee of split conformal prediction counts subjects, not beats, and needs at
+least 19 calibration subjects at $\alpha=0.05$ [E6].
 
 These results concern one grouping at a time. How the requirement plays out in
-real clinical resources, where several dependence sources can be crossed and
-coverage may be required per diagnosis, and how much of an observed coverage gap
-reflects dependence rather than the method itself, remains insufficiently
-characterized. We address these design-stage questions by auditing three public
+clinical resources where several dependence sources cross and coverage may be
+required per diagnosis, and how much of an observed coverage gap reflects
+dependence rather than the method itself, remains insufficiently characterized.
+We address these design-stage questions by auditing three public
 ECG resources: PTB-XL [H1], [H2], in which 18,869 patients contribute 1.16 records
 on average; the MIT-BIH Arrhythmia Database [H3], whose 44 non-paced records come
 from 43 subjects and hold more than 1,500 beats each; and the PhysioNet/CinC
-Challenge 2021 collection [H5], which does not document a patient identifier. Two questions guide the audit. Can a block-level guarantee be
-enforced at conventional error rates (RQ1)? Does ignoring block structure cost
-coverage, and through what mechanism (RQ2)? Fig. 1 shows the two stages that
-answer them, RQ1 from metadata alone and RQ2 from the conformity scores of three
-backbones, with the section that reports each step.
+Challenge 2021 collection [H5], which does not document a patient identifier.
+Two questions guide the audit. Can a block-level guarantee be enforced at
+conventional error rates (RQ1)? Does ignoring block structure cost coverage, and
+through what mechanism (RQ2)? Fig. 1 shows the two stages that answer them, RQ1
+from metadata alone and RQ2 from the conformity scores of three backbones, with
+the section that reports each step.
 
 ![**Fig. 1.** Audit workflow. Stage 1 (blue header) uses metadata only and gives verdicts exact given the declared sources $D$ (RQ1); Stage 2 (orange headers) uses conformity scores from three backbones at feasible levels only (RQ2). Section numbers mark where each step is reported.](figures/fig1_audit_workflow.png)
 
@@ -80,9 +81,10 @@ a correction for dependence; and repeated splits of a fixed set of subjects give
 intervals for the split procedure rather than the population, which on MIT-BIH
 exclude zero where a jackknife over subjects does not.
 
-Every finding is checked across three backbones whose sizes differ more than a
-hundredfold and across two checkpoints; resampling is always over blocks, and the
-held-out PTB-XL fold remains unexamined. We keep three levels of evidence apart:
+Every empirical finding is checked across three backbones whose sizes differ more
+than a hundredfold and across two checkpoints; resampling is always over blocks,
+and the held-out PTB-XL fold remains unexamined. We keep three levels of evidence
+apart:
 what is proved (Propositions 1–3 and Corollaries 1–2, exact given the declared
 sources), what is observed on the audited records (§5.2–§5.5), and what is not
 claimed, namely the population-level sign of the MIT-BIH deficit and a causal
@@ -97,6 +99,6 @@ the design, and Sections 5 and 6 report and discuss the results.
 
 | Hal | Keputusan |
 |---|---|
-| Angka | 18.869 pasien; 1,155 → 1,16 rekaman/pasien (§4.1); 44 subjek; >1.500 detak (rentang 1.517–3.361); 24/44 (Tabel 5.2); 75–110% (§5.3, §5.5) |
+| Angka | 18.869 pasien; 1,155 → 1,16 rekaman/pasien (§4.1); 44 rekaman dari 43 subjek (201/202); >1.500 detak (rentang 1.517–3.361); 24/44 (Tabel 5.2); 75–110% (§5.3, §5.5) |
 | Kebaruan | Tanpa "first"/"novel". Celah dirumuskan "insufficiently characterized" |
 | "Code ... released" | Repo masih privat — wajib dibuka/diarsip Zenodo sebelum submit (R5) |

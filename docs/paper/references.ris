@@ -370,6 +370,39 @@ N1  - Cited as [19] in the manuscript (source code A8)
 ER  - 
 
 TY  - JOUR
+AU  - Xu, Chen
+AU  - Xie, Yao
+TI  - Conformal Prediction for Time Series
+JO  - IEEE Transactions on Pattern Analysis and Machine Intelligence
+J2  - IEEE Trans. Pattern Anal. Mach. Intell.
+PY  - 2023
+DA  - 2023/10
+VL  - 45
+IS  - 10
+SP  - 11575
+EP  - 11587
+PB  - Institute of Electrical and Electronics Engineers (IEEE)
+DO  - 10.1109/tpami.2023.3272339
+UR  - https://doi.org/10.1109/tpami.2023.3272339
+N1  - Cited as [20] in the manuscript (source code C4)
+ER  - 
+
+TY  - JOUR
+AU  - Angelopoulos, Anastasios N.
+TI  - Conformal risk control for non-monotonic losses
+JO  - Philosophical Transactions of the Royal Society A: Mathematical, Physical and Engineering Sciences
+PY  - 2026
+DA  - 2026/08
+VL  - 384
+IS  - 2327
+SP  - 20250068
+PB  - The Royal Society
+DO  - 10.1098/rsta.2025.0068
+UR  - https://doi.org/10.1098/rsta.2025.0068
+N1  - Cited as [21] in the manuscript (source code C1)
+ER  - 
+
+TY  - JOUR
 AU  - Bhattacharyya, Aabesh
 AU  - Barber, Rina Foygel
 TI  - Group-weighted conformal prediction
@@ -382,7 +415,7 @@ IS  - 1
 PB  - Institute of Mathematical Statistics
 DO  - 10.1214/26-ejs2506
 UR  - https://doi.org/10.1214/26-ejs2506
-N1  - Cited as [20] in the manuscript (source code A3)
+N1  - Cited as [22] in the manuscript (source code A3)
 ER  - 
 
 TY  - JOUR
@@ -393,7 +426,7 @@ PY  - 2026
 DA  - 2026/08
 UR  - https://arxiv.org/abs/2608.21262
 M1  - arXiv:2608.21262
-N1  - Cited as [21] in the manuscript (source code P1)
+N1  - Cited as [23] in the manuscript (source code P1)
 ER  - 
 
 TY  - JOUR
@@ -408,7 +441,7 @@ SP  - 20250071
 PB  - The Royal Society
 DO  - 10.1098/rsta.2025.0071
 UR  - https://doi.org/10.1098/rsta.2025.0071
-N1  - Cited as [22] in the manuscript (source code B1)
+N1  - Cited as [24] in the manuscript (source code B1)
 ER  - 
 
 TY  - JOUR
@@ -423,7 +456,7 @@ VL  - 26
 PB  - Elsevier BV
 DO  - 10.1016/j.rinam.2025.100589
 UR  - https://doi.org/10.1016/j.rinam.2025.100589
-N1  - Cited as [23] in the manuscript (source code B2)
+N1  - Cited as [25] in the manuscript (source code B2)
 ER  - 
 
 TY  - JOUR
@@ -442,7 +475,7 @@ VL  - 202
 PB  - Elsevier BV
 DO  - 10.1016/j.cmpb.2021.105948
 UR  - https://doi.org/10.1016/j.cmpb.2021.105948
-N1  - Cited as [24] in the manuscript (source code F2)
+N1  - Cited as [26] in the manuscript (source code F2)
 ER  - 
 
 TY  - JOUR
@@ -458,7 +491,7 @@ VL  - 214
 PB  - Elsevier BV
 DO  - 10.1016/j.cmpb.2021.106582
 UR  - https://doi.org/10.1016/j.cmpb.2021.106582
-N1  - Cited as [25] in the manuscript (source code F10)
+N1  - Cited as [27] in the manuscript (source code F10)
 ER  - 
 
 TY  - JOUR
@@ -479,40 +512,7 @@ EP  - 349
 PB  - Elsevier BV
 DO  - 10.1016/j.neucom.2021.04.104
 UR  - https://doi.org/10.1016/j.neucom.2021.04.104
-N1  - Cited as [26] in the manuscript (source code F3)
-ER  - 
-
-TY  - JOUR
-AU  - Angelopoulos, Anastasios N.
-TI  - Conformal risk control for non-monotonic losses
-JO  - Philosophical Transactions of the Royal Society A: Mathematical, Physical and Engineering Sciences
-PY  - 2026
-DA  - 2026/08
-VL  - 384
-IS  - 2327
-SP  - 20250068
-PB  - The Royal Society
-DO  - 10.1098/rsta.2025.0068
-UR  - https://doi.org/10.1098/rsta.2025.0068
-N1  - Cited as [27] in the manuscript (source code C1)
-ER  - 
-
-TY  - JOUR
-AU  - Xu, Chen
-AU  - Xie, Yao
-TI  - Conformal Prediction for Time Series
-JO  - IEEE Transactions on Pattern Analysis and Machine Intelligence
-J2  - IEEE Trans. Pattern Anal. Mach. Intell.
-PY  - 2023
-DA  - 2023/10
-VL  - 45
-IS  - 10
-SP  - 11575
-EP  - 11587
-PB  - Institute of Electrical and Electronics Engineers (IEEE)
-DO  - 10.1109/tpami.2023.3272339
-UR  - https://doi.org/10.1109/tpami.2023.3272339
-N1  - Cited as [28] in the manuscript (source code C4)
+N1  - Cited as [28] in the manuscript (source code F3)
 ER  - 
 
 TY  - JOUR
@@ -572,6 +572,23 @@ N1  - Cited as [31] in the manuscript (source code A13)
 ER  - 
 
 TY  - JOUR
+AU  - Atas Guvenilir, Heval
+AU  - Doğan, Tunca
+TI  - How to approach machine learning-based prediction of drug/compound–target interactions
+JO  - Journal of Cheminformatics
+J2  - J. Cheminform.
+PY  - 2023
+DA  - 2023/02
+VL  - 15
+IS  - 1
+SP  - 16
+PB  - Springer Science and Business Media LLC
+DO  - 10.1186/s13321-023-00689-w
+UR  - https://doi.org/10.1186/s13321-023-00689-w
+N1  - Cited as [32] in the manuscript (source code P3)
+ER  - 
+
+TY  - JOUR
 AU  - Zheng, Jiuyi
 AU  - Xu, Gan
 TI  - A Symmetric Layer-Union Audit of Component Collapse in Hierarchical Procedural Corpora
@@ -580,7 +597,7 @@ PY  - 2026
 DA  - 2026/08
 UR  - https://arxiv.org/abs/2608.08892
 M1  - arXiv:2608.08892
-N1  - Cited as [32] in the manuscript (source code P2)
+N1  - Cited as [33] in the manuscript (source code P2)
 ER  - 
 
 TY  - CONF
@@ -597,7 +614,7 @@ EP  - 64576
 PB  - Neural Information Processing Systems Foundation, Inc. (NeurIPS)
 DO  - 10.52202/075280-2817
 UR  - https://doi.org/10.52202/075280-2817
-N1  - Cited as [33] in the manuscript (source code A12)
+N1  - Cited as [34] in the manuscript (source code A12)
 ER  - 
 
 TY  - JOUR
@@ -611,5 +628,5 @@ VL  - 219
 PB  - Elsevier BV
 DO  - 10.1016/j.spl.2024.110350
 UR  - https://doi.org/10.1016/j.spl.2024.110350
-N1  - Cited as [34] in the manuscript (source code A9)
+N1  - Cited as [35] in the manuscript (source code A9)
 ER  - 

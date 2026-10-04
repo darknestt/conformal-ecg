@@ -111,8 +111,8 @@ compared.
 
 PTB-XL trains on folds 1–6, validates on fold 7 and splits the 1,917 fold-9
 patients with a diagnostic superclass evenly into calibration and evaluation
-halves (200–400 repetitions); fold 8 is left out for its different label quality,
-and fold 10 is reserved and unexamined. The feasibility counts of §5.1 instead
+halves (200–400 repetitions); fold 8 is left out for its different label quality.
+The feasibility counts of §5.1 instead
 treat all of fold 9 (2,183 records, 1,942 patients) as the calibration pool,
 the largest pool the design allows; they answer whether any calibration could be
 feasible, the coverage experiments what a realistic split delivers. MIT-BIH
@@ -131,25 +131,24 @@ labels.
 
 ### 4.3 Models and conformity scores
 
-Conformal guarantees do not depend on the model, so the backbone changes set
-size, not validity. The primary backbone, SmallECGNet, is a compact 1-D
-convolutional network (104,389 parameters for 12-lead input, 101,925 for one
+Conformal validity does not depend on the model, so the backbone changes set
+size, not coverage guarantees. The primary backbone, SmallECGNet, is a compact
+1-D convolutional network (104,389 parameters for 12-lead input, 101,925 for one
 lead), trained in an exploratory stage of this project and reused without
-retraining. Each audit is repeated
-with two 1-D residual networks of the PTB-XL benchmark family [F1], ResNet1D-34
-(7,225,733 / 7,220,805 parameters) and ResNet1D-50 (15,969,413 / 15,964,485),
-trained with Adam (learning rate $10^{-3}$), early stopping on validation loss
-(patience 5) and at most 25 epochs on PTB-XL and 30 on MIT-BIH; SmallECGNet was
-trained with the same optimizer, stopping rule and batch sizes.
+retraining. Each audit is repeated with two 1-D residual networks of the PTB-XL
+benchmark family [F1], ResNet1D-34 (7,225,733 / 7,220,805 parameters) and
+ResNet1D-50 (15,969,413 / 15,964,485). All three were trained with Adam
+(learning rate $10^{-3}$), early stopping on validation loss (patience 5) and at
+most 25 epochs on PTB-XL and 30 on MIT-BIH.
 Losses are binary cross-entropy over the five superclasses (PTB-XL) and
 cross-entropy over the five AAMI classes (MIT-BIH), without class weighting;
 batches hold 128 records or 256 beats, accumulated for the residual networks from
 micro-batches of 32 or 64, so batch-normalization statistics are per
 micro-batch. The primary backbone reaches a macro-AUROC of 0.9016 on PTB-XL and,
 on MIT-BIH, an accuracy of 0.8690 with balanced accuracy 0.3748 and macro-F1
-0.3144. The backbones were deliberately not tuned for discrimination: validity
-holds for any score fixed before calibration, so a weak minority-class score
-enlarges sets without affecting the coverage under audit. Scores are
+0.3144. The backbones were deliberately not tuned for discrimination, because a
+weak minority-class score enlarges sets without affecting the coverage under
+audit. Scores are
 $s(x,y)=1-\hat p_y(x)$ for multi-class MIT-BIH and $1-\hat\sigma_\ell(x)$ per
 label for multi-label PTB-XL, where the superset score is the maximum over the
 true labels and reduces to scalar HCP (§3.4).

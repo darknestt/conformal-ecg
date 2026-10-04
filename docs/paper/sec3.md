@@ -98,11 +98,10 @@ dropping it can invalidate the guarantee (Appendix A.3).
 geometry are compared through $\mathrm{DEff}=1+(H-1)\rho$, which predicts no harm
 from dependence when blocks are near singletons, however strong the within-block
 correlation. The axis is a heuristic under (A) for ranking configurations, not a
-calibrated effective sample size. Noonan derives a large-sample variance for the
-coverage of a threshold estimated from clustered data, in which the relevant
-correlation is that of the exceedance indicator rather than of the score and can
-change with the target level [P1]. The primary analysis estimates $\rho$ from
-conformity scores, and every analysis on this axis is therefore repeated with the
+calibrated effective sample size. Because the variance that governs the coverage
+of a clustered threshold involves the correlation of the exceedance indicator,
+which can change with the target level [P1], every analysis on this axis, run
+primarily with $\rho$ estimated from conformity scores, is repeated with the
 indicator correlation $\rho(t)$ (§5.4).
 
 ### 3.3 Crossed dependence sources
@@ -170,7 +169,7 @@ blocks. S2 is only as complete as its input: an undeclared source passes
 trivially, so S2 checks that a stated assumption is consistent, not that it
 holds. With crossed sources the finest grouping passing S2 is their join
 (Proposition 2). In leakage control, joins of fine groupings are known to form
-giant components [P2], but there a collapsed join merely weakens a split; here,
+giant components [P3], [P2], but there a collapsed join merely weakens a split; here,
 below $1/(K_1+1)$, no finite threshold exists (Corollary 2). Since no dataset can
 confirm the declared set, every verdict is reported as a function of that set,
 not as a property of the data.
@@ -194,9 +193,12 @@ class-conditional calibration under exchangeability [A12]; under hierarchical
 dependence the count that matters is that of blocks.
 
 **Proposition 3 (necessary condition).** *A finite per-label HCP threshold for
-label $\ell$ at level $\alpha$ requires $\alpha \ge \tfrac{1}{K_1(\ell)+1}$, where
+label $\ell$ at level $\alpha$ requires $\alpha \ge 1/\{K_1(\ell)+1\}$, where
 $K_1(\ell)$ is the number of calibration blocks containing at least one instance
 of $\ell$.*
+
+*Proof.* The per-label threshold is (1) computed on the $K_1(\ell)$ blocks that
+contain $\ell$; Proposition 1 applies with $K_1(\ell)$ in place of $K_1$. ∎
 
 The condition is necessary, not sufficient. Conditioning a test observation on
 $\ell$ draws its block with probability proportional to its share of

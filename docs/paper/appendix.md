@@ -48,11 +48,11 @@ effects of (4) differ by a factor of 15.7 at the site level, while on
 1.000, an internal check of the computation.
 
 Departing from equal weights can break the guarantee, not merely cost
-efficiency. Take $K_1=2$ singleton blocks and $\alpha=1/3$. HCP assigns mass $\tfrac13$ to each
+efficiency. Take $K_1=2$ singleton blocks and $\alpha=1/3$. HCP assigns mass $1/3$ to each
 calibration score and to $+\infty$, so the threshold is $\max(s_1,s_2)$ and the
-coverage is exactly $\tfrac23$. Shifting the calibration mass to $(\tfrac23,0)$
-while leaving $\tfrac13$ at $+\infty$ makes the threshold $s_1$, and for continuous
-exchangeable scores the coverage drops to $\mathbb{P}(s_0\le s_1)=\tfrac12<\tfrac23$.
+coverage is exactly $2/3$. Shifting the calibration mass to $(2/3,0)$
+while leaving $1/3$ at $+\infty$ makes the threshold $s_1$, and for continuous
+exchangeable scores the coverage drops to $\mathbb{P}(s_0\le s_1)=1/2<2/3$.
 
 ## Appendix B. Interim Conclusions on MIT-BIH
 

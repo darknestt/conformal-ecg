@@ -12,7 +12,9 @@ When exchangeability fails, Barber et al. bound the coverage loss by the
 total-variation distance to an exchangeable counterpart [A1]; the bound is
 agnostic to the cause and prescribes no remedy. Specific departures have been
 handled one by one, namely covariate shift under known or estimable likelihood
-ratios [A4], spatial data [A7] and network dependence [A8]. Bhattacharyya and
+ratios [A4], spatial data [A7], network dependence [A8] and temporal data [C4],
+and conformal risk control extends the guarantee to general losses [C1].
+Bhattacharyya and
 Barber consider groups whose membership drives the shift [A3], so exchangeability
 still holds within each group; our setting is the reverse, with stable group
 proportions but non-exchangeable observations within a block. Fontana et al.
@@ -66,9 +68,8 @@ Strodthoff et al. set the PTB-XL benchmarks [F1] for the dataset of [H1], [H2],
 and their residual networks guide our choice of backbones. Beat-level evaluation
 follows the inter-patient protocol, under which no subject appears in both
 training and evaluation [F2], [F10], since mixing them inflates reported
-performance [F3]. Clinical uses of conformal prediction are surveyed in [E1], and
-conformal risk control [C1] and time-series conformal prediction [C4] extend the
-framework to arbitrary losses and temporal data. On patient-disjoint PTB-XL
+performance [F3]. Clinical uses of conformal prediction are surveyed in [E1]. On
+patient-disjoint PTB-XL
 partitions, El Allam and Hamlich apply label-conditional Mondrian calibration
 and find that it must be redone for the quantized model actually deployed [E7];
 they also bring conformal inference to wearables at the edge [E9]. For PPG-based

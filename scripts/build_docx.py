@@ -125,7 +125,7 @@ def gambar(md: str) -> str:
     def ganti(m: re.Match) -> str:
         cap = m.group(1).replace("**", "")
         tunggal = ("join_schematic", "block_geometry", "feasibility_frontier", "dose_response")
-        lebar = "3.4in" if any(k in m.group(2) for k in tunggal) else "5.8in"
+        lebar = "3.4in" if any(k in m.group(2) for k in tunggal) else "5.5in"
         return f"![{cap}]({m.group(2)}){{width={lebar}}}"
     return re.sub(r"^!\[(.+?)\]\((.+?)\)[ \t]*$", ganti, md, flags=re.M)
 
@@ -291,8 +291,14 @@ def beri_garis_tabel(tabel) -> None:
         trPr = baris._tr.get_or_add_trPr()
         if trPr.find(qn("w:cantSplit")) is None:
             trPr.append(OxmlElement("w:cantSplit"))
-    # tabel pendek tidak dipotong; tabel panjang boleh berlanjut asal judul kolom ikut baris pertama
-    for baris in tabel.rows[:-1] if len(tabel.rows) <= 7 else tabel.rows[:1]:
+    # tabel pendek tidak dipotong; tabel panjang boleh berlanjut, tetapi judul kolom dan
+    # kelompok baris (baris lanjutan bersel pertama kosong) tetap bersama
+    if len(tabel.rows) <= 7:
+        tahan = tabel.rows[:-1]
+    else:
+        tahan = [tabel.rows[0]] + [b for b, s in zip(tabel.rows[:-1], tabel.rows[1:])
+                                   if not s.cells[0].text.strip()]
+    for baris in tahan:
         for sel in baris.cells:
             for p in sel.paragraphs:
                 p.paragraph_format.keep_with_next = True
