@@ -29,18 +29,21 @@ $1/(K_1+1)$, with $K_1$ the number of calibration blocks. A large dataset can
 thus be left with few blocks once every dependence source is respected, and a
 rare diagnosis with fewer still. Conversely, ignoring blocks may cost nothing
 when almost every patient contributes one recording. Lee et al. leave the choice
-between many small and few large groups open as a design question [A0], and Sim
-and Kim showed for ECG monitoring that the false-alarm guarantee of split
-conformal prediction scales with subjects, not beats [E6].
+between many small and few large groups open as a design question [A0]. Dunn et
+al. state how many groups their hierarchical constructions need for non-trivial
+prediction sets [A0b], and Sim and Kim showed for ECG monitoring that the
+false-alarm guarantee of split conformal prediction counts subjects, not beats,
+and needs at least 19 calibration subjects at $\alpha=0.05$ [E6].
 
-Whether the guarantee is attainable under the dependence structure of real
-clinical resources, where sources can be crossed and coverage may be required per
-diagnosis, remains insufficiently characterized. We address this design-stage
-question by auditing three public ECG resources: PTB-XL [H1], [H2], in which
-18,869 patients contribute 1.16 records on average; the MIT-BIH Arrhythmia
-Database [H3], in which each of 44 subjects contributes more than 1,500 beats;
-and the PhysioNet/CinC Challenge 2021 collection [H5], which does not document a
-block identifier. Two questions guide the audit. Can a block-level guarantee be
+These results concern one grouping at a time. How the requirement plays out in
+real clinical resources, where several dependence sources can be crossed and
+coverage may be required per diagnosis, and how much of an observed coverage gap
+reflects dependence rather than the method itself, remains insufficiently
+characterized. We address these design-stage questions by auditing three public
+ECG resources: PTB-XL [H1], [H2], in which 18,869 patients contribute 1.16 records
+on average; the MIT-BIH Arrhythmia Database [H3], whose 44 non-paced records come
+from 43 subjects and hold more than 1,500 beats each; and the PhysioNet/CinC
+Challenge 2021 collection [H5], which does not document a patient identifier. Two questions guide the audit. Can a block-level guarantee be
 enforced at conventional error rates (RQ1)? Does ignoring block structure cost
 coverage, and through what mechanism (RQ2)? Fig. 1 shows the two stages that
 answer them, RQ1 from metadata alone and RQ2 from the conformity scores of three
@@ -49,25 +52,31 @@ backbones, with the section that reports each step.
 ![**Fig. 1.** Audit workflow. Stage 1 (blue header) uses metadata only and gives verdicts exact given the declared sources $D$ (RQ1); Stage 2 (orange headers) uses conformity scores from three backbones at feasible levels only (RQ2). Section numbers mark where each step is reported.](figures/fig1_audit_workflow.png)
 
 We propose no new conformal procedure; the contributions are three. First, we
-give a metadata-only feasibility audit (RQ1; §3, §5.1). Combined with the join
-of the declared dependence sources, the HCP bound yields exact verdicts before
-any model is trained: all four documented PTB-XL sources together leave one
-admissible calibration block, 24 of 44 SCP statements have no finite per-label
-threshold at $\alpha=0.05$ under patient blocking, and an even split of the 22
-MIT-BIH evaluation subjects rules out a subject-level guarantee at the 95% level.
+carry the block-count requirement known for single groupings [A0b], [E6] over to
+the design of clinical ECG studies, as a metadata-only feasibility audit for HCP
+(RQ1; §3, §5.1). Combined with the join of the declared dependence sources
+(Proposition 2) and counted per diagnostic label (Proposition 3), the HCP bound
+yields verdicts that are exact given the declared sources, before any model is
+trained: all four documented PTB-XL sources together leave one admissible
+calibration block, and under patient blocking 24 of 44 diagnostic SCP statements
+lack a finite per-label threshold at $\alpha=0.05$ even when all of fold 9 serves
+for calibration. For MIT-BIH, an even split of the 22 evaluation subjects leaves
+too few calibration blocks for a subject-level guarantee at the 95% level, in
+line with Sim and Kim's verdict for their own split [E6].
 
 Second, we attribute under-coverage to dependence acting through repetition
 (RQ2; §5.2–§5.4). On the 22 MIT-BIH evaluation subjects, naive split conformal
-covers less than a matched permutation null for every backbone and level; a
-factorial design traces the shortfall mainly to clustering, amplified by
-block-size imbalance, and a dose–response experiment shows it growing with the
-design effect. PTB-XL stays near zero despite substantial within-patient
+covers less than a matched permutation null for every backbone and level; within
+a factorial design the shortfall is attributed mainly to clustering, amplified by
+block-size imbalance; and in a dose–response experiment within MIT-BIH it grows
+with the design effect. PTB-XL stays near zero despite substantial within-patient
 correlation, as the design effect predicts. With 22 subjects the deficit is not
 resolved at the subject level, a limit on the evidence that mirrors the limit on
 the guarantee. Third, we draw two cautions for evaluating conformal methods on
-clustered data (§5.3, §6.2). Between 75% and 110% of the apparent gain of HCP
-over naive split conformal survives when dependence is permuted away, so the
-gain is largely mechanical; and repeated splits of a fixed set of subjects give
+clustered data (§5.3, §6.2). Between 75% and 110% of the observed coverage gap
+between HCP and naive split conformal persists when dependence is permuted away
+while block geometry is preserved, so most of that gap is mechanical rather than
+a correction for dependence; and repeated splits of a fixed set of subjects give
 intervals for the split procedure rather than the population, which on MIT-BIH
 exclude zero where a jackknife over subjects does not.
 

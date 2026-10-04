@@ -77,18 +77,21 @@ The inter-patient protocol prevents subject-level leakage [F2], [F3], [F10], but
 a split that is inter-patient for training can still leave too few subjects in
 calibration.
 
-For the design trade-off left open by Lee et al. [A0], our results settle the
-most elementary part: whether a finite threshold exists depends only on the
-number of groups (Proposition 1). With blocks in place of points, the bound plays
-the role of the minimum calibration size that the universal coverage
+For the design trade-off left open by Lee et al. [A0], our results address the
+most elementary part for HCP: whether a finite threshold exists depends only on
+the number of blocks (Proposition 1), as the group-count conditions of Dunn et
+al. do for their constructions [A0b]. With blocks in place of points, the bound
+plays the role of the minimum calibration size that the universal coverage
 distribution of split conformal prediction implies for exchangeable data [A9];
 and, as for rare classes under exchangeability [A12], the count that matters per
 label is that of blocks carrying it, under a necessary but not sufficient
-condition (§3.4). The findings agree with Sim and Kim [E6]: subjects, not beats,
-carry the guarantee, and too few calibration subjects undermine it. The audit
-differs in counting blocks under crossed sources and per label, and in separating
-dependence from block-size imbalance and from the mechanical effect of the
-finite-block correction. Evidence that marginal coverage can mask per-class and
+condition (§3.4). The findings agree with Sim and Kim [E6], who established for
+ECG monitoring that subjects, not beats, carry the guarantee, that at least 19
+calibration subjects are needed at $\alpha=0.05$, and that MIT-BIH splits leave
+too few. The present audit extends that reasoning to HCP under crossed dependence
+sources and per diagnostic label, evaluates it from metadata on three resources,
+and separates dependence from block-size imbalance and from the mechanical effect
+of the finite-block correction. Evidence that marginal coverage can mask per-class and
 per-patient failures in cardiac monitoring [E8] matches the label-level boundary
 of §5.1. Risk-control extensions [C1] and time-series variants [C4] rest on
 related exchangeability or stationarity assumptions; whether their block-level
@@ -102,7 +105,7 @@ The audit concerns marginal and label-wise coverage for one method family.
 by cardiologists, against 100% in folds 9 and 10. An early version that
 calibrated on fold 8 and evaluated on fold 9 showed an apparent deficit of 1.43
 percentage points at $\alpha=0.05$, which proved to reflect label quality rather
-than block dependence; confirmatory analyses therefore use fold 9, and fold 10
+than block dependence; all analyses therefore use fold 9, and fold 10
 remains unexamined. Each data-handling choice in §4.1 guards against a silent
 failure, and no preprocessing step uses quantities estimated from evaluation
 data: the filter is fixed and normalization is per record or per beat.
@@ -127,10 +130,10 @@ visits and other clinical signals with repeated measurements were not examined.
 
 **Statistical conclusion validity.** The repeated-split intervals of Table 5.4
 and Fig. 8 and the Spearman $p$-values of Table 5.5 are conditional on the 22 DS2
-records and one permutation (§4.4, §6.2). Only the post hoc leave-one-record-out
-jackknife treats records as the sampling unit; its intervals include zero in
-every cell and, because each replicate rests on 500 splits, are slightly
-conservative. The split-to-split range covers $1-\alpha$ in every MIT-BIH cell
+records and one permutation (§4.4, §6.2). Only the leave-one-record-out
+jackknife, added after the initial plan, treats records as the sampling unit; its
+intervals include zero in every cell and, because each replicate rests on 500
+splits, are slightly conservative. The split-to-split range covers $1-\alpha$ in every MIT-BIH cell
 (Table 5.3). Two criteria of the initial protocol were dropped, "HCP covers
 better than split conformal" once the permutation control showed the gap to be
 largely mechanical (§5.3), and a Spearman test across two datasets, whose rank
@@ -147,8 +150,8 @@ to 0.19–0.20 while its design effect stays near 1; we do not show that the des
 effect is sufficient for coverage loss. Corollary 2 is proved for HCP only (§3.3),
 and the hierarchical constructions are not compared with one another [A0b]. For
 PTB-XL the verdict is exhaustive only for the declared sources {patient, site,
-nurse, device}, which the data cannot verify [P2]. Declaring only {patient, site}
-gives $K_1=34$ on the full calibration fold and makes $\alpha=0.05$ feasible, yet
+nurse, device}, which the data cannot verify. Declaring only {patient, site}
+gives $K_1=34$ on the full fold-9 pool and makes $\alpha=0.05$ feasible, yet
 31 of these blocks consist entirely of 188 records without nurse metadata, and on
 the 1,960 fully annotated records the same declaration gives $K_1=3$. The result
 is therefore conditional: *if patient, site, nurse, and device are all treated as
@@ -162,16 +165,34 @@ robustness, its analysis history is part of the evidence. Our reading of the
 MIT-BIH evidence changed three times, each time after an added control rather
 than a rereading of data, and its statistical strength was revised once more
 (Appendix B). Every analysis introduced or modified after results were seen made
-the evidence stricter: the permutation control overturned a criterion that
-favored our hypothesis; the Holm correction, specified in the initial protocol
-but applied late, removed the last significant level for ResNet1D-34; the
-reporting axis was chosen after ICC failed to place the two datasets on one
-scale; and the record-level jackknife, committed before it was run, showed that
-repeated-split significance did not extend to subjects. The factor $1+(H-1)\rho$
-appeared in our notes before data collection, but the decision to report on this
-axis was taken with results in view. The protocol was kept under version control
-but not publicly registered or formally frozen; it is released with its deviation
-log.
+the evidence stricter. The permutation control overturned a criterion that
+favored our hypothesis. The Holm correction across the three $\alpha$ levels of
+each backbone, specified in the initial protocol but applied only after the
+split-level intervals had been read, left ResNet1D-34 with no significant level:
+at $\alpha=0.10$ its Monte Carlo interval excludes zero (Table 5.4), but the
+Holm-adjusted one-sided bootstrap $p$ is 0.0502. The reporting axis was chosen
+after ICC failed to place the two datasets on one scale. The record-level
+jackknife, added after the initial plan but specified and committed before it
+was run, showed that repeated-split significance did not extend to subjects. The
+factor $1+(H-1)\rho$ appeared in our notes before data collection, but the
+decision to report on this axis was taken with results in view. The protocol was
+kept under version control but not publicly registered or formally frozen; it is
+released with its deviation log.
+
+**Answers to the research questions.** RQ1: for HCP, a block-level guarantee
+at a conventional error rate is enforceable only when the grouping that respects
+every declared dependence source keeps at least $\lceil1/\alpha\rceil-1$
+calibration blocks. On PTB-XL this holds for patient blocking at the marginal
+level, fails for 24 of 44 diagnostic SCP statements at $\alpha=0.05$, and fails
+at every conventional level once all four documented sources are declared; on
+MIT-BIH the 11/11 split rules out levels below $1/12$; on Challenge 2021 the
+patient-level count cannot be observed. RQ2: on the 22 MIT-BIH evaluation
+subjects, ignoring blocks was associated with a coverage shortfall against a
+matched permutation null that the factorial design attributes mainly to
+clustering and that grows with the design effect within MIT-BIH, while PTB-XL,
+with near-singleton blocks, showed none. A jackknife over subjects cannot
+establish the sign of the shortfall for the population, so RQ2 is answered for
+the audited records, not beyond them.
 
 ---
 

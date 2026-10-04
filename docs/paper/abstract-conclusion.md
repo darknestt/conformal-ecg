@@ -13,10 +13,11 @@ beats from the same patient violate. Hierarchical conformal prediction (HCP)
 recovers the guarantee by calibrating over blocks, yet its threshold exists only
 for target error rates of at least $1/(K_1+1)$, with $K_1$ the number of
 calibration blocks. We audit three public electrocardiogram resources to ask
-whether this guarantee can be enforced and whether ignoring blocks costs
-coverage. From metadata alone, declaring the four documented dependence sources
-of PTB-XL leaves a single admissible calibration block, and under patient
-blocking 24 of 44 diagnostic statements have no finite per-label threshold at
+whether this guarantee can be enforced when several dependence sources are
+declared and coverage is required per diagnosis, and whether ignoring blocks
+costs coverage. From metadata alone, declaring the four documented dependence
+sources of PTB-XL leaves a single admissible calibration block, and under patient
+blocking 24 of 44 diagnostic SCP statements have no finite per-label threshold at
 $\alpha=0.05$. Across repeated
 splits of the 22 MIT-BIH evaluation subjects, naive split conformal covers
 1.5–2.4 percentage points less than a matched permutation null; a factorial
@@ -26,9 +27,9 @@ correlation 0.80–0.85 over 12 configurations, 11 of them synthetic). A jackkni
 over subjects, however, cannot resolve the sign of this deficit: the scarcity of
 blocks that limits the guarantee also limits the evidence. PTB-XL shows no
 deficit despite a within-patient correlation of 0.35, consistent with most of its
-patients contributing one recording. The apparent advantage of HCP over naive
-calibration is largely mechanical, retaining 75–110% of its size once dependence
-is removed. Blocks, not records, should be counted, and subjects, not splits,
+patients contributing one recording. Most of the coverage gap between HCP and
+naive calibration is mechanical: 75–110% of it persists when dependence is
+permuted away and block sizes are kept. Blocks, not records, should be counted, and subjects, not splits,
 resampled, before claims about distribution-free coverage are made on clinical
 data.
 
@@ -39,22 +40,26 @@ quantification, hierarchical data, exchangeability, calibration, study design.
 
 ## 7. Conclusion
 
-For clinical ECG data, whether a distribution-free coverage guarantee exists is
-settled by the study design before the model plays any part. HCP can deliver one
-at a given error rate only if enough calibration blocks remain once the declared
+For clinical ECG data, whether HCP can deliver a block-level coverage guarantee
+is settled by the study design before any model is trained. It can do so at a
+given error rate only if enough calibration blocks remain once the declared
 dependence sources are respected, a count that metadata provide before
 enrollment and that tends to be smallest for the rare diagnoses where calibrated
-uncertainty matters most. Whether ignoring blocks costs coverage depended on
-repetition as well as correlation: near-singleton blocks left coverage intact
-despite substantial correlation, while thousands of beats per subject produced a
-deficit on the audited subjects that 22 of them were too few to establish for the
-population. Evaluations of conformal methods on clustered data should use a null
+uncertainty matters most; this extends to crossed sources and diagnostic labels a
+requirement already known for single groupings. Whether ignoring blocks costs
+coverage depended on repetition as well as correlation: near-singleton blocks
+left coverage intact despite substantial correlation, while thousands of beats
+per subject produced a deficit on the 22 audited subjects that they were too few
+to establish for the population. The feasibility verdicts are exact given the
+declared sources; the coverage findings are observations on these records.
+Evaluations of conformal methods on clustered data should use a null
 that removes dependence but keeps block geometry, report set size with coverage,
 and resample subjects rather than splits for population claims; clinical studies
 claiming conformal guarantees should report the dependence sources they declared
 and the number of calibration blocks, per label where relevant. These
-conclusions are limited to HCP and the sources declared here; whether other
-block-level procedures face the same boundary is open.
+conclusions are limited to HCP and the sources declared here; other hierarchical
+constructions carry their own group-count conditions [A0b], and whether every
+block-level procedure faces such a boundary is not addressed.
 
 ## Data and Code Availability
 

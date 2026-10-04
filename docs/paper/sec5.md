@@ -12,12 +12,14 @@ as in §4.2 and $\alpha_{\min}=1/(K_1+1)$.
 
 ### 5.1 Feasibility is decided by the partition, not by the model
 
-**Granularity.** In the PTB-XL calibration fold (fold 9, 2,183 records), patient
-blocking is feasible at every conventional $\alpha$, and each coarser source
-narrows the admissible range. Table 5.1 gives, per grouping, the calibration
+**Granularity.** Treating all of PTB-XL fold 9 (2,183 records, 1,942 patients) as
+the calibration pool (§4.2), patient blocking is feasible at every conventional
+$\alpha$, and each coarser source narrows the admissible range. Any calibration
+half drawn from fold 9 is a subset of this pool, so a grouping or label that
+fails here fails in every split. Table 5.1 gives, per grouping, the calibration
 blocks, $\alpha_{\min}$ and the conventional levels that remain attainable.
 
-**Table 5.1.** HCP feasibility on PTB-XL fold 9 by grouping.
+**Table 5.1.** HCP feasibility by grouping, with all of PTB-XL fold 9 as the calibration pool.
 
 | Grouping | Blocks (all folds) | $K_1$ | Mean block size | $\alpha_{\min}$ | 0.01 | 0.05 | 0.10 | 0.20 |
 |-------------|---------:|-----:|----------:|---------:|:--:|:--:|:--:|:--:|
@@ -49,21 +51,26 @@ cannot verify (§6.4); the tendency of joins to merge into a giant component is
 known [P2]. Fig. 4 places the single sources, their joins and the MIT-BIH record
 partition on the feasibility frontier.
 
-![**Fig. 4.** Feasibility frontier $\alpha_{\min}=1/(K_1+1)$ for groupings on PTB-XL fold 9 (circles: single source; squares: joins) and the MIT-BIH records (diamond), with $K_1$ in parentheses. A level $\alpha$ is attainable only below its dotted line.](figures/fig4_feasibility_frontier.png)
+![**Fig. 4.** Feasibility frontier $\alpha_{\min}=1/(K_1+1)$ for groupings on PTB-XL (circles: single source; squares: joins; all of fold 9 as the calibration pool) and for the 11 calibration records of the MIT-BIH 11/11 split (diamond), with $K_1$ in parentheses. A level $\alpha$ is attainable only below its dotted line.](figures/fig4_feasibility_frontier.png)
 
 **Labels.** Applied label by label, Proposition 3 shrinks the feasible region as
-the hierarchy becomes finer. All superclasses pass, but 24 of the 44 SCP codes
-fail at $\alpha=0.05$, `2AVB` occupies a single calibration block, and a
-Bonferroni correction across labels makes 43 of 44 codes infeasible at a
-family-wise $\alpha=0.05$. Table 5.2 counts the failing labels per level.
+the hierarchy becomes finer. With all of fold 9 as the calibration pool, all
+superclasses pass, but 24 of the 44 diagnostic SCP statements fail at
+$\alpha=0.05$, `2AVB` occupies a single calibration block, and a Bonferroni
+correction across statements makes 43 of 44 infeasible at a family-wise
+$\alpha=0.05$. These verdicts are a necessary-condition screen, not observed
+coverage failures, and passing the screen does not certify a label; since the
+coverage experiments calibrate on about half the patients, the screen does not
+overstate the calibration blocks available to them. Table 5.2 counts the failing
+labels per level.
 
-**Table 5.2.** PTB-XL labels failing Proposition 3 (fold 9, patient blocks).
+**Table 5.2.** PTB-XL labels failing Proposition 3 (all of fold 9 as the calibration pool, patient blocks).
 
 | Level | Labels $m$ | $K_1(\ell)$ range | Fail at 0.01 | Fail at 0.05 | Fail at 0.10 | Fail at 0.05 / $m$ |
 |-----------|----:|--------:|------:|------:|------:|-------:|
 | Superclass | 5 | 242–905 | 0 | 0 | 0 | 0 |
 | Subclass | 23 | 2–905 | 15 | 6 | 4 | 22 |
-| SCP code | 44 | 1–905 | 36 | 24 | 12 | 43 |
+| SCP statement | 44 | 1–905 | 36 | 24 | 12 | 43 |
 
 The hierarchy was monotone in all 23 parent–child pairs, and MIT-BIH class Q is
 confined to $K_1=2$ records ($\alpha_{\min}=0.333$). Fig. 5 resolves Table 5.2
@@ -111,9 +118,9 @@ and Fig. 7 sketches how each one rearranges beats among records.
 
 ![**Fig. 7.** Controls used on MIT-BIH, drawn on four illustrative records (colors mark the original record of each beat). (a) Permutation null. (b) 2×2 factorial design crossing clustering with calibration block-size balance. (c) Dose–response: a growing fraction $p$ of beats reassigned at random.](figures/fig7_control_design.png)
 
-**Permutation null.** To test whether dependence causes B1 to under-cover, we
-compared it with a matched null that permutes the assignment of beats to records
-within DS2. The permutation keeps $K_1=11$, the multiset of block sizes and the
+**Permutation null.** To test whether the shortfall of B1 is attributable to
+dependence, we compared it with a matched null that permutes the assignment of
+beats to records within DS2. The permutation keeps $K_1=11$, the multiset of block sizes and the
 marginal score distribution unchanged, while the score ICC drops from 0.519 to
 0.000. Table 5.4 reports the B1 deficit against this null at two levels of
 uncertainty. Over 200 paired splits of the 22 DS2 records the deficit is positive
@@ -141,8 +148,8 @@ for the population they represent.
 | | | 0.20 | +3.18 [1.54, 4.82] | +1.17 [−4.07, +6.42] | 0.68 |
 
 **Weighting.** Averaging within each test record before averaging over records,
-the empirical counterpart of (2), leaves these findings intact (same jackknife
-runs, full data). Block-weighted B1 coverage is below its observation-weighted
+the empirical counterpart of (2), leaves these findings intact (computed in the
+all-records runs of the jackknife analysis). Block-weighted B1 coverage is below its observation-weighted
 value in all nine cells, and the deficit against the null becomes 1.43–2.61 pp.
 Block-weighted HCP coverage stays above $1-\alpha$ for every level and backbone
 (0.9531–0.9548 at $\alpha=0.10$, 0.9146–0.9178 at 0.15 and 0.8557–0.8565 at
@@ -152,12 +159,14 @@ The same control explains why a B12-against-B1 comparison is uninformative. We
 call *mechanical* the part of the B12−B1 gap that survives a null preserving block
 geometry: it stems from the finite-block correction rather than from correcting
 dependence, and implies no loss of validity for HCP. The mechanical share is the
-gap in the permuted arm divided by the gap on the original data. It lies between 81% and 107%: removing dependence barely changes
-the gap, and at $\alpha=0.10$ the gap is slightly wider without dependence,
-because the finite-block correction pushes HCP to the $(1-\alpha)(K_1+1)/K_1$
-quantile regardless. "B12 improves on B1" was therefore withdrawn as a criterion
-(§6.4), and the deficit against the permutation null is the evidence used
-throughout.
+gap in the permuted arm divided by the gap on the original data, so a share of
+100% means that removing dependence leaves the gap unchanged. It lies between 81%
+and 107% for the primary backbone, and at $\alpha=0.10$ the gap is slightly wider
+without dependence, because the finite-block correction pushes HCP to the
+$(1-\alpha)(K_1+1)/K_1$ quantile regardless. The raw B12−B1 difference is
+therefore no basis for claiming that HCP corrects for dependence; that criterion
+was withdrawn (§6.4), and the deficit against the permutation null is the
+evidence used throughout.
 
 **Factorial decomposition.** A 2×2 design crossed clustering (original versus
 randomized record membership) with block-size balance (balanced versus
@@ -168,9 +177,9 @@ The imbalance main effect was smaller (−0.44, −0.26, −0.27 pp) and acted m
 through clustering: at $\alpha=0.10$ imbalance lowered coverage by 0.83 pp with
 clustered records but by 0.04 pp with randomized membership (interaction
 −0.79 pp; −0.54 and −0.52 pp at the other levels), as the pooled design effect in
-(4), which grows with $\sum_k N_k^2$ only when $\rho>0$, anticipates. Imbalance
-thus amplifies clustering rather than producing the deficit itself. As in
-Table 5.4, these intervals are conditional on the 22 DS2 records. Fig. 8 sets the
+(4), which grows with $\sum_k N_k^2$ only when $\rho>0$, anticipates. Within this
+design, imbalance amplifies clustering rather than producing the deficit itself.
+As in Table 5.4, these intervals are conditional on the 22 DS2 records. Fig. 8 sets the
 two controls side by side: clustering dominates in panel (a), and in panel (b) the
 B12−B1 gap keeps nearly its full size once dependence is permuted away.
 
@@ -204,15 +213,17 @@ deficit grows with ICC at all three levels.
 
 On the ICC axis alone PTB-XL does not fit: its patient-level ICC of 0.352 matches
 a MIT-BIH point with a 0.35 pp deficit, yet PTB-XL shows none. The design effect
-resolves this. With $H=1.05$, PTB-XL has a DEff of 1.02 against 704 for intact
-MIT-BIH, and on this axis the combined correlation stays positive (0.80–0.85);
-using the ICC of the coverage indicator at a fixed threshold, the quantity in the
-variance of §3.2, does not change the conclusion. DEff is a summary axis, not a
-sufficient statistic; an exceedance-specific design effect is given in [P1].
-Fig. 9 plots the deficit against DEff: the MIT-BIH gradient carries the combined
-correlation, and PTB-XL serves as a prediction check at the low-dependence end
-rather than an independent trend (§6.4), with deficits of −0.05, −0.12 and
-−0.16 pp, i.e. coverage slightly above nominal.
+resolves this. With $H=1.05$, PTB-XL has a DEff of 1.02, against 704 for MIT-BIH
+at $p=0$ with calibration records subsampled to 1,355 beats; on this axis the
+combined correlation stays positive (0.80–0.85), and using the ICC of the coverage
+indicator at a fixed threshold, the quantity in the variance of §3.2, does not
+change the conclusion. DEff is a summary axis, not a sufficient statistic; an
+exceedance-specific design effect is given in [P1].
+Fig. 9 plots the deficit against DEff: the 11 synthetic MIT-BIH configurations
+carry the combined correlation, and PTB-XL, the only observed configuration,
+serves as a prediction check at the low-dependence end rather than an independent
+trend (§6.4), with deficits of −0.05, −0.12 and −0.16 pp, i.e. coverage slightly
+above nominal.
 
 ![**Fig. 9.** B1 coverage deficit against the design effect. MIT-BIH (blue): beats progressively reassigned between records; PTB-XL (orange): observed patient partition with Monte Carlo 95% interval. Spearman correlations over the 12 points are annotated.](figures/fig9_dose_response.png)
 

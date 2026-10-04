@@ -217,11 +217,15 @@ Fungsi di `make_figures.py` (urutan loop): `fig1_alur, fig_join, fig_geometri, f
 | `8ce38ae` | Pemadatan ke 20 halaman: nomor baris dihapus, spasi paragraf diperbaiki, huruf 10 pt, prosa dipadatkan & diparafrasekan (kemiripan 12%), **Fig. 3 baru** (`experiments/block_geometry.py`), gambar lama 3–8 → 4–9 |
 | `37d11bd` | Rujukan 47 → 35; caption 694 → 434 kata; 19 halaman |
 | (sesudah `f624660`) | Tanggapan review AI lain (7 titik serangan reviewer): §1 memisahkan tiga tingkat bukti (terbukti / teramati / tidak diklaim); §2 "Position" menyebut tambahan relatif terhadap Lee et al.; §5.3 judul jadi "Attributing the deficit to dependence" dan istilah *mechanical* didefinisikan; §5.4 dose–response ditegaskan mekanistik, bukan validasi eksternal/kausal; §6.1 klaim repetisi dibatasi pada dua sumber yang diaudit; §6.4 riwayat analisis dibingkai sebagai jejak audit |
+| PASS 1/1B | Audit forensik + verifikasi teks lengkap Lee, Dunn, Sim & Kim, Noonan, Zheng; fakta basis H/K1/DEff dicek ke kode & JSON |
+| PASS 2A | Revisi ilmiah tanpa mengubah angka/rujukan: kredit Dunn (syarat jumlah grup) & Sim & Kim (19 subjek pada α=0,05; vonis MIT-BIH); deskripsi Noonan dikoreksi; Prop. 2 & Cor. 2 diberi bukti; §2 dirombak (§2.2 baru); catatan basis Tabel 4.1 (958 dari 1.917 vs pool 2.183/1.942; 1.355 tersubsampel vs H asli 2.196; DEff 703,93 di p=0); 44 rekaman dari 43 subjek (201/202); SmallECGNet = model internal; fold 9 eksploratif, fold 10 belum dibuka; Holm tingkat split didefinisikan di Tabel 4.2 (ResNet1D-34 p_Holm=0,0502 → 0/3); linimasa jackknife; jawaban eksplisit RQ1/RQ2 di akhir §6; Abstrak/Kesimpulan dibatasi ke HCP. Naskah 21 halaman (ruang kosong ~1,8 hlm) |
 
 ### Keputusan penting yang sudah final
 - **Jurnal target belum dipilih.** AIIM (Elsevier) sempat menjadi kandidat (terverifikasi aktif di daftar Scopus Agustus 2026), tetapi dibatalkan karena dosen meminta draf netral. Kuartil SJR kandidat **BELUM TERVERIFIKASI** (situs SCImago/ScienceDirect memblokir akses otomatis).
 - Fig. 3 tetap **satu kolom** (pilihan pengguna); akan pas di template dua kolom.
 - Klaim "B12 memperbaiki B1" **dicabut** (75–110% mekanis). Bukti yang dipakai: defisit B1 vs null permutasi.
+- (PASS 2A) Jangan memadatkan teks dengan membuang kualifier ("for HCP", "on these 22 subjects", "in this design"). Kebaruan dirumuskan sebagai perluasan syarat jumlah blok yang sudah dikenal (Dunn; Sim & Kim) ke sumber dependensi bersilang dan per label; jangan klaim "first"/"novel"/"settle".
+- (PASS 2A) Analisis fold 9 bersifat eksploratif (protocol.md), bukan konfirmatori.
 
 ---
 
@@ -236,7 +240,8 @@ Fungsi di `make_figures.py` (urutan loop): `fig1_alur, fig_join, fig_geometri, f
 
 ### Tindakan pengguna
 - **R5**: jadikan repo publik atau arsipkan di Zenodo (perlu persetujuan pengguna; naskah menyatakan kode dirilis).
-- **R6**: baca teks lengkap rujukan **I1, I2, P1** untuk memastikan klaim yang merujuknya sesuai isi paper (F5 sudah tidak dikutip).
+- **R6**: I1, I2 belum dibaca teks lengkapnya. P1 (Noonan), A0, A0b, E6, P2 sudah diverifikasi (PASS 1B). Sumber primer giant component (Guvenilir & Doğan 2023) baru boleh dikutip setelah verifikasi Crossref.
+- **PASS 2B** (penulisan ulang bahasa) menunggu; naskah kini 21 halaman.
 - Pilih jurnal target → sesuaikan ke template (gaya rujukan, batas kata, struktur abstrak) → penghalusan bahasa (P6).
 - Masukan dosen atas draf 19 halaman.
 

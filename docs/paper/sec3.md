@@ -11,7 +11,7 @@ feasibility diagnostics from established results, each cited where it is used.
 
 ### 3.1 Hierarchical calibration
 
-Calibration data are organized in $K$ blocks: block $k$ contains $N_k$
+Data are organized in $K$ blocks: block $k$ contains $N_k$
 observations $Z_{k,1},\dots,Z_{k,N_k}$, the total is $n=\sum_k N_k$, and $H$ is the
 harmonic mean of the $N_k$. Here a block is usually a patient and an observation
 a 10-second recording, though the framework does not depend on that choice.
@@ -21,15 +21,19 @@ observations within a block, while the pooled sample is not.
 
 Fix a nonconformity score $s(\cdot)$ independently of the calibration data, set
 $s_{k,i}=s(Z_{k,i})$, and denote by $Q_\beta(F)=\inf\{t:F(t)\ge\beta\}$ the lower
-$\beta$-quantile of a distribution $F$ on $\mathbb{R}\cup\{+\infty\}$. For $K_1$
-calibration blocks, the HCP threshold is
+$\beta$-quantile of a distribution $F$ on $\mathbb{R}\cup\{+\infty\}$. Of the $K$
+blocks, $K_1$ are held out as calibration blocks. For a target miscoverage
+$\alpha\in(0,1)$, the HCP threshold is
 
 $$\hat T \;=\; Q_{1-\alpha}\!\left(\sum_{k=1}^{K_1}\sum_{i=1}^{N_k}\frac{1}{(K_1+1)N_k}\,\delta_{s_{k,i}}\;+\;\frac{1}{K_1+1}\,\delta_{+\infty}\right).\tag{1}$$
 
 Each block receives mass $1/(K_1+1)$, split evenly over its $N_k$ observations,
 and a further $1/(K_1+1)$ sits at $+\infty$, the price of not knowing which block
-the test point comes from. For a test point from a new block, Lee et al.
-[A0, Thm. 1] establish
+the test point comes from. The prediction set is
+$\hat C(x)=\{y\in\mathcal{L}:s(x,y)\le\hat T\}$ for a label set $\mathcal{L}$. For a
+test point from a new block, Lee et al. [A0, Thm. 1] establish the lower bound
+in (2); the upper bound holds under the additional condition that the scores are
+distinct almost surely:
 $$1-\alpha\;\le\;\mathbb{P}\{Y_{\text{test}}\in\hat C(X_{\text{test}})\}\;\le\;1-\alpha+\frac{2}{K_1+1}.\tag{2}$$
 
 ### 3.2 Finite-threshold feasibility
@@ -47,16 +51,22 @@ $t=M=\max_{k,i}s_{k,i}$. Since $Q_{1-\alpha}(\hat F)=\inf\{t:\hat F(t)\ge1-\alph
 the threshold is finite iff $K_1/(K_1+1)\ge1-\alpha$. ∎
 
 If (3) fails, $\hat C(X)=\mathcal{L}$ for every input and (2) holds only
-vacuously. Proposition 1 recasts a consequence of the $+\infty$ atom in Theorem 1
-of [A0] in a form checkable from metadata, and we claim nothing more. Three
-properties matter. $N_k$ is absent from the bound, so adding measurements to
-existing blocks never restores feasibility; the inequality is not strict, so a
-grouping exactly on the boundary is feasible (Appendix A.1); and with $N_k=1$
-throughout, the bound reduces to the split-conformal condition
+vacuously. Proposition 1 follows directly from the threshold definition of [A0],
+restated as (1), where it is implicit rather than stated; we make it explicit because it can
+be checked from metadata, and we write $\alpha_{\min}=1/(K_1+1)$ for the smallest
+attainable level. Three properties matter. $N_k$ is absent from the bound, so
+adding measurements to existing blocks never restores feasibility; the inequality
+is not strict, so a grouping exactly on the boundary is feasible (Appendix A.1);
+and with $N_k=1$ throughout, the bound reduces to the split-conformal condition
 $n\ge1/\alpha-1$, which we also confirmed numerically.
 
 **Corollary 1.** The minimum number of calibration blocks is
 $K_{\min}(\alpha)=\lceil 1/\alpha\rceil-1$; at $\alpha=0.05$ this is 19, not 20.
+
+For subject-level split conformal prediction, where each subject is one
+exchangeable unit, Sim and Kim give the same count of 19 at $\alpha=0.05$ [E6],
+and Dunn et al. state comparable group counts for their constructions [A0b]. For
+HCP the count holds whatever the block sizes, because $N_k$ does not enter (3).
 
 **Precision.** Unlike feasibility, precision needs distributional assumptions,
 namely **Assumption (A)**: blocks are independent and identically distributed,
@@ -77,7 +87,9 @@ $$
 \tag{4}
 $$
 
-The second is the usual design effect for unequal clusters. Cluster-randomized
+The second is the usual design effect for unequal clusters; for the coverage of a
+pooled threshold it takes the same form with the indicator correlation in place of
+$\rho$ [P1]. Cluster-randomized
 trials usually replace equal weighting of cluster means with minimum-variance
 weights [I1, A13]; in HCP equal weighting is built into the threshold, and
 dropping it can invalidate the guarantee (Appendix A.3).
@@ -85,12 +97,13 @@ dropping it can invalidate the guarantee (Appendix A.3).
 **The axis used to organize results.** Datasets with very different block
 geometry are compared through $\mathrm{DEff}=1+(H-1)\rho$, which predicts no harm
 from dependence when blocks are near singletons, however strong the within-block
-correlation. The primary analysis estimates $\rho$ from conformity scores and is
-repeated with the indicator correlation $\rho(t)$ (§5.4). The axis is a heuristic
-under (A) for ranking configurations, not a calibrated effective sample size; for
-the latter we defer to Noonan, who derives a closed form for thresholds under
-clustering and shows that the correction now used in the conformal literature
-targets the wrong quantity [P1].
+correlation. The axis is a heuristic under (A) for ranking configurations, not a
+calibrated effective sample size. Noonan derives a large-sample variance for the
+coverage of a threshold estimated from clustered data, in which the relevant
+correlation is that of the exceedance indicator rather than of the score and can
+change with the target level [P1]. The primary analysis estimates $\rho$ from
+conformity scores, and every analysis on this axis is therefore repeated with the
+indicator correlation $\rho(t)$ (§5.4).
 
 ### 3.3 Crossed dependence sources
 
@@ -111,20 +124,42 @@ observations whenever they share a $\mathcal{P}_1$-block or a $\mathcal{P}_2$-bl
 Consequently $K(\mathcal{P}_1\vee\mathcal{P}_2)\le\min\{K(\mathcal{P}_1),K(\mathcal{P}_2)\}$
 and $\alpha_{\min}(\mathcal{P}_1\vee\mathcal{P}_2)\ge\max\{\alpha_{\min}(\mathcal{P}_1),\alpha_{\min}(\mathcal{P}_2)\}$.
 
-The result is standard for partition lattices; its implication for calibration
-is what matters here. Fig. 2 illustrates it on eight hypothetical records: five
+*Proof.* If $\mathcal{Q}$ is sufficient for both sources, every
+$\mathcal{P}_1$-block and every $\mathcal{P}_2$-block lies within one
+$\mathcal{Q}$-block, so two observations joined by a chain of shared
+$\mathcal{P}_1$- or $\mathcal{P}_2$-blocks also lie within one $\mathcal{Q}$-block.
+Every $\mathcal{Q}$-block is therefore a union of connected components. The
+components themselves form a partition sufficient for both sources, so they are
+the finest such $\mathcal{Q}$. Since the join is coarser than each
+$\mathcal{P}_j$, it has no more blocks, and $\alpha_{\min}=1/(K_1+1)$ cannot
+decrease. ∎
+
+The join is standard in partition lattices; what matters here is its consequence
+for calibration. Fig. 2 illustrates it on eight hypothetical records: five
 patient blocks and three device blocks, each acceptable alone, shrink to two once
 both sources must be respected.
 
 ![**Fig. 2.** Proposition 2 on eight hypothetical records. Solid arcs: same patient; dashed arcs: same device; shaded: their join (connected components), the finest grouping sufficient for both sources.](figures/fig2_join_schematic.png)
 
-**Corollary 2 (impossibility).** If $K_1(\mathcal{P}_1\vee\mathcal{P}_2)<\lceil1/\alpha\rceil-1$, no HCP calibration yields a non-trivial guarantee at level $\alpha$ while accounting for both dependence sources; the same holds for any number of sources and their joint join. This is a property of the study design, not a shortcoming of any estimator.
+**Corollary 2 (impossibility).** If $K_1(\mathcal{P}_1\vee\mathcal{P}_2)<\lceil1/\alpha\rceil-1$, no HCP calibration yields a non-trivial guarantee at level $\alpha$ while accounting for both dependence sources; the same holds for any finite set of declared sources, with their join $\mathcal{P}_1\vee\dots\vee\mathcal{P}_m$ in place of $\mathcal{P}_1\vee\mathcal{P}_2$. This is a property of the study design, not of the score function or the fitted model.
 
-**Scope of Corollary 2.** We prove Corollary 2 for HCP as defined in (1).
-Whether it extends to the constructions of Dunn et al. [A0b], or to every
-distribution-free method whose validity rests on between-block exchangeability,
-remains open. We conjecture that it does, by analogy with the unavoidable
-$n\ge1/\alpha-1$ requirement of split conformal, but we do not claim it.
+*Proof.* By Proposition 2, any grouping sufficient for the declared sources is at
+least as coarse as their join and so has at most
+$K_1(\mathcal{P}_1\vee\mathcal{P}_2)$ calibration blocks; Proposition 1 then gives
+$\hat T=+\infty$. The join of $m$ sources follows by applying Proposition 2
+repeatedly. ∎
+
+**Scope of Corollary 2.** We prove Corollary 2 for HCP as defined in (1). Dunn et
+al. state group-count conditions for their finite-sample constructions: double
+conformal can produce non-trivial sets if $k\ge4/\alpha-1$ [A0b, Thm. 3], the
+unsupervised subsampling constructions if $k\ge2/\alpha-1$ or $k>2/\alpha-1$
+[A0b, Thms. 5–6], and the supervised subsampling constructions require
+$k>1/\alpha-1$ [A0b, Thms. 9–10], with $k$ the number of groups. Because these
+conditions are stated in the number of groups, Proposition 2 implies that they
+must be checked on the join of the declared sources. CDF pooling, whose coverage
+is asymptotic, has no such finite-sample condition [A0b]. Whether every
+distribution-free method whose validity rests on between-block exchangeability
+faces a comparable bound is not addressed here.
 
 **Admissible groupings.** A calibration grouping $g$ is admissible at level
 $\alpha$ if it passes **(S1) feasibility**, $K_1(g)\ge\lceil 1/\alpha\rceil-1$,
@@ -152,9 +187,11 @@ $s(x,Y)=\max_{\ell\in Y}s_\ell(x)$ one has $\{Y\subseteq\hat C\}\iff s(x,Y)\le\h
 so HCP carries over unchanged. The substance lies in the **label-conditional**
 target
 $$\mathbb{P}\big(\ell\in\hat C(X)\,\big|\,\ell\in Y\big)\;\ge\;1-\alpha,\tag{6}$$
-which admits no such reduction. Rare classes are known to starve class-conditional
-calibration under exchangeability [A12]; under hierarchical dependence the count
-that matters is that of blocks.
+which admits no such reduction. Label-conditional calibration computes, for each
+label $\ell$, an HCP threshold from the calibration observations carrying $\ell$
+only; we call it the per-label threshold. Rare classes are known to starve
+class-conditional calibration under exchangeability [A12]; under hierarchical
+dependence the count that matters is that of blocks.
 
 **Proposition 3 (necessary condition).** *A finite per-label HCP threshold for
 label $\ell$ at level $\alpha$ requires $\alpha \ge \tfrac{1}{K_1(\ell)+1}$, where
@@ -166,8 +203,8 @@ $\ell$ draws its block with probability proportional to its share of
 $\ell$-positive observations, whereas a calibration block qualifies with a single
 one. Unless that share is equal across blocks, test and calibration blocks are no
 longer exchangeable and the rank argument does not give
-$\mathbb{P}(\ell\in\hat C\mid\ell\in Y)\ge1-\alpha$; thresholds under clustering
-face the same size-biased selection [P1]. Proposition 3 is therefore used only to
+$\mathbb{P}(\ell\in\hat C\mid\ell\in Y)\ge1-\alpha$, because the test block is a
+size-biased draw. Proposition 3 is therefore used only to
 exclude guarantees, never to certify them. A block containing a label also
 contains its ancestors, so $K_1(\ell)$ cannot decrease toward the root and the
 condition fails along a frontier of the taxonomy that metadata can map. A union

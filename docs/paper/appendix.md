@@ -63,10 +63,10 @@ interim conclusion with the control that overturned it.
 | Stage | Interim conclusion | Overturned by |
 |--|------------------------|------------------------|
 | 1 | HCP improves on naive split conformal | Permutation control: 81–107% of the gap is mechanical |
-| 2 | The deficit is driven by block-size imbalance | 2×2 factorial: imbalance significant at 0/3 levels, clustering at 3/3 |
+| 2 | The deficit is driven by block-size imbalance | 2×2 factorial: Monte Carlo interval excludes zero for imbalance at 0/3 levels, for clustering at 3/3 |
 | 3 | The deficit increases monotonically with ICC | PTB-XL: ICC 0.35 yet no deficit |
 | 4 | The deficit tracks $1+(H-1)\rho$ | — stands |
-| 5 | The B1 deficit against the permutation null is significant for two of three backbones | Record-level jackknife over the 22 DS2 records: every 95% CI includes zero |
+| 5 | The B1 deficit against the permutation null is significant for two of three backbones (split-level intervals) | Record-level jackknife over the 22 DS2 records: every 95% CI includes zero |
 
 ## Appendix C. Observability of Blocks in Challenge 2021
 
