@@ -276,7 +276,7 @@ AU  - Strodthoff, Nils
 AU  - Bousseljot, Ralf-Dieter
 AU  - Samek, Wojciech
 AU  - Schaeffter, Tobias
-TI  - PTB-XL, a large publicly available electrocardiography dataset
+TI  - PTB-XL, a large publicly available electrocardiography dataset [Dataset]
 PB  - PhysioNet
 PY  - 2022
 ET  - Version 1.0.3
@@ -288,7 +288,7 @@ ER  -
 TY  - ELEC
 AU  - Moody, George B
 AU  - Mark, Roger G
-TI  - MIT-BIH Arrhythmia Database
+TI  - MIT-BIH Arrhythmia Database [Dataset]
 PB  - PhysioNet
 PY  - 1992
 DO  - 10.13026/C2F305
@@ -305,7 +305,7 @@ AU  - Liu, Chengyu
 AU  - Seyedi, Salman
 AU  - Shah, Amit
 AU  - Clifford, Gari
-TI  - Will Two Do? Varying Dimensions in Electrocardiography: The PhysioNet/Computing in Cardiology Challenge 2021
+TI  - Will Two Do? Varying Dimensions in Electrocardiography: The PhysioNet/Computing in Cardiology Challenge 2021 [Dataset]
 PB  - PhysioNet
 PY  - 2022
 ET  - Version 1.0.3

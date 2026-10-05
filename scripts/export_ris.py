@@ -31,7 +31,10 @@ def entri(nomor: int, kode: str, r: dict) -> list[str]:
         jenis = "dataset"
     baris = [f"TY  - {JENIS.get(jenis, 'GEN')}"]
     baris += [f"AU  - {a['family']}, {a['given']}".rstrip(", ") for a in r["penulis"]]
-    baris.append(f"TI  - {b.bersih(r['judul'])}")
+    judul = b.bersih(r["judul"])
+    if jenis == "dataset":
+        judul += " [Dataset]"
+    baris.append(f"TI  - {judul}")
     venue = b.bersih(r.get("venue", ""))
     if jenis == "proceedings-article":
         baris.append(f"T2  - {venue}")
