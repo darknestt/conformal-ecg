@@ -67,8 +67,7 @@ PhysioNet/CinC Challenge 2021 collection (version 1.0.3) [H5] are publicly
 available from PhysioNet under their respective licences; all recordings are
 de-identified, and no new data were collected for this study. The code, the
 analysis protocol with its deviation log, and the JSON artifact behind every
-reported number will be archived under a persistent identifier before
-publication.
+reported number are available at https://github.com/darknestt/conformal-ecg.
 
 ---
 

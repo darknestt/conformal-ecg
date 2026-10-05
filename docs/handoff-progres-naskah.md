@@ -15,7 +15,7 @@
 | Target | Jurnal internasional bereputasi (Scopus Q1). **Jurnal dan template belum ditentukan** (arahan dosen pembimbing). |
 | Bahasa naskah | Inggris (ejaan Amerika) |
 | Bahasa komunikasi dengan pengguna | Indonesia |
-| Repo | `github.com/darknestt/conformal-ecg` (**privat**), branch `main` |
+| Repo | `github.com/darknestt/conformal-ecg` (**public**), branch `main` |
 | Berkas naskah Word | `docs/paper/manuscript-draft.docx` (dihasilkan otomatis, jangan diedit manual) |
 | Status terakhir | 19 halaman, 10 gambar, 9 tabel, 35 rujukan, abstrak 246 kata, ±10.850 kata (hitungan Word) |
 
@@ -239,7 +239,7 @@ Fungsi di `make_figures.py` (urutan loop): `fig1_alur, fig_join, fig_geometri, f
 5. Highlights/graphical abstract bila jurnal memintanya.
 
 ### Tindakan pengguna
-- **R5**: jadikan repo publik atau arsipkan di Zenodo (perlu persetujuan pengguna; naskah menyatakan kode dirilis).
+- **R5**: ✅ repo sudah dibuat public di GitHub; URL dicantumkan pada Data and Code Availability. Zenodo tidak digunakan.
 - **R6 (selesai, Gate 2A.2)**: I1 (Kerry & Bland 2001) dicek lewat abstrak Europe PMC, A13 lewat teks lengkap OA; klaim §3.2/A.3 diselaraskan (minimum-variance lebih efisien daripada uniform). I2 (White & Thomas 2005) teks lengkap tertutup → **dilepas**; rumus varians kini diturunkan langsung di A.2. Rujukan 35 → 34. Sumber primer giant component terverifikasi (Atas Guvenilir & Doğan, J Cheminform 15:16, 2023, doi 10.1186/s13321-023-00689-w; teks menyebut "giant connected component") dan **ditambahkan sebagai [P3]** di §3.3 dan §5.1 (rujukan kembali 35).
 - **PASS 2B (selesai)**: penghalusan bahasa terarah tanpa mengubah angka/klaim: duplikasi Noonan di §3.2 dibuang; C1/C4 dipindah ke §2.1; Prop. 3 diberi bukti satu baris; \tfrac dihapus (§3.4, A.3); pengulangan fold 10 & validitas skor di §4 dibuang; abstrak 250 kata ("primary backbone" ditambahkan). Builder: gambar lebar 5,5 in; tabel panjang hanya dipotong di batas kelompok baris. Naskah 20 halaman, ruang kosong ~0,8 hlm, kemiripan dengan draf lama 8%.
 - Pilih jurnal target → sesuaikan ke template (gaya rujukan, batas kata, struktur abstrak) → penghalusan bahasa (P6).
