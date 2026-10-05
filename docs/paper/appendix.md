@@ -25,11 +25,18 @@ $$
 \tag{A.1}
 $$
 
-Each block mean $\bar F_k(t)$ has variance $\sigma^2(t)[\rho(t)+\{1-\rho(t)\}/N_k]$,
-and averaging $K_1$ independent blocks with equal weights gives
-$\sigma^2(t)[\rho(t)+\{1-\rho(t)\}/H]/K_1$, which equals (A.1) because
-$H=K_1/\sum_k N_k^{-1}$.
-As $N_k\to\infty$ this tends to $\sigma^2\rho/K_1$. The floor is a feature of
+*Derivation.* Under (A), each block mean $\bar F_k(t)$ and the equally weighted
+average of $K_1$ independent blocks have variances
+
+$$
+\operatorname{Var}\big(\bar F_k(t)\big)=\sigma^2(t)\Big[\rho(t)+\frac{1-\rho(t)}{N_k}\Big],
+\qquad
+\operatorname{Var}\big(\hat G(t)\big)=\frac{\sigma^2(t)}{K_1}\Big[\rho(t)+\frac{1-\rho(t)}{H}\Big],
+\tag{A.2}
+$$
+
+and the second form equals (A.1) because $H=K_1/\sum_k N_k^{-1}$.
+As $N_k\to\infty$, (A.1) tends to $\sigma^2\rho/K_1$. The floor is a feature of
 compound symmetry rather than of clustered data in general: when correlation
 decays with distance, as is plausible for consecutive beats in a long Holter
 record, the average pairwise correlation may shrink as $N_k$ grows and the floor
