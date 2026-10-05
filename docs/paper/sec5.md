@@ -116,7 +116,7 @@ $\alpha_{\min}$.
 Three controls separate dependence from the other features of MIT-BIH blocks,
 and Fig. 7 sketches how each one rearranges beats among records.
 
-![**Fig. 7.** Controls used on MIT-BIH, drawn on four illustrative records (colors mark the original record of each beat). (a) Permutation null. (b) 2×2 factorial design crossing clustering with calibration block-size balance. (c) Dose–response: a growing fraction $p$ of beats reassigned at random.](figures/fig7_control_design.png)
+![**Fig. 7.** Controls used on MIT-BIH, drawn on four illustrative records (colors mark the original record of each beat; ICC values are those observed on DS2). (a) Permutation null. (b) 2×2 factorial design crossing clustering with calibration block-size balance. (c) Dose–response: a growing fraction $p$ of beats reassigned at random.](figures/fig7_control_design.png)
 
 **Permutation null.** To test whether the shortfall of B1 is attributable to
 dependence, we compared it with a matched null that permutes the assignment of

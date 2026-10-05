@@ -528,65 +528,101 @@ def fig_kontrol() -> None:
     potong = np.cumsum([0] + panjang)
     diacak = [acak[potong[i]:potong[i + 1]].tolist() for i in range(len(panjang))]
 
-    fig, ax = plt.subplots(figsize=(LEBAR_GANDA, 1.7))
+    cp = muat("control_permutation_mitdb.json")
+    icc_p = {round(t["p"], 1): t["icc"] for t in muat("dose_response.json")["mitdb_titik"]}
+
+    fig, ax = plt.subplots(figsize=(LEBAR_GANDA, 2.45))
     ax.set_xlim(0, 100)
-    ax.set_ylim(4.6, 30)
+    ax.set_ylim(0, 34.2)
+    ax.set_aspect("equal")
     ax.axis("off")
-    for x in (31.0, 66.5):
-        ax.plot([x, x], [5.0, 29.5], color="#cccccc", lw=0.6)
-    sel, tinggi = 0.62, 1.15
+    tinta, garis, redup = "#2b2b2b", "#555555", "#8a8a8a"
+    # palet lembut seperti Fig. 1: (isi, tepi)
+    biru, oranye, mint = ("#d6e4f0", "#8fb0cf"), ("#fbe1cc", "#e0a982"), ("#d8eedd", "#86b991")
+    krem, sel_bg = ("#fff6d6", "#d8c37a"), ("#f6f7f9", "#c9ced6")
+    sel, tinggi, jarak = 0.68, 1.08, 1.5
 
-    def blok(x0, y0, baris, n_maks=None):
+    def panel(x, w, teks, warna):
+        ax.add_patch(FancyBboxPatch((x, 0.8), w, 31.0, boxstyle="round,pad=0,rounding_size=1.2",
+                                    fc="white", ec=garis, lw=1.0))
+        ax.add_patch(FancyBboxPatch((x + w / 2 - 12, 30.45), 24, 2.7, boxstyle="round,pad=0,rounding_size=1.35",
+                                    fc=warna[0], ec=warna[1], lw=0.8))
+        ax.text(x + w / 2, 31.8, teks, ha="center", va="center", fontsize=6.9, fontweight="bold", color=tinta)
+
+    def blok(x0, y0, baris, nama=True):
         for j, r in enumerate(baris):
-            for k, c in enumerate(r[:n_maks] if n_maks else r):
-                ax.add_patch(plt.Rectangle((x0 + k * sel, y0 - j * 1.55), sel * 0.92, tinggi, fc=warna[c],
-                                           ec="white", lw=0.3))
+            y = y0 - j * jarak
+            if nama:
+                ax.text(x0 - 0.5, y + tinggi / 2, f"R{j + 1}", ha="right", va="center", fontsize=4.9, color=redup)
+            for k, c in enumerate(r):
+                ax.add_patch(FancyBboxPatch((x0 + k * sel, y), sel * 0.84, tinggi,
+                                            boxstyle="round,pad=0,rounding_size=0.18", fc=warna[c], ec="none"))
 
-    def judul(x, y, t):
-        ax.text(x, y, t, fontsize=7.8, fontweight="bold", ha="left", va="center")
+    def kepala(x, y, t, fontsize=6.3, **kw):
+        ax.text(x, y, t, fontsize=fontsize, ha="center", va="center", color=tinta, **kw)
 
-    def label(x, y, t, **kw):
-        ax.text(x, y, t, fontsize=6.8, ha="center", va="center", **kw)
+    def catatan(x, w, teks, fs=5.7):
+        ax.add_patch(FancyBboxPatch((x, 1.9), w, 5.6, boxstyle="round,pad=0,rounding_size=0.9",
+                                    fc=krem[0], ec=krem[1], lw=0.7))
+        ax.text(x + w / 2, 4.7, teks, ha="center", va="center", fontsize=fs, color=tinta, linespacing=1.25)
+
+    def panah(a, b, warna_=garis, lw=0.9):
+        ax.add_patch(FancyArrowPatch(a, b, arrowstyle="-|>", mutation_scale=8, lw=lw, color=warna_,
+                                     shrinkA=0, shrinkB=0))
 
     # (a) null permutasi
-    judul(0.5, 28.6, "(a) Permutation null")
-    label(4.2, 25.6, "original")
-    blok(0.5, 23.0, asli)
-    label(19.5, 25.6, "beats permuted")
-    blok(15.0, 23.0, diacak)
-    ax.add_patch(FancyArrowPatch((10.0, 20.6), (14.2, 20.6), arrowstyle="-|>", mutation_scale=7, lw=0.7))
-    label(12.2, 13.3, "block sizes and score marginals kept;\nwithin-record correlation removed", style="italic")
+    panel(1, 30.5, "(a) PERMUTATION NULL", biru)
+    kepala(8.4, 27.6, "original records")
+    blok(3.6, 24.6, asli)
+    kepala(24.2, 27.6, "beats permuted")
+    blok(19.4, 24.6, diacak, nama=False)
+    panah((14.5, 21.6), (18.0, 21.6))
+    kepala(16.25, 23.0, "permute", style="italic", fontsize=5.4)
+    kepala(8.4, 16.3, f"ICC {cp['icc_asli']:.3f}", fontweight="bold")
+    kepala(24.2, 16.3, f"ICC {cp['icc_perm']:.3f}", fontweight="bold")
+    kepala(16.25, 11.6, "block sizes, $K_1$ and score\nmarginals unchanged", style="italic", fontsize=5.7)
+    catatan(3.0, 26.5, "isolates dependence:\nonly within-record correlation is removed")
 
     # (b) faktorial 2x2
-    judul(32.0, 28.6, "(b) 2$\\times$2 factorial design")
+    panel(34.75, 30.5, "(b) 2$\\times$2 FACTORIAL", oranye)
     seimbang = [int(round(0.6 * np.mean(panjang)))] * len(panjang)
     timpang = [int(round(0.6 * n)) for n in panjang]
-    sel_x = {"balanced": 41.0, "imbalanced": 53.5}
-    sel_y = {"clustered": 23.0, "randomized": 14.0}
-    for nama, x in sel_x.items():
-        label(x + 3.6, 25.6, nama)
-    for nama, y in sel_y.items():
-        ax.text(39.8, y - 2.3, nama, fontsize=6.8, ha="right", va="center")
+    kol = {"balanced": 41.6, "imbalanced": 53.6}
+    bar = {"clustered": 25.9, "randomized": 17.4}
+    for nama, x in kol.items():
+        kepala(x + 5.0, 28.0, nama, fontweight="bold")
+    for nama, y in bar.items():
+        ax.text(39.2, y - 3.2, nama, fontsize=6.0, ha="center", va="center", rotation=90, color=tinta,
+                fontweight="bold")
         sumber = asli if nama == "clustered" else diacak
-        for kol, x in sel_x.items():
-            n_tiap = seimbang if kol == "balanced" else timpang
-            blok(x, y, [r[:m] for r, m in zip(sumber, n_tiap)])
-    label(48.5, 6.6, "calibration records subsampled to 1,355 beats (balanced)\nor to 60% of their own length (imbalanced)",
-          style="italic")
+        for k, x in kol.items():
+            ax.add_patch(FancyBboxPatch((x - 0.3, y - 6.9), 10.6, 7.6, boxstyle="round,pad=0,rounding_size=0.7",
+                                        fc=sel_bg[0], ec=sel_bg[1], lw=0.6))
+            n_tiap = seimbang if k == "balanced" else timpang
+            blok(x + 2.2, y - 1.0, [r[:m] for r, m in zip(sumber, n_tiap)], nama=False)
+    catatan(36.75, 26.5, "calibration records subsampled to\n1,355 beats (balanced) or to 60%\n"
+                         "of their own length (imbalanced)", fs=5.5)
 
     # (c) dose-response
-    judul(68.0, 28.6, "(c) Dose\u2013response")
+    panel(68.5, 30.5, "(c) DOSE\u2013RESPONSE", mint)
     sama = 7
-    for i, (p, x) in enumerate(((0.0, 68.5), (0.5, 78.0), (1.0, 87.5))):
+    for p, x in ((0.0, 71.6), (0.5, 80.9), (1.0, 90.2)):
         baris = []
         for r in asli:
             r = list(r[:sama])
             ganti = rng.random(sama) < p
             baris.append([int(rng.integers(len(panjang))) if g else c for c, g in zip(r, ganti)])
-        label(x + 2.2, 25.6, f"$p={p:g}$")
-        blok(x, 23.0, baris)
-    label(83.5, 13.3, "a fraction $p$ of beats reassigned\nto random records; equal\ncalibration size at every $p$",
-          style="italic")
+        kepala(x + 2.6, 27.6, f"$p={p:g}$", fontweight="bold")
+        blok(x, 24.6, baris, nama=(p == 0.0))
+        icc = icc_p[p]
+        kepala(x + 2.6, 16.3, f"ICC {icc:.3f}" if icc >= 0.001 else f"ICC {icc:.4f}", fontsize=5.9,
+               fontweight="bold")
+    for i in range(24):
+        x0 = 71.0 + i * 1.08
+        ax.add_patch(plt.Rectangle((x0, 12.2), 1.1, 1.1, fc=plt.cm.Greens(0.75 - 0.6 * i / 23), ec="none"))
+    panah((96.9, 12.75), (98.4, 12.75), warna_=mint[1], lw=1.0)
+    kepala(84.0, 10.4, "within-record dependence decreases", style="italic", fontsize=5.7)
+    catatan(70.5, 26.5, "fraction $p$ of beats reassigned to random\nrecords; equal calibration size at every $p$")
     simpan(fig, "fig7_control_design.png")
 
 
