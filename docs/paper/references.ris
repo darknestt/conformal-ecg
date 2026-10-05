@@ -270,7 +270,7 @@ UR  - https://doi.org/10.1080/01621459.2022.2060112
 N1  - Cited as [13] in the manuscript (source code A0b)
 ER  - 
 
-TY  - ELEC
+TY  - JOUR
 AU  - Wagner, Patrick
 AU  - Strodthoff, Nils
 AU  - Bousseljot, Ralf-Dieter
@@ -285,7 +285,7 @@ UR  - https://doi.org/10.13026/kfzx-aw45
 N1  - Cited as [14] in the manuscript (source code H2)
 ER  - 
 
-TY  - ELEC
+TY  - JOUR
 AU  - Moody, George B
 AU  - Mark, Roger G
 TI  - MIT-BIH Arrhythmia Database [Dataset]
@@ -296,7 +296,7 @@ UR  - https://doi.org/10.13026/C2F305
 N1  - Cited as [15] in the manuscript (source code H3)
 ER  - 
 
-TY  - ELEC
+TY  - JOUR
 AU  - Reyna, Matthew
 AU  - Sadr, Nadi
 AU  - Gu, Annie
