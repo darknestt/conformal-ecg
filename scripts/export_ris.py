@@ -14,7 +14,8 @@ sys.path.insert(0, str(pathlib.Path(__file__).resolve().parent))
 import build_docx as b  # noqa: E402
 
 KELUAR = b.PAPER / "references.ris"
-JENIS = {"journal-article": "JOUR", "proceedings-article": "CONF", "dataset": "DATA", "preprint": "JOUR"}
+# Mendeley drops RIS entries with TY=DATA; ELEC preserves the online dataset record.
+JENIS = {"journal-article": "JOUR", "proceedings-article": "CONF", "dataset": "ELEC", "preprint": "JOUR"}
 
 
 def urutan_sitasi() -> list[str]:
